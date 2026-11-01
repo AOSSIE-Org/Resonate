@@ -1,0 +1,1710 @@
+{
+    "@@locale": "mwr",
+    "title": "रेज़ोनेट",
+    "@title": {
+        "description": "ऐप रो नाम."
+    },
+    "roomDescription": "सभ्य रहो अर बीजां आदमी री सोच रो मान राखो। बदतमीजी वाली बातां सूं बचो।",
+    "@roomDescription": {
+        "description": "चैट रूमां में यूज़रां खातर दिशा-निर्देश संदेश."
+    },
+    "hidePassword": "पासवर्ड छुपाओ",
+    "@hidePassword": {
+        "description": "पासवर्ड फील्ड छुपावां खातर बटन रो लिखाण."
+    },
+    "showPassword": "पासवर्ड दिखाओ",
+    "@showPassword": {
+        "description": "पासवर्ड फील्ड दिखावां खातर बटन रो लिखाण."
+    },
+    "passwordEmpty": "पासवर्ड खाली ना हो सके",
+    "@passwordEmpty": {
+        "description": "जद पासवर्ड फील्ड खाली होय तो एरर संदेश."
+    },
+    "password": "पासवर्ड",
+    "@password": {
+        "description": "पासवर्ड इनपुट फील्ड रो लेबल."
+    },
+    "confirmPassword": "पासवर्ड पक्का करो",
+    "@confirmPassword": {
+        "description": "पासवर्ड पुष्टि इनपुट फील्ड रो लेबल."
+    },
+    "passwordsNotMatch": "पासवर्ड मेल ना खावै",
+    "@passwordsNotMatch": {
+        "description": "जद पासवर्ड अर पुष्टि पासवर्ड मेल ना खावै तो एरर संदेश."
+    },
+    "userCreatedStories": "यूज़र री बनायी कहानी",
+    "@userCreatedStories": {
+        "description": "बीजां यूज़र री बनायी कहानी दिखावां रो सेक्शन हेडर."
+    },
+    "yourStories": "थारी कहानी",
+    "@yourStories": {
+        "description": "हालां यूज़र री बनायी कहानी दिखावां रो सेक्शन हेडर."
+    },
+    "userNoStories": "ई यूज़रां कोई कहानी ना बनायी",
+    "@userNoStories": {
+        "description": "जद बीजां यूज़र रो प्रोफाइल देखो अर ओंठां कोई कहानी ना होय तो संदेश."
+    },
+    "youNoStories": "थां कोई कहानी ना बनायी",
+    "@youNoStories": {
+        "description": "हालां यूज़र रे प्रोफाइल पर जद कोई कहानी ना होय तो संदेश."
+    },
+    "follow": "फॉलो करो",
+    "@follow": {
+        "description": "यूज़र ने फॉलो करां खातर बटन रो लिखाण."
+    },
+    "editProfile": "प्रोफाइल बदलो",
+    "@editProfile": {
+        "description": "प्रोफाइल एडिट स्क्रीन पर जावां खातर बटन."
+    },
+    "verifyEmail": "ईमेल जांचो",
+    "@verifyEmail": {
+        "description": "ईमेल सत्यापन चालू करां खातर बटन या लिंक."
+    },
+    "verified": "जांच हो गई",
+    "@verified": {
+        "description": "स्थिति लेबल जो बतावै कि यूज़र रो ईमेल जांच हो गयो."
+    },
+    "profile": "प्रोफाइल",
+    "@profile": {
+        "description": "यूज़र प्रोफाइल सेक्शन या पेज रो लेबल."
+    },
+    "userLikedStories": "यूज़र री पसंदीदा कहानी",
+    "@userLikedStories": {
+        "description": "बीजां यूज़र री पसंद की कहानी दिखावां रो सेक्शन हेडर."
+    },
+    "yourLikedStories": "थारी पसंदीदा कहानी",
+    "@yourLikedStories": {
+        "description": "हालां यूज़र री पसंद की कहानी दिखावां रो सेक्शन हेडर."
+    },
+    "userNoLikedStories": "ई यूज़रां कोई कहानी पसंद ना करी",
+    "@userNoLikedStories": {
+        "description": "जद बीजां यूज़रां कोई कहानी पसंद ना करी होय तो संदेश."
+    },
+    "youNoLikedStories": "थां कोई कहानी पसंद ना करी",
+    "@youNoLikedStories": {
+        "description": "हालां यूज़र रे प्रोफाइल पर जद कोई कहानी पसंद ना करी होय तो संदेश."
+    },
+    "live": "सीधा",
+    "@live": {
+        "description": "सीधी ऑडियो रूम खातर टैब या लेबल."
+    },
+    "upcoming": "आवण वाली",
+    "@upcoming": {
+        "description": "आवण वाली/तय ऑडियो रूम खातर टैब या लेबल."
+    },
+    "noAvailableRoom": "{isRoom, select, true{कोई रूम उपलब्ध कोनी} false{कोई आवण वाली रूम उपलब्ध कोनी} other{कोई जानकारी उपलब्ध कोनी}}\nनीचे जोड़ के शुरू करो!",
+    "@noAvailableRoom": {
+        "description": "जद रूम या आवण वाली रूम उपलब्ध ना होय तो संदेश, कार्रवाई बुलावां साथ.",
+        "placeholders": {
+            "isRoom": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    },
+    "user1": "यूज़र १",
+    "@user1": {
+        "description": "यूज़र खातर आम प्लेसहोल्डर नाम."
+    },
+    "user2": "यूज़र २",
+    "@user2": {
+        "description": "बीजो आम प्लेसहोल्डर नाम."
+    },
+    "you": "थां",
+    "@you": {
+        "description": "सूची में हालां यूज़र ने पहचानावां खातर लेबल."
+    },
+    "areYouSure": "थां पक्को हो?",
+    "@areYouSure": {
+        "description": "पुष्टि सवाल रो शीर्षक."
+    },
+    "loggingOut": "थां रेज़ोनेट सूं लॉगआउट कर रहा हो.",
+    "@loggingOut": {
+        "description": "लॉगआउट खातर पुष्टि संदेश."
+    },
+    "yes": "हां",
+    "@yes": {
+        "description": "आम पुष्टि बटन रो लिखाण."
+    },
+    "no": "ना",
+    "@no": {
+        "description": "आम रद्द बटन रो लिखाण."
+    },
+    "incorrectEmailOrPassword": "गलत ईमेल या पासवर्ड",
+    "@incorrectEmailOrPassword": {
+        "description": "गलत लॉगिन प्रयास खातर एरर संदेश."
+    },
+    "passwordShort": "पासवर्ड ८ अक्षरां सूं छोटो है",
+    "@passwordShort": {
+        "description": "घणो छोटो पासवर्ड होवां पर एरर संदेश."
+    },
+    "tryAgain": "फेर सूं कोशिश करो!",
+    "@tryAgain": {
+        "description": "गलत काम फेर सूं करां खातर बटन लिखाण."
+    },
+    "success": "सफल",
+    "@success": {
+        "description": "सफल काम खातर आम शीर्षक."
+    },
+    "passwordResetSent": "पासवर्ड रीसेट ईमेल भेज दी गई!",
+    "@passwordResetSent": {
+        "description": "पासवर्ड रीसेट ईमेल भेज्या पछां सफल संदेश."
+    },
+    "error": "गलती",
+    "@error": {
+        "description": "गलत काम खातर आम शीर्षक."
+    },
+    "resetPassword": "पासवर्ड फेर सूं सेट करो",
+    "@resetPassword": {
+        "description": "पासवर्ड रीसेट सुविधा खातर शीर्षक या बटन."
+    },
+    "enterNewPassword": "थारो नयो पासवर्ड भरो",
+    "@enterNewPassword": {
+        "description": "पासवर्ड रीसेट स्क्रीन पर निर्देश लिखाण."
+    },
+    "newPassword": "नयो पासवर्ड",
+    "@newPassword": {
+        "description": "नया पासवर्ड इनपुट फील्ड रो लेबल."
+    },
+    "setNewPassword": "नयो पासवर्ड सेट करो",
+    "@setNewPassword": {
+        "description": "नया पासवर्ड पक्का करां खातर बटन लिखाण."
+    },
+    "emailChanged": "ईमेल बदल गयो",
+    "@emailChanged": {
+    "description": "ईमेल बदल्या पछां सफल संवाद रो शीर्षक."
+    },
+    "emailChangeSuccess": "ईमेल सफलतापूर्वक बदल गयो!",
+    "@emailChangeSuccess": {
+    "description": "यूज़र रो ईमेल बदल्या पछां सफल संदेश."
+    },
+    "failed": "असफल",
+    "@failed": {
+    "description": "गलत ऑपरेशन खातर आम शीर्षक."
+    },
+    "emailChangeFailed": "ईमेल बदलणो असफल रहयो",
+    "@emailChangeFailed": {
+    "description": "जद ईमेल बदल ऑपरेशन असफल होय तो एरर संदेश."
+    },
+    "oops": "अरे रे!",
+    "@oops": {
+    "description": "गलती या चेतावणी संदेश खातर अनौपचारिक शीर्षक."
+    },
+    "emailExists": "ईमेल पहिले सूं मौजूद है",
+    "@emailExists": {
+        "description": "जद यूज़र एंठो ईमेल रजिस्टर करां या बदलां री कोशिश करै जो पहिले सूं वापर में है."
+    },
+    "changeEmail": "ईमेल बदलो",
+    "@changeEmail": {
+        "description": "ईमेल बदल फीचर खातर शीर्षक या बटन लिखाण."
+    },
+    "enterValidEmail": "कृपया सही ईमेल पता भरो",
+    "@enterValidEmail": {
+        "description": "गलत ईमेल फॉर्मेट खातर एरर संदेश."
+    },
+    "newEmail": "नयो ईमेल",
+    "@newEmail": {
+        "description": "नया ईमेल इनपुट फील्ड रो लेबल."
+    },
+    "currentPassword": "हालो पासवर्ड",
+    "@currentPassword": {
+        "description": "सत्यापन खातर वापर में आवणो हालो पासवर्ड इनपुट फील्ड रो लेबल."
+    },
+    "emailChangeInfo": "ज्यादा सुरक्षा खातर, थारो ईमेल बदलता वखत थां ने खातां रो हालो पासवर्ड देवो जरूरी है। ईमेल बदल्या पछां, आगे लॉगिन खातर अपडेट ईमेल वापरो.",
+    "@emailChangeInfo": {
+        "description": "प्रमाणित यूज़रां खातर ईमेल बदल री प्रक्रिया अर सुरक्षा नियम समझावां रो जानकारी लिखाण."
+    },
+    "oauthUsersMessage": "(सिर्फ Google या GitHub सूं लॉगिन करनाऱ्या यूज़रां खातर)",
+    "@oauthUsersMessage": {
+        "description": "OAuth यूज़रां खातर नीचे दी सूचना बतावां रो संदेश."
+    },
+    "oauthUsersEmailChangeInfo": "ईमेल बदलां खातर, कृपया \"हालो पासवर्ड\" फील्ड में नयो पासवर्ड भरो। ई पासवर्ड याद राखजो, कारण आगे ईमेल बदलां में काम आवै। फेर थां Google/GitHub या नवा ईमेल अर पासवर्ड सूं लॉगिन कर सको.",
+    "@oauthUsersEmailChangeInfo": {
+        "description": "Google या GitHub सूं साइन अप करनाऱ्या यूज़रां खातर नयो पासवर्ड सेट कर के ईमेल बदल री जानकारी."
+    },
+    "resonateTagline": "असीम बातचीतां री दुनिया में प्रवेश करो।",
+    "@resonateTagline": {
+        "description": "स्प्लैश या लॉगिन स्क्रीन पर वापर होणो ऐप रो टैगलाइन."
+    },
+    "signInWithEmail": "ईमेल सूं साइन इन करो",
+    "@signInWithEmail": {
+        "description": "ईमेल अर पासवर्ड सूं साइन इन करां खातर बटन लिखाण."
+    },
+    "or": "या",
+    "@or": {
+        "description": "विभाजक लिखाण, आम तौर पर अलग-अलग लॉगिन विकल्पां में वापर होय."
+    },
+    "continueWith": "एंठां सूं चालू राखो",
+    "@continueWith": {
+        "description": "थर्ड-पार्टी लॉगिन प्रदात्यां री सूची सूं पहिले जानकारी लिखाण."
+    },
+    "continueWithGoogle": "Google सूं चालू राखो",
+    "@continueWithGoogle": {
+        "description": "Google खातां सूं साइन इन करां खातर बटन लिखाण."
+    },
+    "continueWithGitHub": "GitHub सूं चालू राखो",
+    "@continueWithGitHub": {
+        "description": "GitHub खातां सूं साइन इन करां खातर बटन लिखाण."
+    },
+    "resonateLogo": "रेज़ोनेट लोगो",
+    "@resonateLogo": {
+        "description": "रेज़ोनेट ऐप लोगो इमेज खातर एक्सेसिबिलिटी लिखाण."
+    },
+    "iAlreadyHaveAnAccount": "म्हां पासे पहले सूं खातो है",
+    "@iAlreadyHaveAnAccount": {
+        "description": "साइन-अप स्क्रीन सूं लॉगिन स्क्रीन पर जावां खातर लिखाण या बटन."
+    },
+    "createNewAccount": "नयो खातो बनाओ",
+    "@createNewAccount": {
+        "description": "लॉगिन स्क्रीन सूं साइन-अप स्क्रीन पर जावां खातर लिखाण या बटन."
+    },
+    "userProfile": "यूज़र प्रोफाइल",
+    "@userProfile": {
+        "description": "यूज़र रो प्रोफाइल फोटो या अवतार खातर एक्सेसिबिलिटी लिखाण."
+    },
+    "passwordIsStrong": "पासवर्ड मजबूत है",
+    "@passwordIsStrong": {
+        "description": "सत्यापन संदेश जो बतावै कि भरो गयो पासवर्ड सारी ताकत री शर्तां पूरी करै."
+    },
+    "admin": "प्रशासक",
+    "@admin": {
+        "description": "रूम में प्रशासक यूज़र भूमिका रो लेबल."
+    },
+    "moderator": "मॉडरेटर",
+    "@moderator": {
+        "description": "रूम में मॉडरेटर यूज़र भूमिका रो लेबल."
+    },
+    "speaker": "स्पीकर",
+    "@speaker": {
+        "description": "रूम में स्पीकर यूज़र भूमिका रो लेबल."
+    },
+    "listener": "सुणनारो",
+    "@listener": {
+        "description": "रूम में सुणनारा यूज़र भूमिका रो लेबल."
+    },
+    "removeModerator": "मॉडरेटर हटाओ",
+    "@removeModerator": {
+        "description": "यूज़र सूं मॉडरेटर अधिकार हटावां खातर मेनू आइटम लिखाण."
+    },
+    "kickOut": "बाहेर काढो",
+    "@kickOut": {
+        "description": "रूम सूं यूज़र ने बाहर काढां खातर मेनू आइटम लिखाण."
+    },
+    "addModerator": "मॉडरेटर जोड़ो",
+    "@addModerator": {
+        "description": "यूज़र ने मॉडरेटर अधिकार देवां खातर मेनू आइटम लिखाण."
+    },
+    "addSpeaker": "स्पीकर जोड़ो",
+    "@addSpeaker": {
+        "description": "सुणनारा ने स्पीकर अधिकार देवां खातर मेनू आइटम लिखाण."
+    },
+    "makeListener": "सुणनारो बनाओ",
+    "@makeListener": {
+        "description": "स्पीकर री भूमिका सुणनारा में बदलां खातर मेनू आइटम लिखाण."
+    },
+    "pairChat": "जोड़ो चॅट",
+    "@pairChat": {
+        "description": "एक-एक यादृच्छिक चॅट खातर फीचर नाम."
+    },
+    "chooseIdentity": "ओळख चुनो",
+    "@chooseIdentity": {
+        "description": "यूज़र ने आपरी ओळख चुनां खातर संकेत, जेम अनामिक या सार्वजनिक."
+    },
+    "selectLanguage": "भाषा चुनो",
+    "@selectLanguage": {
+        "description": "भाषा चयन सेटिंग रो लेबल."
+    },
+    "noConnection": "कोई कनेक्शन कोनी",
+    "@noConnection": {
+        "description": "इंटरनेट कनेक्शन ना होवां रो संकेत देवां वाला शीर्षक."
+    },
+    "loadingDialog": "लोड हो रहयो है",
+    "@loadingDialog": {
+        "description": "लोडिंग संकेतक या स्पिनर खातर एक्सेसिबिलिटी लिखाण."
+    },
+    "createAccount": "खातो बनाओ",
+    "@createAccount": {
+        "description": "खातो बनावां री स्क्रीन खातर बटन लिखाण या पेज शीर्षक."
+    },
+    "enterValidEmailAddress": "सही ईमेल पतो भरो",
+    "@enterValidEmailAddress": {
+        "description": "गलत ईमेल फॉर्मेट पर देखावां वाला एरर संदेश."
+    },
+    "email": "ईमेल",
+    "@email": {
+        "description": "ईमेल इनपुट फील्ड रो लेबल."
+    },
+    "passwordRequirements": "पासवर्ड कम से कम ८ अक्षरां रो होणो जरूरी है",
+    "@passwordRequirements": {
+        "description": "सही पासवर्ड खातर जरूरी शर्तां बतावां वाला लिखाण, भाग १."
+    },
+    "includeNumericDigit": "कम से कम १ अंक शामिल करो",
+    "@includeNumericDigit": {
+        "description": "सही पासवर्ड खातर जरूरी शर्तां बतावां वाला लिखाण, भाग २."
+    },
+    "includeUppercase": "कम से कम १ मोठो अक्षर शामिल करो",
+    "@includeUppercase": {
+        "description": "सही पासवर्ड खातर जरूरी शर्तां बतावां वाला लिखाण, भाग ३."
+    },
+    "includeLowercase": "कम से कम १ नानो अक्षर शामिल करो",
+    "@includeLowercase": {
+        "description": "सही पासवर्ड खातर जरूरी शर्तां बतावां वाला लिखाण, भाग ४."
+    },
+    "includeSymbol": "कम से कम १ चिन्ह शामिल करो",
+    "@includeSymbol": {
+        "description": "सही पासवर्ड खातर जरूरी शर्तां बतावां वाला लिखाण, भाग ५."
+    },
+    "signedUpSuccessfully": "सफलतापूर्वक साइन अप हो गयो",
+    "@signedUpSuccessfully": {
+        "description": "खातो बन्या पछां सफल संदेश रो शीर्षक."
+    },
+    "newAccountCreated": "थां सफलतापूर्वक नयो खातो बनायो है",
+    "@newAccountCreated": {
+        "description": "नयो खातो बन गयो है, ई बात पक्की करां वाला सफल संदेश."
+    },
+    "signUp": "साइन अप करो",
+    "@signUp": {
+        "description": "साइन-अप फॉर्म जमा करां खातर बटन लिखाण."
+    },
+    "login": "लॉगिन",
+    "@login": {
+        "description": "लॉगिन फॉर्म जमा करां खातर बटन लिखाण."
+    },
+    "settings": "सेटिंग्स",
+    "@settings": {
+        "description": "सेटिंग्स पेज रो शीर्षक."
+    },
+    "accountSettings": "खाता सेटिंग्स",
+    "@accountSettings": {
+        "description": "खाता संबंधित सेटिंग्स खातर उप-शीर्षक."
+    },
+    "account": "खातो",
+    "@account": {
+        "description": "खाता सेटिंग्स सेक्शन रो लेबल."
+    },
+    "appSettings": "ऐप सेटिंग्स",
+    "@appSettings": {
+        "description": "ऐप संबंधित सेटिंग्स खातर उप-शीर्षक."
+    },
+    "themes": "थीमां",
+    "@themes": {
+        "description": "थीम चयन सेटिंग रो लेबल."
+    },
+    "about": "बारे में",
+    "@about": {
+        "description": "ऐप या कहानी रो 'बारे में' सेक्शन या पेज रो लेबल."
+    },
+    "other": "बीजा",
+    "@other": {
+        "description": "अलग-अलग सेटिंग्स या आइटम खातर आम श्रेणी लेबल."
+    },
+    "contribute": "योगदान दो",
+    "@contribute": {
+        "description": "प्रोजेक्ट में योगदान देवां रो सेक्शन लेबल."
+    },
+    "appPreferences": "ऐप पसंद",
+    "@appPreferences": {
+        "description": "ऐप पसंद सेटिंग्स पेज रो लेबल."
+    },
+    "transcriptionModel": "प्रतिलेखन मॉडल",
+    "@transcriptionModel": {
+        "description": "एआई प्रतिलेखन मॉडल चुनां खातर सेक्शन शीर्षक."
+    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    "transcriptionModelDescription": "आवाज़ प्रतिलेखन खातर एआई मॉडल चुनो। मोटा मॉडल ज्यादा सही होवै, पण धीमा होवै अर ज्यादा स्टोरेज लेवै।",
+"@transcriptionModelDescription": {
+    "description": "प्रतिलेखन मॉडल चयन समझावां रो विवरण लिखाण."
+    },
+    "whisperModelTiny": "सूक्ष्म",
+    "@whisperModelTiny": {
+        "description": "सब सूं नानो व्हिस्पर एआई मॉडल रो नाम."
+    },
+    "whisperModelTinyDescription": "सब सूं तेज, कम सही (~३९ एमबी)",
+    "@whisperModelTinyDescription": {
+        "description": "सूक्ष्म व्हिस्पर मॉडल री गति अर आकार रो विवरण."
+    },
+    "whisperModelBase": "बेस",
+    "@whisperModelBase": {
+        "description": "बेस व्हिस्पर एआई मॉडल रो नाम."
+    },
+    "whisperModelBaseDescription": "संतुलित गति अर सहीपन (~७४ एमबी)",
+    "@whisperModelBaseDescription": {
+        "description": "बेस व्हिस्पर मॉडल री गति अर आकार रो विवरण."
+    },
+    "whisperModelSmall": "नानो",
+    "@whisperModelSmall": {
+        "description": "नानो व्हिस्पर एआई मॉडल रो नाम."
+    },
+    "whisperModelSmallDescription": "ठीक-ठाक सहीपन, धीमो (~२४४ एमबी)",
+    "@whisperModelSmallDescription": {
+        "description": "नानो व्हिस्पर मॉडल री गति अर आकार रो विवरण."
+    },
+    "whisperModelMedium": "मध्यम",
+    "@whisperModelMedium": {
+        "description": "मध्यम व्हिस्पर एआई मॉडल रो नाम."
+    },
+    "whisperModelMediumDescription": "ज्यादा सहीपन, धीमो (~७६९ एमबी)",
+    "@whisperModelMediumDescription": {
+        "description": "मध्यम व्हिस्पर मॉडल री गति अर आकार रो विवरण."
+    },
+    "whisperModelLargeV1": "मोटो वी१",
+    "@whisperModelLargeV1": {
+        "description": "मोटो वी१ व्हिस्पर एआई मॉडल रो नाम."
+    },
+    "whisperModelLargeV1Description": "सब सूं ज्यादा सही, सब सूं धीमो (~१.५५ जीबी)",
+    "@whisperModelLargeV1Description": {
+        "description": "मोटो वी१ व्हिस्पर मॉडल री गति अर आकार रो विवरण."
+    },
+    "whisperModelLargeV2": "मोटो वी२",
+    "@whisperModelLargeV2": {
+        "description": "मोटो वी२ व्हिस्पर एआई मॉडल रो नाम."
+    },
+    "whisperModelLargeV2Description": "उन्नत मोटो मॉडल ज्यादा सहीपन साथ (~१.५५ जीबी)",
+    "@whisperModelLargeV2Description": {
+        "description": "मोटो वी२ व्हिस्पर मॉडल री गति अर आकार रो विवरण."
+    },
+    "modelDownloadInfo": "मॉडल पहली बार वापर करता वखत डाउनलोड होवै। म्हां बेस, नानो या मध्यम वापरां री सिफारिश करां। मोटा मॉडल खातर बहुत हाई-एंड डिवाइस जरूरी है।",
+    "@modelDownloadInfo": {
+        "description": "मॉडल डाउनलोड बाबत जानकारी संदेश."
+    },
+    "logOut": "लॉगआउट करो",
+    "@logOut": {
+        "description": "यूज़र ने खातां सूं बाहर लॉगआउट करां खातर बटन लिखाण."
+    },
+    "participants": "भाग लेनारा",
+    "@participants": {
+        "description": "रूम में भाग लेनारां री सूची खातर लेबल या शीर्षक."
+    },
+    "delete": "मिटाओ",
+    "@delete": {
+        "description": "मिटावां री क्रिया खातर आम बटन लिखाण."
+    },
+    "leave": "छोड़ो",
+    "@leave": {
+        "description": "छोड़वां री क्रिया खातर आम बटन लिखाण."
+    },
+    "leaveButton": "छोड़ो",
+    "@leaveButton": {
+        "description": "रूम या बातचीत छोड़वां खातर बटन लिखाण."
+    },
+    "findingRandomPartner": "थां खातर यादृच्छिक साथी खोजा जा रहयो है",
+    "@findingRandomPartner": {
+        "description": "यादृच्छिक चॅट साथी खोजता वखत देखावां रो स्थिति संदेश."
+    },
+    "quickFact": "फटाफट जानकारी",
+    "@quickFact": {
+        "description": "छोटी जानकारी या टिप रो हेडर, आमतौर पर लोडिंग वखत दिखै."
+    },
+    "cancel": "रद्द करो",
+    "@cancel": {
+        "description": "रद्द करां री क्रिया खातर आम बटन लिखाण."
+    },
+    "completeYourProfile": "थारो प्रोफाइल पूरो करो",
+    "@completeYourProfile": {
+        "description": "प्रोफाइल सेटअप पूरो करां खातर पेज शीर्षक या संकेत."
+    },
+    "uploadProfilePicture": "प्रोफाइल फोटो अपलोड करो",
+    "@uploadProfilePicture": {
+        "description": "प्रोफाइल फोटो अपलोड करां खातर संकेत लिखाण या बटन."
+    },
+    "enterValidName": "सही नाम भरो",
+    "@enterValidName": {
+        "description": "गलत नाम फॉर्मेट खातर एरर संदेश."
+    },
+    "name": "नाम",
+    "@name": {
+        "description": "नाम इनपुट फील्ड रो लेबल."
+    },
+    "username": "यूज़रनेम",
+    "@username": {
+        "description": "यूज़रनेम इनपुट फील्ड रो लेबल."
+    },
+    "enterValidDOB": "सही जन्म तारीख भरो",
+    "@enterValidDOB": {
+        "description": "गलत जन्म तारीख खातर एरर संदेश."
+    },
+    "dateOfBirth": "जन्म तारीख",
+    "@dateOfBirth": {
+        "description": "जन्म तारीख इनपुट फील्ड रो लेबल."
+    },
+    "forgotPassword": "पासवर्ड भूल गया?",
+    "@forgotPassword": {
+        "description": "जिन्हां पासवर्ड भूल ग्या, ओं खातर लिंक लिखाण."
+    },
+    "next": "आगां",
+    "@next": {
+        "description": "प्रक्रिया री आगली पगड़ी पर जावां खातर बटन लिखाण."
+    },
+    "noStoriesExist": "पेश करां खातर कोई कहानी कोनी",
+    "@noStoriesExist": {
+        "description": "कहाणी री सूची में कोई कहानी ना होवां रो संदेश."
+    },
+    "enterVerificationCode": "थारो\nसत्यापन कोड भरो",
+    "@enterVerificationCode": {
+        "description": "यूज़र ने ईमेल पर आयो सत्यापन कोड भरवां खातर संकेत."
+    },
+    "verificationCodeSent": "म्हां ६-अंकी सत्यापन कोड भेज्यो है\n",
+    "@verificationCodeSent": {
+        "description": "सत्यापन कोड भेज्या रो जानकारी संदेश."
+    },
+    "verificationComplete": "सत्यापन पूरो",
+    "@verificationComplete": {
+        "description": "ईमेल सत्यापन पछां सफल संदेश रो शीर्षक."
+    },
+    "verificationCompleteMessage": "बधाई हो, थां थारो ईमेल सत्यापित कर लियो है",
+    "@verificationCompleteMessage": {
+        "description": "ईमेल सत्यापन पक्का करां रो सफल संदेश."
+    },
+    "verificationFailed": "सत्यापन असफल",
+    "@verificationFailed": {
+        "description": "सत्यापन असफल होवां पर एरर संदेश रो शीर्षक."
+    },
+    "otpMismatch": "ओटीपी मेल ना खाय, फेर सूं कोशिश करो",
+    "@otpMismatch": {
+        "description": "भर्यो गयो ओटीपी गलत होवां पर एरर संदेश."
+    },
+    "otpResent": "ओटीपी फेर सूं भेज दी",
+    "@otpResent": {
+        "description": "ओटीपी फेर सूं भेज्या रो पक्का संदेश."
+    },
+    "requestNewCode": "नयो कोड मांगो",
+    "@requestNewCode": {
+        "description": "नयो सत्यापन कोड मांगां खातर बटन लिखाण."
+    },
+    "requestNewCodeIn": "नयो कोड मांगो",
+    "@requestNewCodeIn": {
+        "description": "काउंटडाउन टाइमर सूं पहिले देखावां रो लिखाण."
+    },
+    "clickPictureCamera": "कैमरा सूं फोटो खींचो",
+    "@clickPictureCamera": {
+        "description": "डिवाइस कैमरा सूं नयो फोटो लेवां रो विकल्प."
+    },
+    "pickImageGallery": "गैलरी सूं फोटो चुनो",
+    "@pickImageGallery": {
+        "description": "डिवाइस गैलरी सूं मौजूदा फोटो चुनां रो विकल्प."
+    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    "deleteMyAccount": "म्हारो खातो हटाओ",
+    "@deleteMyAccount": {
+        "description": "खातो हटावण रो बटन मजकूर."
+    },
+    "createNewRoom": "नवो कोठो बनाओ",
+    "@createNewRoom": {
+        "description": "नवो ऑडियो कोठो बनावण रो बटन या पेज रो शीर्षक."
+    },
+    "pleaseEnterScheduledDateTime": "कृपया तय करेली तारीख अणे समय दाखिल करो",
+    "@pleaseEnterScheduledDateTime": {
+        "description": "जद कोठा रो तय करेलो तारीख अणे समय न दीधो होवे, त्यारो त्रुटि संदेश."
+    },
+    "scheduleDateTimeLabel": "तय करेलो तारीख अणे समय",
+    "@scheduleDateTimeLabel": {
+        "description": "कोठा रो तारीख अणे समय तय करावण खातर इनपुट फील्ड रो लेबल."
+    },
+    "enterTags": "टैग दाखिल करो",
+    "@enterTags": {
+        "description": "कोठा या कथा में टैग जोड़ावण खातर इनपुट फील्ड रो लेबल या प्लेसहोल्डर."
+    },
+    "joinCommunity": "समुदाय में जोड़ो",
+    "@joinCommunity": {
+        "description": "समुदाय सेक्शन रो बटन मजकूर या हेडर."
+    },
+    "followUsOnX": "X पर म्हाने फॉलो करो",
+    "@followUsOnX": {
+        "description": "कंपनी रा X (पहले ट्विटर) प्रोफाइल खातर लिंक मजकूर."
+    },
+    "joinDiscordServer": "डिस्कॉर्ड सर्वर में जोड़ो",
+    "@joinDiscordServer": {
+        "description": "प्रोजेक्ट रा डिस्कॉर्ड सर्वर में जोड़ावण रो लिंक मजकूर."
+    },
+    "noLyrics": "कोई गीत कोनी",
+    "@noLyrics": {
+        "description": "जद ऑडियो फाइल खातर गीत उपलब्ध कोनी होवे, त्यारो संदेश."
+    },
+    "noStoriesInCategory": "{categoryName} श्रेणी में पेश करावण खातर कोई कथा कोनी",
+    "@noStoriesInCategory": {
+        "description": "खास श्रेणी में कोई कथा कोनी होवण रो संदेश.",
+        "placeholders": {
+            "categoryName": {
+                "type": "String",
+                "example": "नाटक"
+            }
+        }
+    },
+    "newChapters": "नवा अध्याय",
+    "@newChapters": {
+        "description": "कथा रा नवा अध्याय जोड़ावण या देखावण खातर सेक्शन रो हेडर या लेबल."
+    },
+    "helpToGrow": "वधावण में मदद करो",
+    "@helpToGrow": {
+        "description": "प्लेटफॉर्म ने वधावण खातर यूजर ने कहावण रो आह्वान, आमतौर पर शेयरिंग या रेटिंग खातर."
+    },
+    "share": "शेयर करो",
+    "@share": {
+        "description": "सामग्री शेयर करावण खातर बटन मजकूर."
+    },
+    "rate": "रेट करो",
+    "@rate": {
+        "description": "ऐप या सामग्री ने रेटिंग देवण खातर बटन मजकूर."
+    },
+    "aboutResonate": "रेज़ोनेट रो बारे में",
+    "@aboutResonate": {
+        "description": "रेज़ोनेट ऐप रा 'बारे में' पेज रो शीर्षक."
+    },
+    "description": "विवरण",
+    "@description": {
+        "description": "विवरण फील्ड रो लेबल."
+    },
+    "confirm": "पक्को करो",
+    "@confirm": {
+        "description": "पुष्टि करावण खातर सामान्य बटन मजकूर."
+    },
+    "classic": "शास्त्रीय",
+    "@classic": {
+        "description": "थीम विकल्प रो नाम."
+    },
+    "time": "समय",
+    "@time": {
+        "description": "थीम विकल्प रो नाम."
+    },
+    "vintage": "विंटेज",
+    "@vintage": {
+        "description": "थीम विकल्प रो नाम."
+    },
+    "amber": "एम्बर",
+    "@amber": {
+        "description": "थीम विकल्प रो नाम."
+    },
+    "forest": "जंगल",
+    "@forest": {
+        "description": "थीम विकल्प रो नाम."
+    },
+    "cream": "क्रीम",
+    "@cream": {
+        "description": "थीम विकल्प रो नाम."
+    },
+    "none": "काई भी कोनी",
+    "@none": {
+        "description": "कोई पसंद या मूल्य ना होवण रो संकेत."
+    },
+    "checkOutGitHub": "म्हारो GitHub रिपोजिटरी देखो: {url}",
+    "@checkOutGitHub": {
+        "description": "GitHub रिपोजिटरी खातर शेयर संदेश, URL प्लेसहोल्डर साथे.",
+        "placeholders": {
+            "url": {
+                "type": "String",
+                "example": "https://github.com/AOSSIE-Org/Resonate"
+            }
+        }
+    },
+    "aossie": "AOSSIE",
+    "@aossie": {
+        "description": "संस्था रो नाम."
+    },
+    "aossieLogo": "AOSSIE लोगो",
+    "@aossieLogo": {
+        "description": "AOSSIE संस्था रा लोगो चित्र खातर एक्सेसिबिलिटी मजकूर."
+    },
+    "errorLoadPackageInfo": "पैकेज जानकारी लोड कोनी हो सकी",
+    "@errorLoadPackageInfo": {
+        "description": "जद ऐप आपरी पैकेज जानकारी (जैसे संस्करण) लोड कोनी कर सके, त्यारो त्रुटि संदेश."
+    },
+    "updateAvailable": "अपडेट उपलब्ध है",
+    "@updateAvailable": {
+        "description": "ऐप रो नवो संस्करण उपलब्ध होवण रो संकेत."
+    },
+    "newVersionAvailable": "नवो संस्करण उपलब्ध है!",
+    "@newVersionAvailable": {
+        "description": "यूजर ने उपलब्ध अपडेट बारे में बतावण रो संदेश."
+    },
+    "upToDate": "पूरो अपडेट है",
+    "@upToDate": {
+        "description": "ऐप नवीनतम संस्करण पर होवण रो संकेत."
+    },
+    "latestVersion": "आप नवीनतम संस्करण उपयोग कर रह्या हो",
+    "@latestVersion": {
+        "description": "यूजर पासे ऐप रो नवीनतम संस्करण होवण री पुष्टि."
+    },
+    "profileCreatedSuccessfully": "प्रोफाइल सफलतापूर्वक बन गई",
+    "@profileCreatedSuccessfully": {
+        "description": "यूजर रो प्रोफाइल बनावण बाद सफल संदेश."
+    },
+    "invalidScheduledDateTime": "अमान्य तय करेलो तारीख अणे समय",
+    "@invalidScheduledDateTime": {
+        "description": "अमान्य तारीख-समय फॉर्मेट खातर त्रुटि संदेश."
+    },
+    "scheduledDateTimePast": "तय करेलो तारीख अणे समय भूतकाल में कोनी हो सके",
+    "@scheduledDateTimePast": {
+        "description": "जद यूजर तय करेला इवेंट खातर भूतकाल रो तारीख-समय चुने, त्यारो त्रुटि संदेश."
+    },
+    "joinRoom": "कोठा में जोड़ो",
+    "@joinRoom": {
+        "description": "ऑडियो कोठा में जोड़ावण खातर बटन मजकूर."
+    },
+    "unknownUser": "अनजाणो",
+    "@unknownUser": {
+        "description": "जिणा यूजर रो नाम उपलब्ध कोनी, तिणां खातर प्लेसहोल्डर मजकूर."
+    },
+    "canceled": "रद्द",
+    "@canceled": {
+        "description": "स्थिति लेबल, जे बतावे कि क्रिया रद्द हो गई."
+    },
+    "english": "en",
+    "@english": {
+        "description": "मराठी खातर भाषा कोड."
+    },
+    "emailVerificationRequired": "ईमेल सत्यापन जरूरी है",
+    "@emailVerificationRequired": {
+        "description": "आगे बढ़ावण खातर ईमेल सत्यापन जरूरी होवण रो संकेत."
+    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    "verify": "सत्यापित करो",
+    "@verify": {
+        "description": "सत्यापन प्रक्रिया चालू करावण खातर बटन मजकूर."
+    },
+    "audioRoom": "ऑडियो कोठो",
+    "@audioRoom": {
+        "description": "ऑडियो कोठा खातर सामान्य शीर्षक."
+    },
+    "toRoomAction": "कोठा ने {action} करावण खातर",
+    "@toRoomAction": {
+        "description": "कोठा पर क्रिया ने मंजूरी देवण खातर गतिशील संदेश, जेम हटावण या छोड़ण.",
+        "placeholders": {
+            "action": {
+                "type": "String",
+                "example": "हटाओ"
+            }
+        }
+    },
+    "mailSentMessage": "ईमेल भेज दी गई",
+    "@mailSentMessage": {
+        "description": "ईमेल भेज दी गई होवण रो पुष्टी संदेश."
+    },
+    "disconnected": "जुड़ो कोनी है",
+    "@disconnected": {
+        "description": "स्थिति लेबल जे कनेक्शन टूटण रो संकेत दे."
+    },
+    "micOn": "माइक",
+    "@micOn": {
+        "description": "माइक्रोफोन बटन चालू होवण पर एक्सेसिबिलिटी लेबल."
+    },
+    "speakerOn": "स्पीकर",
+    "@speakerOn": {
+        "description": "स्पीकरफोन बटन चालू होवण पर एक्सेसिबिलिटी लेबल."
+    },
+    "endChat": "चैट खतम",
+    "@endChat": {
+        "description": "चैट/कॉल खतम करावण बटन खातर एक्सेसिबिलिटी लेबल."
+    },
+    "monthJan": "जान",
+    "@monthJan": {
+        "description": "जनवरी रो संक्षेप."
+    },
+    "monthFeb": "फेब",
+    "@monthFeb": {
+        "description": "फरवरी रो संक्षेप."
+    },
+    "monthMar": "मार्च",
+    "@monthMar": {
+        "description": "मार्च रो पूरो नाम."
+    },
+    "monthApr": "एप्रिल",
+    "@monthApr": {
+        "description": "एप्रिल रो पूरो नाम."
+    },
+    "monthMay": "मे",
+    "@monthMay": {
+        "description": "मे रो पूरो नाम."
+    },
+    "monthJun": "जून",
+    "@monthJun": {
+        "description": "जून रो पूरो नाम."
+    },
+    "monthJul": "जुलै",
+    "@monthJul": {
+        "description": "जुलै रो पूरो नाम."
+    },
+    "monthAug": "ऑग",
+    "@monthAug": {
+        "description": "ऑगस्ट रो संक्षेप."
+    },
+    "monthSep": "सप्ट",
+    "@monthSep": {
+        "description": "सितंबर रो संक्षेप."
+    },
+    "monthOct": "ऑक्ट",
+    "@monthOct": {
+        "description": "अक्टूबर रो संक्षेप."
+    },
+    "monthNov": "नोव",
+    "@monthNov": {
+        "description": "नवंबर रो संक्षेप."
+    },
+    "monthDec": "डिस",
+    "@monthDec": {
+        "description": "दिसंबर रो संक्षेप."
+    },
+    "register": "रजिस्टर करो",
+    "@register": {
+        "description": "नवो खातो रजिस्टर करावण खातर बटन मजकूर."
+    },
+    "newToResonate": "रेज़ोनेट में नवां?",
+    "@newToResonate": {
+        "description": "लॉगिन स्क्रीन पर 'नवो खातो बनाओ' लिंक पहिला मजकूर."
+    },
+    "alreadyHaveAccount": "पहले सूं खातो है?",
+    "@alreadyHaveAccount": {
+        "description": "साइन-अप स्क्रीन पर 'लॉगिन' लिंक पहिला मजकूर."
+    },
+    "checking": "जांच हो रही है...",
+    "@checking": {
+        "description": "जांच चालू होवण रो अस्थायी स्थिति संदेश."
+    },
+    "forgotPasswordMessage": "आपरो रजिस्टर करेलो ईमेल पता दाखिल करो पासवर्ड रीसेट करावण खातर.",
+    "@forgotPasswordMessage": {
+        "description": "भूल्या पासवर्ड स्क्रीन पर निर्देश मजकूर."
+    },
+    "usernameUnavailable": "यूजरनेम उपलब्ध कोनी है!",
+    "@usernameUnavailable": {
+        "description": "चुनेलो यूजरनेम पहले सूं लिया होवण पर त्रुटि शीर्षक."
+    },
+    "usernameInvalidOrTaken": "आ यूजरनेम अमान्य है या पहले सूं लिया गयो है.",
+    "@usernameInvalidOrTaken": {
+        "description": "यूजरनेम क्यूं उपयोग कोनी हो सके, आ बतावण रो त्रुटि संदेश."
+    },
+    "otpResentMessage": "कृपया आपरी मेल में नवो ओटीपी चेक करो.",
+    "@otpResentMessage": {
+        "description": "यूजर ने नवो ओटीपी खातर ईमेल चेक करावण रो संदेश."
+    },
+    "connectionError": "कनेक्शन में दिक्कत है. कृपया आपरो इंटरनेट जांचो अणे फेर सूं कोशिश करो.",
+    "@connectionError": {
+        "description": "नेटवर्क कनेक्शन समस्या खातर सामान्य त्रुटि संदेश."
+    },
+    "seconds": "सेकंड",
+    "@seconds": {
+        "description": "'सेकंड' शब्द, आमतौर पर काउंटडाउन संख्या पाछूं लागे."
+    },
+    "unsavedChangesWarning": "अगर आप सेव कर्या बिना आगे जाओगा तो सारा बिना-सेव बदलाव खो जावेंगे.",
+    "@unsavedChangesWarning": {
+        "description": "बिना-सेव बदलाव साथे स्क्रीन छोड़ण पर चेतावणी संदेश."
+    },
+    "deleteAccountPermanent": "आ क्रिया आपरो खातो हमेशा खातर हटाई देसी. आ वापस ना हो सके. म्हे आपरो यूजरनेम, ईमेल पता अणे खातो सूं जुड़ो सग्लो डेटा हटाई देसू. आप फेर सूं वापस ना पावो.",
+    "@deleteAccountPermanent": {
+        "description": "खातो हटावण रा नतीजा साफ-साफ बतावण रो चेतावणी संदेश."
+    },
+    "giveGreatName": "एक बढ़िया नाम दो..",
+    "@giveGreatName": {
+        "description": "नाम इनपुट फील्ड खातर प्लेसहोल्डर, रचनात्मक नाम खातर प्रेरणा."
+    },
+    "joinCommunityDescription": "समुदाय में जुड़ो अणे आपरा सवाल साफ करो, नवा फीचर सुझाओ, समस्या रिपोर्ट करो अणे घणो किछु.",
+    "@joinCommunityDescription": {
+        "description": "समुदाय में जुड़ाव रा फायदां रो वर्णन."
+    },
+    "resonateDescription": "रेज़ोनेट एक सामाजिक मीडिया मंच है, जठे हर आवाज की कीमत है. आपरा विचार, कथा अणे अनुभव दूसरां सूं बांटो. आपरी ऑडियो यात्रा अब शुरू करो. अलग-अलग चर्चा अणे विषयां में शामिल होवो. रेज़ोनेट करावण वाले कोठा खोजो अणे समुदाय रो हिस्सा बनो. बातचीत में जुड़ो!",
+    "@resonateDescription": {
+        "description": "रेज़ोनेट ऐप रो छोटो, यूजर-सामने वर्णन."
+    },
+    "resonateFullDescription": "रेज़ोनेट एक क्रांतिकारी आवाज-आधारित सामाजिक मीडिया मंच है, जठे हर आवाज मायने राखे.\nरीयल-टाइम ऑडियो बातचीत में जुड़ो, अलग-अलग चर्चा में भाग लो,\nअणे समान सोच वाला लोकां सूं जुड़ो. म्हारो मंच दे:\n- विषय-आधारित चर्चा साथे लाइव ऑडियो कोठा\n- आवाज जरिए आसान सोशल नेटवर्किंग\n- समुदाय-चालित सामग्री मॉडरेशन\n- क्रॉस-प्लेटफॉर्म सपोर्ट\n- एंड-टू-एंड एन्क्रिप्टेड निजी बातचीत\n\nAOSSIE मुक्त स्रोत समुदाय द्वारा विकसित, म्हे यूजर गोपनीयता अणे समुदाय-चालित विकास ने प्राथमिकता दीजे.\nसामाजिक ऑडियो रो भविष्य बनावण में म्हारे साथ जुड़ो!",
+    "@resonateFullDescription": {
+        "description": "रेज़ोनेट ऐप रो विस्तृत, पूरा वर्णन, फीचर अणे मिशन सहित."
+    },
+    "stable": "स्थिर",
+    "@stable": {
+        "description": "ऐप रो स्थिर, गैर-बीटा संस्करण दिखावण रो लेबल."
+    },
+    "usernameCharacterLimit": "यूजरनेम कम से कम 5 अक्षर रो होवण जरूरी है.",
+    "@usernameCharacterLimit": {
+        "description": "यूजरनेम बहुत छोटो होवण पर त्रुटि संदेश."
+    },
+    "submit": "सबमिट करो",
+    "@submit": {
+        "description": "फॉर्म सबमिट करावण खातर सामान्य बटन मजकूर."
+    },
+    "anonymous": "अनजान",
+    "@anonymous": {
+        "description": "अनजान यूजर या पहचान रो लेबल."
+    },
+    "noSearchResults": "कोई खोज परिणाम कोनी मिला",
+    "@noSearchResults": {
+        "description": "जद खोज में कोई परिणाम ना आवे, त्यारो संदेश."
+    },
+  "shareRoomMessage": "🚀 आ गजब रो कोठो देखो: {roomName}!\n\n📖 वर्णन: {description}\n👥 हां {participants} सहभाग्यां सूं जोड़ो!",
+  "@shareRoomMessage": {
+    "description": "कोठो शेयर करां वखत वापराय जाणो डिफॉल्ट संदेश टेम्पलेट.",
+    "placeholders": {
+      "roomName": {
+        "type": "String",
+        "example": "चर्चा कोठो"
+      },
+      "description": {
+        "type": "String",
+        "example": "चर्चा करां खातर एक अच्छो स्थान"
+      },
+      "participants": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "participantsCount": "{count} सहभाग्या",
+  "@participantsCount": {
+    "description": "कोठा में सहभाग्यां री संख्या देखावे.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "join": "जुड़ो",
+  "@join": {
+    "description": "क्रिया या समूह में जुड़ां खातर सामान्य बटन पाठ."
+  },
+  "invalidTags": "अवैध टैग:",
+  "@invalidTags": {
+    "description": "अवैध टैगां खातर त्रुटि संदेश रो प्रीफिक्स."
+  },
+  "cropImage": "छवि काटो",
+  "@cropImage": {
+    "description": "छवि कातरां औजार रो शीर्षक या बटन पाठ."
+  },
+  "profileSavedSuccessfully": "प्रोफाइल सफलतापूर्वक सेव हो गई",
+  "@profileSavedSuccessfully": {
+    "description": "प्रोफाइल बदलाव सेव होया, ई बतावणो छोटो सफल संदेश."
+  },
+  "profileUpdatedSuccessfully": "सगला बदलाव सफलतापूर्वक सेव हो गया.",
+  "@profileUpdatedSuccessfully": {
+    "description": "प्रोफाइल अपडेट री पुष्टि करां वालो विस्तृत सफल संदेश."
+  },
+  "profileUpToDate": "प्रोफाइल अपडेट है",
+  "@profileUpToDate": {
+    "description": "जब प्रोफाइल में सेव करां खातर काई बदलाव ना होवे, तब शीर्षक."
+  },
+  "noChangesToSave": "काई नवा बदलाव ना करा, सेव करां खातर कुछ भी नहीं.",
+  "@noChangesToSave": {
+    "description": "जब उपयोगकर्ता बिना बदलाव प्रोफाइल सेव करां रो प्रयास करे, तब संदेश."
+  },
+  "connectionFailed": "कनेक्शन फेल हो गयो",
+  "@connectionFailed": {
+    "description": "कनेक्शन सूं जुड़ी सामान्य त्रुटि रो शीर्षक."
+  },
+  "unableToJoinRoom": "कोठा में जुड़ां में असमर्थ. कृपया आपरो नेटवर्क जांचो और फेरूं प्रयास करो.",
+  "@unableToJoinRoom": {
+    "description": "कनेक्शन समस्या कारण कोठा में जुड़ां में असमर्थ होवे, तब त्रुटि संदेश."
+  },
+  "connectionLost": "कनेक्शन कट गयो",
+  "@connectionLost": {
+    "description": "सेवा सूं कनेक्शन कट गयो है, ई बतावणो शीर्षक."
+  },
+  "unableToReconnect": "कोठा सूं फेरूं कनेक्ट करां में असमर्थ. कृपया फेरूं जुड़ां रो प्रयास करो.",
+  "@unableToReconnect": {
+    "description": "जब ऐप उपयोगकर्ता कोठा में फेरूं कनेक्ट ना कर सके, तब त्रुटि संदेश."
+  },
+  "invalidFormat": "अवैध फॉर्मेट!",
+  "@invalidFormat": {
+    "description": "अवैध फॉर्मेट वाळा डेटा खातर सामान्य त्रुटि संदेश."
+  },
+  "usernameAlphanumeric": "उपयोगकर्ता नाम अल्फान्यूमेरिक होणो जरूरी है और विशेष अक्षर ना हो सके.",
+  "@usernameAlphanumeric": {
+    "description": "वैध उपयोगकर्ता नाम खातर अक्षरां री शर्त समझावणो त्रुटि संदेश."
+  },
+  "userProfileCreatedSuccessfully": "आपरो उपयोगकर्ता प्रोफाइल सफलतापूर्वक तयार हो गयो.",
+  "@userProfileCreatedSuccessfully": {
+    "description": "उपयोगकर्ता प्रोफाइल सेटअप पूरा कर ले, तब सफल संदेश."
+  },
+  "emailVerificationMessage": "आगे बढ़ां खातर, आपरो ईमेल पता सत्यापित करो.",
+  "@emailVerificationMessage": {
+    "description": "उपयोगकर्ता ने आपरो ईमेल सत्यापन करां खातर प्रेरित करां वालो संदेश."
+  },
+  "addNewChaptersToStory": "{storyName} में नवा अध्याय जोड़ो",
+  "@addNewChaptersToStory": {
+    "description": "मौजूदा कहानी में नवा अध्याय जोड़ां वाली स्क्रीन रो शीर्षक.",
+    "placeholders": {
+      "storyName": {
+        "type": "String",
+        "example": "मारी कहानी"
+      }
+    }
+  },
+  "currentChapters": "वर्तमान अध्याय",
+  "@currentChapters": {
+    "description": "कहानी में मौजूद अध्यायां री सूची रो हेडर."
+  },
+  "sourceCodeOnGitHub": "GitHub पर स्रोत कोड",
+  "@sourceCodeOnGitHub": {
+    "description": "प्रोजेक्ट रो स्रोत कोड GitHub लिंक पाठ."
+  },
+  "createAChapter": "एक अध्याय बनाओ",
+  "@createAChapter": {
+    "description": "नवा अध्याय बनावां वाली स्क्रीन रो शीर्षक."
+  },
+  "chapterTitle": "अध्याय शीर्षक *",
+  "@chapterTitle": {
+    "description": "अध्याय शीर्षक इनपुट फील्ड रो लेबल, जरूरी है ई बतावे."
+  },
+  "aboutRequired": "बाबत *",
+  "@aboutRequired": {
+    "description": "'बाबत' या वर्णन इनपुट फील्ड रो लेबल, जरूरी है ई बतावे."
+  },
+  "changeCoverImage": "कवर छवि बदलो",
+  "@changeCoverImage": {
+    "description": "कहानी या अध्याय री कवर छवि बदलां खातर बटन पाठ."
+  },
+  "uploadAudioFile": "ऑडियो फाइल अपलोड करो",
+  "@uploadAudioFile": {
+    "description": "ऑडियो फाइल अपलोड करां खातर बटन पाठ."
+  },
+  "uploadLyricsFile": "गीत फाइल अपलोड करो",
+  "@uploadLyricsFile": {
+    "description": "गीत फाइल अपलोड करां खातर बटन पाठ."
+  },
+  "createChapter": "अध्याय बनाओ",
+  "@createChapter": {
+    "description": "नवा अध्याय अंतिम करां खातर बटन पाठ."
+  },
+  "audioFileSelected": "ऑडियो फाइल चुनी गई: {fileName}",
+  "@audioFileSelected": {
+    "description": "अपलोड खातर ऑडियो फाइल चुन्या बाद देखावणो संदेश.",
+    "placeholders": {
+      "fileName": {
+        "type": "String",
+        "example": "audio.mp3"
+      }
+    }
+  },
+  "lyricsFileSelected": "गीत फाइल चुनी गई: {fileName}",
+  "@lyricsFileSelected": {
+    "description": "अपलोड खातर गीत फाइल चुन्या बाद देखावणो संदेश.",
+    "placeholders": {
+      "fileName": {
+        "type": "String",
+        "example": "lyrics.txt"
+      }
+    }
+  },
+  "fillAllRequiredFields": "कृपया सगला जरूरी फील्ड भरो और आपरी ऑडियो फाइल अर गीत फाइल अपलोड करो",
+  "@fillAllRequiredFields": {
+    "description": "जब जरूरी फील्ड या फाइल फॉर्म में ना होवे, तब त्रुटि संदेश."
+  },
+  "scheduled": "शेड्यूल कर्यो गयो",
+  "@scheduled": {
+    "description": "घटना भविष्य खातर शेड्यूल होई है, ई बतावणो स्थिति लेबल."
+  },
+  "ok": "ठीक है",
+  "@ok": {
+    "description": "सामान्य पुष्टि बटन पाठ, अकसर संवाद बंद करां खातर."
+  },
+  "roomDescriptionOptional": "कोठा रो वर्णन (वैकल्पिक)",
+  "@roomDescriptionOptional": {
+    "description": "कोठा वर्णन इनपुट फील्ड रो लेबल, जरूरी नाहीं है ई बतावे."
+  },
+  "deleteAccount": "खातो हटावो",
+  "@deleteAccount": {
+    "description": "खातो हटावण रो प्रोसेस शुरू करां खातर बटन पाठ."
+  },
+  "createYourStory": "आपरी कहानी बनावो",
+  "@createYourStory": {
+    "description": "नवीन कहानी बनावां वाली स्क्रीन रो शीर्षक."
+  },
+  "titleRequired": "शीर्षक *",
+  "@titleRequired": {
+    "description": "शीर्षक इनपुट फील्ड रो लेबल, जरूरी है ई दर्शावे."
+  },
+  "category": "श्रेणी *",
+  "@category": {
+    "description": "श्रेणी चुनां रो लेबल, जरूरी है ई दर्शावे."
+  },
+  "addChapter": "अध्याय जोड़ो",
+  "@addChapter": {
+    "description": "कहानी में अध्याय जोड़ां खातर बटन पाठ."
+  },
+  "createStory": "कहानी बनावो",
+  "@createStory": {
+    "description": "नवीन कहानी अंतिम करां खातर बटन पाठ."
+  },
+  "fillAllRequiredFieldsAndChapter": "कृपया सगला जरूरी फील्ड भरो, कम से कम एक अध्याय जोड़ो, और कवर छवि चुनो.",
+  "@fillAllRequiredFieldsAndChapter": {
+    "description": "कहानी फॉर्म में आवश्यकताएं पूरी ना होय पर त्रुटि संदेश."
+  },
+  "toConfirmType": "पुष्टी करां खातर, टाइप करो",
+  "@toConfirmType": {
+    "description": "पुष्टी संवाद में निर्देशक पाठ, टाइप करां सूं पहले."
+  },
+  "inTheBoxBelow": "नीचे बॉक्स में",
+  "@inTheBoxBelow": {
+    "description": "पुष्टी संवाद में निर्देशक पाठ, टाइप करां सूं बाद."
+  },
+  "iUnderstandDeleteMyAccount": "मैं समझ्यो, आपरो खातो हटावो",
+  "@iUnderstandDeleteMyAccount": {
+    "description": "खातो हटावां री पुष्टी खातर उपयोगकर्ता ने विशेष वाक्य टाइप करनो जरूरी."
+  },
+  "whatDoYouWantToListenTo": "आप क्या सुनणो चाहो?",
+  "@whatDoYouWantToListenTo": {
+    "description": "मुख्य स्क्रीन पर प्रॉम्प्ट, उपयोगकर्ता सहभाग बढ़ावै."
+  },
+  "categories": "श्रेणियाँ",
+  "@categories": {
+    "description": "श्रेणियों री सूची रो हेडर."
+  },
+  "stories": "कहानियाँ",
+  "@stories": {
+    "description": "कहानियों री सूची रो हेडर."
+  },
+  "someSuggestions": "कुच्छ सुझाव",
+  "@someSuggestions": {
+    "description": "सुझावित सामग्री री सूची रो हेडर."
+  },
+  "getStarted": "शुरू करो",
+  "@getStarted": {
+    "description": "ऑनबोर्डिंग स्क्रीन पर ऐप उपयोग शुरू करां खातर बटन पाठ."
+  },
+  "skip": "छोड़ो",
+  "@skip": {
+    "description": "ऑनबोर्डिंग जैसी वैकल्पिक स्टेप छोड़ां खातर बटन पाठ."
+  },
+  "welcomeToResonate": "रेजोनेट में स्वागत है",
+  "@welcomeToResonate": {
+    "description": "ऑनबोर्डिंग स्क्रीन शीर्षक."
+  },
+  "exploreDiverseConversations": "विभिन्न बातचीत एक्सप्लोर करो",
+  "@exploreDiverseConversations": {
+    "description": "ऑनबोर्डिंग स्क्रीन पर फीचर हाइलाइट."
+  },
+  "yourVoiceMatters": "आपरो आवाज़ महत्व राखे है",
+  "@yourVoiceMatters": {
+    "description": "ऑनबोर्डिंग स्क्रीन पर फीचर हाइलाइट."
+  },
+  "joinConversationExploreRooms": "बातचीत में जुड़ो! कोठा एक्सप्लोर करो, मित्रां सूं जोड़ो, और आपरो आवाज भरोसा सहित शेयर करो.",
+  "@joinConversationExploreRooms": {
+    "description": "ऑनबोर्डिंग स्क्रीन पर वर्णनात्मक पाठ."
+  },
+  "diveIntoDiverseDiscussions": "विभिन्न चर्चा और विषय में सामिल होवो. \nरेजोनेट पर कोठा खोजो और समुदाय रो भाग बनके सहभाग करो.",
+  "@diveIntoDiverseDiscussions": {
+    "description": "ऑनबोर्डिंग स्क्रीन पर वर्णनात्मक पाठ."
+  },
+  "atResonateEveryVoiceValued": "रेजोनेट में, हर आवाज़ की कदर है. आपरे विचार, कहानी, और अनुभव दूसरां सूं शेयर करो. आपरी ऑडियो यात्रा अब शुरू करो.",
+  "@atResonateEveryVoiceValued": {
+    "description": "ऑनबोर्डिंग स्क्रीन पर वर्णनात्मक पाठ."
+  },
+  "notifications": "सूचनाएँ",
+  "@notifications": {
+    "description": "सूचना स्क्रीन रो शीर्षक."
+  },
+  "taggedYouInUpcomingRoom": "{username} ने आपकू आगामी कोठा में टैग कर्यो: {subject}",
+  "@taggedYouInUpcomingRoom": {
+    "description": "आगामी कोठा में टैग होवां पर नोटिफिकेशन संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "चर्चा कोठा"
+      }
+    }
+  },
+  "taggedYouInRoom": "{username} ने आपकू कोठा में टैग कर्यो: {subject}",
+  "@taggedYouInRoom": {
+    "description": "लाइव कोठा में टैग होवां पर नोटिफिकेशन संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "चर्चा कोठा"
+      }
+    }
+  },
+  "likedYourStory": "{username} ने आपरी कहानी पसंद करी: {subject}",
+  "@likedYourStory": {
+    "description": "कोई आपरी कहानी पसंद करया पर नोटिफिकेशन संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "मारी कहानी"
+      }
+    }
+  },
+  "subscribedToYourRoom": "{username} ने आपरी कोठा खातर सब्सक्राइब करयो: {subject}",
+  "@subscribedToYourRoom": {
+    "description": "कोई आपरी कोठा खातर सब्सक्राइब करया पर नोटिफिकेशन संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "मारी कोठा"
+      }
+    }
+  },
+  "startedFollowingYou": "{username} ने आपकू फॉलो करणा शुरू करयो",
+  "@startedFollowingYou": {
+    "description": "कोई आपकू फॉलो करणा शुरू करया पर नोटिफिकेशन संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
+  },
+  "youHaveNewNotification": "आपकू नई नोटिफिकेशन आयो है",
+  "@youHaveNewNotification": {
+    "description": "नई नोटिफिकेशन रो सामान्य शीर्षक."
+  },
+  "hangOnGoodThingsTakeTime": "रुको, अच्छी चीज़ां खातर समय लागे है 🔍",
+  "@hangOnGoodThingsTakeTime": {
+    "description": "लंबा लोडिंग प्रोसेस दौरान देखावणो दोस्ताना संदेश."
+  },
+  "resonateOpenSourceProject": "रेजोनेट AOSSIE द्वारा मेंटेन करलो मुक्त स्रोत प्रोजेक्ट है. योगदान देवा खातर हमारो GitHub देखो.",
+  "@resonateOpenSourceProject": {
+    "description": "प्रोजेक्ट रो मुक्त-स्रोत स्वरूप बतावणो पाठ."
+  },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
+  "mute": "मौन करो",
+  "@mute": {
+    "description": "माइक मौन करां खातर बटन पाठ."
+  },
+  "speakerLabel": "स्पीकर",
+  "@speakerLabel": {
+    "description": "स्पीकरफोन टॉगल रो लेबल."
+  },
+  "end": "खतम करो",
+  "@end": {
+    "description": "कॉल या सत्र खतम करां खातर बटन पाठ."
+  },
+  "saveChanges": "बदल सेव करो",
+  "@saveChanges": {
+    "description": "संशोधित सेटिंग्स या प्रोफाइल जानकारी सेव करां खातर बटन पाठ."
+  },
+  "discard": "त्याग दो",
+  "@discard": {
+    "description": "बदल त्यागां खातर बटन पाठ."
+  },
+  "save": "सेव करो",
+  "@save": {
+    "description": "बदल सेव करां खातर बटन पाठ."
+  },
+  "changeProfilePicture": "प्रोफाइल फोटो बदलो",
+  "@changeProfilePicture": {
+    "description": "प्रोफाइल फोटो बदलां खातर विकल्प खोलणो बटन."
+  },
+  "camera": "कैमरा",
+  "@camera": {
+    "description": "फोटो खिंचवां खातर कैमरा विकल्प."
+  },
+  "gallery": "गैलरी",
+  "@gallery": {
+    "description": "गैलरी सूं फोटो चुनां खातर विकल्प."
+  },
+  "remove": "हटाओ",
+  "@remove": {
+    "description": "प्रोफाइल फोटो जैसी आइटम हटावां खातर बटन पाठ."
+  },
+  "created": "{date} ने बनायो",
+  "@created": {
+    "description": "कहानी या सामग्री रो निर्माण तारीख दर्शावे.",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "जन १५, २०२३"
+      }
+    }
+  },
+  "chapters": "अध्याय",
+  "@chapters": {
+    "description": "कहानी में अध्याय री सूची रो हेडर."
+  },
+  "deleteStory": "कहानी हटावो",
+  "@deleteStory": {
+    "description": "कहानी हटावां खातर बटन पाठ."
+  },
+  "createdBy": "{creatorName} द्वारा बनायो",
+  "@createdBy": {
+    "description": "सामग्री रो निर्माता नाम दर्शावे.",
+    "placeholders": {
+      "creatorName": {
+        "type": "String",
+        "example": "जॉन डो"
+      }
+    }
+  },
+  "start": "शुरू करो",
+  "@start": {
+    "description": "क्रिया या सत्र शुरू करां खातर बटन पाठ."
+  },
+  "unsubscribe": "सब्सक्रिप्शन रद्द करो",
+  "@unsubscribe": {
+    "description": "कोठा या नोटिफिकेशन रो सब्सक्रिप्शन रद्द करां खातर बटन पाठ."
+  },
+  "subscribe": "सब्सक्रिप्शन लो",
+  "@subscribe": {
+    "description": "कोठा या नोटिफिकेशन रो सब्सक्रिप्शन लेवां खातर बटन पाठ."
+  },
+  "storyCategory": "{category, select, drama{नाटक} comedy{हास्य} horror{डरावनी} romance{प्रेम} thriller{रोमांच} spiritual{आध्यात्मिक} other{अन्य}}",
+  "@storyCategory": {
+    "description": "कुंजी अनुसार कहानी री श्रेणी चुने.",
+    "placeholders": {
+      "category": {
+        "type": "String",
+        "example": "नाटक"
+      }
+    }
+  },
+  "chooseTheme": "{category, select, classicTheme{क्लासिक} timeTheme{टाइम} vintageTheme{विंटेज} amberTheme{एम्बर} forestTheme{जंगल} creamTheme{क्रीम} other{अन्य}}",
+  "@chooseTheme": {
+    "description": "कुंजी अनुसार सही थीम चुने.",
+    "placeholders": {
+      "category": {
+        "type": "String",
+        "example": "क्लासिक"
+      }
+    }
+  },
+  "minutesAgo": "{count, plural, =1{१ मिनट पहले} other{{count} मिनट पहले}}",
+  "@minutesAgo": {
+    "description": "मिनट में सापेक्ष समय दर्शावे.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count, plural, =1{१ घंटा पहले} other{{count} घंटे पहले}}",
+  "@hoursAgo": {
+    "description": "घंटे में सापेक्ष समय दर्शावे.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "daysAgo": "{count, plural, =1{१ दिन पहले} other{{count} दिन पहले}}",
+  "@daysAgo": {
+    "description": "दिन में सापेक्ष समय दर्शावे.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "by": "द्वारा",
+  "@by": {
+    "description": "सामान्य पूर्वसर्ग, सामग्री शीर्षक और लेखक नाम बीच."
+  },
+  "likes": "पसंद",
+  "@likes": {
+    "description": "पसंद संख्या रो लेबल."
+  },
+  "lengthMinutes": "मिनट",
+  "@lengthMinutes": {
+    "description": "'मिनट' रो संक्षेप, ऑडियो लंबाई दिखावां खातर."
+  },
+  "requiredField": "जरूरी फील्ड",
+  "@requiredField": {
+    "description": "अनिवार्य फील्ड खाली छोड़ने पर त्रुटि संदेश."
+  },
+  "onlineUsers": "ऑनलाइन उपयोगकर्ता",
+  "@onlineUsers": {
+    "description": "वर्तमान ऑनलाइन उपयोगकर्ता सूची रो हेडर."
+  },
+  "noOnlineUsers": "अभी कोई उपयोगकर्ता ऑनलाइन नहीं है",
+  "@noOnlineUsers": {
+    "description": "कोई भी उपयोगकर्ता ऑनलाइन नहीं होवे पर संदेश."
+  },
+  "chooseUser": "चैट करां खातर उपयोगकर्ता चुनो",
+  "@chooseUser": {
+    "description": "चैट शुरू करां खातर उपयोगकर्ता चुनने रो निर्देशक पाठ."
+  },
+  "quickMatch": "फास्ट मैच",
+  "@quickMatch": {
+    "description": "यादृच्छिक चैट साथी के साथ फास्ट मैच बटन पाठ."
+  },
+  "story": "कहानी",
+  "@story": {
+    "description": "कहानी रो लेबल."
+  },
+  "user": "उपयोगकर्ता",
+  "@user": {
+    "description": "उपयोगकर्ता रो लेबल."
+  },
+  "following": "अनुसरण कर रयो",
+  "@following": {
+    "description": "उपयोगकर्ता जो वर्तमान में अनुसरण हो रयो उनकी सूची रो लेबल."
+  },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  "followers": "अनुयायी",
+  "@followers": {
+    "description": "उपयोगकर्ता ज्यारा वर्तमान उपयोगकर्ता ने फॉलो कर रयो उनकी सूची रो लेबल."
+  },
+  "friendRequests": "मित्र विनंतियाँ",
+  "@friendRequests": {
+    "description": "आवणारी मित्र विनंतियों री सूची रो हेडर."
+  },
+  "friendRequestSent": "मित्र विनंती भेजी",
+  "@friendRequestSent": {
+    "description": "मित्र विनंती भेजने पाछे पुष्टीकरण संदेश रो शीर्षक."
+  },
+  "friendRequestSentTo": "आपरी मित्र विनंती {username} ने भेजी गई है.",
+  "@friendRequestSentTo": {
+    "description": "विशिष्ट उपयोगकर्ता ने मित्र विनंती भेजने पाछे पुष्टीकरण संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
+  },
+  "friendRequestCancelled": "मित्र विनंती रद्द",
+  "@friendRequestCancelled": {
+    "description": "मित्र विनंती रद्द करणे पाछे पुष्टीकरण संदेश रो शीर्षक."
+  },
+  "friendRequestCancelledTo": "आपरी मित्र विनंती {username} ने रद्द करी गई है.",
+  "@friendRequestCancelledTo": {
+    "description": "विशिष्ट उपयोगकर्ता ने मित्र विनंती रद्द करणे पाछे पुष्टीकरण संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
+  },
+  "requested": "विनंती करी",
+  "@requested": {
+    "description": "बटन स्थिति लेबल जो सूचित करे कि मित्र विनंती भेजी गई है."
+  },
+  "friends": "मित्र",
+  "@friends": {
+    "description": "स्थिति लेबल या मित्र सूची रो हेडर."
+  },
+  "addFriend": "मित्र जोड़ो",
+  "@addFriend": {
+    "description": "मित्र विनंती भेजने खातर बटन पाठ."
+  },
+  "friendRequestAccepted": "मित्र विनंती स्वीकार करी",
+  "@friendRequestAccepted": {
+    "description": "मित्र विनंती स्वीकारणे पाछे पुष्टीकरण संदेश रो शीर्षक."
+  },
+  "friendRequestAcceptedTo": "आप अब {username} स्यूं मित्र हो.",
+  "@friendRequestAcceptedTo": {
+    "description": "विशिष्ट उपयोगकर्ता स्यूं मित्र विनंती स्वीकारण पाछे पुष्टीकरण संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
+  },
+  "friendRequestDeclined": "मित्र विनंती नकार दी",
+  "@friendRequestDeclined": {
+    "description": "मित्र विनंती नकारणे पाछे पुष्टीकरण संदेश रो शीर्षक."
+  },
+  "friendRequestDeclinedTo": "आपने {username} कडून मित्र विनंती नकार दी है.",
+  "@friendRequestDeclinedTo": {
+    "description": "विशिष्ट उपयोगकर्ता कडून मित्र विनंती नकारणे पाछे पुष्टीकरण संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
+  },
+  "accept": "स्वीकारो",
+  "@accept": {
+    "description": "विनंती या निमंत्रण स्वीकारणे खातर बटन पाठ."
+  },
+  "callDeclined": "कॉल नकार दी",
+  "@callDeclined": {
+    "description": "कॉल नकारे पाछे संदेश रो शीर्षक."
+  },
+  "callDeclinedTo": "उपयोगकर्ता {username} ने कॉल नकार दी.",
+  "@callDeclinedTo": {
+    "description": "विशिष्ट उपयोगकर्ता कॉल नकारे रो संदेश.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
+  },
+  "checkForUpdates": "अपडेट जांचो",
+  "@checkForUpdates": {
+    "description": "एप्लिकेशन अपडेट जांचण खातर बटन पाठ."
+  },
+  "updateNow": "अभी अपडेट करो",
+  "@updateNow": {
+    "description": "अपडेट प्रक्रिया शुरू करणे खातर बटन पाठ."
+  },
+  "updateLater": "पाछे",
+  "@updateLater": {
+    "description": "अपडेट बाद में करणे खातर बटन पाठ."
+  },
+  "updateSuccessful": "अपडेट सफल",
+  "@updateSuccessful": {
+    "description": "अपडेट पाछे सफल संदेश रो शीर्षक."
+  },
+  "updateSuccessfulMessage": "रेजोनेट सफलतापूर्वक अपडेट करी गई है!",
+  "@updateSuccessfulMessage": {
+    "description": "एप्लिकेशन अपडेट सफल होण रो पुष्टी करण रो संदेश."
+  },
+  "updateCancelled": "अपडेट रद्द",
+  "@updateCancelled": {
+    "description": "अपडेट रद्द करणे पाछे संदेश रो शीर्षक."
+  },
+  "updateCancelledMessage": "अपडेट उपयोगकर्ता द्वारा रद्द करी गई",
+  "@updateCancelledMessage": {
+    "description": "उपयोगकर्ता अपडेट प्रक्रिया रद्द करी हुई संदेश."
+  },
+  "updateFailed": "अपडेट अयोग्य",
+  "@updateFailed": {
+    "description": "अपडेट अयोग्य होणे पाछे संदेश रो शीर्षक."
+  },
+  "updateFailedMessage": "अपडेट अयोग्य. कृपया Play Store सूं अपडेट करो.",
+  "@updateFailedMessage": {
+    "description": "इन-ऐप अपडेट अयोग्य होणे पाछे त्रुटि संदेश, मैनुअल अपडेट सुझावे."
+  },
+  "updateError": "अपडेट त्रुटि",
+  "@updateError": {
+    "description": "अपडेट-संबंधित त्रुटि रो सामान्य शीर्षक."
+  },
+  "updateErrorMessage": "अपडेट करताना त्रुटि हुई. कृपया पुनः प्रयास करो.",
+  "@updateErrorMessage": {
+    "description": "अपडेट अयोग्य होणे पाछे अज्ञात त्रुटि संदेश."
+  },
+  "platformNotSupported": "प्लेटफॉर्म समर्थित नहीं",
+  "@platformNotSupported": {
+    "description": "एक फीचर वर्तमान प्लेटफॉर्म पर समर्थित नहीं होणे पर त्रुटि शीर्षक."
+  },
+  "platformNotSupportedMessage": "अपडेट जांच केवल Android डिवाइस पर उपलब्ध है",
+  "@platformNotSupportedMessage": {
+    "description": "इन-ऐप अपडेट फीचर प्लेटफॉर्म-विशेष हे स्पष्ट करे."
+  },
+  "updateCheckFailed": "अपडेट जांच अयोग्य",
+  "@updateCheckFailed": {
+    "description": "एप्लिकेशन अपडेट जांच अयोग्य होणे पाछे त्रुटि शीर्षक."
+  },
+  "updateCheckFailedMessage": "अपडेट जांच नहीं कर सकत. कृपया बाद में प्रयास करो.",
+  "@updateCheckFailedMessage": {
+    "description": "अपडेट जांच प्रक्रिया अयोग्य होणे पाछे त्रुटि संदेश."
+  },
+  "upToDateTitle": "आप अद्यावधिक हो!",
+  "@upToDateTitle": {
+    "description": "एप्लिकेशन पहले से अपडेट होणे पाछे संदेश शीर्षक."
+  },
+  "upToDateMessage": "आप रेजोनेट रो नवीनतम संस्करण उपयोग कर रयो हो",
+  "@upToDateMessage": {
+    "description": "कोई अपडेट आवश्यक नहीं होणे रो पुष्टी संदेश."
+  },
+  "updateAvailableTitle": "अपडेट उपलब्ध!",
+  "@updateAvailableTitle": {
+    "description": "नवीन अपडेट बारे में उपयोगकर्ता सूचित करे संवाद शीर्षक."
+  },
+  "updateAvailableMessage": "रेजोनेट रो नवीनतम संस्करण Play Store पर उपलब्ध है",
+  "@updateAvailableMessage": {
+    "description": "उपयोगकर्ता ने Play Store सूं एप्लिकेशन अपडेट करणे रो संदेश."
+  },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+  "updateFeaturesImprovement": "नवीन फीचर्स और सुधार पावो!",
+  "@updateFeaturesImprovement": {
+    "description": "एप्लिकेशन अपडेट करने का लाभ हाईलाइट करणो संदेश."
+  },
+  "alert": "सतर्क",
+  "@alert": {
+    "description": "सतर्क संवाद रो शीर्षक."
+  },
+  "removedFromRoom": "आपने रिपोर्ट की गई या कमरे सूं हटायो गयो",
+  "@removedFromRoom": {
+    "description": "जब उपयोगकर्ता ने कमरे सूं हटायो जाय या रिपोर्ट करियो जाय, संदेश."
+  },
+  "reportType": "{type, select, harassment{उत्पीडन / द्वेष भाषण} abuse{अपमानजनक सामग्री / हिंसा} spam{स्पॅम / घोटाळा / धोखाधड़ी} impersonation{झूठी पहचान / खोटा खाता} illegal{अवैध गतिविधि} selfharm{आत्महानि / मानसिक स्वास्थ्य} misuse{मंच का दुरुपयोग} other{अन्य}}",
+  "@reportType": {
+    "description": "कुंजी के आधार पर उचित रिपोर्ट प्रकार लेबल चुनो.",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "उत्पीडन"
+      }
+    }
+  },
+  "userBlockedFromResonate": "आपको कई रिपोर्ट मिली हैं और आपको रेजोनेट उपयोग करने से ब्लॉक कर दी गई है. अगर आप विश्वास नहीं करते, तो AOSSIE सूं संपर्क करो.",
+  "@userBlockedFromResonate": {
+    "description": "जब उपयोगकर्ता ने रेजोनेट उपयोग करने से ब्लॉक कर दी जाय, संदेश."
+  },
+  "reportParticipant": "सहभागी रिपोर्ट करो",
+  "@reportParticipant": {
+    "description": "सहभागी की रिपोर्ट करने का बटन लेबल."
+  },
+  "selectReportType": "कृपया रिपोर्ट प्रकार चुनो",
+  "@selectReportType": {
+    "description": "उपयोगकर्ता ने रिपोर्ट प्रकार चुनने के लिए प्रॉम्प्ट."
+  },
+  "reportSubmitted": "रिपोर्ट सफलतापूर्वक सबमिट की गई",
+  "@reportSubmitted": {
+    "description": "रिपोर्ट सफलतापूर्वक सबमिट हुई संदेश."
+  },
+  "reportFailed": "रिपोर्ट सबमिशन अयोग्य",
+  "@reportFailed": {
+    "description": "रिपोर्ट सबमिशन अयोग्य होने पर संदेश."
+  },
+  "additionalDetailsOptional": "अतिरिक्त विवरण (वैकल्पिक)",
+  "@additionalDetailsOptional": {
+    "description": "रिपोर्ट में अतिरिक्त विवरण के लिए वैकल्पिक इनपुट फील्ड लेबल."
+  },
+  "submitReport": "रिपोर्ट सबमिट करो",
+  "@submitReport": {
+    "description": "रिपोर्ट सबमिट करने का बटन पाठ."
+  },
+  "actionBlocked": "क्रिया ब्लॉक की गई",
+  "@actionBlocked": {
+    "description": "उपयोगकर्ता क्रिया ब्लॉक की गई संदेश शीर्षक."
+  },
+  "cannotStopRecording": "आप रिकॉर्डिंग रोक नहीं सकते, कमरे बंद होते ही रिकॉर्डिंग बंद हो जाएगी.",
+  "@cannotStopRecording": {
+    "description": "संदेश जो बतावै कि उपयोगकर्ता रिकॉर्डिंग क्यों रोक नहीं सकते."
+  },
+  "liveChapter": "लाइव अध्याय",
+  "@liveChapter": {
+    "description": "अध्याय वर्तमान में लाइव है लेबल."
+  },
+  "viewOrEditLyrics": "गीत देखो या संपादित करो",
+  "@viewOrEditLyrics": {
+    "description": "अध्याय का गीत देखने या संपादित करने का बटन पाठ."
+  },
+  "close": "बंद करो",
+  "@close": {
+    "description": "संवाद बंद करने का बटन लेबल."
+  },
+  "verifyChapterDetails": "अध्याय विवरण सत्यापित करो",
+  "@verifyChapterDetails": {
+    "description": "प्रकाशित करने से पहले लाइव अध्याय विवरण सत्यापित करने वाली स्क्रीन शीर्षक."
+  },
+  "author": "लेखक",
+  "@author": {
+    "description": "कथा या अध्याय लेखक लेबल."
+  },
+  "startLiveChapter": "लाइव अध्याय शुरू करो",
+  "@startLiveChapter": {
+    "description": "लाइव अध्याय शुरू करने वाली स्क्रीन शीर्षक."
+  },
+  "fillAllFields": "कृपया सभी आवश्यक फील्ड भरो",
+  "@fillAllFields": {
+    "description": "फॉर्म में आवश्यक फील्ड न भरने पर त्रुटि संदेश."
+  },
+  "noRecordingError": "आपने अध्याय के लिए कोई रिकॉर्डिंग नहीं की है. कमरे बंद होने से पहले कृपया रिकॉर्डिंग करो",
+  "@noRecordingError": {
+    "description": "जब उपयोगकर्ता बिना रिकॉर्डिंग किये लाइव अध्याय बंद करने की कोशिश करे तो त्रुटि संदेश."
+  },
+  "deleteMessageTitle": "संदेश हटाओ",
+  "@deleteMessageTitle": {
+    "description": "Delete message पुष्टी संवाद शीर्षक."
+  },
+  "deleteMessageContent": "क्या आप वाकई यह संदेश हटाना चाहते हो?",
+  "@deleteMessageContent": {
+    "description": "उपयोगकर्ता से पुष्टीकरण पूछे कि वह संदेश हटाना चाहता है या नहीं."
+  }
+}
