@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
+import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_chat_page.dart';
 import 'package:resonate/features/live_audio/view/widgets/audio_selector_dialog.dart';
@@ -16,11 +17,6 @@ class RoomPage extends ConsumerWidget {
   const RoomPage({super.key, required this.room});
 
   final AppwriteRoom room;
-
-  String _formatTags() {
-    if (room.tags.isEmpty) return '';
-    return room.tags.join(' · ');
-  }
 
   Future<bool> _confirmLeaveOrDelete(
     BuildContext context,
@@ -53,7 +49,9 @@ class RoomPage extends ConsumerWidget {
       if (next.value?.wasKicked ?? false) {
         final navigator = Navigator.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.removedFromRoom)),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.removedFromRoom),
+          ),
         );
         if (navigator.canPop()) navigator.pop();
       }
@@ -65,16 +63,16 @@ class RoomPage extends ConsumerWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SessionAppBar(),
+          const SessionAppBar(icon: Icons.arrow_back),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
             child: SessionHeader(
               title: room.name,
               description: room.description,
-              tags: _formatTags(),
+              tags: room.tags,
             ),
           ),
-          SizedBox(height: UiSizes.height_7),
+          SizedBox(height: UiSizes.height_16),
           Expanded(
             child: asyncState.when(
               loading: () => Center(
@@ -114,54 +112,70 @@ class _RoomBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final participants = state?.participants ?? const [];
+    final participants = state?.participants ?? const <Participant>[];
+    final hosts = participants.where((p) => p.isAdmin).toList();
+    final others = participants.where((p) => !p.isAdmin).toList();
 
     return Stack(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Theme.of(
-              context,
-            ).colorScheme.onSecondary.withValues(alpha: 0.15),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(UiSizes.width_16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.participants,
-                style: TextStyle(
-                  fontSize: UiSizes.size_18,
-                  fontWeight: FontWeight.bold,
+        if (participants.isEmpty)
+          _NoParticipantsView()
+        else
+          CustomScrollView(
+            slivers: [
+              for (final host in hosts)
+                SliverPadding(
+                  padding: sectionPadding,
+                  sliver: SliverToBoxAdapter(
+                    child: ParticipantBlock(
+                      room: room,
+                      participant: host,
+                      featured: true,
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(height: UiSizes.height_10),
-              Expanded(
-                child: participants.isEmpty
-                    ? _NoParticipantsView()
-                    : GridView.builder(
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: UiSizes.width_20,
-                          mainAxisSpacing: UiSizes.height_5,
-                          childAspectRatio: 2.5 / 3,
-                        ),
-                        itemCount: participants.length,
-                        itemBuilder: (_, index) => ParticipantBlock(
-                          room: room,
-                          participant: participants[index],
-                        ),
-                      ),
-              ),
+              _ParticipantGrid(room: room, participants: others),
+              // Clearance so the last row is not trapped under the controls.
+              SliverToBoxAdapter(child: SizedBox(height: UiSizes.height_131)),
             ],
           ),
-        ),
         _Footer(room: room, onConfirm: onConfirm),
       ],
+    );
+  }
+
+  static EdgeInsets get sectionPadding => EdgeInsets.fromLTRB(
+    UiSizes.width_16,
+    0,
+    UiSizes.width_16,
+    UiSizes.height_10,
+  );
+}
+
+class _ParticipantGrid extends StatelessWidget {
+  const _ParticipantGrid({required this.room, required this.participants});
+
+  final AppwriteRoom room;
+  final List<Participant> participants;
+
+  @override
+  Widget build(BuildContext context) {
+    if (participants.isEmpty) {
+      return const SliverToBoxAdapter(child: SizedBox.shrink());
+    }
+    return SliverPadding(
+      padding: _RoomBody.sectionPadding,
+      sliver: SliverGrid.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: UiSizes.width_8,
+          mainAxisSpacing: UiSizes.height_8,
+          childAspectRatio: 0.79,
+        ),
+        itemCount: participants.length,
+        itemBuilder: (_, index) =>
+            ParticipantBlock(room: room, participant: participants[index]),
+      ),
     );
   }
 }
@@ -197,6 +211,47 @@ class _NoParticipantsView extends StatelessWidget {
   }
 }
 
+// One circular control in the floating room toolbar.
+class _RoundAction extends StatelessWidget {
+  const _RoundAction({
+    required this.icon,
+    required this.background,
+    required this.foreground,
+    this.onTap,
+    this.diameter,
+  });
+
+  final IconData icon;
+  final Color background;
+  final Color foreground;
+  final VoidCallback? onTap;
+
+  final double? diameter;
+
+  @override
+  Widget build(BuildContext context) {
+    final diameter = this.diameter ?? UiSizes.width_56;
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: UiSizes.width_5),
+      child: Material(
+        color: background,
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: SizedBox(
+            width: diameter,
+            height: diameter,
+            child: Center(
+              child: Icon(icon, size: UiSizes.size_26, color: foreground),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _Footer extends ConsumerWidget {
   const _Footer({required this.room, required this.onConfirm});
 
@@ -208,110 +263,116 @@ class _Footer extends ConsumerWidget {
     final state = ref.watch(roomSessionProvider(room)).value;
     if (state == null) return const SizedBox.shrink();
 
+    final scheme = Theme.of(context).colorScheme;
+    final neutral = scheme.surfaceContainerHighest;
+    final onNeutral = scheme.onSurface;
+
     return Align(
       alignment: Alignment.bottomCenter,
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.07,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadiusDirectional.circular(24),
-          color: Theme.of(context).colorScheme.surface,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // Leave / delete
-            ElevatedButton(
-              onPressed: () async {
-                final actionLabel = room.isUserAdmin
-                    ? AppLocalizations.of(context)!.delete
-                    : AppLocalizations.of(context)!.leave;
-                final navigator = Navigator.of(context);
-                final confirmed = await onConfirm(context, actionLabel);
-                if (!confirmed) return;
+      child: Padding(
+        padding: EdgeInsets.only(bottom: UiSizes.height_16),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: UiSizes.width_10,
+            vertical: UiSizes.height_10,
+          ),
+          decoration: BoxDecoration(
+            color: scheme.secondary,
+            borderRadius: BorderRadius.circular(UiSizes.width_56),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.25),
+                blurRadius: UiSizes.width_10,
+                offset: Offset(0, UiSizes.height_2),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Leave / delete
+              _RoundAction(
+                icon: Icons.call_end,
+                diameter: UiSizes.width_66,
+                background: scheme.error,
+                foreground: scheme.onError,
+                onTap: () async {
+                  final actionLabel = room.isUserAdmin
+                      ? AppLocalizations.of(context)!.delete
+                      : AppLocalizations.of(context)!.leave;
+                  final navigator = Navigator.of(context);
+                  final confirmed = await onConfirm(context, actionLabel);
+                  if (!confirmed) return;
 
-                final notifier =
-                    ref.read(roomSessionProvider(room).notifier);
-                try {
-                  if (room.isUserAdmin) {
-                    await notifier.deleteRoom(room);
-                  } else {
-                    await notifier.leaveRoom(room);
-                  }
-                } finally {
-                  // Always close the sheet, even if teardown throws.
-                  if (navigator.canPop()) navigator.pop();
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.error,
-                foregroundColor: Theme.of(context).colorScheme.onError,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Icon(Icons.call_end, size: UiSizes.size_24),
-            ),
-            // Mic
-            FloatingActionButton(
-              onPressed: state.me.isSpeaker
-                  ? () {
-                      final notifier =
-                          ref.read(roomSessionProvider(room).notifier);
-                      if (state.me.isMicOn) {
-                        notifier.turnOffMic(room);
-                      } else {
-                        notifier.turnOnMic(room);
-                      }
+                  final notifier = ref.read(roomSessionProvider(room).notifier);
+                  try {
+                    if (room.isUserAdmin) {
+                      await notifier.deleteRoom(room);
+                    } else {
+                      await notifier.leaveRoom(room);
                     }
-                  : null,
-              backgroundColor: !state.me.isSpeaker
-                  ? Colors.grey
-                  : (state.me.isMicOn ? Colors.lightGreen : Colors.redAccent),
-              child: Icon(
-                state.me.isMicOn ? Icons.mic : Icons.mic_off,
-                color: Colors.black,
+                  } finally {
+                    // Always close the sheet, even if teardown throws.
+                    if (navigator.canPop()) navigator.pop();
+                  }
+                },
               ),
-            ),
-            // Raise hand
-            FloatingActionButton(
-              onPressed: () {
-                final notifier = ref.read(roomSessionProvider(room).notifier);
-                if (state.me.hasRequestedToBeSpeaker) {
-                  notifier.unRaiseHand(room);
-                } else {
-                  notifier.raiseHand(room);
-                }
-              },
-              backgroundColor: state.me.hasRequestedToBeSpeaker
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).brightness == Brightness.light
-                      ? Colors.white
-                      : Colors.black54,
-              child: Icon(
-                state.me.hasRequestedToBeSpeaker
+              // Mic
+              _RoundAction(
+                icon: state.me.isMicOn ? Icons.mic : Icons.mic_off,
+                background: state.me.isMicOn ? scheme.primary : neutral,
+                foreground: state.me.isMicOn
+                    ? scheme.onPrimary
+                    : onNeutral.withValues(alpha: state.me.isSpeaker ? 1 : 0.4),
+                onTap: state.me.isSpeaker
+                    ? () {
+                        final notifier = ref.read(
+                          roomSessionProvider(room).notifier,
+                        );
+                        if (state.me.isMicOn) {
+                          notifier.turnOffMic(room);
+                        } else {
+                          notifier.turnOnMic(room);
+                        }
+                      }
+                    : null,
+              ),
+              // Raise hand
+              _RoundAction(
+                icon: state.me.hasRequestedToBeSpeaker
                     ? Icons.back_hand
                     : Icons.back_hand_outlined,
-                color: state.me.hasRequestedToBeSpeaker
-                    ? Colors.black
-                    : Theme.of(context).brightness == Brightness.light
-                        ? Colors.black
-                        : Colors.white54,
+                background: state.me.hasRequestedToBeSpeaker
+                    ? scheme.primary
+                    : neutral,
+                foreground: state.me.hasRequestedToBeSpeaker
+                    ? scheme.onPrimary
+                    : onNeutral,
+                onTap: () {
+                  final notifier = ref.read(roomSessionProvider(room).notifier);
+                  if (state.me.hasRequestedToBeSpeaker) {
+                    notifier.unRaiseHand(room);
+                  } else {
+                    notifier.raiseHand(room);
+                  }
+                },
               ),
-            ),
-            // Audio settings
-            FloatingActionButton(
-              onPressed: () => showAudioDeviceSelector(context),
-              backgroundColor: Theme.of(context).colorScheme.onSecondary,
-              child: const Icon(Icons.volume_up),
-            ),
-            // Chat
-            FloatingActionButton(
-              onPressed: () => openLiveRoomChatSheet(context, room),
-              backgroundColor: Colors.redAccent,
-              child: const Icon(Icons.chat, color: Colors.black),
-            ),
-          ],
+              // Audio settings
+              _RoundAction(
+                icon: Icons.volume_up,
+                background: neutral,
+                foreground: onNeutral,
+                onTap: () => showAudioDeviceSelector(context),
+              ),
+              // Chat
+              _RoundAction(
+                icon: Icons.chat,
+                background: neutral,
+                foreground: onNeutral,
+                onTap: () => openLiveRoomChatSheet(context, room),
+              ),
+            ],
+          ),
         ),
       ),
     );
