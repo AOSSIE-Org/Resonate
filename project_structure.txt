@@ -258,6 +258,40 @@
 │   │       │   └── room_join_service.g.dart
 │   │       └── room_join_service.dart
 │   ├── features
+│   │   ├── achievements
+│   │   │   ├── data
+│   │   │   │   ├── badge_catalogue.dart
+│   │   │   │   ├── badge_showcase.dart
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── badge_catalogue.g.dart
+│   │   │   │   │   ├── badge_showcase.g.dart
+│   │   │   │   │   ├── my_stats.g.dart
+│   │   │   │   │   └── user_stats_provider.g.dart
+│   │   │   │   ├── my_stats.dart
+│   │   │   │   ├── repositories
+│   │   │   │   │   ├── achievements_repository.dart
+│   │   │   │   │   └── generated
+│   │   │   │   │       └── achievements_repository.g.dart
+│   │   │   │   ├── services
+│   │   │   │   │   ├── activity_recorder.dart
+│   │   │   │   │   └── generated
+│   │   │   │   │       └── activity_recorder.g.dart
+│   │   │   │   └── user_stats_provider.dart
+│   │   │   ├── model
+│   │   │   │   ├── achievement_badge.dart
+│   │   │   │   ├── badge_category.dart
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── achievement_badge.freezed.dart
+│   │   │   │   │   └── user_stats.freezed.dart
+│   │   │   │   ├── known_badge.dart
+│   │   │   │   └── user_stats.dart
+│   │   │   └── view
+│   │   │       └── widgets
+│   │   │           ├── achievements_sheet.dart
+│   │   │           ├── badge_celebration.dart
+│   │   │           ├── badge_mark.dart
+│   │   │           ├── badge_pill.dart
+│   │   │           └── badge_visuals.dart
 │   │   ├── activity_status
 │   │   │   ├── data
 │   │   │   │   ├── generated
@@ -643,6 +677,7 @@
 │   │   │       └── story_detail_notifier.dart
 │   │   └── theme
 │   │       ├── model
+│   │       │   ├── achievement_colors.dart
 │   │       │   ├── activity_status_colors.dart
 │   │       │   ├── theme_enums.dart
 │   │       │   ├── theme_list.dart
@@ -739,6 +774,19 @@
 │   │       ├── execute_function_test.dart
 │   │       └── execute_function_test.mocks.dart
 │   ├── features
+│   │   ├── achievements
+│   │   │   ├── data
+│   │   │   │   ├── activity_recorder_test.dart
+│   │   │   │   ├── badge_catalogue_test.dart
+│   │   │   │   ├── badge_showcase_test.dart
+│   │   │   │   └── my_stats_test.dart
+│   │   │   ├── fake_achievements_repository.dart
+│   │   │   ├── model
+│   │   │   │   ├── achievement_badge_test.dart
+│   │   │   │   └── user_stats_test.dart
+│   │   │   └── view
+│   │   │       ├── achievements_sheet_test.dart
+│   │   │       └── badge_widgets_test.dart
 │   │   ├── activity_status
 │   │   │   ├── activity_status_test_helpers.dart
 │   │   │   ├── data
@@ -824,6 +872,7 @@
 │   │   │   │   ├── room_chat_test.dart
 │   │   │   │   ├── room_polls_repository_test.dart
 │   │   │   │   ├── room_polls_test.dart
+│   │   │   │   ├── room_session_credit_test.dart
 │   │   │   │   ├── rooms_repository_test.dart
 │   │   │   │   ├── rooms_repository_test.mocks.dart
 │   │   │   │   ├── upcoming_rooms_repository_test.dart
@@ -874,6 +923,7 @@
 │   │   │       ├── story_detail_notifier_test.dart
 │   │   │       └── whisper_model_notifier_test.dart
 │   │   └── theme
+│   │       ├── achievement_colors_test.dart
 │   │       └── activity_status_colors_test.dart
 │   ├── helpers
 │   │   ├── pump_widget.dart
@@ -888,4 +938,4 @@
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-227 directories, 662 files
+242 directories, 697 files
