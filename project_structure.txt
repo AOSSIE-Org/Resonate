@@ -232,9 +232,10 @@
 │   │   │   │   └── get_storage_provider.g.dart
 │   │   │   └── get_storage_provider.dart
 │   │   └── services
-│   │       ├── api_service.dart
-│   │       └── generated
-│   │           └── api_service.g.dart
+│   │       ├── execute_function.dart
+│   │       ├── generated
+│   │       │   └── room_join_service.g.dart
+│   │       └── room_join_service.dart
 │   ├── features
 │   │   ├── auth
 │   │   │   ├── auth_routes.dart
@@ -380,17 +381,24 @@
 │   │   │   ├── data
 │   │   │   │   ├── generated
 │   │   │   │   │   ├── live_rooms.g.dart
-│   │   │   │   │   └── upcoming_rooms.g.dart
+│   │   │   │   │   ├── room_chat.g.dart
+│   │   │   │   │   ├── room_polls.g.dart
+│   │   │   │   │   ├── upcoming_rooms.g.dart
+│   │   │   │   │   └── voter_profiles.g.dart
 │   │   │   │   ├── live_rooms.dart
 │   │   │   │   ├── livekit_join.dart
 │   │   │   │   ├── repositories
 │   │   │   │   │   ├── generated
 │   │   │   │   │   │   ├── room_chat_repository.g.dart
+│   │   │   │   │   │   ├── room_polls_repository.g.dart
 │   │   │   │   │   │   ├── rooms_repository.g.dart
 │   │   │   │   │   │   └── upcoming_rooms_repository.g.dart
 │   │   │   │   │   ├── room_chat_repository.dart
+│   │   │   │   │   ├── room_polls_repository.dart
 │   │   │   │   │   ├── rooms_repository.dart
 │   │   │   │   │   └── upcoming_rooms_repository.dart
+│   │   │   │   ├── room_chat.dart
+│   │   │   │   ├── room_polls.dart
 │   │   │   │   ├── services
 │   │   │   │   │   ├── audio_device_service.dart
 │   │   │   │   │   ├── generated
@@ -399,7 +407,8 @@
 │   │   │   │   │   ├── livekit_controller.dart
 │   │   │   │   │   ├── livekit_session.dart
 │   │   │   │   │   └── room_launcher.dart
-│   │   │   │   └── upcoming_rooms.dart
+│   │   │   │   ├── upcoming_rooms.dart
+│   │   │   │   └── voter_profiles.dart
 │   │   │   ├── model
 │   │   │   │   ├── appwrite_room.dart
 │   │   │   │   ├── appwrite_upcoming_room.dart
@@ -412,20 +421,27 @@
 │   │   │   │   │   ├── livekit_state.freezed.dart
 │   │   │   │   │   ├── participant.freezed.dart
 │   │   │   │   │   ├── participant.g.dart
+│   │   │   │   │   ├── poll.freezed.dart
+│   │   │   │   │   ├── poll.g.dart
+│   │   │   │   │   ├── poll_vote.freezed.dart
+│   │   │   │   │   ├── poll_vote.g.dart
 │   │   │   │   │   ├── reply_to.freezed.dart
 │   │   │   │   │   ├── reply_to.g.dart
-│   │   │   │   │   ├── room_chat_state.freezed.dart
 │   │   │   │   │   ├── room_failure.freezed.dart
 │   │   │   │   │   ├── room_message.freezed.dart
 │   │   │   │   │   ├── room_message.g.dart
+│   │   │   │   │   ├── room_polls_state.freezed.dart
 │   │   │   │   │   └── single_room_state.freezed.dart
 │   │   │   │   ├── livekit_state.dart
 │   │   │   │   ├── participant.dart
+│   │   │   │   ├── poll.dart
+│   │   │   │   ├── poll_vote.dart
 │   │   │   │   ├── reply_to.dart
-│   │   │   │   ├── room_chat_state.dart
 │   │   │   │   ├── room_failure.dart
 │   │   │   │   ├── room_message.dart
-│   │   │   │   └── single_room_state.dart
+│   │   │   │   ├── room_polls_state.dart
+│   │   │   │   ├── single_room_state.dart
+│   │   │   │   └── voter_profile.dart
 │   │   │   ├── rooms_routes.dart
 │   │   │   ├── view
 │   │   │   │   ├── pages
@@ -434,9 +450,12 @@
 │   │   │   │   │   └── room_page.dart
 │   │   │   │   └── widgets
 │   │   │   │       ├── audio_selector_dialog.dart
+│   │   │   │       ├── create_poll_sheet.dart
 │   │   │   │       ├── live_room_tile.dart
+│   │   │   │       ├── message_status_indicator.dart
 │   │   │   │       ├── no_room_view.dart
 │   │   │   │       ├── participant_block.dart
+│   │   │   │       ├── poll_card.dart
 │   │   │   │       ├── search_rooms.dart
 │   │   │   │       └── upcoming_room_tile.dart
 │   │   │   └── viewmodel
@@ -636,6 +655,7 @@
 │       │   └── update_enums.dart
 │       ├── extensions
 │       │   └── datetime_extension.dart
+│       ├── realtime_event.dart
 │       ├── ui_sizes.dart
 │       └── utils.dart
 ├── packages
@@ -648,8 +668,8 @@
 │   │   └── feature_boundaries_test.dart
 │   ├── core
 │   │   └── services
-│   │       ├── api_service_test.dart
-│   │       └── api_service_test.mocks.dart
+│   │       ├── execute_function_test.dart
+│   │       └── execute_function_test.mocks.dart
 │   ├── features
 │   │   ├── auth
 │   │   │   ├── auth_test_helpers.dart
@@ -715,6 +735,9 @@
 │   │   │   │   ├── livekit_join_test.dart
 │   │   │   │   ├── room_chat_repository_test.dart
 │   │   │   │   ├── room_chat_repository_test.mocks.dart
+│   │   │   │   ├── room_chat_test.dart
+│   │   │   │   ├── room_polls_repository_test.dart
+│   │   │   │   ├── room_polls_test.dart
 │   │   │   │   ├── rooms_repository_test.dart
 │   │   │   │   ├── rooms_repository_test.mocks.dart
 │   │   │   │   ├── upcoming_rooms_repository_test.dart
@@ -722,16 +745,17 @@
 │   │   │   ├── rooms_test_helpers.dart
 │   │   │   ├── view
 │   │   │   │   ├── audio_selector_dialog_test.dart
+│   │   │   │   ├── create_poll_sheet_test.dart
 │   │   │   │   ├── create_room_page_test.dart
 │   │   │   │   ├── live_room_tile_test.dart
 │   │   │   │   ├── participant_block_test.dart
+│   │   │   │   ├── poll_card_test.dart
 │   │   │   │   ├── room_chat_page_test.dart
 │   │   │   │   ├── room_page_test.dart
 │   │   │   │   ├── search_rooms_test.dart
 │   │   │   │   └── upcoming_room_tile_test.dart
 │   │   │   └── viewmodel
 │   │   │       ├── create_room_notifier_test.dart
-│   │   │       ├── room_chat_notifier_test.dart
 │   │   │       └── upcoming_rooms_notifier_test.dart
 │   │   ├── settings
 │   │   │   ├── about_app_notifier_test.dart
@@ -763,8 +787,10 @@
 │   ├── helpers
 │   │   ├── test_root_container.dart
 │   │   └── test_root_container.mocks.dart
-│   └── routes
-│       └── app_router_test.dart
+│   ├── routes
+│   │   └── app_router_test.dart
+│   └── utils
+│       └── realtime_event_test.dart
 └── untranslated.txt
 
-192 directories, 576 files
+193 directories, 601 files
