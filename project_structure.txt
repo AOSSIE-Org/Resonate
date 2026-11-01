@@ -946,6 +946,7 @@
 │   │   │   │   ├── room_chat_test.dart
 │   │   │   │   ├── room_polls_repository_test.dart
 │   │   │   │   ├── room_polls_test.dart
+│   │   │   │   ├── room_profile_update_test.dart
 │   │   │   │   ├── room_session_credit_test.dart
 │   │   │   │   ├── rooms_repository_test.dart
 │   │   │   │   ├── rooms_repository_test.mocks.dart
@@ -977,6 +978,9 @@
 │   │   │       ├── app_preferences_screen_test.dart
 │   │   │       ├── features_screen_test.dart
 │   │   │       └── settings_screen_test.dart
+│   │   ├── shell
+│   │   │   └── view
+│   │   │       └── home_screen_tabs_test.dart
 │   │   ├── stories
 │   │   │   ├── data
 │   │   │   │   ├── category_stories_test.dart
@@ -1017,4 +1021,4 @@
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-269 directories, 749 files
+271 directories, 751 files
