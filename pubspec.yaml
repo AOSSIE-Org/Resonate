@@ -46,7 +46,7 @@ dependencies:
   flutter_otp_text_field: ^1.5.1+1
   flutter_secure_storage: ^9.2.4
   flutter_speed_dial: ^7.0.0
-  flutter_svg: ^2.2.2
+  flutter_svg: ^2.3.2
   focused_menu: ^1.0.5
   font_awesome_flutter: ^10.12.0
   get_storage: ^2.1.1
@@ -76,9 +76,9 @@ dependencies:
     sdk: flutter
   freezed_annotation: ^3.1.0
   animated_rating_stars: ^1.0.1
-  flutter_callkit_incoming: ^3.0.0
+  flutter_callkit_incoming: ^3.1.6
   meilisearch: ^0.17.1
-  flutter_webrtc: ^1.2.0
+  flutter_webrtc: ^1.6.0
   path_provider: ^2.1.5
   whisper_flutter_new: ^1.0.1
   ffmpeg_kit_flutter_new: ^4.1.0
@@ -96,7 +96,7 @@ dev_dependencies:
   custom_lint: ^0.8.1
   flutter_lints: ^6.0.0
   # Build-time tool driven by flutter_native_splash.yaml (not imported by app code).
-  flutter_native_splash: ^2.4.7
+  flutter_native_splash: ^2.4.8
   flutter_test:
     sdk: flutter
 
