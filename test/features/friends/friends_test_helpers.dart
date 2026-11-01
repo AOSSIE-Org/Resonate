@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:network_image_mock/network_image_mock.dart';
+import 'package:resonate/features/achievements/model/user_stats.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
@@ -50,6 +51,8 @@ Future<void> pumpFriendsPage(
   List<Override> overrides = const [],
   ActivityStatus myStatus = ActivityStatus.online,
   Map<String, ActivityStatus> activityStatuses = const {},
+  UserStats myStats = UserStats.empty,
+  Map<String, UserStats> otherStats = const {},
 }) async {
   tester.view.physicalSize = const Size(1080, 2340);
   tester.view.devicePixelRatio = 3.0;
@@ -58,7 +61,11 @@ Future<void> pumpFriendsPage(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
-        ...activityStatusOverrides(myStatus: myStatus, others: activityStatuses),
+        ...activityStatusOverrides(
+          myStatus: myStatus,
+          others: activityStatuses,
+        ),
+        ...achievementOverrides(myStats: myStats, otherStats: otherStats),
         ...overrides,
       ],
       child: friendsTestApp(child),

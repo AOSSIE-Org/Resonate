@@ -8,6 +8,7 @@ class ActivityStatusColors extends ThemeExtension<ActivityStatusColors> {
     required this.inRoom,
     required this.invisible,
     required this.offline,
+    required this.onStatus,
   });
 
   final Color online;
@@ -15,6 +16,8 @@ class ActivityStatusColors extends ThemeExtension<ActivityStatusColors> {
   final Color inRoom;
   final Color invisible;
   final Color offline;
+  // Foreground for anything drawn on top of a status dot.
+  final Color onStatus;
 
   static const ActivityStatusColors light = ActivityStatusColors(
     online: Color(0xFF3BA55D),
@@ -22,6 +25,7 @@ class ActivityStatusColors extends ThemeExtension<ActivityStatusColors> {
     inRoom: Color(0xFFFAA81A),
     invisible: Color(0xFF80848E),
     offline: Color(0xFF80848E),
+    onStatus: Color(0xFFFFFFFF),
   );
 
   static const ActivityStatusColors dark = ActivityStatusColors(
@@ -30,8 +34,8 @@ class ActivityStatusColors extends ThemeExtension<ActivityStatusColors> {
     inRoom: Color(0xFFFAA61A),
     invisible: Color(0xFF949BA4),
     offline: Color(0xFF949BA4),
+    onStatus: Color(0xFFFFFFFF),
   );
-
 
   static ActivityStatusColors of(BuildContext context) {
     final theme = Theme.of(context);
@@ -46,6 +50,7 @@ class ActivityStatusColors extends ThemeExtension<ActivityStatusColors> {
     Color? inRoom,
     Color? invisible,
     Color? offline,
+    Color? onStatus,
   }) {
     return ActivityStatusColors(
       online: online ?? this.online,
@@ -53,6 +58,7 @@ class ActivityStatusColors extends ThemeExtension<ActivityStatusColors> {
       inRoom: inRoom ?? this.inRoom,
       invisible: invisible ?? this.invisible,
       offline: offline ?? this.offline,
+      onStatus: onStatus ?? this.onStatus,
     );
   }
 
@@ -68,6 +74,7 @@ class ActivityStatusColors extends ThemeExtension<ActivityStatusColors> {
       inRoom: Color.lerp(inRoom, other.inRoom, t)!,
       invisible: Color.lerp(invisible, other.invisible, t)!,
       offline: Color.lerp(offline, other.offline, t)!,
+      onStatus: Color.lerp(onStatus, other.onStatus, t)!,
     );
   }
 }

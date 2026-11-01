@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/features/achievements/data/badge_showcase.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
@@ -55,6 +57,7 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
         ? friendModel.recieverName
         : friendModel.senderName;
     final status = ref.watch(userActivityStatusProvider)[otherUid];
+    final worn = ref.watch(avatarBadgeProvider(otherUid));
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -78,6 +81,8 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
                 : friendModel.senderProfileImgUrl,
             status: status,
             radius: UiSizes.size_25,
+            badgeGlyph: worn?.icon,
+            badgeLabel: worn?.label(AppLocalizations.of(context)!),
           ),
           trailing: _isProcessing
               ? LoadingIndicator(
@@ -175,7 +180,10 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.star, color: Theme.of(context).colorScheme.primary),
+                  Icon(
+                    Icons.star,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                   Text(
                     userIsSender
                         ? (friendModel.recieverRating ?? 0).toStringAsFixed(1)

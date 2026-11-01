@@ -116,8 +116,6 @@ void main() {
   late StreamController<RealtimeMessage> pollEvents;
   late StreamController<RealtimeMessage> voteEvents;
   late StreamController<RealtimeMessage> chatEvents;
-  // Mutable backing rows so per-test data (and mid-test changes, e.g. the 409
-  // reconciliation reload) don't need re-stubbing.
   late List<Row> pollRows;
   late List<Row> voteRows;
 
@@ -474,14 +472,18 @@ void main() {
       );
     });
 
-    test('closed or unknown poll returns false without repository calls',
-        () async {
-      pollRows = [_pollRow(id: 'p1', isClosed: true)];
+    test('every guard returns false without touching the repository', () async {
+      pollRows = [
+        _pollRow(id: 'closed', isClosed: true),
+        _pollRow(id: 'open', options: ['A', 'B']),
+      ];
       final container = await installAndBuild();
       final notifier = container.read(roomPollsProvider(_roomId).notifier);
 
-      expect(await notifier.vote(pollId: 'p1', optionIndex: 0), isFalse);
+      expect(await notifier.vote(pollId: 'closed', optionIndex: 0), isFalse);
       expect(await notifier.vote(pollId: 'nope', optionIndex: 0), isFalse);
+      expect(await notifier.vote(pollId: 'open', optionIndex: -1), isFalse);
+      expect(await notifier.vote(pollId: 'open', optionIndex: 2), isFalse);
 
       verifyNever(tables.createRow(
         databaseId: anyNamed('databaseId'),
@@ -490,23 +492,6 @@ void main() {
         data: anyNamed('data'),
       ));
       verifyNever(tables.updateRow(
-        databaseId: anyNamed('databaseId'),
-        tableId: pollVotesTableId,
-        rowId: anyNamed('rowId'),
-        data: anyNamed('data'),
-      ));
-    });
-
-    test('invalid optionIndex returns false without repository calls',
-        () async {
-      pollRows = [_pollRow(id: 'p1', options: ['A', 'B'])];
-      final container = await installAndBuild();
-      final notifier = container.read(roomPollsProvider(_roomId).notifier);
-
-      expect(await notifier.vote(pollId: 'p1', optionIndex: -1), isFalse);
-      expect(await notifier.vote(pollId: 'p1', optionIndex: 2), isFalse);
-
-      verifyNever(tables.createRow(
         databaseId: anyNamed('databaseId'),
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
@@ -577,30 +562,21 @@ void main() {
       );
     });
 
-    test('already-closed poll returns true without a repository call',
+    test('an already-closed poll is a no-op and an unknown one fails',
         () async {
       pollRows = [_pollRow(id: 'p1', isClosed: true)];
       final container = await installAndBuild();
+      final notifier = container.read(roomPollsProvider(_roomId).notifier);
 
-      final ok = await container
-          .read(roomPollsProvider(_roomId).notifier)
-          .closePoll('p1');
+      expect(await notifier.closePoll('p1'), isTrue);
+      expect(await notifier.closePoll('nope'), isFalse);
 
-      expect(ok, isTrue);
       verifyNever(tables.updateRow(
         databaseId: anyNamed('databaseId'),
         tableId: pollsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       ));
-    });
-
-    test('unknown pollId returns false', () async {
-      final container = await installAndBuild();
-      final ok = await container
-          .read(roomPollsProvider(_roomId).notifier)
-          .closePoll('nope');
-      expect(ok, isFalse);
     });
   });
 
@@ -963,4 +939,108 @@ void main() {
       expect(container.read(voterProfilesProvider(_roomId)), isEmpty);
     });
   });
+
+  group('interaction recording', () {
+    Future<ProviderContainer> installWith(FakeActivityRecorder recorder) async {
+      final container = await installTestRootContainer(
+        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+        activityRecorder: recorder,
+      );
+      container.listen(roomPollsProvider(_roomId), (_, _) {});
+      await container.read(roomPollsProvider(_roomId).future);
+      return container;
+    }
+
+    test('creating a poll counts once', () async {
+      when(tables.createRow(
+        databaseId: masterDatabaseId,
+        tableId: pollsTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => _pollRow(id: 'created'));
+      when(tables.createRow(
+        databaseId: masterDatabaseId,
+        tableId: chatMessagesTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => buildRow(
+            id: 'mid',
+            tableId: chatMessagesTableId,
+            databaseId: masterDatabaseId,
+            data: const {},
+          ));
+      final recorder = FakeActivityRecorder();
+      final container = await installWith(recorder);
+      final chatKey = roomChatMessagesProvider(_roomId, 'Room 1', false);
+      container.listen(chatKey, (_, _) {});
+      await container.read(chatKey.future);
+
+      await container
+          .read(roomPollsProvider(_roomId).notifier)
+          .createPoll(question: 'Q?', options: ['A', 'B'], roomName: 'Room 1');
+
+      // The poll itself, not the announcement message it posts.
+      expect(recorder.interactions, [1]);
+    });
+
+    test('casting a first vote counts once', () async {
+      pollRows = [_pollRow(id: 'p1')];
+      when(tables.createRow(
+        databaseId: masterDatabaseId,
+        tableId: pollVotesTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => _voteRow(id: 'v1', optionIndex: 1));
+      final recorder = FakeActivityRecorder();
+      final container = await installWith(recorder);
+
+      await container
+          .read(roomPollsProvider(_roomId).notifier)
+          .vote(pollId: 'p1', optionIndex: 1);
+
+      expect(recorder.interactions, [1]);
+    });
+
+    // Changing your mind is not new participation.
+    test('changing a vote does not count again', () async {
+      pollRows = [_pollRow(id: 'p1')];
+      voteRows = [_voteRow(id: 'v1', uid: 'me', optionIndex: 0)];
+      when(tables.updateRow(
+        databaseId: masterDatabaseId,
+        tableId: pollVotesTableId,
+        rowId: 'v1',
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => _voteRow(id: 'v1', optionIndex: 1));
+      final recorder = FakeActivityRecorder();
+      final container = await installWith(recorder);
+
+      await container
+          .read(roomPollsProvider(_roomId).notifier)
+          .vote(pollId: 'p1', optionIndex: 1);
+
+      expect(recorder.interactions, isEmpty);
+    });
+
+    test('a vote that failed to write does not count', () async {
+      pollRows = [_pollRow(id: 'p1')];
+      when(tables.createRow(
+        databaseId: masterDatabaseId,
+        tableId: pollVotesTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenThrow(Exception('network down'));
+      final recorder = FakeActivityRecorder();
+      final container = await installWith(recorder);
+
+      await container
+          .read(roomPollsProvider(_roomId).notifier)
+          .vote(pollId: 'p1', optionIndex: 1);
+
+      expect(recorder.interactions, isEmpty);
+    });
+  });
+
 }
