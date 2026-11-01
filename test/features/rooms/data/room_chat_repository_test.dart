@@ -127,7 +127,7 @@ void main() {
   });
 
   group('loadMessages', () {
-    test('queries with equal/orderAsc/limit and sorts ascending', () async {
+    test('queries the latest window (orderDesc) and sorts ascending', () async {
       when(
         tables.listRows(
           databaseId: masterDatabaseId,
@@ -165,7 +165,7 @@ void main() {
       ).captured.single as List<String>;
       expect(queries, [
         Query.equal('roomId', 'room-1'),
-        Query.orderAsc('index'),
+        Query.orderDesc('index'),
         Query.limit(100),
       ]);
     });

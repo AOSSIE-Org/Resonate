@@ -19,6 +19,7 @@ _RoomMessage _$RoomMessageFromJson(Map<String, dynamic> json) => _RoomMessage(
   content: json['content'] as String,
   creationDateTime: DateTime.parse(json['creationDateTime'] as String),
   isDeleted: json['isDeleted'] as bool? ?? false,
+  pollId: json['pollId'] as String?,
   replyTo: json['replyTo'] == null
       ? null
       : ReplyTo.fromJson(json['replyTo'] as Map<String, dynamic>),
@@ -38,5 +39,6 @@ Map<String, dynamic> _$RoomMessageToJson(_RoomMessage instance) =>
       'content': instance.content,
       'creationDateTime': instance.creationDateTime.toIso8601String(),
       'isDeleted': instance.isDeleted,
+      'pollId': instance.pollId,
       'replyTo': instance.replyTo,
     };
