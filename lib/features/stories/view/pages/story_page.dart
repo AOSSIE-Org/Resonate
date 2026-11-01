@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/features/settings/data/feature_flags.dart';
+import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
@@ -313,7 +315,9 @@ class _StoryPageState extends ConsumerState<StoryPage> {
   }
 
   Widget _chaptersList(BuildContext context, StoryDetailState detail) {
-    final hasLive = detail.liveChapter != null;
+    final hasLive =
+        detail.liveChapter != null &&
+        ref.watch(featureEnabledProvider(AppFeature.liveChapter));
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -350,27 +354,33 @@ class _StoryPageState extends ConsumerState<StoryPage> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          spacing: UiSizes.width_10,
           children: [
-            ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => AddChapterPage(
-                    storyName: story.title,
-                    storyId: story.storyId,
-                    currentChapters: detail.chapters,
+            Flexible(
+              child: ElevatedButton(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => AddChapterPage(
+                      storyName: story.title,
+                      storyId: story.storyId,
+                      currentChapters: detail.chapters,
+                    ),
                   ),
                 ),
+                child: Text(l10n.addChapter, textAlign: TextAlign.center),
               ),
-              child: Text(l10n.addChapter),
             ),
-            ElevatedButton(
-              onPressed: () => showDialog(
-                context: context,
-                builder: (_) => StartLiveChapterDialog(story: story),
+            if (ref.watch(featureEnabledProvider(AppFeature.liveChapter)))
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => StartLiveChapterDialog(story: story),
+                  ),
+                  child: Text(l10n.liveChapter, textAlign: TextAlign.center),
+                ),
               ),
-              child: Text(l10n.liveChapter),
-            ),
           ],
         ),
         SizedBox(height: UiSizes.height_20),

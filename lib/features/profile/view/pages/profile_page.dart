@@ -280,10 +280,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         onPressed: () => context.push(RoutePaths.emailVerification),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Icon(Icons.verified_user_outlined),
             SizedBox(width: UiSizes.width_10),
-            Text(l10n.verifyEmail),
+            Flexible(
+              child: Text(
+                l10n.verifyEmail,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
       ),
@@ -328,6 +335,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   _isCreator
@@ -336,11 +344,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   color: colorScheme.onPrimary,
                 ),
                 SizedBox(width: UiSizes.width_8),
-                Text(
-                  _isCreator
-                      ? (isFollowing ? l10n.following : l10n.follow)
-                      : l10n.editProfile,
-                  style: TextStyle(color: colorScheme.onPrimary),
+                Flexible(
+                  child: Text(
+                    _isCreator
+                        ? (isFollowing ? l10n.following : l10n.follow)
+                        : l10n.editProfile,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: colorScheme.onPrimary),
+                  ),
                 ),
               ],
             ),
@@ -348,11 +360,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         ),
         SizedBox(width: UiSizes.width_10),
         if (!_isCreator)
-          // Square button kept literal: UiSizes width/height scale on different
-          // axes, so a width_/height_ pair wouldn't stay square at runtime.
           SizedBox(
-            height: 50,
-            width: 50,
+            height: UiSizes.width_56,
+            width: UiSizes.width_56,
             child: ElevatedButton(
               onPressed: () => context.push(RoutePaths.settings),
               style: ElevatedButton.styleFrom(
@@ -441,6 +451,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             friendModel != null
@@ -451,15 +462,19 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             color: colorScheme.onPrimary,
           ),
           SizedBox(width: UiSizes.width_8),
-          Text(
-            friendModel != null
-                ? (friendModel.requestStatus == FriendRequestStatus.sent
-                    ? friendModel.senderId == widget.creator!.uid
-                        ? l10n.accept
-                        : l10n.requested
-                    : l10n.friends)
-                : l10n.addFriend,
-            style: TextStyle(color: colorScheme.onPrimary),
+          Flexible(
+            child: Text(
+              friendModel != null
+                  ? (friendModel.requestStatus == FriendRequestStatus.sent
+                      ? friendModel.senderId == widget.creator!.uid
+                          ? l10n.accept
+                          : l10n.requested
+                      : l10n.friends)
+                  : l10n.addFriend,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: colorScheme.onPrimary),
+            ),
           ),
         ],
       ),
@@ -538,12 +553,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Square image kept literal so it isn't distorted: UiSizes
-                // width/height scale on different axes (won't stay 1:1).
-                Image.asset(
-                  height: 150,
-                  width: 150,
-                  AppImages.emptyBoxImage,
+                Flexible(
+                  child: Image.asset(
+                    height: UiSizes.width_140,
+                    width: UiSizes.width_140,
+                    fit: BoxFit.contain,
+                    AppImages.emptyBoxImage,
+                  ),
                 ),
                 SizedBox(height: UiSizes.height_5),
                 Text(

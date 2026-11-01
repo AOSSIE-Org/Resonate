@@ -714,6 +714,30 @@ abstract class AppLocalizations {
   /// **'App Preferences'**
   String get appPreferences;
 
+  /// Label for the settings page where the user turns app features on or off.
+  ///
+  /// In en, this message translates to:
+  /// **'Features'**
+  String get features;
+
+  /// Explanation shown at the top of the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.'**
+  String get featuresDescription;
+
+  /// Description of the pair chat feature on the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'One-on-one voice chats with a random or a chosen user.'**
+  String get pairChatFeatureDescription;
+
+  /// Description of the live chapter feature on the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a story chapter live with an audience, and join the ones others host.'**
+  String get liveChapterFeatureDescription;
+
   /// Section title for choosing AI transcription model.
   ///
   /// In en, this message translates to:

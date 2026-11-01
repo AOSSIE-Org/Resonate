@@ -320,6 +320,21 @@ class AppLocalizationsHi extends AppLocalizations {
   String get appPreferences => 'ऐप प्राथमिकताएं';
 
   @override
+  String get features => 'Features';
+
+  @override
+  String get featuresDescription =>
+      'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.';
+
+  @override
+  String get pairChatFeatureDescription =>
+      'One-on-one voice chats with a random or a chosen user.';
+
+  @override
+  String get liveChapterFeatureDescription =>
+      'Record a story chapter live with an audience, and join the ones others host.';
+
+  @override
   String get transcriptionModel => 'ट्रांसक्रिप्शन मॉडल';
 
   @override

@@ -27,6 +27,7 @@ class RoutePaths {
   static const aboutApp = '/aboutApp';
   static const contributeScreen = '/contributeScreen';
   static const appPreferencesScreen = '/appPreferencesScreen';
+  static const featuresScreen = '/featuresScreen';
 
   // Pair chat / friend calls
   static const pairing = '/pairing';
@@ -56,6 +57,7 @@ class RoutePaths {
     aboutApp,
     contributeScreen,
     appPreferencesScreen,
+    featuresScreen,
     pairing,
     pairChat,
     pairChatUsers,
