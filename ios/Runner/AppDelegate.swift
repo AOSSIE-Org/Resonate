@@ -3,7 +3,7 @@ import Flutter
 import flutter_local_notifications
 
 @main
-@objc class AppDelegate: FlutterAppDelegate {
+@objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
 
   private var apnsChannel: FlutterMethodChannel?
   // The token can arrive before Dart asks for it, so it is held for the next ask.
@@ -21,26 +21,26 @@ import flutter_local_notifications
   if #available(iOS 10.0, *) {
   UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
 }
-    GeneratedPluginRegistrant.register(with: self)
-
-    if let controller = window?.rootViewController as? FlutterViewController {
-      let channel = FlutterMethodChannel(
-        name: "resonate/apns",
-        binaryMessenger: controller.binaryMessenger
-      )
-      channel.setMethodCallHandler { [weak self] call, result in
-        switch call.method {
-        case "register":
-          UIApplication.shared.registerForRemoteNotifications()
-          result(self?.apnsToken)
-        default:
-          result(FlutterMethodNotImplemented)
-        }
-      }
-      apnsChannel = channel
-    }
-
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+
+  func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
+    GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+
+    let channel = FlutterMethodChannel(
+      name: "resonate/apns",
+      binaryMessenger: engineBridge.applicationRegistrar.messenger()
+    )
+    channel.setMethodCallHandler { [weak self] call, result in
+      switch call.method {
+      case "register":
+        UIApplication.shared.registerForRemoteNotifications()
+        result(self?.apnsToken)
+      default:
+        result(FlutterMethodNotImplemented)
+      }
+    }
+    apnsChannel = channel
   }
 
   override func application(

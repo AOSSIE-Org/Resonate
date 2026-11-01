@@ -2,8 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Resonate</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>bn</string>
@@ -17,14 +27,6 @@
 		<string>pa</string>
 		<string>ta</string>
 	</array>
-	<key>CFBundleDisplayName</key>
-	<string>Resonate</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>resonate</string>
 	<key>CFBundlePackageType</key>
@@ -37,6 +39,42 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Resonate needs access to your media library so you can upload an existing audio file as a story chapter.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Resonate needs access to your camera so you can take a new profile picture without leaving the app.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Resonate needs access to your microphone so you can speak in live audio rooms, pair chats and calls with friends, and record story chapters.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Resonate needs access to your photos so you can choose a profile picture and cover art for the stories and chapters you publish.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>flutter</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -56,33 +94,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Resonate needs access to your photos so you can choose a profile picture and cover art for the stories and chapters you publish.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Resonate needs access to your camera so you can take a new profile picture without leaving the app.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Resonate needs access to your microphone so you can speak in live audio rooms, pair chats and calls with friends, and record story chapters.</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Resonate needs access to your media library so you can upload an existing audio file as a story chapter.</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<!-- Live rooms and calls keep playing while the app is backgrounded. -->
-		<string>audio</string>
-		<!-- Appwrite's MQTT transport has no background delivery on iOS: the
-		     SDK registers only an onForeground isolate handler, and iOS will
-		     not hold a socket while suspended. Anything arriving while the app
-		     is closed comes over APNs, against the push target registered in
-		     PushTargetRepository, so this mode is required. -->
-		<string>remote-notification</string>
-		<!-- "voip" is deliberately NOT declared yet. flutter_callkit_incoming
-		     needs it, but App Review rejects a background mode the app does not
-		     actually use, and the iOS side is not wired up: AppDelegate has no
-		     PushKit registration and there is no VoIP Services certificate. Add
-		     it in the same change that implements those, not before. -->
-	</array>
 </dict>
 </plist>
