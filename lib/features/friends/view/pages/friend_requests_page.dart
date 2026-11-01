@@ -30,7 +30,6 @@ class FriendRequestsPage extends ConsumerWidget {
           }
           return ListView.builder(
             itemCount: incomingRequests.length,
-            shrinkWrap: true,
             itemBuilder: (context, index) {
               return FriendListTile(
                 friendModel: incomingRequests[index],

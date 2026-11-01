@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:resonate/utils/trace.dart';
 
 class AudioWaveRing extends StatefulWidget {
   const AudioWaveRing({
@@ -25,7 +26,6 @@ class AudioWaveRing extends StatefulWidget {
 class _AudioWaveRingState extends State<AudioWaveRing>
     with TickerProviderStateMixin {
   late final AnimationController _phase = AnimationController(
-    
     vsync: this,
     duration: const Duration(milliseconds: 14000),
   );
@@ -130,7 +130,7 @@ class _AudioWaveRingState extends State<AudioWaveRing>
 }
 
 const double _ringExtentFactor = 1.9;
-const Duration _attack = Duration(milliseconds: 110);
+const Duration _attack = Duration(milliseconds: 70);
 const Duration _release = Duration(milliseconds: 300);
 const double _minPeakHeight = 0.14;
 const double _peakContrast = 1.5;
@@ -160,6 +160,7 @@ class _WaveRingPainter extends CustomPainter {
     if (fromBands.length != toBands.length) return to;
     return fromBands[index] + (to - fromBands[index]) * bandBlend.value;
   }
+
   ({double min, double max})? _bandRange() {
     if (toBands.length < 3) return null;
     var min = double.infinity;
@@ -188,6 +189,7 @@ class _WaveRingPainter extends CustomPainter {
         (1 - _minPeakHeight) * math.pow(stretched, _peakContrast).toDouble();
     return shaped * math.pow(math.sin(t * math.pi), _peakSharpness).toDouble();
   }
+
   int _cycleLength(int length) => (length - 1) * 2;
 
   int _mirroredIndex(int index, int length) {
@@ -201,8 +203,12 @@ class _WaveRingPainter extends CustomPainter {
     return position.isEven ? position ~/ 2 : half + position ~/ 2;
   }
 
+  // Attributes per-frame ring cost to this painter rather than to raster.
   @override
-  void paint(Canvas canvas, Size size) {
+  void paint(Canvas canvas, Size size) =>
+      trace('AudioWaveRing.paint', () => _paint(canvas, size));
+
+  void _paint(Canvas canvas, Size size) {
     final value = level.value;
     if (value <= 0.001) return;
 

@@ -141,21 +141,28 @@ class _RoomBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final participants = state?.participants ?? const <Participant>[];
+    final others = [
+      for (final participant in participants)
+        if (!participant.isAdmin) participant,
+    ];
+
     return SessionStage(
       featured: [
         for (final participant in participants)
           if (participant.isAdmin)
             ParticipantBlock(
+              key: ValueKey(participant.uid),
               room: room,
               participant: participant,
               featured: true,
             ),
       ],
-      tiles: [
-        for (final participant in participants)
-          if (!participant.isAdmin)
-            ParticipantBlock(room: room, participant: participant),
-      ],
+      tileCount: others.length,
+      tileBuilder: (_, index) => ParticipantBlock(
+        key: ValueKey(others[index].uid),
+        room: room,
+        participant: others[index],
+      ),
       emptyState: SessionStageEmpty(
         message: AppLocalizations.of(context)!.noParticipantsYet,
       ),

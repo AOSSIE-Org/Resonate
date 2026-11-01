@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:resonate/core/providers/app_lifecycle_provider.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer' as developer;
+import 'package:resonate/utils/dev_log.dart' as developer;
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/enums.dart';

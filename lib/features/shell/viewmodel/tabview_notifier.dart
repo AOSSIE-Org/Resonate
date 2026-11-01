@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';

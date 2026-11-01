@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 import 'dart:io' as io;
 
 import 'package:appwrite/appwrite.dart';

@@ -51,10 +51,13 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
   }
 
   void _onSearchChanged(String value) {
-    setState(() {
-      _searchBarIsEmpty = value.isEmpty;
-      if (value.isNotEmpty) _isSearching = true;
-    });
+    final isEmpty = value.isEmpty;
+    if (isEmpty != _searchBarIsEmpty || (!isEmpty && !_isSearching)) {
+      setState(() {
+        _searchBarIsEmpty = isEmpty;
+        if (!isEmpty) _isSearching = true;
+      });
+    }
     if (value.isEmpty) {
       ref.read(exploreStoriesProvider.notifier).clearSearch();
       return;

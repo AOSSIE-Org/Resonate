@@ -66,7 +66,9 @@ class _OptionRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: TextStyle(fontSize: UiSizes.size_15)),
+            Expanded(
+              child: Text(label, style: TextStyle(fontSize: UiSizes.size_15)),
+            ),
             const Icon(Icons.arrow_forward_rounded),
           ],
         ),

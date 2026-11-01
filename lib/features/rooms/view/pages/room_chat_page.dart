@@ -37,16 +37,38 @@ class RoomChatPage extends ConsumerStatefulWidget {
 
 class _RoomChatPageState extends ConsumerState<RoomChatPage> {
   final ScrollController _scrollController = ScrollController();
-  static const double _itemHeight = 80;
+  final Map<int, GlobalKey> _messageKeys = {};
   int _previousCount = 0;
+
+  GlobalKey _keyFor(int index) =>
+      _messageKeys.putIfAbsent(index, () => GlobalKey());
 
   void _scrollToMessage(int index) {
     if (!_scrollController.hasClients) return;
-    _scrollController.animateTo(
-      index * _itemHeight,
+
+    if (_reveal(index)) return;
+
+    final estimate = (index * UiSizes.height_80).clamp(
+      0.0,
+      _scrollController.position.maxScrollExtent,
+    );
+    _scrollController.jumpTo(estimate);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _reveal(index);
+    });
+  }
+
+  // True once the row is on screen (or on its way there).
+  bool _reveal(int index) {
+    final context = _messageKeys[index]?.currentContext;
+    if (context == null) return false;
+    Scrollable.ensureVisible(
+      context,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
+      alignment: 0.5,
     );
+    return true;
   }
 
   void _scrollToBottom() {
@@ -116,6 +138,7 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                   final message = loaded[index];
                   if (message.pollId != null) {
                     return PollCard(
+                      key: _keyFor(index),
                       message: message,
                       isUserAdmin: widget.isUserAdmin,
                       onRetry: () async {
@@ -138,6 +161,7 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                   final canDelete = ref.read(requireUserProvider).uid == message.creatorId &&
                       !message.isDeleted;
                   return ChatMessageItem(
+                    key: _keyFor(index),
                     message: message,
                     onTapReply: _scrollToMessage,
                     onEditMessage: (newContent) async {

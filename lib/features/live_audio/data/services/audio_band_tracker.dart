@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:livekit_client/livekit_client.dart';
@@ -28,6 +28,26 @@ class AudioBandTracker {
 
   Stream<SpeakerBands> get bands => _controller.stream;
 
+  final _liveMics = <String>{};
+
+  void syncLiveMics(Set<String> live) {
+    if (_disposed) return;
+
+    _liveMics
+      ..clear()
+      ..addAll(live);
+
+    for (final identity in live) {
+      _lingerTimers.remove(identity)?.cancel();
+      if (!_attachments.containsKey(identity)) _attach(identity);
+    }
+
+    for (final identity in _attachments.keys.toList()) {
+      if (live.contains(identity)) continue;
+      _scheduleDetach(identity);
+    }
+  }
+
   void syncSpeakers(Set<String> speaking) {
     if (_disposed) return;
 
@@ -37,12 +57,17 @@ class AudioBandTracker {
     }
 
     for (final identity in _attachments.keys.toList()) {
-      if (speaking.contains(identity)) continue;
-      _lingerTimers[identity] ??= Timer(_attachLinger, () {
-        _lingerTimers.remove(identity);
-        _detach(identity);
-      });
+      // A live mic stays warm even while silent
+      if (speaking.contains(identity) || _liveMics.contains(identity)) continue;
+      _scheduleDetach(identity);
     }
+  }
+
+  void _scheduleDetach(String identity) {
+    _lingerTimers[identity] ??= Timer(_attachLinger, () {
+      _lingerTimers.remove(identity);
+      _detach(identity);
+    });
   }
 
   Future<void> _attach(String identity) async {

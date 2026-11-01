@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart' show AppwriteException, ID;
 import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
