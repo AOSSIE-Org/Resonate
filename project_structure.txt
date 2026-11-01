@@ -411,6 +411,7 @@
 │   │   │       │   └── ringing_page.dart
 │   │   │       └── widgets
 │   │   │           ├── call_control_panel.dart
+│   │   │           ├── call_participant_tile.dart
 │   │   │           ├── call_user_info_row.dart
 │   │   │           ├── friend_list_tile.dart
 │   │   │           ├── friends_empty_view.dart
@@ -470,26 +471,53 @@
 │   │   │       ├── audio_device_notifier.dart
 │   │   │       └── generated
 │   │   │           └── audio_device_notifier.g.dart
+│   │   ├── miniplayer
+│   │   │   ├── data
+│   │   │   │   ├── generated
+│   │   │   │   │   └── session_presented.g.dart
+│   │   │   │   ├── services
+│   │   │   │   │   ├── generated
+│   │   │   │   │   │   └── pip_controller.g.dart
+│   │   │   │   │   └── pip_controller.dart
+│   │   │   │   └── session_presented.dart
+│   │   │   ├── model
+│   │   │   │   └── miniplayer_session.dart
+│   │   │   ├── view
+│   │   │   │   └── widgets
+│   │   │   │       ├── miniplayer_host.dart
+│   │   │   │       └── session_miniplayer.dart
+│   │   │   └── viewmodel
+│   │   │       ├── generated
+│   │   │       │   └── miniplayer_notifier.g.dart
+│   │   │       └── miniplayer_notifier.dart
 │   │   ├── profile
 │   │   │   ├── data
-│   │   │   │   └── repositories
-│   │   │   │       ├── generated
-│   │   │   │       │   └── profile_repository.g.dart
-│   │   │   │       └── profile_repository.dart
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── user_avatars.g.dart
+│   │   │   │   │   └── user_profile_summaries.g.dart
+│   │   │   │   ├── repositories
+│   │   │   │   │   ├── generated
+│   │   │   │   │   │   └── profile_repository.g.dart
+│   │   │   │   │   └── profile_repository.dart
+│   │   │   │   ├── user_avatars.dart
+│   │   │   │   └── user_profile_summaries.dart
 │   │   │   ├── model
 │   │   │   │   ├── change_email_state.dart
 │   │   │   │   ├── edit_profile_state.dart
 │   │   │   │   ├── onboarding_state.dart
-│   │   │   │   └── profile_view_data.dart
+│   │   │   │   ├── profile_view_data.dart
+│   │   │   │   └── user_profile_summary.dart
 │   │   │   ├── profile_routes.dart
 │   │   │   ├── view
-│   │   │   │   └── pages
-│   │   │   │       ├── change_email_page.dart
-│   │   │   │       ├── delete_account_page.dart
-│   │   │   │       ├── edit_profile_page.dart
-│   │   │   │       ├── followers_screen.dart
-│   │   │   │       ├── onboarding_page.dart
-│   │   │   │       └── profile_page.dart
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── change_email_page.dart
+│   │   │   │   │   ├── delete_account_page.dart
+│   │   │   │   │   ├── edit_profile_page.dart
+│   │   │   │   │   ├── followers_screen.dart
+│   │   │   │   │   ├── onboarding_page.dart
+│   │   │   │   │   └── profile_page.dart
+│   │   │   │   └── widgets
+│   │   │   │       └── user_profile_card.dart
 │   │   │   └── viewmodel
 │   │   │       ├── change_email_notifier.dart
 │   │   │       ├── delete_account_notifier.dart
@@ -504,7 +532,9 @@
 │   │   │       └── profile_view_notifier.dart
 │   │   ├── rooms
 │   │   │   ├── data
+│   │   │   │   ├── active_room.dart
 │   │   │   │   ├── generated
+│   │   │   │   │   ├── active_room.g.dart
 │   │   │   │   │   ├── live_rooms.g.dart
 │   │   │   │   │   ├── room_chat.g.dart
 │   │   │   │   │   ├── room_polls.g.dart
@@ -763,7 +793,8 @@
 │   │       ├── session_app_bar.dart
 │   │       ├── session_header.dart
 │   │       ├── snackbar.dart
-│   │       └── speaking_avatar.dart
+│   │       ├── speaking_avatar.dart
+│   │       └── speaking_profile_avatar.dart
 │   └── utils
 │       ├── app_images.dart
 │       ├── colors.dart
@@ -884,6 +915,11 @@
 │   │   │   ├── live_audio_test_helpers.dart
 │   │   │   └── view
 │   │   │       └── audio_selector_dialog_test.dart
+│   │   ├── miniplayer
+│   │   │   ├── miniplayer_host_test.dart
+│   │   │   ├── miniplayer_notifier_test.dart
+│   │   │   ├── pip_controller_test.dart
+│   │   │   └── session_miniplayer_test.dart
 │   │   ├── profile
 │   │   │   ├── data
 │   │   │   │   ├── profile_repository_test.dart
@@ -894,7 +930,8 @@
 │   │   │   │   ├── change_email_page_test.dart
 │   │   │   │   ├── delete_account_page_test.dart
 │   │   │   │   ├── profile_page_layout_test.dart
-│   │   │   │   └── profile_page_test.dart
+│   │   │   │   ├── profile_page_test.dart
+│   │   │   │   └── user_profile_card_test.dart
 │   │   │   └── viewmodel
 │   │   │       ├── change_email_notifier_test.dart
 │   │   │       ├── delete_account_notifier_test.dart
@@ -973,10 +1010,11 @@
 │   ├── routes
 │   │   └── app_router_test.dart
 │   ├── shared
-│   │   └── audio_wave_ring_test.dart
+│   │   ├── audio_wave_ring_test.dart
+│   │   └── speaking_profile_avatar_test.dart
 │   └── utils
 │       ├── activity_status_test.dart
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-256 directories, 724 files
+269 directories, 749 files
