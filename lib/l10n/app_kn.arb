@@ -935,6 +935,10 @@
             "participants": {
                 "type": "int",
                 "example": "5"
+            },
+            "link": {
+                "type": "String",
+                "example": "https://resonate.aossie.org/room/abc123"
             }
         }
     },
