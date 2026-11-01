@@ -6,6 +6,7 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/realtime_event.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/room_chat_repository.g.dart';
@@ -36,7 +37,9 @@ class RoomChatRepository {
       tableId: chatMessagesTableId,
       queries: [
         Query.equal('roomId', roomId),
-        Query.orderAsc('index'),
+        // Latest window, not the oldest: late joiners must see recent
+        // messages (and poll cards). The sort below restores ascending order.
+        Query.orderDesc('index'),
         Query.limit(100),
       ],
     );
@@ -135,9 +138,7 @@ class RoomChatRepository {
       if (data.payload.isEmpty || data.payload['roomId'] != roomId) return;
 
       final docId = data.payload['\$id'] as String;
-      final action = data.events.first.substring(
-        channel.length + 1 + docId.length + 1,
-      );
+      final action = realtimeAction(data.events);
 
       if (action == 'create' || action == 'update') {
         try {

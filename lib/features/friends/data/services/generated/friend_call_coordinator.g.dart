@@ -42,7 +42,7 @@ final class FriendCallCoordinatorProvider
 }
 
 String _$friendCallCoordinatorHash() =>
-    r'e4730d6574cd27a84e46df146c5178909f0db4e4';
+    r'440ecfd7c89fece81d88e06b53704bee2271dddd';
 
 abstract class _$FriendCallCoordinator extends $Notifier<FriendCallState> {
   FriendCallState build();

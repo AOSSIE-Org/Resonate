@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/stories/data/repositories/live_chapter_repository.dart';
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';
@@ -50,7 +50,7 @@ void main() {
       tables: tables,
       realtime: realtime,
       functions: functions,
-      apiService: ApiService(functions: functions),
+      roomJoin: RoomJoinService(functions: functions),
     );
   });
 

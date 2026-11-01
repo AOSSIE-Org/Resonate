@@ -9,6 +9,7 @@ import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/utils/realtime_event.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -51,16 +52,12 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
 
   void _subscribe(AppwriteRoom appwriteRoom) {
     final repo = ref.read(roomsRepositoryProvider);
-    final channel = RoomsRepository.participantChannel();
 
     _participantSub = repo.participantStream(appwriteRoom.id).listen((
       event,
     ) async {
       try {
-        final docId = event.payload['\$id'] as String;
-        final action = event.events.first.substring(
-          channel.length + 1 + docId.length + 1,
-        );
+        final action = realtimeAction(event.events);
         final current = state.value;
         if (current == null) return;
 

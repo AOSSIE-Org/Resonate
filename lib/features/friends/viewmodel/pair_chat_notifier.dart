@@ -5,6 +5,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/data/repositories/pair_chat_repository.dart';
+import 'package:resonate/utils/realtime_event.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -188,7 +189,6 @@ class PairChatNotifier extends _$PairChatNotifier {
   void _listenForActivePair() {
     if (_activePairSub != null) return;
     final uid = ref.read(requireUserProvider).uid;
-    final channel = PairChatRepository.activePairsChannel();
 
     _activePairSub = ref
         .read(pairChatRepositoryProvider)
@@ -198,10 +198,7 @@ class PairChatNotifier extends _$PairChatNotifier {
       final uid2 = event.payload['uid2'] as String?;
       if (uid1 != uid && uid2 != uid) return;
 
-      final docId = event.payload['\$id'].toString();
-      final action = event.events.first.substring(
-        channel.length + 1 + docId.length + 1,
-      );
+      final action = realtimeAction(event.events);
       switch (action) {
         case 'create':
           await _onPaired(event.payload, amUser1: uid1 == uid);
@@ -284,23 +281,22 @@ class PairChatNotifier extends _$PairChatNotifier {
         .read(pairChatRepositoryProvider)
         .pairRequestsStream()
         .listen((event) {
-      final eventName = event.events.first;
-      if (eventName.endsWith('.create')) {
+      final action = realtimeAction(event.events);
+      if (action == 'create') {
         // Skip our own request and anonymous ones
         if (event.payload['uid'] == uid ||
             event.payload['isAnonymous'] == true) {
           return;
         }
         try {
-          final eventSplit = eventName.split('.');
-          final docId = eventSplit[eventSplit.length - 2];
+          final docId = event.payload['\$id'].toString();
           final newUser =
               ResonateUser.fromJson({...event.payload, 'docId': docId});
           state = state.copyWith(onlineUsers: [...state.onlineUsers, newUser]);
         } catch (e) {
           log('Skipping malformed pair request payload: $e');
         }
-      } else if (eventName.endsWith('.delete')) {
+      } else if (action == 'delete') {
         final removedUid = event.payload['uid'];
         state = state.copyWith(
           onlineUsers: state.onlineUsers
