@@ -416,6 +416,30 @@
 │   │   │           ├── friends_empty_view.dart
 │   │   │           ├── pair_chat_dialog.dart
 │   │   │           └── rating_sheet.dart
+│   │   ├── interests
+│   │   │   ├── data
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── interest_filter.g.dart
+│   │   │   │   │   └── my_interests.g.dart
+│   │   │   │   ├── interest_filter.dart
+│   │   │   │   ├── my_interests.dart
+│   │   │   │   └── repositories
+│   │   │   │       ├── generated
+│   │   │   │       │   └── interests_repository.g.dart
+│   │   │   │       └── interests_repository.dart
+│   │   │   ├── interests_routes.dart
+│   │   │   ├── model
+│   │   │   │   ├── interest.dart
+│   │   │   │   └── interest_filter_state.dart
+│   │   │   └── view
+│   │   │       ├── pages
+│   │   │       │   └── interests_screen.dart
+│   │   │       └── widgets
+│   │   │           ├── interest_filter_button.dart
+│   │   │           ├── interest_filter_panel.dart
+│   │   │           ├── interest_profile_tile.dart
+│   │   │           ├── interest_selector.dart
+│   │   │           └── interest_visuals.dart
 │   │   ├── live_audio
 │   │   │   ├── data
 │   │   │   │   ├── generated
@@ -640,7 +664,8 @@
 │   │   │   │   ├── stories_failure.dart
 │   │   │   │   ├── story.dart
 │   │   │   │   ├── story_detail_state.dart
-│   │   │   │   └── story_search_state.dart
+│   │   │   │   ├── story_search_state.dart
+│   │   │   │   └── story_tags.dart
 │   │   │   ├── stories_routes.dart
 │   │   │   ├── view
 │   │   │   │   ├── pages
@@ -666,7 +691,8 @@
 │   │   │   │       ├── live_chapter_list_tile.dart
 │   │   │   │       ├── start_live_chapter_dialog.dart
 │   │   │   │       ├── story_card.dart
-│   │   │   │       └── story_list_tile.dart
+│   │   │   │       ├── story_list_tile.dart
+│   │   │   │       └── tag_input.dart
 │   │   │   └── viewmodel
 │   │   │       ├── chapter_player_notifier.dart
 │   │   │       ├── create_story_notifier.dart
@@ -837,6 +863,17 @@
 │   │   │   └── viewmodel
 │   │   │       ├── friend_call_notifier_test.dart
 │   │   │       └── friends_notifier_test.dart
+│   │   ├── interests
+│   │   │   ├── data
+│   │   │   │   ├── interest_filter_test.dart
+│   │   │   │   ├── interests_repository_test.dart
+│   │   │   │   └── my_interests_test.dart
+│   │   │   ├── interests_test_helpers.dart
+│   │   │   ├── model
+│   │   │   │   └── interest_test.dart
+│   │   │   └── view
+│   │   │       ├── interest_filter_test.dart
+│   │   │       └── interests_screen_test.dart
 │   │   ├── live_audio
 │   │   │   ├── data
 │   │   │   │   ├── audio_device_service_test.dart
@@ -908,8 +945,12 @@
 │   │   │   │   ├── category_stories_test.dart
 │   │   │   │   ├── explore_stories_test.dart
 │   │   │   │   ├── live_chapter_repository_test.dart
-│   │   │   │   └── stories_repository_test.dart
+│   │   │   │   ├── stories_repository_test.dart
+│   │   │   │   └── stories_search_test.dart
+│   │   │   ├── fake_meili_client.dart
 │   │   │   ├── fake_stories_repository.dart
+│   │   │   ├── model
+│   │   │   │   └── story_tags_test.dart
 │   │   │   ├── view
 │   │   │   │   ├── live_chapter_widgets_test.dart
 │   │   │   │   ├── stories_pages_test.dart
@@ -938,4 +979,4 @@
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-242 directories, 697 files
+256 directories, 724 files
