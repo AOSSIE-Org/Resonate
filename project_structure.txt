@@ -241,12 +241,11 @@
 │   │   └── xcshareddata
 │   │       └── xcschemes
 │   │           └── Runner.xcscheme
-│   ├── Runner.xcworkspace
-│   │   ├── contents.xcworkspacedata
-│   │   └── xcshareddata
-│   │       ├── IDEWorkspaceChecks.plist
-│   │       └── WorkspaceSettings.xcsettings
-│   └── firebase_app_id_file.json
+│   └── Runner.xcworkspace
+│       ├── contents.xcworkspacedata
+│       └── xcshareddata
+│           ├── IDEWorkspaceChecks.plist
+│           └── WorkspaceSettings.xcsettings
 ├── l10n.yaml
 ├── lib
 │   ├── core
@@ -255,13 +254,13 @@
 │   │   ├── providers
 │   │   │   ├── app_lifecycle_provider.dart
 │   │   │   ├── appwrite_providers.dart
-│   │   │   ├── firebase_providers.dart
 │   │   │   ├── generated
 │   │   │   │   ├── app_lifecycle_provider.g.dart
 │   │   │   │   ├── appwrite_providers.g.dart
-│   │   │   │   ├── firebase_providers.g.dart
-│   │   │   │   └── get_storage_provider.g.dart
-│   │   │   └── get_storage_provider.dart
+│   │   │   │   ├── get_storage_provider.g.dart
+│   │   │   │   └── push_providers.g.dart
+│   │   │   ├── get_storage_provider.dart
+│   │   │   └── push_providers.dart
 │   │   └── services
 │   │       ├── execute_function.dart
 │   │       ├── generated
@@ -480,7 +479,6 @@
 │   │   │   │   ├── speaking_levels.dart
 │   │   │   │   └── speaking_throttle.dart
 │   │   │   ├── model
-│   │   │   │   ├── audio_device.dart
 │   │   │   │   ├── audio_device_state.dart
 │   │   │   │   ├── generated
 │   │   │   │   │   ├── audio_device_state.freezed.dart
@@ -636,8 +634,10 @@
 │   │   │       └── room_chat_notifier.dart
 │   │   ├── settings
 │   │   │   ├── data
+│   │   │   │   ├── call_reliability.dart
 │   │   │   │   ├── feature_flags.dart
 │   │   │   │   ├── generated
+│   │   │   │   │   ├── call_reliability.g.dart
 │   │   │   │   │   └── feature_flags.g.dart
 │   │   │   │   └── whisper_model_setting.dart
 │   │   │   ├── model
@@ -662,8 +662,14 @@
 │   │   ├── shell
 │   │   │   ├── data
 │   │   │   │   ├── app_bootstrap.dart
-│   │   │   │   └── generated
-│   │   │   │       └── app_bootstrap.g.dart
+│   │   │   │   ├── generated
+│   │   │   │   │   └── app_bootstrap.g.dart
+│   │   │   │   ├── repositories
+│   │   │   │   │   ├── generated
+│   │   │   │   │   │   └── push_target_repository.g.dart
+│   │   │   │   │   └── push_target_repository.dart
+│   │   │   │   └── services
+│   │   │   │       └── apns_token_service.dart
 │   │   │   ├── model
 │   │   │   │   └── notification.dart
 │   │   │   ├── shell_routes.dart
@@ -852,7 +858,6 @@
 │       ├── dev_log.dart
 │       ├── enums
 │       │   ├── activity_status.dart
-│       │   ├── audio_device_enum.dart
 │       │   ├── friend_call_status.dart
 │       │   ├── friend_request_status.dart
 │       │   ├── log_type.dart
@@ -970,7 +975,6 @@
 │   │   │       └── interests_screen_test.dart
 │   │   ├── live_audio
 │   │   │   ├── data
-│   │   │   │   ├── audio_device_service_test.dart
 │   │   │   │   ├── livekit_join_test.dart
 │   │   │   │   ├── speaking_bands_test.dart
 │   │   │   │   ├── speaking_levels_test.dart
@@ -1120,4 +1124,4 @@
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-280 directories, 841 files
+283 directories, 842 files
