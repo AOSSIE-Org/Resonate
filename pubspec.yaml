@@ -71,7 +71,7 @@ dependencies:
       ref: fixes/allow-controller-re-registration
   flutter_lyric: ^3.0.6
   url_launcher: ^6.3.2
-  audio_metadata_reader: ^1.4.2
+  audio_metadata_reader: ^1.8.1
   flutter_localizations:
     sdk: flutter
   freezed_annotation: ^3.1.0
