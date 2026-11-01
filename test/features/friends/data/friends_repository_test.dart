@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/friends/data/repositories/friends_repository.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
-import 'package:resonate/features/friends/model/friends_state.dart';
+import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 

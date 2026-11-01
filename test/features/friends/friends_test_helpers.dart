@@ -10,11 +10,11 @@ import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/friends.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
+import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
 import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -190,8 +190,8 @@ class FakeFriendCallCoordinator extends FriendCallCoordinator {
   Future<void> toggleLoudSpeaker() async => toggleLoudSpeakerCount++;
 }
 
-class FakePairChatNotifier extends PairChatNotifier {
-  FakePairChatNotifier(this.initial, {this.throwOnSubmit = false});
+class FakePairChat extends PairChat {
+  FakePairChat(this.initial, {this.throwOnSubmit = false});
 
   final PairChatState initial;
   final bool throwOnSubmit;

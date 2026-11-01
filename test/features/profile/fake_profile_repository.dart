@@ -1,11 +1,8 @@
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
-import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 
 class FakeProfileRepository implements ProfileRepository {
   // Configurable returns.
-  List<Story> createdStories = const [];
-  List<Story> likedStories = const [];
   List<FollowerUserModel> followers = const [];
   String? fcmToken = 'fake-token';
   bool usernameAvailableReturn = true;
@@ -36,13 +33,6 @@ class FakeProfileRepository implements ProfileRepository {
   int markProfileCompleteCount = 0;
   ({String email, String password})? changeEmailInAuthArgs;
   ({String uid, String username, String email})? changeEmailInDatabasesArgs;
-
-  @override
-  Future<List<Story>> fetchCreatedStories(String creatorId) async =>
-      createdStories;
-
-  @override
-  Future<List<Story>> fetchLikedStories(String creatorId) async => likedStories;
 
   @override
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async =>

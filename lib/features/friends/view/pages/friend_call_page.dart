@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
-import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
+import 'package:resonate/features/live_audio/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';

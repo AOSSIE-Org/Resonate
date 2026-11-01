@@ -6,15 +6,15 @@ import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/pages/pair_chat_users_page.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../friends_test_helpers.dart';
 
-List<Override> baseOverrides(FakePairChatNotifier fake) => [
+List<Override> baseOverrides(FakePairChat fake) => [
   currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
   requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
   liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
@@ -26,7 +26,7 @@ void main() {
     testFriendsWidget('shows a loader while the user list is loading', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(
+      final fake = FakePairChat(
         const PairChatState(isUserListLoading: true),
       );
       await pumpFriendsPage(
@@ -42,7 +42,7 @@ void main() {
     testFriendsWidget('shows the empty state when no users are online', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(
+      final fake = FakePairChat(
         const PairChatState(isUserListLoading: false, onlineUsers: []),
       );
       await pumpFriendsPage(
@@ -57,7 +57,7 @@ void main() {
     });
 
     testFriendsWidget('renders a ListTile per online user', (tester) async {
-      final fake = FakePairChatNotifier(
+      final fake = FakePairChat(
         PairChatState(
           isUserListLoading: false,
           onlineUsers: [
@@ -98,7 +98,7 @@ void main() {
       tester,
     ) async {
       final user = fakeResonateUser(uid: 'u1', userName: 'alice');
-      final fake = FakePairChatNotifier(
+      final fake = FakePairChat(
         PairChatState(isUserListLoading: false, onlineUsers: [user]),
       );
       await pumpFriendsPage(
@@ -116,7 +116,7 @@ void main() {
     });
 
     testFriendsWidget('initState calls loadUsers', (tester) async {
-      final fake = FakePairChatNotifier(
+      final fake = FakePairChat(
         const PairChatState(isUserListLoading: true),
       );
       await pumpFriendsPage(
@@ -130,7 +130,7 @@ void main() {
     });
 
     testFriendsWidget('dispose calls cancelRequest', (tester) async {
-      final fake = FakePairChatNotifier(
+      final fake = FakePairChat(
         const PairChatState(isUserListLoading: true),
       );
       await pumpFriendsPage(
@@ -149,7 +149,7 @@ void main() {
     testFriendsWidget(
       'casino action calls convertToRandom then routes to pairing',
       (tester) async {
-        final fake = FakePairChatNotifier(
+        final fake = FakePairChat(
           const PairChatState(isUserListLoading: false, onlineUsers: []),
         );
         final router = GoRouter(

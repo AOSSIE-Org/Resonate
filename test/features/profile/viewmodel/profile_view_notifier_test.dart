@@ -6,11 +6,13 @@ import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
+import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
 import '../../../helpers/test_root_container.dart';
+import '../../stories/fake_stories_repository.dart';
 import '../fake_profile_repository.dart';
 
 Story _story(String id) => Story(
@@ -43,8 +45,9 @@ FollowerUserModel _follower({required String uid, required String docId}) =>
     );
 
 Future<ProviderContainer> _buildContainer(
-  FakeProfileRepository repo,
-) async {
+  FakeProfileRepository repo, {
+  FakeStoriesRepository? stories,
+}) async {
   final container = ProviderContainer(
     overrides: [
       authRepositoryProvider.overrideWithValue(
@@ -62,6 +65,8 @@ Future<ProviderContainer> _buildContainer(
         ),
       ),
       profileRepositoryProvider.overrideWithValue(repo),
+      storiesRepositoryProvider
+          .overrideWithValue(stories ?? FakeStoriesRepository()),
     ],
   );
   addTearDown(container.dispose);
@@ -73,10 +78,12 @@ void main() {
   group('ProfileView.build', () {
     test('composes stories + followers and detects not-following', () async {
       final repo = FakeProfileRepository()
-        ..createdStories = [_story('s1')]
-        ..likedStories = [_story('s2')]
         ..followers = [_follower(uid: 'other', docId: 'f-other')];
-      final container = await _buildContainer(repo);
+      final stories = FakeStoriesRepository(
+        createdStories: [_story('s1')],
+        likedStories: [_story('s2')],
+      );
+      final container = await _buildContainer(repo, stories: stories);
 
       final data = await container.read(profileViewProvider('creator1').future);
 

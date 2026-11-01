@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
@@ -138,110 +138,6 @@ void main() {
       expect(stories[0].likesCount, 10);
       expect(stories[0].tintColor, const Color(0xff0000FF));
       expect(stories[0].userIsCreator, false);
-    });
-  });
-
-  group('fetchCreatedStories', () {
-    test('queries by creatorId and maps the rows', () async {
-      when(
-        tables.listRows(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          queries: [Query.equal('creatorId', 'id1')],
-        ),
-      ).thenAnswer(
-        (_) async =>
-            RowList(total: 1, rows: [_storyRow('doc1', 'Story 1', 'comedy', 'id1')]),
-      );
-
-      final stories = await repo.fetchCreatedStories('id1');
-      expect(stories.length, 1);
-      expect(stories[0].storyId, 'doc1');
-    });
-
-    test('returns empty on AppwriteException', () async {
-      when(
-        tables.listRows(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          queries: [Query.equal('creatorId', 'id1')],
-        ),
-      ).thenThrow(AppwriteException('nope'));
-
-      expect(await repo.fetchCreatedStories('id1'), isEmpty);
-    });
-  });
-
-  group('fetchLikedStories', () {
-    test('resolves the liked story rows', () async {
-      final likeRow = Row(
-        $id: 'like1',
-        $tableId: likeTableId,
-        $databaseId: storyDatabaseId,
-        $createdAt: DateTime(2024).toIso8601String(),
-        $updatedAt: DateTime(2024).toIso8601String(),
-        $permissions: const ['any'],
-        $sequence: 0,
-        data: const {'storyId': 'doc1'},
-      );
-      when(
-        tables.listRows(
-          databaseId: storyDatabaseId,
-          tableId: likeTableId,
-          queries: [Query.equal('uId', 'id1')],
-        ),
-      ).thenAnswer((_) async => RowList(total: 1, rows: [likeRow]));
-      when(
-        tables.getRow(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          rowId: 'doc1',
-        ),
-      ).thenAnswer((_) async => _storyRow('doc1', 'Story 1', 'comedy', 'id1'));
-
-      final stories = await repo.fetchLikedStories('id1');
-      expect(stories.length, 1);
-      expect(stories[0].storyId, 'doc1');
-    });
-
-    test('skips liked stories whose lookup fails', () async {
-      Row likeRow(String storyId) => Row(
-            $id: 'like-$storyId',
-            $tableId: likeTableId,
-            $databaseId: storyDatabaseId,
-            $createdAt: DateTime(2024).toIso8601String(),
-            $updatedAt: DateTime(2024).toIso8601String(),
-            $permissions: const ['any'],
-            $sequence: 0,
-            data: {'storyId': storyId},
-          );
-      when(
-        tables.listRows(
-          databaseId: storyDatabaseId,
-          tableId: likeTableId,
-          queries: [Query.equal('uId', 'id1')],
-        ),
-      ).thenAnswer(
-        (_) async => RowList(total: 2, rows: [likeRow('doc1'), likeRow('gone')]),
-      );
-      when(
-        tables.getRow(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          rowId: 'doc1',
-        ),
-      ).thenAnswer((_) async => _storyRow('doc1', 'Story 1', 'comedy', 'id1'));
-      when(
-        tables.getRow(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          rowId: 'gone',
-        ),
-      ).thenThrow(AppwriteException('not found', 404));
-
-      final stories = await repo.fetchLikedStories('id1');
-      expect(stories.length, 1);
-      expect(stories[0].storyId, 'doc1');
     });
   });
 

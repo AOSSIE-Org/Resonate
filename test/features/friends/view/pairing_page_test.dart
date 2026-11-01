@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/pages/pairing_page.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
+import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -18,7 +18,7 @@ const _placeholderUrl = 'https://example.com/placeholder.jpg';
 
 // Builds the current-user, placeholder and pair-chat overrides.
 List<Override> _overrides(
-  FakePairChatNotifier fake, {
+  FakePairChat fake, {
   String? profileImageUrl = 'https://example.com/me.jpg',
 }) {
   final me = fakeAuthUser(uid: 'me', profileImageUrl: profileImageUrl);
@@ -78,7 +78,7 @@ void main() {
     testFriendsWidget('authenticated uses the user profile image', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(const PairChatState(isAnonymous: false));
+      final fake = FakePairChat(const PairChatState(isAnonymous: false));
       await pumpFriendsPage(
         tester,
         const PairingPage(),
@@ -92,7 +92,7 @@ void main() {
     });
 
     testFriendsWidget('anonymous uses the placeholder image', (tester) async {
-      final fake = FakePairChatNotifier(const PairChatState(isAnonymous: true));
+      final fake = FakePairChat(const PairChatState(isAnonymous: true));
       await pumpFriendsPage(
         tester,
         const PairingPage(),
@@ -110,7 +110,7 @@ void main() {
     testFriendsWidget('Cancel calls cancelRequest then routes to tabview', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(const PairChatState(isAnonymous: false));
+      final fake = FakePairChat(const PairChatState(isAnonymous: false));
       await pumpRouterApp(tester, _overrides(fake));
       await tester.pump();
 

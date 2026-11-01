@@ -54,6 +54,44 @@ void main() {
     );
   });
 
+  // The rule is "view models depend on repositories and services, never on a
+  // sibling view model". The test above only catches the cross-feature half of
+  // that, so same-feature sibling coupling used to slip through.
+  test('no view model imports another view model', () {
+    final importPattern = RegExp(
+      r'''import\s+['"]package:resonate/(features/\w+/viewmodel/[^'"]+)['"]''',
+    );
+    final ownFile = RegExp(r'lib/features/\w+/viewmodel/');
+    final violations = <String>[];
+
+    for (final file in Directory('lib/features')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'))) {
+      final path = file.path.replaceAll(r'\', '/');
+      if (!ownFile.hasMatch(path) || path.contains('/generated/')) continue;
+      for (final line in file.readAsLinesSync()) {
+        final match = importPattern.firstMatch(line);
+        if (match == null) continue;
+        final importedPath = match.group(1)!;
+        // A view model importing its own file is impossible; anything else here
+        // is one screen's view model reaching into another's.
+        if (_sharedProviders.containsKey(importedPath)) continue;
+        if (path.endsWith(importedPath)) continue;
+        violations.add('$path -> $importedPath');
+      }
+    }
+
+    expect(
+      violations,
+      isEmpty,
+      reason:
+          'A view model imports another view model. If it only needs to refresh '
+          'shared data, that data belongs in `data/` and both should read it '
+          'from there:\n${violations.join('\n')}',
+    );
+  });
+
   // Views must have a one-to-one relationship with its ViewModel
   test('a view imports at most one screen view model', () {
     final importPattern = RegExp(

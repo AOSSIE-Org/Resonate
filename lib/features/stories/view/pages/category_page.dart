@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/stories/view/widgets/story_list_tile.dart';
-import 'package:resonate/features/stories/viewmodel/category_stories_notifier.dart';
+import 'package:resonate/features/stories/data/category_stories.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/enums/story_category.dart';

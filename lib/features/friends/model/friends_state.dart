@@ -19,11 +19,3 @@ abstract class FriendsState with _$FriendsState {
     return null;
   }
 }
-
-@freezed
-sealed class FriendsFailure with _$FriendsFailure {
-  const factory FriendsFailure.notFound() = FriendsFailureNotFound;
-  const factory FriendsFailure.network() = FriendsFailureNetwork;
-  const factory FriendsFailure.permissionDenied() = FriendsFailurePermissionDenied;
-  const factory FriendsFailure.unknown(String message) = FriendsFailureUnknown;
-}

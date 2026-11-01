@@ -4,8 +4,8 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/pages/pair_chat_page.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 
 import '../friends_test_helpers.dart';
@@ -28,9 +28,9 @@ Future<void> _disposePage(WidgetTester tester) async {
 
 List<Override> buildOverrides({
   required PairChatState state,
-  FakePairChatNotifier? fake,
+  FakePairChat? fake,
 }) {
-  final chat = fake ?? FakePairChatNotifier(state);
+  final chat = fake ?? FakePairChat(state);
   return [
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
@@ -82,7 +82,7 @@ void main() {
 
   group('PairChatPage control wiring', () {
     testFriendsWidget('mic button calls toggleMic', (tester) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await _pumpPage(
         tester,
         buildOverrides(state: const PairChatState(), fake: fake),
@@ -95,7 +95,7 @@ void main() {
     });
 
     testFriendsWidget('speaker button calls toggleLoudSpeaker', (tester) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await _pumpPage(
         tester,
         buildOverrides(state: const PairChatState(), fake: fake),
@@ -108,7 +108,7 @@ void main() {
     });
 
     testFriendsWidget('end button calls endChat', (tester) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await _pumpPage(
         tester,
         buildOverrides(state: const PairChatState(), fake: fake),

@@ -49,7 +49,7 @@ Future<void> pumpSheet(
   WidgetTester tester, {
   required List<Override> overrides,
 }) async {
-  await pumpRoomsPage(
+  await pumpTestApp(
     tester,
     Builder(
       builder: (context) => Center(
@@ -75,7 +75,7 @@ Finder get _createButton =>
 
 void main() {
   group('CreatePollSheet layout', () {
-    testRoomsWidget('renders question field and exactly 2 option fields', (
+    testAppWidget('renders question field and exactly 2 option fields', (
       tester,
     ) async {
       await pumpSheet(tester, overrides: sheetOverrides(FakeRoomPolls.new));
@@ -90,7 +90,7 @@ void main() {
       expect(find.byIcon(Icons.close), findsNothing);
     });
 
-    testRoomsWidget('Add option grows to 5 fields then the button disappears', (
+    testAppWidget('Add option grows to 5 fields then the button disappears', (
       tester,
     ) async {
       await pumpSheet(tester, overrides: sheetOverrides(FakeRoomPolls.new));
@@ -110,7 +110,7 @@ void main() {
       expect(find.text('Add option'), findsNothing);
     });
 
-    testRoomsWidget('remove buttons only appear with >2 options and work', (
+    testAppWidget('remove buttons only appear with >2 options and work', (
       tester,
     ) async {
       await pumpSheet(tester, overrides: sheetOverrides(FakeRoomPolls.new));
@@ -130,7 +130,7 @@ void main() {
   });
 
   group('CreatePollSheet validation', () {
-    testRoomsWidget('empty question -> createPoll not called, sheet stays', (
+    testAppWidget('empty question -> createPoll not called, sheet stays', (
       tester,
     ) async {
       final fake = FakeRoomPolls();
@@ -145,7 +145,7 @@ void main() {
       expect(find.byType(CreatePollSheet), findsOneWidget);
     });
 
-    testRoomsWidget('fewer than 2 filled options -> createPoll not called', (
+    testAppWidget('fewer than 2 filled options -> createPoll not called', (
       tester,
     ) async {
       final fake = FakeRoomPolls();
@@ -164,7 +164,7 @@ void main() {
   });
 
   group('CreatePollSheet submit', () {
-    testRoomsWidget('valid submit calls createPoll trimmed and pops sheet', (
+    testAppWidget('valid submit calls createPoll trimmed and pops sheet', (
       tester,
     ) async {
       final fake = FakeRoomPolls();
@@ -186,7 +186,7 @@ void main() {
       expect(find.byType(CreatePollSheet), findsNothing);
     });
 
-    testRoomsWidget('createPoll returning false keeps the sheet open', (
+    testAppWidget('createPoll returning false keeps the sheet open', (
       tester,
     ) async {
       final fake = FakeRoomPolls(createResult: false);

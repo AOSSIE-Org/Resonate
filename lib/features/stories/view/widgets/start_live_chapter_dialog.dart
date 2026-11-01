@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -60,9 +60,11 @@ class _StartLiveChapterDialogState
     } catch (e) {
       if (mounted) setState(() => _isStarting = false);
       log('startLiveChapter failed: $e');
-      final message = e is AppwriteException
-          ? (e.message ?? e.toString())
-          : e.toString();
+      final message = switch (e) {
+        StoriesFailureUnknown(:final message) => message,
+        StoriesFailureUpload(:final what) => what,
+        _ => e.toString(),
+      };
       customSnackbar(l10n.error, message, LogType.error);
       return;
     }

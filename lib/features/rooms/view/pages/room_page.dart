@@ -4,11 +4,11 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_chat_page.dart';
-import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
+import 'package:resonate/features/live_audio/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
 import 'package:resonate/shared/widgets/session_app_bar.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
-import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
+import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -49,7 +49,7 @@ class RoomPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // If an admin kicks
-    ref.listen(singleRoomProvider(room), (_, next) {
+    ref.listen(roomSessionProvider(room), (_, next) {
       if (next.value?.wasKicked ?? false) {
         final navigator = Navigator.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -59,7 +59,7 @@ class RoomPage extends ConsumerWidget {
       }
     });
 
-    final asyncState = ref.watch(singleRoomProvider(room));
+    final asyncState = ref.watch(roomSessionProvider(room));
 
     return Scaffold(
       body: Column(
@@ -205,7 +205,7 @@ class _Footer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(singleRoomProvider(room)).value;
+    final state = ref.watch(roomSessionProvider(room)).value;
     if (state == null) return const SizedBox.shrink();
 
     return Align(
@@ -231,7 +231,7 @@ class _Footer extends ConsumerWidget {
                 if (!confirmed) return;
 
                 final notifier =
-                    ref.read(singleRoomProvider(room).notifier);
+                    ref.read(roomSessionProvider(room).notifier);
                 try {
                   if (room.isUserAdmin) {
                     await notifier.deleteRoom(room);
@@ -257,7 +257,7 @@ class _Footer extends ConsumerWidget {
               onPressed: state.me.isSpeaker
                   ? () {
                       final notifier =
-                          ref.read(singleRoomProvider(room).notifier);
+                          ref.read(roomSessionProvider(room).notifier);
                       if (state.me.isMicOn) {
                         notifier.turnOffMic(room);
                       } else {
@@ -276,7 +276,7 @@ class _Footer extends ConsumerWidget {
             // Raise hand
             FloatingActionButton(
               onPressed: () {
-                final notifier = ref.read(singleRoomProvider(room).notifier);
+                final notifier = ref.read(roomSessionProvider(room).notifier);
                 if (state.me.hasRequestedToBeSpeaker) {
                   notifier.unRaiseHand(room);
                 } else {
