@@ -216,7 +216,7 @@ jobs:
           fi
 
       - name: Deploy to Play Store (Internal testing)
-        uses: r0adkll/upload-google-play@v1.1.5
+        uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: ${{ env.SERVICE_ACCOUNT_PATH }}
           packageName: com.resonate.resonate
