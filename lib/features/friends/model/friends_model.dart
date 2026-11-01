@@ -17,8 +17,6 @@ abstract class FriendsModel with _$FriendsModel {
     required String recieverUsername,
     required String senderName,
     required String recieverName,
-    String? senderFCMToken,
-    String? recieverFCMToken,
     List<String>? users,
     required FriendRequestStatus requestStatus,
     required String requestSentByUserId,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/user_profile_summary.dart';
@@ -8,7 +10,6 @@ class FakeProfileRepository implements ProfileRepository {
   List<FollowerUserModel> followers = const [];
   UserProfileSummary? profileSummary;
   Object? profileSummaryError;
-  String? fcmToken = 'fake-token';
   bool usernameAvailableReturn = true;
   bool emailAvailableReturn = true;
   Object? changeEmailInAuthError;
@@ -23,7 +24,6 @@ class FakeProfileRepository implements ProfileRepository {
   int isUsernameAvailableCalls = 0;
   FollowerUserModel? followedFollower;
   String? unfollowedDocId;
-  int getFcmTokenCount = 0;
   int newFollowerIdCount = 0;
   int deleteProfileImageCount = 0;
   String? deletedImageId;
@@ -46,6 +46,14 @@ class FakeProfileRepository implements ProfileRepository {
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async =>
       followers;
 
+  // Never emits on its own: tests drive a follower change by adding to
+  // `followersController`.
+  final StreamController<void> followersController =
+      StreamController<void>.broadcast();
+
+  @override
+  Stream<void> followersChanged(String uid) => followersController.stream;
+
   @override
   Future<UserProfileSummary> fetchProfileSummary(String uid) async {
     fetchProfileSummaryArg = uid;
@@ -59,12 +67,6 @@ class FakeProfileRepository implements ProfileRepository {
           rating: 0,
           followerCount: 0,
         );
-  }
-
-  @override
-  Future<String?> getFcmToken() async {
-    getFcmTokenCount++;
-    return fcmToken;
   }
 
   @override

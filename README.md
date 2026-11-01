@@ -61,7 +61,7 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 2.  **Appwrite** — authentication, database, storage and cloud functions
 3.  **LiveKit** — WebRTC real-time audio
 4.  **Riverpod** — state management, in an MVVM feature-first architecture
-5.  **Firebase Cloud Messaging** — push notifications
+5.  **Appwrite Messaging** — push notifications, delivered over MQTT
 6.  **Meilisearch** — search (optional)
 
 ## :link: Repository Links

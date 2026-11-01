@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/shell/model/notification.dart';
 import 'package:resonate/utils/constants.dart';
@@ -18,21 +16,17 @@ part 'generated/upcoming_rooms_repository.g.dart';
 UpcomingRoomsRepository upcomingRoomsRepository(Ref ref) =>
     UpcomingRoomsRepository(
       tables: ref.watch(appwriteTablesProvider),
-      messaging: ref.watch(firebaseMessagingProvider),
       functions: ref.watch(appwriteFunctionsProvider),
     );
 
 class UpcomingRoomsRepository {
   UpcomingRoomsRepository({
     required TablesDB tables,
-    required FirebaseMessaging messaging,
     required Functions functions,
   }) : _tables = tables,
-       _messaging = messaging,
        _functions = functions;
 
   final TablesDB _tables;
-  final FirebaseMessaging _messaging;
   final Functions _functions;
 
   Future<List<AppwriteUpcomingRoom>> loadUpcoming({
@@ -119,7 +113,6 @@ class UpcomingRoomsRepository {
     required String scheduledDateTime,
     required String creatorUid,
   }) async {
-    final fcmToken = await _messaging.getToken();
     await _tables.createRow(
       databaseId: databaseId,
       tableId: upcomingRoomsTableId,
@@ -130,7 +123,6 @@ class UpcomingRoomsRepository {
         'tags': tags,
         'description': description,
         'creatorUid': creatorUid,
-        'creator_fcm_tokens': [fcmToken],
       },
     );
   }
@@ -140,7 +132,21 @@ class UpcomingRoomsRepository {
     required String userUid,
     required String profileImageUrl,
   }) async {
-    final fcmToken = await _messaging.getToken();
+    // The row id is random, so nothing stops a second write creating a second
+    // subscriber row for the same user. The notifier guards the double tap;
+    // this covers a stale tile or a second device, where that guard cannot
+    // see the first write.
+    final existing = await _tables.listRows(
+      databaseId: databaseId,
+      tableId: subscribedUserTableId,
+      queries: [
+        Query.equal('userID', userUid),
+        Query.equal('upcomingRoomId', upcomingRoomId),
+        Query.limit(1),
+      ],
+    );
+    if (existing.rows.isNotEmpty) return;
+
     await _tables.createRow(
       databaseId: databaseId,
       tableId: subscribedUserTableId,
@@ -148,7 +154,6 @@ class UpcomingRoomsRepository {
       data: {
         'userID': userUid,
         'upcomingRoomId': upcomingRoomId,
-        'registrationTokens': [fcmToken],
         'userProfileUrl': profileImageUrl,
       },
     );

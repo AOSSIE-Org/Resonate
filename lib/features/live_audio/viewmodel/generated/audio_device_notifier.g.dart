@@ -61,7 +61,7 @@ String _$audioDeviceServiceHash() =>
 final audioDeviceProvider = AudioDeviceNotifierProvider._();
 
 final class AudioDeviceNotifierProvider
-    extends $AsyncNotifierProvider<AudioDeviceNotifier, AudioDeviceState> {
+    extends $NotifierProvider<AudioDeviceNotifier, AudioDeviceState> {
   AudioDeviceNotifierProvider._()
     : super(
         from: null,
@@ -79,23 +79,30 @@ final class AudioDeviceNotifierProvider
   @$internal
   @override
   AudioDeviceNotifier create() => AudioDeviceNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AudioDeviceState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AudioDeviceState>(value),
+    );
+  }
 }
 
 String _$audioDeviceNotifierHash() =>
-    r'be9a7941554f0c4e2627448c61212d5bf1e53bcc';
+    r'3e223129e69515997e533c56fae6eb0e786ec735';
 
-abstract class _$AudioDeviceNotifier extends $AsyncNotifier<AudioDeviceState> {
-  FutureOr<AudioDeviceState> build();
+abstract class _$AudioDeviceNotifier extends $Notifier<AudioDeviceState> {
+  AudioDeviceState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref as $Ref<AsyncValue<AudioDeviceState>, AudioDeviceState>;
+    final ref = this.ref as $Ref<AudioDeviceState, AudioDeviceState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<AudioDeviceState>, AudioDeviceState>,
-              AsyncValue<AudioDeviceState>,
+              AnyNotifier<AudioDeviceState, AudioDeviceState>,
+              AudioDeviceState,
               Object?,
               Object?
             >;

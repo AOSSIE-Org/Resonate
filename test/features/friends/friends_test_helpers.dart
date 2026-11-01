@@ -62,6 +62,7 @@ Future<void> pumpFriendsPage(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        ...authOverrides(),
         ...activityStatusOverrides(
           myStatus: myStatus,
           others: activityStatuses,

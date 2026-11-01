@@ -820,10 +820,6 @@
     "@micOn": {
         "description": "Accessibility label for the microphone button when it is on."
     },
-    "speakerOn": "speaker",
-    "@speakerOn": {
-        "description": "Accessibility label for the speakerphone button when it is on."
-    },
     "endChat": "end-chat",
     "@endChat": {
         "description": "Accessibility label for the end chat/call button."
@@ -1830,14 +1826,6 @@
     "@selectPreferredSpeaker": {
         "description": "Subtitle for audio device selector dialog."
     },
-    "noAudioOutputDevices": "No audio output devices detected",
-    "@noAudioOutputDevices": {
-        "description": "Message shown when no audio output devices are available."
-    },
-    "refresh": "Refresh",
-    "@refresh": {
-        "description": "Button text to refresh audio device list."
-    },
     "done": "Done",
     "@done": {
         "description": "Button text to close audio device selector."
@@ -1858,7 +1846,6 @@
     "@failedToDeleteMessage": {
         "description": "Error snackbar shown when deleting a message fails."
     },
-
     "noFriendsYet": "No Friends Yet",
     "@noFriendsYet": {
         "description": "Title shown when user has no friends."
@@ -1892,17 +1879,14 @@
             }
         }
     },
-
     "usernameInvalidFormat": "Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.",
     "@usernameInvalidFormat": {
         "description": "Validation error displayed when the user enters a username with unsupported characters."
     },
-
     "usernameAlreadyTaken": "This username is already taken. Try a different one.",
     "@usernameAlreadyTaken": {
         "description": "Error shown when the chosen username is unavailable because another user has already registered it."
     },
-
     "poll": "Poll",
     "@poll": {
         "description": "Label identifying a poll card in the room chat."
@@ -2484,5 +2468,25 @@
                 "example": "story cover"
             }
         }
+    },
+    "earpiece": "Earpiece",
+    "@earpiece": {
+        "description": "Label for the phone earpiece option in the audio output picker."
+    },
+    "headsetTakesPriority": "A connected headset takes priority while it is plugged in or paired.",
+    "@headsetTakesPriority": {
+        "description": "Note under the audio output picker explaining that a wired or Bluetooth headset overrides the choice."
+    },
+    "audioOutputNotSwitchable": "Audio output cannot be changed on this device.",
+    "@audioOutputNotSwitchable": {
+        "description": "Shown in the audio output picker when the platform offers no routing choice."
+    },
+    "loudspeaker": "Loudspeaker",
+    "@loudspeaker": {
+        "description": "Label for the loudspeaker option in the audio output picker. Distinct from `speaker`, which is the Speaker user role in a room."
+    },
+    "callReliability": "Call reliability",
+    "@callReliability": {
+        "description": "Settings entry that opens the battery optimisation exemption prompt."
     }
 }

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/viewmodel/forgot_password_notifier.dart';
 
 import '../../../helpers/test_root_container.mocks.dart';
@@ -13,13 +12,11 @@ void main() {
   late MockAccount account;
   late MockTablesDB tables;
   late MockFunctions functions;
-  late MockFirebaseMessaging messaging;
 
   setUp(() {
     account = MockAccount();
     tables = MockTablesDB();
     functions = MockFunctions();
-    messaging = MockFirebaseMessaging();
   });
 
   ProviderContainer makeContainer() {
@@ -28,7 +25,6 @@ void main() {
         appwriteAccountProvider.overrideWithValue(account),
         appwriteTablesProvider.overrideWithValue(tables),
         appwriteFunctionsProvider.overrideWithValue(functions),
-        firebaseMessagingProvider.overrideWithValue(messaging),
       ],
     );
     addTearDown(c.dispose);

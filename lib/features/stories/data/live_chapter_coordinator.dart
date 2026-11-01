@@ -55,7 +55,6 @@ class LiveChapter extends _$LiveChapter {
       chapterTitle: chapterTitle,
       chapterDescription: chapterDescription,
       storyId: storyId,
-      followersFCMToken: user.followers.map((e) => e.fcmToken).toList(),
       attendees: LiveChapterAttendeesModel(
         liveChapterId: roomId,
         users: const [],

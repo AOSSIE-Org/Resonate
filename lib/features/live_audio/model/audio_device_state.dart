@@ -1,12 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:resonate/features/live_audio/model/audio_device.dart';
 
 part 'generated/audio_device_state.freezed.dart';
+
+enum AudioOutputRoute { speaker, earpiece }
 
 @freezed
 abstract class AudioDeviceState with _$AudioDeviceState {
   const factory AudioDeviceState({
-    @Default(<AudioDevice>[]) List<AudioDevice> devices,
-    AudioDevice? selected,
+    @Default(AudioOutputRoute.speaker) AudioOutputRoute route,
+    @Default(true) bool canSwitch,
   }) = _AudioDeviceState;
 }

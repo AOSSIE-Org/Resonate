@@ -279,7 +279,6 @@ void main() {
       final call = fakeCall();
       await repo.sendCallNotification(
         call: call,
-        recieverFCMToken: 'fcm-token-1',
       );
 
       final body = verify(
@@ -290,7 +289,6 @@ void main() {
       ).captured.single as String;
 
       final decoded = jsonDecode(body) as Map<String, dynamic>;
-      expect(decoded['recieverFCMToken'], 'fcm-token-1');
       final data = decoded['data'] as Map<String, dynamic>;
       expect(data['type'], 'incoming_call');
       expect(data['call_id'], call.docId);

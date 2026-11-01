@@ -18,6 +18,22 @@ const String appwriteScheme = String.fromEnvironment(
 );
 const String appwriteEndpoint = "$appwriteScheme://$baseDomain/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";
+
+// The push broker is a listener of its own not a route on the API host
+const String appwriteMqttHost = String.fromEnvironment(
+  'APPWRITE_MQTT_HOST',
+  defaultValue: baseDomain,
+);
+
+// 8883 is MQTT over TLS, 1883 plaintext. A local Appwrite serves the API over
+// http, so the broker is plaintext there too.
+const int appwriteMqttPort = int.fromEnvironment(
+  'APPWRITE_MQTT_PORT',
+  defaultValue: appwriteScheme == 'https' ? 8883 : 1883,
+);
+const String appwritePushEndpoint = appwriteScheme == 'https'
+    ? "mqtts://$appwriteMqttHost:$appwriteMqttPort"
+    : "mqtt://$appwriteMqttHost:$appwriteMqttPort";
 const String meilisearchEndpoint = String.fromEnvironment(
   'MEILISEARCH_ENDPOINT',
   defaultValue: 'http://$baseDomain:7700',

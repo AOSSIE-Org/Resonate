@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FollowerUserModel {
 
-@JsonKey(name: "\$id", includeToJson: false) String get docId;@JsonKey(name: "followerUserId") String get uid;@JsonKey(name: "followerUsername") String get username;@JsonKey(name: "followerProfileImageUrl") String get profileImageUrl;@JsonKey(name: "followerName") String get name;@JsonKey(name: 'followerFCMToken') String get fcmToken;@JsonKey(name: "followingUserId") String? get followingUserId;@JsonKey(name: 'followerRating', fromJson: toDouble) double? get followerRating;
+@JsonKey(name: "\$id", includeToJson: false) String get docId;@JsonKey(name: "followerUserId") String get uid;@JsonKey(name: "followerUsername") String get username;@JsonKey(name: "followerProfileImageUrl") String get profileImageUrl;@JsonKey(name: "followerName") String get name;@JsonKey(name: "followingUserId") String? get followingUserId;@JsonKey(name: 'followerRating', fromJson: toDouble) double? get followerRating;
 /// Create a copy of FollowerUserModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $FollowerUserModelCopyWith<FollowerUserModel> get copyWith => _$FollowerUserMode
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FollowerUserModel&&(identical(other.docId, docId) || other.docId == docId)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.username, username) || other.username == username)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.followingUserId, followingUserId) || other.followingUserId == followingUserId)&&(identical(other.followerRating, followerRating) || other.followerRating == followerRating));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FollowerUserModel&&(identical(other.docId, docId) || other.docId == docId)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.username, username) || other.username == username)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.followingUserId, followingUserId) || other.followingUserId == followingUserId)&&(identical(other.followerRating, followerRating) || other.followerRating == followerRating));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,docId,uid,username,profileImageUrl,name,fcmToken,followingUserId,followerRating);
+int get hashCode => Object.hash(runtimeType,docId,uid,username,profileImageUrl,name,followingUserId,followerRating);
 
 @override
 String toString() {
-  return 'FollowerUserModel(docId: $docId, uid: $uid, username: $username, profileImageUrl: $profileImageUrl, name: $name, fcmToken: $fcmToken, followingUserId: $followingUserId, followerRating: $followerRating)';
+  return 'FollowerUserModel(docId: $docId, uid: $uid, username: $username, profileImageUrl: $profileImageUrl, name: $name, followingUserId: $followingUserId, followerRating: $followerRating)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $FollowerUserModelCopyWith<$Res>  {
   factory $FollowerUserModelCopyWith(FollowerUserModel value, $Res Function(FollowerUserModel) _then) = _$FollowerUserModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: "\$id", includeToJson: false) String docId,@JsonKey(name: "followerUserId") String uid,@JsonKey(name: "followerUsername") String username,@JsonKey(name: "followerProfileImageUrl") String profileImageUrl,@JsonKey(name: "followerName") String name,@JsonKey(name: 'followerFCMToken') String fcmToken,@JsonKey(name: "followingUserId") String? followingUserId,@JsonKey(name: 'followerRating', fromJson: toDouble) double? followerRating
+@JsonKey(name: "\$id", includeToJson: false) String docId,@JsonKey(name: "followerUserId") String uid,@JsonKey(name: "followerUsername") String username,@JsonKey(name: "followerProfileImageUrl") String profileImageUrl,@JsonKey(name: "followerName") String name,@JsonKey(name: "followingUserId") String? followingUserId,@JsonKey(name: 'followerRating', fromJson: toDouble) double? followerRating
 });
 
 
@@ -65,14 +65,13 @@ class _$FollowerUserModelCopyWithImpl<$Res>
 
 /// Create a copy of FollowerUserModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? docId = null,Object? uid = null,Object? username = null,Object? profileImageUrl = null,Object? name = null,Object? fcmToken = null,Object? followingUserId = freezed,Object? followerRating = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? docId = null,Object? uid = null,Object? username = null,Object? profileImageUrl = null,Object? name = null,Object? followingUserId = freezed,Object? followerRating = freezed,}) {
   return _then(_self.copyWith(
 docId: null == docId ? _self.docId : docId // ignore: cast_nullable_to_non_nullable
 as String,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,profileImageUrl: null == profileImageUrl ? _self.profileImageUrl : profileImageUrl // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,fcmToken: null == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
 as String,followingUserId: freezed == followingUserId ? _self.followingUserId : followingUserId // ignore: cast_nullable_to_non_nullable
 as String?,followerRating: freezed == followerRating ? _self.followerRating : followerRating // ignore: cast_nullable_to_non_nullable
 as double?,
@@ -160,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "\$id", includeToJson: false)  String docId, @JsonKey(name: "followerUserId")  String uid, @JsonKey(name: "followerUsername")  String username, @JsonKey(name: "followerProfileImageUrl")  String profileImageUrl, @JsonKey(name: "followerName")  String name, @JsonKey(name: 'followerFCMToken')  String fcmToken, @JsonKey(name: "followingUserId")  String? followingUserId, @JsonKey(name: 'followerRating', fromJson: toDouble)  double? followerRating)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "\$id", includeToJson: false)  String docId, @JsonKey(name: "followerUserId")  String uid, @JsonKey(name: "followerUsername")  String username, @JsonKey(name: "followerProfileImageUrl")  String profileImageUrl, @JsonKey(name: "followerName")  String name, @JsonKey(name: "followingUserId")  String? followingUserId, @JsonKey(name: 'followerRating', fromJson: toDouble)  double? followerRating)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FollowerUserModel() when $default != null:
-return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that.name,_that.fcmToken,_that.followingUserId,_that.followerRating);case _:
+return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that.name,_that.followingUserId,_that.followerRating);case _:
   return orElse();
 
 }
@@ -181,10 +180,10 @@ return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "\$id", includeToJson: false)  String docId, @JsonKey(name: "followerUserId")  String uid, @JsonKey(name: "followerUsername")  String username, @JsonKey(name: "followerProfileImageUrl")  String profileImageUrl, @JsonKey(name: "followerName")  String name, @JsonKey(name: 'followerFCMToken')  String fcmToken, @JsonKey(name: "followingUserId")  String? followingUserId, @JsonKey(name: 'followerRating', fromJson: toDouble)  double? followerRating)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "\$id", includeToJson: false)  String docId, @JsonKey(name: "followerUserId")  String uid, @JsonKey(name: "followerUsername")  String username, @JsonKey(name: "followerProfileImageUrl")  String profileImageUrl, @JsonKey(name: "followerName")  String name, @JsonKey(name: "followingUserId")  String? followingUserId, @JsonKey(name: 'followerRating', fromJson: toDouble)  double? followerRating)  $default,) {final _that = this;
 switch (_that) {
 case _FollowerUserModel():
-return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that.name,_that.fcmToken,_that.followingUserId,_that.followerRating);case _:
+return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that.name,_that.followingUserId,_that.followerRating);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +200,10 @@ return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "\$id", includeToJson: false)  String docId, @JsonKey(name: "followerUserId")  String uid, @JsonKey(name: "followerUsername")  String username, @JsonKey(name: "followerProfileImageUrl")  String profileImageUrl, @JsonKey(name: "followerName")  String name, @JsonKey(name: 'followerFCMToken')  String fcmToken, @JsonKey(name: "followingUserId")  String? followingUserId, @JsonKey(name: 'followerRating', fromJson: toDouble)  double? followerRating)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "\$id", includeToJson: false)  String docId, @JsonKey(name: "followerUserId")  String uid, @JsonKey(name: "followerUsername")  String username, @JsonKey(name: "followerProfileImageUrl")  String profileImageUrl, @JsonKey(name: "followerName")  String name, @JsonKey(name: "followingUserId")  String? followingUserId, @JsonKey(name: 'followerRating', fromJson: toDouble)  double? followerRating)?  $default,) {final _that = this;
 switch (_that) {
 case _FollowerUserModel() when $default != null:
-return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that.name,_that.fcmToken,_that.followingUserId,_that.followerRating);case _:
+return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that.name,_that.followingUserId,_that.followerRating);case _:
   return null;
 
 }
@@ -216,7 +215,7 @@ return $default(_that.docId,_that.uid,_that.username,_that.profileImageUrl,_that
 @JsonSerializable()
 
 class _FollowerUserModel extends FollowerUserModel {
-   _FollowerUserModel({@JsonKey(name: "\$id", includeToJson: false) required this.docId, @JsonKey(name: "followerUserId") required this.uid, @JsonKey(name: "followerUsername") required this.username, @JsonKey(name: "followerProfileImageUrl") required this.profileImageUrl, @JsonKey(name: "followerName") required this.name, @JsonKey(name: 'followerFCMToken') required this.fcmToken, @JsonKey(name: "followingUserId") this.followingUserId, @JsonKey(name: 'followerRating', fromJson: toDouble) required this.followerRating}): super._();
+   _FollowerUserModel({@JsonKey(name: "\$id", includeToJson: false) required this.docId, @JsonKey(name: "followerUserId") required this.uid, @JsonKey(name: "followerUsername") required this.username, @JsonKey(name: "followerProfileImageUrl") required this.profileImageUrl, @JsonKey(name: "followerName") required this.name, @JsonKey(name: "followingUserId") this.followingUserId, @JsonKey(name: 'followerRating', fromJson: toDouble) required this.followerRating}): super._();
   factory _FollowerUserModel.fromJson(Map<String, dynamic> json) => _$FollowerUserModelFromJson(json);
 
 @override@JsonKey(name: "\$id", includeToJson: false) final  String docId;
@@ -224,7 +223,6 @@ class _FollowerUserModel extends FollowerUserModel {
 @override@JsonKey(name: "followerUsername") final  String username;
 @override@JsonKey(name: "followerProfileImageUrl") final  String profileImageUrl;
 @override@JsonKey(name: "followerName") final  String name;
-@override@JsonKey(name: 'followerFCMToken') final  String fcmToken;
 @override@JsonKey(name: "followingUserId") final  String? followingUserId;
 @override@JsonKey(name: 'followerRating', fromJson: toDouble) final  double? followerRating;
 
@@ -241,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FollowerUserModel&&(identical(other.docId, docId) || other.docId == docId)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.username, username) || other.username == username)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.followingUserId, followingUserId) || other.followingUserId == followingUserId)&&(identical(other.followerRating, followerRating) || other.followerRating == followerRating));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FollowerUserModel&&(identical(other.docId, docId) || other.docId == docId)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.username, username) || other.username == username)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.followingUserId, followingUserId) || other.followingUserId == followingUserId)&&(identical(other.followerRating, followerRating) || other.followerRating == followerRating));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,docId,uid,username,profileImageUrl,name,fcmToken,followingUserId,followerRating);
+int get hashCode => Object.hash(runtimeType,docId,uid,username,profileImageUrl,name,followingUserId,followerRating);
 
 @override
 String toString() {
-  return 'FollowerUserModel(docId: $docId, uid: $uid, username: $username, profileImageUrl: $profileImageUrl, name: $name, fcmToken: $fcmToken, followingUserId: $followingUserId, followerRating: $followerRating)';
+  return 'FollowerUserModel(docId: $docId, uid: $uid, username: $username, profileImageUrl: $profileImageUrl, name: $name, followingUserId: $followingUserId, followerRating: $followerRating)';
 }
 
 
@@ -261,7 +259,7 @@ abstract mixin class _$FollowerUserModelCopyWith<$Res> implements $FollowerUserM
   factory _$FollowerUserModelCopyWith(_FollowerUserModel value, $Res Function(_FollowerUserModel) _then) = __$FollowerUserModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: "\$id", includeToJson: false) String docId,@JsonKey(name: "followerUserId") String uid,@JsonKey(name: "followerUsername") String username,@JsonKey(name: "followerProfileImageUrl") String profileImageUrl,@JsonKey(name: "followerName") String name,@JsonKey(name: 'followerFCMToken') String fcmToken,@JsonKey(name: "followingUserId") String? followingUserId,@JsonKey(name: 'followerRating', fromJson: toDouble) double? followerRating
+@JsonKey(name: "\$id", includeToJson: false) String docId,@JsonKey(name: "followerUserId") String uid,@JsonKey(name: "followerUsername") String username,@JsonKey(name: "followerProfileImageUrl") String profileImageUrl,@JsonKey(name: "followerName") String name,@JsonKey(name: "followingUserId") String? followingUserId,@JsonKey(name: 'followerRating', fromJson: toDouble) double? followerRating
 });
 
 
@@ -278,14 +276,13 @@ class __$FollowerUserModelCopyWithImpl<$Res>
 
 /// Create a copy of FollowerUserModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? docId = null,Object? uid = null,Object? username = null,Object? profileImageUrl = null,Object? name = null,Object? fcmToken = null,Object? followingUserId = freezed,Object? followerRating = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? docId = null,Object? uid = null,Object? username = null,Object? profileImageUrl = null,Object? name = null,Object? followingUserId = freezed,Object? followerRating = freezed,}) {
   return _then(_FollowerUserModel(
 docId: null == docId ? _self.docId : docId // ignore: cast_nullable_to_non_nullable
 as String,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,profileImageUrl: null == profileImageUrl ? _self.profileImageUrl : profileImageUrl // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,fcmToken: null == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
 as String,followingUserId: freezed == followingUserId ? _self.followingUserId : followingUserId // ignore: cast_nullable_to_non_nullable
 as String?,followerRating: freezed == followerRating ? _self.followerRating : followerRating // ignore: cast_nullable_to_non_nullable
 as double?,

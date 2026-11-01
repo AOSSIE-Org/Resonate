@@ -252,8 +252,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       const Icon(Icons.people),
                       Padding(
                         padding: EdgeInsets.only(left: UiSizes.width_5),
-                        // Both branches: authUser.followers is the login-time
-                        // snapshot and never moves while the app is open.
                         child: Text(followers.length.toString()),
                       ),
                     ],

@@ -16,8 +16,6 @@ _FriendsModel _$FriendsModelFromJson(Map<String, dynamic> json) =>
       recieverUsername: json['recieverUsername'] as String,
       senderName: json['senderName'] as String,
       recieverName: json['recieverName'] as String,
-      senderFCMToken: json['senderFCMToken'] as String?,
-      recieverFCMToken: json['recieverFCMToken'] as String?,
       users: (json['users'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -41,8 +39,6 @@ Map<String, dynamic> _$FriendsModelToJson(_FriendsModel instance) =>
       'recieverUsername': instance.recieverUsername,
       'senderName': instance.senderName,
       'recieverName': instance.recieverName,
-      'senderFCMToken': instance.senderFCMToken,
-      'recieverFCMToken': instance.recieverFCMToken,
       'users': instance.users,
       'requestStatus': _$FriendRequestStatusEnumMap[instance.requestStatus]!,
       'requestSentByUserId': instance.requestSentByUserId,

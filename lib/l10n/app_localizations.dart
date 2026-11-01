@@ -1308,12 +1308,6 @@ abstract class AppLocalizations {
   /// **'mic'**
   String get micOn;
 
-  /// Accessibility label for the speakerphone button when it is on.
-  ///
-  /// In en, this message translates to:
-  /// **'speaker'**
-  String get speakerOn;
-
   /// Accessibility label for the end chat/call button.
   ///
   /// In en, this message translates to:
@@ -2579,18 +2573,6 @@ abstract class AppLocalizations {
   /// **'Select your preferred speaker'**
   String get selectPreferredSpeaker;
 
-  /// Message shown when no audio output devices are available.
-  ///
-  /// In en, this message translates to:
-  /// **'No audio output devices detected'**
-  String get noAudioOutputDevices;
-
-  /// Button text to refresh audio device list.
-  ///
-  /// In en, this message translates to:
-  /// **'Refresh'**
-  String get refresh;
-
   /// Button text to close audio device selector.
   ///
   /// In en, this message translates to:
@@ -3358,6 +3340,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not upload the {what}. Please try again.'**
   String uploadFailed(String what);
+
+  /// Label for the phone earpiece option in the audio output picker.
+  ///
+  /// In en, this message translates to:
+  /// **'Earpiece'**
+  String get earpiece;
+
+  /// Note under the audio output picker explaining that a wired or Bluetooth headset overrides the choice.
+  ///
+  /// In en, this message translates to:
+  /// **'A connected headset takes priority while it is plugged in or paired.'**
+  String get headsetTakesPriority;
+
+  /// Shown in the audio output picker when the platform offers no routing choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio output cannot be changed on this device.'**
+  String get audioOutputNotSwitchable;
+
+  /// Label for the loudspeaker option in the audio output picker. Distinct from `speaker`, which is the Speaker user role in a room.
+  ///
+  /// In en, this message translates to:
+  /// **'Loudspeaker'**
+  String get loudspeaker;
+
+  /// Settings entry that opens the battery optimisation exemption prompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Call reliability'**
+  String get callReliability;
 }
 
 class _AppLocalizationsDelegate

@@ -19,8 +19,6 @@
     "roomEndedMessage",
     "audioOutput",
     "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
     "done",
     "noFriendsYet",
     "noFriendsDescription",
@@ -144,7 +142,12 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ],
 
   "gu": [
@@ -198,8 +201,6 @@
     "roomEndedMessage",
     "audioOutput",
     "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
     "done",
     "noFriendsYet",
     "noFriendsDescription",
@@ -321,7 +322,12 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ],
 
   "hi": [
@@ -446,7 +452,12 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ],
 
   "kn": [
@@ -484,8 +495,6 @@
     "roomEndedMessage",
     "audioOutput",
     "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
     "done",
     "deleteMessageTitle",
     "deleteMessageContent",
@@ -613,7 +622,12 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ],
 
   "ml": [
@@ -747,7 +761,12 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ],
 
   "mr": [
@@ -881,7 +900,12 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ],
 
   "pa": [
@@ -1006,7 +1030,12 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ],
 
   "raj": [
@@ -1029,8 +1058,6 @@
     "roomEndedMessage",
     "audioOutput",
     "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
     "done",
     "deleteMessageTitle",
     "deleteMessageContent",
@@ -1158,7 +1185,12 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ],
 
   "ta": [
@@ -1299,6 +1331,11 @@
     "pauseRecording",
     "playbackBlockedInSession",
     "fileTooLarge",
-    "uploadFailed"
+    "uploadFailed",
+    "earpiece",
+    "headsetTakesPriority",
+    "audioOutputNotSwitchable",
+    "loudspeaker",
+    "callReliability"
   ]
 }

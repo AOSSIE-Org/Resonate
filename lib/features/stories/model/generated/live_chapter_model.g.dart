@@ -15,9 +15,6 @@ _LiveChapterModel _$LiveChapterModelFromJson(Map<String, dynamic> json) =>
       chapterTitle: json['chapterTitle'] as String,
       chapterDescription: json['chapterDescription'] as String,
       storyId: json['storyId'] as String,
-      followersFCMToken: (json['followersFCMToken'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
       id: json[r'$id'] as String,
     );
 
@@ -30,5 +27,4 @@ Map<String, dynamic> _$LiveChapterModelToJson(_LiveChapterModel instance) =>
       'chapterTitle': instance.chapterTitle,
       'chapterDescription': instance.chapterDescription,
       'storyId': instance.storyId,
-      'followersFCMToken': instance.followersFCMToken,
     };

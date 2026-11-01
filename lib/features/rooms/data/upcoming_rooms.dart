@@ -14,6 +14,8 @@ const String _removedUpcomingRoomsKey = 'removed_upcoming_rooms';
 // Data-layer cache + CRUD for the upcoming rooms list
 @Riverpod(keepAlive: true)
 class UpcomingRoomsNotifier extends _$UpcomingRoomsNotifier {
+  final Set<String> _subscriptionsInFlight = <String>{};
+
   GetStorage get _storage => ref.read(getStorageBoxProvider);
 
   List<String> _readHidden() =>
@@ -51,21 +53,31 @@ class UpcomingRoomsNotifier extends _$UpcomingRoomsNotifier {
   }
 
   Future<void> subscribe(String upcomingRoomId) async {
-    final user = ref.read(requireUserProvider);
-    await ref.read(upcomingRoomsRepositoryProvider).addSubscriber(
-      upcomingRoomId: upcomingRoomId,
-      userUid: user.uid,
-      profileImageUrl: user.profileImageUrl ?? '',
-    );
-    await refresh();
+    if (!_subscriptionsInFlight.add(upcomingRoomId)) return;
+    try {
+      final user = ref.read(requireUserProvider);
+      await ref.read(upcomingRoomsRepositoryProvider).addSubscriber(
+        upcomingRoomId: upcomingRoomId,
+        userUid: user.uid,
+        profileImageUrl: user.profileImageUrl ?? '',
+      );
+      await refresh();
+    } finally {
+      _subscriptionsInFlight.remove(upcomingRoomId);
+    }
   }
 
   Future<void> unsubscribe(String upcomingRoomId) async {
-    await ref.read(upcomingRoomsRepositoryProvider).removeSubscriber(
-      upcomingRoomId: upcomingRoomId,
-      userUid: ref.read(requireUserProvider).uid,
-    );
-    await refresh();
+    if (!_subscriptionsInFlight.add(upcomingRoomId)) return;
+    try {
+      await ref.read(upcomingRoomsRepositoryProvider).removeSubscriber(
+        upcomingRoomId: upcomingRoomId,
+        userUid: ref.read(requireUserProvider).uid,
+      );
+      await refresh();
+    } finally {
+      _subscriptionsInFlight.remove(upcomingRoomId);
+    }
   }
 
   Future<void> deleteUpcoming(String upcomingRoomId) async {

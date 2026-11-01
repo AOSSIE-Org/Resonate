@@ -333,7 +333,6 @@ void main() {
                   'chapterTitle': 'Live One',
                   'chapterDescription': 'desc',
                   'storyId': 's1',
-                  'followersFCMToken': <String>[],
                 },
               ),
             ],

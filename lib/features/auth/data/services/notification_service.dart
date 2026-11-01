@@ -34,6 +34,41 @@ class NotificationService {
         if (payload != null && payload.isNotEmpty) _onTapPayload(payload);
       },
     );
+
+    await _quietenPushServiceChannel();
+  }
+
+  /// Claims the Appwrite push plugin's foreground-service channel at minimum
+  /// importance before the plugin creates it at `IMPORTANCE_LOW`.
+  ///
+  /// Android requires a foreground service to show a notification and there is
+  /// no way to suppress it, but at `Importance.min` it carries no status-bar
+  /// icon and collapses to the bottom of the shade instead of sitting at the
+  /// top of the list.
+  ///
+  /// The id must stay in step with `PushBackground.SERVICE_CHANNEL_ID` in the
+  /// appwrite package; a mismatch silently creates an unused channel and the
+  /// plugin's own stays at LOW.
+  ///
+  /// Only effective on a fresh install: Android ignores importance changes to
+  /// an existing channel, and restores the previous settings if one is deleted
+  /// and recreated under the same id. An install that has already run keeps
+  /// LOW until the user lowers it themselves.
+  Future<void> _quietenPushServiceChannel() async {
+    final android = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+    if (android == null) return;
+    await android.createNotificationChannel(
+      const AndroidNotificationChannel(
+        'appwrite-push-service',
+        'Background connection',
+        description: 'Keeps notifications arriving while Resonate is closed.',
+        importance: Importance.min,
+        showBadge: false,
+      ),
+    );
   }
 
   Future<void> show({

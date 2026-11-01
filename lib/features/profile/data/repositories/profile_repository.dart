@@ -1,11 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:resonate/features/profile/model/user_profile_summary.dart';
@@ -22,8 +21,8 @@ ProfileRepository profileRepository(Ref ref) => ProfileRepository(
   tables: ref.watch(appwriteTablesProvider),
   storage: ref.watch(appwriteStorageProvider),
   account: ref.watch(appwriteAccountProvider),
-  messaging: ref.watch(firebaseMessagingProvider),
   functions: ref.watch(appwriteFunctionsProvider),
+  realtime: ref.watch(appwriteRealtimeProvider),
 );
 
 class ProfileRepository {
@@ -31,19 +30,34 @@ class ProfileRepository {
     required TablesDB tables,
     required Storage storage,
     required Account account,
-    required FirebaseMessaging messaging,
     required Functions functions,
+    required Realtime realtime,
   }) : _tables = tables,
        _storage = storage,
        _account = account,
-       _messaging = messaging,
-       _functions = functions;
+       _functions = functions,
+       _realtime = realtime;
 
   final TablesDB _tables;
   final Storage _storage;
   final Account _account;
-  final FirebaseMessaging _messaging;
   final Functions _functions;
+  final Realtime _realtime;
+
+  Stream<void> followersChanged(String uid) {
+    final channel = 'databases.$databaseId.tables.$followersTableID.rows';
+    final subscription = _realtime.subscribe([channel]);
+    final controller = StreamController<void>();
+    final sub = subscription.stream.listen((event) {
+      if (event.payload.isEmpty) return;
+      if (event.payload['followedUid'] == uid) controller.add(null);
+    });
+    controller.onCancel = () async {
+      await sub.cancel();
+      await subscription.close();
+    };
+    return controller.stream;
+  }
 
   // Profile viewing
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async {
@@ -117,7 +131,6 @@ class ProfileRepository {
     }
   }
 
-  Future<String?> getFcmToken() => _messaging.getToken();
  
   // For callers to build the follower rather than reaching for the Appwrite SDK
   String newFollowerDocumentId() => ID.unique();

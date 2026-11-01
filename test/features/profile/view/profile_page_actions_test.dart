@@ -234,7 +234,6 @@ void main() {
       username: uid,
       name: uid,
       profileImageUrl: 'https://example.com/$uid.jpg',
-      fcmToken: '',
       followerRating: 4.0,
     );
 

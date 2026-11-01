@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart' show Color;
 import 'package:flutter_callkit_incoming/entities/entities.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
@@ -16,7 +15,8 @@ CallKitService callKitService(Ref ref) => CallKitService();
 AndroidParams resonateCallAndroidParams() {
   final theme = storedThemeModel();
   return AndroidParams(
-    isShowFullLockedScreen: true,
+    isShowFullLockedScreen: false,
+    isImportant: true,
     backgroundColor: _hex(theme.surfaceColor),
     actionColor: _hex(theme.primaryColor),
     textColor: _hex(theme.onSurfaceColor),
@@ -33,6 +33,9 @@ String _hex(Color color) {
 // Wraps the FlutterCallkitIncoming statics so callers stay testable.
 class CallKitService {
   StreamSubscription<CallEvent?>? _sub;
+
+  Future<bool> canUseFullScreen() async =>
+      FlutterCallkitIncoming.canUseFullScreenIntent();
 
   Future<void> requestFullScreenPermission() async {
     await FlutterCallkitIncoming.requestFullIntentPermission();
@@ -70,19 +73,19 @@ class CallKitService {
     _sub = null;
   }
 
-  // Presents the native incoming-call UI for an `incoming_call` FCM message.
-  Future<void> showIncomingCall(RemoteMessage message) async {
+  // Presents the native incoming-call UI for an incoming_call push payload.
+  Future<void> showIncomingCall(Map<String, dynamic> data) async {
     final params = CallKitParams(
-      id: message.data['call_id'],
-      nameCaller: message.data['caller_name'],
-      avatar: message.data['caller_profile_image_url'],
-      handle: message.data['caller_username'],
+      id: data['call_id'],
+      nameCaller: data['caller_name'],
+      avatar: data['caller_profile_image_url'],
+      handle: data['caller_username'],
       type: 0, // 0 = audio, 1 = video
       duration: 30000, // ringing timeout
       extra: {
-        "docData": jsonDecode(message.data['extra']),
-        "livekit_room_id": message.data['livekit_room_id'],
-        "call_id": message.data['call_id'],
+        "docData": jsonDecode(data['extra']),
+        "livekit_room_id": data['livekit_room_id'],
+        "call_id": data['call_id'],
       },
       appName: "Resonate",
       android: resonateCallAndroidParams(),

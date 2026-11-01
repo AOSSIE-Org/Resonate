@@ -94,6 +94,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
                 left: UiSizes.width_16,
                 right: UiSizes.width_16,
                 top: UiSizes.height_30,
+                bottom: UiSizes.height_80,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
