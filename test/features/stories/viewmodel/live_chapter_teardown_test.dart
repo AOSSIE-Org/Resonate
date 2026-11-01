@@ -12,6 +12,7 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
 import 'package:resonate/features/stories/data/services/recorded_chapter_store.dart';
+import 'package:resonate/features/stories/model/recorded_chapter.dart';
 import 'package:resonate/features/stories/data/services/whisper_transcription_service.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -328,7 +329,16 @@ void main() {
     RecordedChapterStore tempStore() {
       final dir = Directory.systemTemp.createTempSync('resonate_teardown');
       addTearDown(() {
-        if (dir.existsSync()) dir.deleteSync(recursive: true);
+        // Windows refuses to delete a directory while a handle is still open,
+        // and an archive write can outlive the test body
+        for (var i = 0; i < 5; i++) {
+          try {
+            if (dir.existsSync()) dir.deleteSync(recursive: true);
+            return;
+          } on FileSystemException {
+            sleep(const Duration(milliseconds: 20));
+          }
+        }
       });
       File('${dir.path}/room-1.wav').writeAsBytesSync(wavBytes(seconds: 2));
       return RecordedChapterStore(directory: () async => dir);
@@ -384,7 +394,7 @@ void main() {
       await _settledTranscript(container);
 
       expect(container.read(liveChapterProvider).transcript.hasError, isTrue);
-      final archived = (await store.readIndex()).single;
+      final archived = (await _archived(store)).single;
       expect(archived.id, 'room-1');
       expect(archived.transcript, isEmpty);
     });
@@ -404,15 +414,13 @@ void main() {
 
       container.read(liveChapterProvider.notifier).reset();
       slow.complete('too late');
-      for (var i = 0; i < 20; i++) {
-        await Future<void>.delayed(Duration.zero);
-      }
+      // It was still archived, so the recording is not lost.
+      final archived = await _archived(store);
 
       final state = container.read(liveChapterProvider);
       expect(state.model, isNull);
       expect(state.transcript.value, isNot('too late'));
-      // It was still archived, so the recording is not lost.
-      expect((await store.readIndex()).single.transcript, 'too late');
+      expect(archived.single.transcript, 'too late');
     });
   });
 
@@ -424,6 +432,16 @@ void main() {
 
     expect(container.read(liveChapterProvider).model, isNull);
   });
+}
+
+// Archiving writes a real file, and Future.delayed(Duration.zero) only yields
+Future<List<RecordedChapter>> _archived(RecordedChapterStore store) async {
+  for (var i = 0; i < 200; i++) {
+    final index = await store.readIndex();
+    if (index.isNotEmpty) return index;
+    await Future<void>.delayed(const Duration(milliseconds: 10));
+  }
+  fail('nothing was archived');
 }
 
 Future<void> _settledTranscript(ProviderContainer container) async {
