@@ -77,6 +77,9 @@ void main() {
       );
       return RealtimeSubscription(
         close: () async {},
+        unsubscribe: () async {},
+        update: ({List<Object>? channels, List<String>? queries}) async {},
+        queries: const [],
         channels: channels,
         controller: channels.first == activePairsChannel
             ? activePairEvents

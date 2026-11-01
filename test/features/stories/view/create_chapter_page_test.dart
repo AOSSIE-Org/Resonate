@@ -5,6 +5,7 @@ import 'package:resonate/features/stories/data/repositories/stories_repository.d
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/view/pages/create_chapter_page.dart';
 
+import 'package:resonate/core/services/media_picker_service.dart';
 import '../fake_file_picker.dart';
 import '../fake_stories_repository.dart';
 import 'stories_test_helpers.dart';
@@ -54,7 +55,6 @@ void main() {
 
   setUp(() {
     picker = FakeFilePicker();
-    FilePicker.platform = picker;
     repo = _ChapterBuildingRepository();
     created = [];
   });
@@ -63,7 +63,10 @@ void main() {
     await pumpStoriesPage(
       tester,
       CreateChapterPage(onChapterCreated: created.add),
-      overrides: [storiesRepositoryProvider.overrideWithValue(repo)],
+      overrides: [
+        storiesRepositoryProvider.overrideWithValue(repo),
+        mediaPickerServiceProvider.overrideWithValue(picker),
+      ],
     );
     await tester.pumpAndSettle();
   }

@@ -45,7 +45,7 @@ Map<String, dynamic> messageData({
 
 Row messageRow({String id = 'msg-1', int index = 0}) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: chatMessagesTableId,
   $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
@@ -70,7 +70,7 @@ Map<String, dynamic> replyData({
 
 Row replyRow({String id = 'msg-1'}) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: chatMessageReplyTableId,
   $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
@@ -436,7 +436,8 @@ void main() {
             $createdAt: '2023-01-01',
             $updatedAt: '2023-01-01',
             $permissions: const [],
-            functionId: sendMessageNotificationFunctionID,
+            resourceId: sendMessageNotificationFunctionID,
+            resourceType: enums.ExecutionResourceType.functions,
             trigger: enums.ExecutionTrigger.http,
             status: enums.ExecutionStatus.completed,
             requestMethod: 'POST',

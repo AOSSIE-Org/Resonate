@@ -99,8 +99,8 @@ void main() {
         events: ['$_userChannel.$uid.$action'],
         payload: {
           r'$id': uid,
-          if (name != null) 'name': name,
-          if (profileImageUrl != null) 'profileImageUrl': profileImageUrl,
+          'name': ?name,
+          'profileImageUrl': ?profileImageUrl,
         },
         channels: const [_userChannel],
         timestamp: '',

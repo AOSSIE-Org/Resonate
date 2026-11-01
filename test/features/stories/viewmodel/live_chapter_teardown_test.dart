@@ -72,6 +72,9 @@ void main() {
     when(realtime.subscribe(any)).thenReturn(
       RealtimeSubscription(
         close: () async {},
+        unsubscribe: () async {},
+        update: ({List<Object>? channels, List<String>? queries}) async {},
+        queries: const [],
         channels: const ['attendees'],
         controller: attendeeEvents,
       ),

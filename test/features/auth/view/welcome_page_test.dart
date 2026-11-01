@@ -102,8 +102,8 @@ void main() {
         find.widgetWithText(ElevatedButton, 'Sign in with Email'),
         findsOneWidget,
       );
-      expect(find.byIcon(FontAwesomeIcons.google), findsOneWidget);
-      expect(find.byIcon(FontAwesomeIcons.github), findsOneWidget);
+      expect(find.byIcon(FontAwesomeIcons.google.data), findsOneWidget);
+      expect(find.byIcon(FontAwesomeIcons.github.data), findsOneWidget);
     });
   });
 
@@ -140,7 +140,7 @@ void main() {
     testWidgets('Google asks for a Google session', (tester) async {
       await pumpWelcome(tester);
 
-      await tester.tap(find.byIcon(FontAwesomeIcons.google));
+      await tester.tap(find.byIcon(FontAwesomeIcons.google.data));
       await tester.pumpAndSettle();
 
       expect(auth.googleCalls, 1);
@@ -150,7 +150,7 @@ void main() {
     testWidgets('GitHub asks for a GitHub session', (tester) async {
       await pumpWelcome(tester);
 
-      await tester.tap(find.byIcon(FontAwesomeIcons.github));
+      await tester.tap(find.byIcon(FontAwesomeIcons.github.data));
       await tester.pumpAndSettle();
 
       expect(auth.githubCalls, 1);

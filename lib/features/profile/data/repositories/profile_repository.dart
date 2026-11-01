@@ -129,8 +129,7 @@ class ProfileRepository {
       rowId: follower.docId,
       data: {
         ...follower.toJson(),
-        if (follower.followingUserId case final followed?)
-          'followedUid': followed,
+        'followedUid': ?follower.followingUserId,
       },
     );
 

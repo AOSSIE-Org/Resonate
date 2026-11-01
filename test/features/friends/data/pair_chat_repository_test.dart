@@ -22,7 +22,7 @@ Row pairRow({
 }) {
   return Row(
     $id: id,
-    $sequence: 0,
+    $sequence: '0',
     $tableId: tableId,
     $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),

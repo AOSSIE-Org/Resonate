@@ -59,6 +59,9 @@ void main() {
           List<String>.from(invocation.positionalArguments[0] as List);
       return RealtimeSubscription(
         close: () async {},
+        unsubscribe: () async {},
+        update: ({List<Object>? channels, List<String>? queries}) async {},
+        queries: const [],
         channels: channels,
         controller: channels.first == activePairsChannel
             ? activePairEvents

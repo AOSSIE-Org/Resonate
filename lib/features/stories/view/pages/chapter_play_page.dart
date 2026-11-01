@@ -16,7 +16,7 @@ class ChapterPlayPage extends ConsumerStatefulWidget {
 }
 
 class _ChapterPlayPageState extends ConsumerState<ChapterPlayPage> {
-  late LyricStyle lyricStyle;
+  late LyricPreset lyricStyle;
 
   @override
   void initState() {
@@ -35,17 +35,15 @@ class _ChapterPlayPageState extends ConsumerState<ChapterPlayPage> {
     super.didChangeDependencies();
     final onSurface = Theme.of(context).colorScheme.onSurface;
     final mainTextColor = onSurface.withValues(alpha: 0.7);
-    lyricStyle = LyricStyles.default1.copyWith(
+    lyricStyle = LyricPresets.appleMusic.copyWith(
       textStyle: TextStyle(fontSize: UiSizes.size_18, color: mainTextColor),
-      activeStyle: TextStyle(
+      activeTextStyle: TextStyle(
         fontSize: UiSizes.size_20,
         fontWeight: FontWeight.bold,
-        color: mainTextColor,
+        color: onSurface,
       ),
-      activeHighlightColor: onSurface,
-      selectedColor: onSurface,
-      contentPadding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
-      anchorPosition: 0.5,
+      selectedTextColor: onSurface,
+      padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
     );
   }
 
@@ -113,25 +111,22 @@ class _ChapterPlayPageState extends ConsumerState<ChapterPlayPage> {
                                       style: lyricStyle.textStyle,
                                     ),
                                   )
-                                : Stack(
-                                    children: [
-                                      LyricView(
-                                        controller: lyricController,
-                                        style: lyricStyle,
-                                        height: UiSizes.height_200,
-                                      ),
-                                      LyricSelectionProgress(
-                                        controller: lyricController,
-                                        style: lyricStyle,
-                                        onPlay: (state) => ref
-                                            .read(
-                                              chapterPlayerProvider(
-                                                widget.chapter.chapterId,
-                                              ).notifier,
-                                            )
-                                            .seek(state.duration),
-                                      ),
-                                    ],
+                                // v4 folds the separate selection-progress
+                                // overlay into the view: tapping a line seeks
+                                // straight to it via onLineTap.
+                                : SizedBox(
+                                    height: UiSizes.height_200,
+                                    child: LyricView(
+                                      controller: lyricController,
+                                      preset: lyricStyle,
+                                      onLineTap: (details) => ref
+                                          .read(
+                                            chapterPlayerProvider(
+                                              widget.chapter.chapterId,
+                                            ).notifier,
+                                          )
+                                          .seek(details.seekPosition),
+                                    ),
                                   ),
                           ),
                         ),

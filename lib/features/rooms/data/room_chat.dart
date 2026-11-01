@@ -97,7 +97,12 @@ class RoomChatMessages extends _$RoomChatMessages {
   void _notify(String title, String body) {
     try {
       _notifications
-          .show(0, title, body, _notificationDetails)
+          .show(
+            id: 0,
+            title: title,
+            body: body,
+            notificationDetails: _notificationDetails,
+          )
           .catchError((Object e) => log('local notification failed: $e'));
     } catch (e) {
       log('local notification failed: $e');

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:appwrite/models.dart';
+import 'package:appwrite/models.dart' hide Account;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -316,7 +316,7 @@ Row buildRow({
   String databaseId = 'test-db',
 }) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: tableId,
   $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),

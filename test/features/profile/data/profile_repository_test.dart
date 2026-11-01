@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
+import 'package:appwrite/models.dart' hide Account;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -23,7 +23,7 @@ Row _storyRow(String id, String title, String category, String creatorId) =>
       $createdAt: DateTime(2024).toIso8601String(),
       $updatedAt: DateTime(2024).toIso8601String(),
       $permissions: const ['any'],
-      $sequence: 0,
+      $sequence: '0',
       data: {
         'title': title,
         'description': 'Description of $title',
@@ -45,7 +45,7 @@ final _userRowWithFollowers = Row(
   $createdAt: DateTime(2024).toIso8601String(),
   $updatedAt: DateTime(2024).toIso8601String(),
   $permissions: const ['any'],
-  $sequence: 0,
+  $sequence: '0',
   data: {
     'name': 'Test User 1',
     'username': 'testuser1',
@@ -82,7 +82,7 @@ final _unratedUserRow = Row(
   $createdAt: DateTime(2024).toIso8601String(),
   $updatedAt: DateTime(2024).toIso8601String(),
   $permissions: const ['any'],
-  $sequence: 0,
+  $sequence: '0',
   data: const {'name': 'Fresh User'},
 );
 
@@ -93,7 +93,7 @@ Row _genericRow() => Row(
       $createdAt: DateTime(2024).toIso8601String(),
       $updatedAt: DateTime(2024).toIso8601String(),
       $permissions: const ['any'],
-      $sequence: 0,
+      $sequence: '0',
       data: const {},
     );
 
@@ -620,6 +620,11 @@ void main() {
           signature: 'sig',
           mimeType: 'image/jpeg',
           sizeOriginal: 100,
+          sizeActual: 100,
+          folder: '',
+          key: '',
+          encryption: false,
+          compression: '',
           chunksTotal: 1,
           chunksUploaded: 1,
         ),

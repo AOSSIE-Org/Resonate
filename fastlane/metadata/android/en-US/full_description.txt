@@ -1,0 +1,52 @@
+Resonate is an open source social voice platform. Join live audio rooms, listen to
+and publish audio stories, and call your friends - without ads, tracking or data
+mining. The app and its backend are both public repositories, licensed GPL-3.0.
+
+Live audio rooms
+* Join rooms and talk with people in real time, or create your own with a title,
+  description and tags.
+* Moderate as a host: promote listeners to speakers, appoint moderators, mute and
+  remove disruptive participants.
+* Raise your hand to ask for the mic.
+* A glowing waveform ring shows who is speaking, driven by real audio spectrum data.
+* In-room text chat with replies, and live polls everyone can vote in once.
+* Pick your audio output - speaker, earpiece or Bluetooth - without leaving the room.
+
+Scheduled rooms
+* Publish a room ahead of time and let listeners subscribe to be reminded.
+* Convert a scheduled room into a live one with one tap.
+
+Stories and chapters
+* Listen to audio stories with time-synced lyrics that scroll as the narration plays.
+* Browse by category, follow creators, and like what you enjoy.
+* Publish your own multi-chapter stories with audio, synced lyrics, cover art and tags.
+
+Live chapters
+* Record a story chapter live, in front of an audience.
+* When the session ends the recording is transcribed on your own device - no audio
+  is uploaded for transcription - and turned into time-synced lyrics automatically.
+* Every recording is kept in an on-device archive you can play back, edit or delete.
+
+Pair chat and friends
+* Get matched with a random partner for a one-to-one conversation, and rate it after.
+* Add friends and call them directly, with a proper full-screen incoming call screen.
+* Minimise a call or room into a miniplayer, or Picture-in-Picture, and keep talking
+  while you use the rest of the app.
+
+Presence and discovery
+* Set yourself Online, Do Not Disturb or Invisible; Do Not Disturb blocks incoming
+  calls at the server, before your phone ever rings.
+* Pick up to five interests and find people who share them.
+* Earn badges for hosting, moderating and taking part. They are verified by the
+  backend rather than claimed by the app.
+
+Make it yours
+* Six themes, each in light and dark.
+* Ten languages: English, Hindi, Bengali, Marathi, Gujarati, Kannada, Malayalam,
+  Punjabi, Rajasthani and Tamil.
+* Turn features you do not use off on your own device.
+
+Privacy
+* No ads, no trackers, no data mining.
+* Sign in with email and a one-time code, and delete your account from inside the app.
+* Report and block users; repeated reports remove a user's access.

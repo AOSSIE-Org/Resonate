@@ -101,4 +101,4 @@ final class UserProfileImagePlaceholderUrlProvider
 }
 
 String _$userProfileImagePlaceholderUrlHash() =>
-    r'b838baa88309d28dc61d146d8c90221c78295d59';
+    r'9cc4f777c50c3766185fd80fb02dace8edcbd9ed';

@@ -3,6 +3,7 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'dart:async' as _i5;
 
 import 'package:appwrite/appwrite.dart' as _i6;
@@ -95,13 +96,22 @@ class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
           as _i2.Client);
 
   @override
-  _i5.Future<_i3.TransactionList> listTransactions({List<String>? queries}) =>
+  _i5.Future<_i3.TransactionList> listTransactions({
+    List<String>? queries,
+    bool? total,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#listTransactions, [], {#queries: queries}),
+            Invocation.method(#listTransactions, [], {
+              #queries: queries,
+              #total: total,
+            }),
             returnValue: _i5.Future<_i3.TransactionList>.value(
               _FakeTransactionList_1(
                 this,
-                Invocation.method(#listTransactions, [], {#queries: queries}),
+                Invocation.method(#listTransactions, [], {
+                  #queries: queries,
+                  #total: total,
+                }),
               ),
             ),
           )
@@ -203,6 +213,7 @@ class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
     List<String>? queries,
     String? transactionId,
     bool? total,
+    int? ttl,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#listRows, [], {
@@ -211,6 +222,7 @@ class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
               #queries: queries,
               #transactionId: transactionId,
               #total: total,
+              #ttl: ttl,
             }),
             returnValue: _i5.Future<_i3.RowList>.value(
               _FakeRowList_3(
@@ -221,6 +233,7 @@ class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
                   #queries: queries,
                   #transactionId: transactionId,
                   #total: total,
+                  #ttl: ttl,
                 }),
               ),
             ),
@@ -470,15 +483,43 @@ class MockRealtime extends _i1.Mock implements _i7.Realtime {
           as _i2.Client);
 
   @override
-  _i4.RealtimeSubscription subscribe(List<String>? channels) =>
+  _i4.RealtimeSubscription subscribe(
+    List<Object>? channels, {
+    List<String>? queries = const [],
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#subscribe, [channels]),
+            Invocation.method(#subscribe, [channels], {#queries: queries}),
             returnValue: _FakeRealtimeSubscription_5(
               this,
-              Invocation.method(#subscribe, [channels]),
+              Invocation.method(#subscribe, [channels], {#queries: queries}),
             ),
           )
           as _i4.RealtimeSubscription);
+
+  @override
+  _i5.Future<void> disconnect() =>
+      (super.noSuchMethod(
+            Invocation.method(#disconnect, []),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
+  void upsertPresence({
+    required String? status,
+    required String? presenceId,
+    List<String>? permissions,
+    Map<String, dynamic>? metadata,
+  }) => super.noSuchMethod(
+    Invocation.method(#upsertPresence, [], {
+      #status: status,
+      #presenceId: presenceId,
+      #permissions: permissions,
+      #metadata: metadata,
+    }),
+    returnValueForMissingStub: null,
+  );
 }
 
 /// A class which mocks [Functions].
@@ -616,6 +657,32 @@ class MockRealtimeSubscription extends _i1.Mock
           as List<String>);
 
   @override
+  List<String> get queries =>
+      (super.noSuchMethod(Invocation.getter(#queries), returnValue: <String>[])
+          as List<String>);
+
+  @override
+  _i5.Future<void> Function() get unsubscribe =>
+      (super.noSuchMethod(
+            Invocation.getter(#unsubscribe),
+            returnValue: () => _i5.Future<void>.value(),
+          )
+          as _i5.Future<void> Function());
+
+  @override
+  _i5.Future<void> Function({List<Object>? channels, List<String>? queries})
+  get update =>
+      (super.noSuchMethod(
+            Invocation.getter(#update),
+            returnValue: ({List<Object>? channels, List<String>? queries}) =>
+                _i5.Future<void>.value(),
+          )
+          as _i5.Future<void> Function({
+            List<Object>? channels,
+            List<String>? queries,
+          }));
+
+  @override
   _i5.Future<void> Function() get close =>
       (super.noSuchMethod(
             Invocation.getter(#close),
@@ -626,6 +693,12 @@ class MockRealtimeSubscription extends _i1.Mock
   @override
   set channels(List<String>? value) => super.noSuchMethod(
     Invocation.setter(#channels, value),
+    returnValueForMissingStub: null,
+  );
+
+  @override
+  set queries(List<String>? value) => super.noSuchMethod(
+    Invocation.setter(#queries, value),
     returnValueForMissingStub: null,
   );
 }
@@ -677,15 +750,23 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
           as List<String>);
 
   @override
-  String get functionId =>
+  String get resourceId =>
       (super.noSuchMethod(
-            Invocation.getter(#functionId),
+            Invocation.getter(#resourceId),
             returnValue: _i10.dummyValue<String>(
               this,
-              Invocation.getter(#functionId),
+              Invocation.getter(#resourceId),
             ),
           )
           as String);
+
+  @override
+  _i8.ExecutionResourceType get resourceType =>
+      (super.noSuchMethod(
+            Invocation.getter(#resourceType),
+            returnValue: _i8.ExecutionResourceType.functions,
+          )
+          as _i8.ExecutionResourceType);
 
   @override
   String get deploymentId =>

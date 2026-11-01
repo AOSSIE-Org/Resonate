@@ -29,7 +29,7 @@ class _StubChapterPlayer extends ChapterPlayer {
     required Duration duration,
   }) {
     initializedWith = (audioUrl: audioUrl, lyrics: lyrics, duration: duration);
-    lyricController.loadLyric(lyrics);
+    lyricController.load(lyrics);
   }
 
   // The real notifier stores this during initialize; the slider's max reads

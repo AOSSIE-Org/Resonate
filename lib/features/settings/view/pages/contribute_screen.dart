@@ -88,7 +88,7 @@ class ContributeScreen extends StatelessWidget {
                             log("Error launching URL: ${e.toString()}");
                           }
                         },
-                        icon: Icon(
+                        icon: FaIcon(
                           FontAwesomeIcons.xTwitter,
                           size: UiSizes.size_40,
                         ),

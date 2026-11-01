@@ -68,6 +68,9 @@ void main() {
     when(realtime.subscribe(any)).thenAnswer(
       (_) => RealtimeSubscription(
         close: () async {},
+        unsubscribe: () async {},
+        update: ({List<Object>? channels, List<String>? queries}) async {},
+        queries: const [],
         channels: ['databases.$databaseId.tables.$friendsTableID.rows'],
         controller: realtimeEvents,
       ),

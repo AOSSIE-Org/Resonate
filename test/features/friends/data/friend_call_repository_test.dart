@@ -46,7 +46,7 @@ Row callRow({
   );
   return Row(
     $id: id,
-    $sequence: 0,
+    $sequence: '0',
     $tableId: friendCallsTableId,
     $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
@@ -79,7 +79,8 @@ Execution joinExecution(Map<String, dynamic> data) => Execution(
   $createdAt: '2023-01-01',
   $updatedAt: '2023-01-01',
   $permissions: const [],
-  functionId: 'func-1',
+  resourceId: 'func-1',
+  resourceType: enums.ExecutionResourceType.functions,
   trigger: enums.ExecutionTrigger.http,
   status: enums.ExecutionStatus.completed,
   requestMethod: 'POST',

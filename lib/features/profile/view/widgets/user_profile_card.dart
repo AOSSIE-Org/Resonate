@@ -244,7 +244,7 @@ class _StatTile extends StatelessWidget {
                   ),
                 ),
               ),
-              if (trailing != null) trailing!,
+              ?trailing,
             ],
           ),
           SizedBox(height: UiSizes.height_2),

@@ -239,6 +239,11 @@ void main() {
           signature: 'sig',
           mimeType: 'application/octet-stream',
           sizeOriginal: 10,
+          sizeActual: 10,
+          folder: '',
+          key: '',
+          encryption: false,
+          compression: '',
           chunksTotal: 1,
           chunksUploaded: 1,
         ),
@@ -340,7 +345,7 @@ void main() {
         ..writeAsBytesSync(List<int>.filled(1024, 0));
 
       await repo.pushChaptersToStory([
-        fakeChapter(chapterId: 'c1', coverImageUrl: sized.path),
+        fakeChapter(chapterId: 'c1', coverImageUrl: sized.path, audioFileUrl: '/tmp/audio.m4a'),
       ], 's1');
 
       verify(
@@ -372,7 +377,7 @@ void main() {
       ).thenAnswer((_) async => chapterRow());
 
       await repo.pushChaptersToStory([
-        fakeChapter(chapterId: 'c1', coverImageUrl: '/tmp/cover.png'),
+        fakeChapter(chapterId: 'c1', coverImageUrl: '/tmp/cover.png', audioFileUrl: '/tmp/audio.m4a'),
       ], 's1');
 
       verify(
@@ -396,7 +401,7 @@ void main() {
 
       expect(
         repo.pushChaptersToStory([
-          fakeChapter(chapterId: 'c1', coverImageUrl: '/tmp/cover.png'),
+          fakeChapter(chapterId: 'c1', coverImageUrl: '/tmp/cover.png', audioFileUrl: '/tmp/audio.m4a'),
         ], 's1'),
         throwsA(isA<StoriesFailureUpload>()),
       );
@@ -422,7 +427,7 @@ void main() {
         ),
       ).thenAnswer((_) async => chapterRow());
 
-      await repo.pushChaptersToStory([fakeChapter(chapterId: 'c1')], 's1');
+      await repo.pushChaptersToStory([fakeChapter(chapterId: 'c1', audioFileUrl: '/tmp/audio.m4a')], 's1');
 
       verify(
         tables.updateRow(
@@ -446,7 +451,7 @@ void main() {
       ).thenThrow(AppwriteException('bad schema', 400));
 
       expect(
-        repo.pushChaptersToStory([fakeChapter(chapterId: 'c1')], 's1'),
+        repo.pushChaptersToStory([fakeChapter(chapterId: 'c1', audioFileUrl: '/tmp/audio.m4a')], 's1'),
         throwsA(isA<AppwriteException>()),
       );
     });

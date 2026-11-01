@@ -3,6 +3,7 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'dart:async' as _i7;
 
 import 'package:appwrite/appwrite.dart' as _i6;
@@ -94,13 +95,22 @@ class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
           as _i2.Client);
 
   @override
-  _i7.Future<_i3.TransactionList> listTransactions({List<String>? queries}) =>
+  _i7.Future<_i3.TransactionList> listTransactions({
+    List<String>? queries,
+    bool? total,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#listTransactions, [], {#queries: queries}),
+            Invocation.method(#listTransactions, [], {
+              #queries: queries,
+              #total: total,
+            }),
             returnValue: _i7.Future<_i3.TransactionList>.value(
               _FakeTransactionList_1(
                 this,
-                Invocation.method(#listTransactions, [], {#queries: queries}),
+                Invocation.method(#listTransactions, [], {
+                  #queries: queries,
+                  #total: total,
+                }),
               ),
             ),
           )
@@ -202,6 +212,7 @@ class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
     List<String>? queries,
     String? transactionId,
     bool? total,
+    int? ttl,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#listRows, [], {
@@ -210,6 +221,7 @@ class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
               #queries: queries,
               #transactionId: transactionId,
               #total: total,
+              #ttl: ttl,
             }),
             returnValue: _i7.Future<_i3.RowList>.value(
               _FakeRowList_3(
@@ -220,6 +232,7 @@ class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
                   #queries: queries,
                   #transactionId: transactionId,
                   #total: total,
+                  #ttl: ttl,
                 }),
               ),
             ),
@@ -524,9 +537,15 @@ class MockFirebaseMessaging extends _i1.Mock implements _i8.FirebaseMessaging {
           as _i7.Future<String?>);
 
   @override
-  _i7.Future<String?> getToken({String? vapidKey}) =>
+  _i7.Future<String?> getToken({
+    String? vapidKey,
+    String? serviceWorkerScriptPath,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#getToken, [], {#vapidKey: vapidKey}),
+            Invocation.method(#getToken, [], {
+              #vapidKey: vapidKey,
+              #serviceWorkerScriptPath: serviceWorkerScriptPath,
+            }),
             returnValue: _i7.Future<String?>.value(),
           )
           as _i7.Future<String?>);

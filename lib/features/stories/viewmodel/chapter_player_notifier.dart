@@ -36,15 +36,11 @@ class ChapterPlayer extends _$ChapterPlayer {
     required Duration duration,
   }) {
     _chapterDuration = duration;
-    _lyricController.loadLyric(lyrics);
+    _lyricController.load(lyrics);
 
     final audio = ref.read(chapterAudioFactoryProvider)();
     _audio = audio;
     unawaited(audio.load(audioUrl));
-
-    _lyricController.setOnTapLineCallback(
-      (start) => unawaited(audio.seek(start)),
-    );
 
     _subscriptions.addAll([
       audio.positionChanges.listen((position) {
@@ -52,7 +48,7 @@ class ChapterPlayer extends _$ChapterPlayer {
         state = state.copyWith(
           sliderProgress: position.inMilliseconds.toDouble(),
         );
-        _lyricController.setProgress(position);
+        _lyricController.setPosition(position);
       }),
       audio.playingChanges.listen((isPlaying) {
         if (!ref.mounted) return;
@@ -76,7 +72,7 @@ class ChapterPlayer extends _$ChapterPlayer {
 
   void onSliderChangeEnd(double value) {
     final position = Duration(milliseconds: value.toInt());
-    _lyricController.setProgress(position);
+    _lyricController.setPosition(position);
     unawaited(_audio?.seek(position));
   }
 }
