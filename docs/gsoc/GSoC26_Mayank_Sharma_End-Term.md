@@ -21,17 +21,16 @@ Project Length: 22 Weeks
 
 ## Contact Information:
 
-Name: Mayank Sharma
-
-Discord Username: Mayank4352
-
-GitHub Profile URL: [https://github.com/Mayank4352](https://github.com/Mayank4352)
+- **Name:** Mayank Sharma
+- **Discord Username:** Mayank4352
+- **GitHub Profile:** [Mayank4352](https://github.com/Mayank4352)
+- **LinkedIn Profile:** [Mayank Sharma](https://www.linkedin.com/in/mayank4352)
 
 # Work Done during GSoC 2026
 
 ### 45 PRs across both Repositories
 
-### 110 Commits across both Repositories
+### 111 Commits across both Repositories
 
 ### 240,166 Lines Added and 140,333 Removed across both Repositories
 
