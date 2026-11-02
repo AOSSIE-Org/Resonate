@@ -31,7 +31,7 @@ GitHub Profile URL: [https://github.com/Mayank4352](https://github.com/Mayank435
 
 ### 45 PRs across both Repositories
 
-### 109 Commits across both Repositories
+### 110 Commits across both Repositories
 
 ### 240,166 Lines Added and 140,333 Removed across both Repositories
 
@@ -672,7 +672,7 @@ diff.
 | [PR #902](https://github.com/AOSSIE-Org/Resonate/pull/902) | Added deployment images and locales for hi and pa for f-droid | Merged | F-Droid listing assets and the localized store text for Hindi and Punjabi |
 | [PR #904](https://github.com/AOSSIE-Org/Resonate/pull/904) | Fixed bugs found during final testing | Merged | The final testing round: room teardown, duplicate friends, audio routing, optimistic story deletion and the search-bar overlap |
 | [PR #906](https://github.com/AOSSIE-Org/Resonate/pull/906) | Completed the implementation for account deletion | Merged | Wires the account deletion screen that shipped unimplemented, and moves it under Log out in Settings |
-| [PR #908](https://github.com/AOSSIE-Org/Resonate/pull/907) | Added the GSoC 2026 end term report | Merged | This report, and the F-Droid build recipe and listing metadata it describes |
+| [PR #908](https://github.com/AOSSIE-Org/Resonate/pull/908) | Added the GSoC 2026 end term report | Merged | This report, and the F-Droid build recipe and listing metadata it describes |
 
 ## Backend Repo
 
