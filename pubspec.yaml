@@ -47,7 +47,7 @@ dependencies:
   flutter_otp_text_field: ^1.5.1+1
   flutter_secure_storage: ^11.2.0
   flutter_speed_dial: ^7.0.0
-  flutter_svg: ^2.2.2
+  flutter_svg: ^2.3.2
   focused_menu: ^1.0.5
   font_awesome_flutter: ^11.0.0
   get_storage: ^2.1.1
@@ -97,7 +97,7 @@ dev_dependencies:
   custom_lint: ^0.8.1
   flutter_lints: ^6.0.0
   # Build-time tool driven by flutter_native_splash.yaml (not imported by app code).
-  flutter_native_splash: ^2.4.7
+  flutter_native_splash: ^2.4.8
   flutter_test:
     sdk: flutter
 
