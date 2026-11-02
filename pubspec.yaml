@@ -30,7 +30,7 @@ environment:
 # versions available, run flutter pub outdated.
 dependencies:
   animated_bottom_navigation_bar: ^1.4.0
-  app_links: ^7.0.0
+  app_links: ^7.2.2
   # Pinned to 28.0.x: it sends X-Appwrite-Response-Format 2.5.0, which is
   # exactly what prod runs (verified via /v1/health/version). 28.1+ moved to
   # format 2.6.2, ahead of the server.
