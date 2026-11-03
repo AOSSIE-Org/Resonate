@@ -148,7 +148,11 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "gu": [
@@ -329,7 +333,18 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
+  ],
+
+  "hi": [
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "kn": [
@@ -500,7 +515,11 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "ml": [
@@ -640,7 +659,11 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "mr": [
@@ -780,7 +803,18 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
+  ],
+
+  "pa": [
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "raj": [
@@ -936,7 +970,11 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "ta": [
@@ -1083,6 +1121,10 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ]
 }

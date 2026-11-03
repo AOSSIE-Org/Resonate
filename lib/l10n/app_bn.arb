@@ -1668,7 +1668,7 @@
     "@removedFromRoom": {
         "description": "Message shown when a user is removed or reported from a room."
     },
-    "reportType": "{type, select, harassment{হ্যারাসমেন্ট / ঘৃণাত্মক বক্তব্য} abuse{অপমানজনক বিষয়বস্তু / হিংস্রতা} spam{স্প্যাম / স্ক্যাম / জালিয়াতি} impersonation{নকল পরিচয় / নকল অ্যাকাউন্ট} illegal{অবৈধ কার্যকলাপ} selfharm{নিজের ক্ষতি / আত্মহত্যা / মানসিক স্বাস্থ্য} misuse{প্ল্যাটফর্মের অপব্যবহার} other{অন্যান্য}}",
+    "reportType": "{type, select, harassment{হ্যারাসমেন্ট / ঘৃণাত্মক বক্তব্য} abuse{অপমানজনক বিষয়বস্তু / হিংস্রতা} spam{স্প্যাম / স্ক্যাম / জালিয়াতি} illegal{অবৈধ কার্যকলাপ} selfharm{নিজের ক্ষতি / আত্মহত্যা / মানসিক স্বাস্থ্য} misuse{প্ল্যাটফর্মের অপব্যবহার} other{অন্যান্য}}",
     "@reportType": {
         "description": "Selects the appropriate report type label based on a key.",
         "placeholders": {

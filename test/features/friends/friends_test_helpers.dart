@@ -12,6 +12,7 @@ import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/features/friends/data/pair_chat_session.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
 import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -197,10 +198,22 @@ class FakeFriendCallCoordinator extends FriendCallCoordinator {
 }
 
 class FakePairChat extends PairChat {
-  FakePairChat(this.initial, {this.throwOnSubmit = false});
+  FakePairChat(
+    this.initial, {
+    this.throwOnSubmit = false,
+    this.throwOnReport = false,
+    this.quickMatchGate,
+    this.throwOnQuickMatch = false,
+  });
 
   final PairChatState initial;
   final bool throwOnSubmit;
+  final bool throwOnReport;
+
+  // When set, quickMatch() awaits this before completing — lets a test hold the
+  // request "in flight" and assert that optimistic routing happened first.
+  final Future<void>? quickMatchGate;
+  final bool throwOnQuickMatch;
 
   int setAnonymousCount = 0;
   bool? lastAnonymous;
@@ -213,6 +226,7 @@ class FakePairChat extends PairChat {
   int convertToRandomCount = 0;
   final List<ResonateUser> pairedWith = [];
   final List<double> setRatingCalls = [];
+  final List<ReportDraft> reportDrafts = [];
   int submitCount = 0;
   int endChatCount = 0;
   int toggleMicCount = 0;
@@ -239,7 +253,11 @@ class FakePairChat extends PairChat {
   }
 
   @override
-  Future<void> quickMatch() async => quickMatchCount++;
+  Future<void> quickMatch() async {
+    quickMatchCount++;
+    if (quickMatchGate != null) await quickMatchGate;
+    if (throwOnQuickMatch) throw Exception('quick match boom');
+  }
 
   @override
   Future<void> choosePartner() async => choosePartnerCount++;
@@ -262,6 +280,12 @@ class FakePairChat extends PairChat {
   Future<void> submitRating() async {
     submitCount++;
     if (throwOnSubmit) throw Exception('submit boom');
+  }
+
+  @override
+  Future<void> reportPartner(ReportDraft report) async {
+    reportDrafts.add(report);
+    if (throwOnReport) throw Exception('report boom');
   }
 
   @override

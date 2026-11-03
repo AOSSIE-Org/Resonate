@@ -46,19 +46,22 @@ class _PairChatDialogState extends ConsumerState<PairChatDialog> {
     final router = GoRouter.of(context);
     final l10n = AppLocalizations.of(context)!;
     Navigator.of(context, rootNavigator: true).pop();
+    // Route optimistically
+    router.push(destination);
     try {
       await request();
-      router.push(destination);
     } catch (e) {
       log('Pair chat request failed: $e');
+      router.go(RoutePaths.tabview);
       customSnackbar(l10n.error, e.toString(), LogType.error);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isAnonymous =
-        ref.watch(pairChatProvider.select((s) => s.isAnonymous));
+    final isAnonymous = ref.watch(
+      pairChatProvider.select((s) => s.isAnonymous),
+    );
     final notifier = ref.read(pairChatProvider.notifier);
 
     return Dialog(
@@ -138,9 +141,7 @@ class _PairChatDialogState extends ConsumerState<PairChatDialog> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: !isAnonymous
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(
-                              context,
-                            ).colorScheme.surfaceContainerHigh,
+                          : Theme.of(context).colorScheme.surfaceContainerHigh,
                       elevation: !isAnonymous ? 6 : 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(UiSizes.size_12),

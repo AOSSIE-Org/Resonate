@@ -1710,7 +1710,7 @@
     "@removedFromRoom": {
         "description": "Message when removed from room."
     },
-    "reportType": "{type, select, harassment{ਪਰੇਸ਼ਾਨੀ / ਨਫ਼ਰਤ ਭਰਿਆ ਭਾਸ਼ਣ} abuse{ਅਪਮਾਨਜਨਕ ਸਮੱਗਰੀ / ਹਿੰਸਾ} spam{ਸਪੈਮ / ਘੁਟਾਲੇ / ਧੋਖਾਧੜੀ} impersonation{ਰੂਪ ਬਦਲਣਾ / ਜਾਅਲੀ ਖਾਤੇ} illegal{ਗੈਰ-ਕਾਨੂੰਨੀ ਗਤੀਵਿਧੀਆਂ} selfharm{ਆਤਮ-ਹੱਤਿਆ / ਖੁਦਕੁਸ਼ੀ / ਮਾਨਸਿਕ ਸਿਹਤ} misuse{ਪਲੇਟਫਾਰਮ ਦੀ ਦੁਰਵਰਤੋਂ} other{ਹੋਰ}}",
+    "reportType": "{type, select, harassment{ਪਰੇਸ਼ਾਨੀ / ਨਫ਼ਰਤ ਭਰਿਆ ਭਾਸ਼ਣ} abuse{ਅਪਮਾਨਜਨਕ ਸਮੱਗਰੀ / ਹਿੰਸਾ} spam{ਸਪੈਮ / ਘੁਟਾਲੇ / ਧੋਖਾਧੜੀ} illegal{ਗੈਰ-ਕਾਨੂੰਨੀ ਗਤੀਵਿਧੀਆਂ} selfharm{ਆਤਮ-ਹੱਤਿਆ / ਖੁਦਕੁਸ਼ੀ / ਮਾਨਸਿਕ ਸਿਹਤ} misuse{ਪਲੇਟਫਾਰਮ ਦੀ ਦੁਰਵਰਤੋਂ} other{ਹੋਰ}}",
     "@reportType": {
         "description": "Label for report type.",
         "placeholders": {

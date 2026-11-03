@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/friends/view/widgets/pair_chat_dialog.dart';
 import 'package:resonate/features/rooms/view/pages/create_room_page.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
@@ -14,6 +16,7 @@ import 'package:resonate/features/settings/data/feature_flags.dart';
 import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/shell/view/pages/home_screen.dart';
+import 'package:resonate/features/shell/view/widgets/eula_dialog.dart';
 import 'package:resonate/features/shell/view/widgets/profile_avatar.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/features/stories/view/pages/explore_page.dart';
@@ -26,6 +29,9 @@ import 'package:resonate/utils/utils.dart';
 
 // Asked at most once per install; Settings keeps offering it afterwards.
 const String _callReliabilityAskedKey = 'callReliabilityAsked';
+
+// The EULA must be accepted once per install. Declining signs the user out
+const String _eulaAcceptedKey = 'eulaAccepted';
 
 class TabViewScreen extends ConsumerStatefulWidget {
   const TabViewScreen({super.key});
@@ -40,7 +46,14 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _offerCallReliability());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _runPostLoginPrompts());
+  }
+
+  // Battery-optimisation exemption first, then the mandatory EULA.
+  Future<void> _runPostLoginPrompts() async {
+    await _offerCallReliability();
+    if (!mounted) return;
+    await _offerEula();
   }
 
   Future<void> _offerCallReliability() async {
@@ -52,6 +65,25 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
     await ref.read(requestCallReliabilityProvider)();
     if (!mounted) return;
     ref.invalidate(callDeliveryDegradedProvider);
+  }
+
+  // Non-dismissible EULA. On accept, record it so it is not shown again on this
+  // install. On decline, sign the user out and send them back to welcome; the
+  // agreement then reappears after the next login.
+  Future<void> _offerEula() async {
+    final box = ref.read(getStorageBoxProvider);
+    if (box.read<bool>(_eulaAcceptedKey) ?? false) return;
+    final agreed = await EulaDialog.show(context);
+    if (!mounted) return;
+    if (agreed) {
+      await box.write(_eulaAcceptedKey, true);
+      return;
+    }
+    // Decline signs the user out
+    await ref.read(myActivityStatusProvider.notifier).goOffline();
+    await ref.read(authRepositoryProvider).logout();
+    if (!mounted) return;
+    context.go(RoutePaths.welcome);
   }
 
   Future<void> _onDonePressed(BuildContext context) async {

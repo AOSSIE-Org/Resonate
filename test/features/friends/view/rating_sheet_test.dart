@@ -4,6 +4,8 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/widgets/rating_sheet.dart';
 import 'package:resonate/features/friends/data/pair_chat_session.dart';
+import 'package:resonate/features/rooms/view/widgets/report_widget.dart';
+import 'package:resonate/utils/enums/report_type_enum.dart';
 
 import '../friends_test_helpers.dart';
 
@@ -92,4 +94,68 @@ void main() {
       expect(find.text('open'), findsOneWidget);
     },
   );
+
+  group('the report partner action', () {
+    testWidgets('is offered after an anonymous pair chat', (tester) async {
+      final fake = FakePairChat(
+        const PairChatState(isAnonymous: true, partnerUid: 'partner-1'),
+      );
+      await pumpSheet(tester, buildOverrides(fake));
+
+      expect(find.text('Report Participant'), findsOneWidget);
+    });
+
+    testWidgets('is hidden for a non-anonymous pairing', (tester) async {
+      final fake = FakePairChat(
+        const PairChatState(isAnonymous: false, partnerUid: 'partner-1'),
+      );
+      await pumpSheet(tester, buildOverrides(fake));
+
+      expect(find.text('Report Participant'), findsNothing);
+    });
+
+    testWidgets('is hidden when there is no partner to report', (tester) async {
+      final fake = FakePairChat(const PairChatState(isAnonymous: true));
+      await pumpSheet(tester, buildOverrides(fake));
+
+      expect(find.text('Report Participant'), findsNothing);
+    });
+
+    testWidgets('opens the report form capped at 200 characters', (
+      tester,
+    ) async {
+      final fake = FakePairChat(
+        const PairChatState(isAnonymous: true, partnerUid: 'partner-1'),
+      );
+      await pumpSheet(tester, buildOverrides(fake));
+
+      await tester.tap(find.text('Report Participant'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ReportWidget), findsOneWidget);
+      final field = tester.widget<TextField>(find.byType(TextField));
+      expect(field.maxLength, 200);
+    });
+
+    testWidgets('submitting the form forwards the draft to reportPartner', (
+      tester,
+    ) async {
+      final fake = FakePairChat(
+        const PairChatState(isAnonymous: true, partnerUid: 'partner-1'),
+      );
+      await pumpSheet(tester, buildOverrides(fake));
+
+      await tester.tap(find.text('Report Participant'));
+      await tester.pumpAndSettle();
+
+      // Pick the first report reason, then submit.
+      await tester.tap(find.byType(RadioListTile<ReportTypeEnum>).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(ElevatedButton, 'Submit Report'));
+      await tester.pumpAndSettle();
+
+      expect(fake.reportDrafts, hasLength(1));
+      expect(fake.reportDrafts.single.type, ReportTypeEnum.values.first);
+    });
+  });
 }

@@ -6,6 +6,8 @@ import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/data/repositories/pair_chat_repository.dart';
 import 'package:resonate/features/profile/data/user_avatars.dart';
+import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
 import 'package:resonate/utils/realtime_event.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
@@ -51,16 +53,17 @@ class PairChat extends _$PairChat {
     final me = ref.read(requireUserProvider);
     _listenForActivePair();
 
-    final requestDocId =
-        await ref.read(pairChatRepositoryProvider).createPairRequest(
-      data: {
-        'languageIso': state.languageIso,
-        'isAnonymous': state.isAnonymous,
-        'uid': me.uid,
-        'isRandom': true,
-        if (!state.isAnonymous) 'userName': me.userName,
-      },
-    );
+    final requestDocId = await ref
+        .read(pairChatRepositoryProvider)
+        .createPairRequest(
+          data: {
+            'languageIso': state.languageIso,
+            'isAnonymous': state.isAnonymous,
+            'uid': me.uid,
+            'isRandom': true,
+            if (!state.isAnonymous) 'userName': me.userName,
+          },
+        );
     state = state.copyWith(requestDocId: requestDocId);
   }
 
@@ -70,20 +73,22 @@ class PairChat extends _$PairChat {
     _listenForNewUsers();
     _listenForActivePair();
 
-    final requestDocId =
-        await ref.read(pairChatRepositoryProvider).createPairRequest(
-      data: {
-        'languageIso': state.languageIso,
-        'isAnonymous': false,
-        'uid': me.uid,
-        'isRandom': false,
-        'profileImageUrl': me.profileImageUrl,
-        'userName': me.userName,
-        'name': me.displayName,
-        'userRating':
-            me.ratingCount == 0 ? 0 : me.ratingTotal / me.ratingCount,
-      },
-    );
+    final requestDocId = await ref
+        .read(pairChatRepositoryProvider)
+        .createPairRequest(
+          data: {
+            'languageIso': state.languageIso,
+            'isAnonymous': false,
+            'uid': me.uid,
+            'isRandom': false,
+            'profileImageUrl': me.profileImageUrl,
+            'userName': me.userName,
+            'name': me.displayName,
+            'userRating': me.ratingCount == 0
+                ? 0
+                : me.ratingTotal / me.ratingCount,
+          },
+        );
     state = state.copyWith(requestDocId: requestDocId);
   }
 
@@ -113,14 +118,16 @@ class PairChat extends _$PairChat {
 
   Future<void> pairWithSelectedUser(ResonateUser user) async {
     final me = ref.read(requireUserProvider);
-    await ref.read(pairChatRepositoryProvider).createActivePair(
-      uid1: me.uid,
-      uid2: user.uid!,
-      userName1: me.userName,
-      userName2: user.userName,
-      requestDocId1: state.requestDocId,
-      requestDocId2: user.docId,
-    );
+    await ref
+        .read(pairChatRepositoryProvider)
+        .createActivePair(
+          uid1: me.uid,
+          uid2: user.uid!,
+          userName1: me.userName,
+          userName2: user.userName,
+          requestDocId1: state.requestDocId,
+          requestDocId2: user.docId,
+        );
     // Both sides join through their own active-pair Realtime listener.
   }
 
@@ -143,7 +150,9 @@ class PairChat extends _$PairChat {
     final next = !state.isMicOn;
     state = state.copyWith(isMicOn: next);
     try {
-      await ref.read(liveKitControllerProvider.notifier).setMicrophoneEnabled(next);
+      await ref
+          .read(liveKitControllerProvider.notifier)
+          .setMicrophoneEnabled(next);
     } catch (e) {
       log('Mic toggle failed: $e');
     }
@@ -169,12 +178,34 @@ class PairChat extends _$PairChat {
 
   Future<void> submitRating() async {
     final me = ref.read(requireUserProvider);
-    await ref.read(pairChatRepositoryProvider).updateUserRating(
-      uid: me.uid,
-      ratingTotal: me.ratingTotal + state.pairRating,
-      ratingCount: me.ratingCount + 1,
-    );
+    await ref
+        .read(pairChatRepositoryProvider)
+        .updateUserRating(
+          uid: me.uid,
+          ratingTotal: me.ratingTotal + state.pairRating,
+          ratingCount: me.ratingCount + 1,
+        );
     await ref.read(authRepositoryProvider).refresh();
+  }
+
+  // Files a report against the pair chat partner
+  Future<void> reportPartner(ReportDraft report) async {
+    final partnerUid = state.partnerUid;
+    if (partnerUid == null) {
+      throw StateError('reportPartner called with no paired partner');
+    }
+    final me = ref.read(requireUserProvider);
+    await ref
+        .read(roomsRepositoryProvider)
+        .submitUserReport(
+          UserReportModel(
+            reporterUid: me.uid,
+            reportedUid: partnerUid,
+            reportType: report.type,
+            reportText: report.details,
+            reportedUser: partnerUid,
+          ),
+        );
   }
 
   void _listenForActivePair() {
@@ -185,20 +216,20 @@ class PairChat extends _$PairChat {
         .read(pairChatRepositoryProvider)
         .activePairsStream()
         .listen((event) async {
-      final uid1 = event.payload['uid1'] as String?;
-      final uid2 = event.payload['uid2'] as String?;
-      if (uid1 != uid && uid2 != uid) return;
+          final uid1 = event.payload['uid1'] as String?;
+          final uid2 = event.payload['uid2'] as String?;
+          if (uid1 != uid && uid2 != uid) return;
 
-      final action = realtimeAction(event.events);
-      switch (action) {
-        case 'create':
-          await _onPaired(event.payload, amUser1: uid1 == uid);
-          break;
-        case 'delete':
-          await endChat();
-          break;
-      }
-    });
+          final action = realtimeAction(event.events);
+          switch (action) {
+            case 'create':
+              await _onPaired(event.payload, amUser1: uid1 == uid);
+              break;
+            case 'delete':
+              await endChat();
+              break;
+          }
+        });
   }
 
   Future<void> _onPaired(
@@ -206,8 +237,7 @@ class PairChat extends _$PairChat {
     required bool amUser1,
   }) async {
     final repo = ref.read(pairChatRepositoryProvider);
-    final partnerUid =
-        (amUser1 ? payload['uid2'] : payload['uid1']) as String?;
+    final partnerUid = (amUser1 ? payload['uid2'] : payload['uid1']) as String?;
     if (partnerUid == null) {
       log('_onPaired: missing partner uid in payload');
       _notifyConnectionFailed();
@@ -223,6 +253,7 @@ class PairChat extends _$PairChat {
     final activePairDocId = payload['\$id'] as String;
     state = state.copyWith(
       activePairDocId: activePairDocId,
+      partnerUid: partnerUid,
       pairUsername: pairUsername,
       pairProfileImageUrl: pairProfileImageUrl,
       isMicOn: false,
@@ -236,10 +267,12 @@ class PairChat extends _$PairChat {
       );
       if (_activePairSub == null || state.ended) return;
 
-      final connected = await ref.read(liveKitControllerProvider.notifier).connect(
-        liveKitUri: joinInfo.liveKitUri,
-        roomToken: joinInfo.roomToken,
-      );
+      final connected = await ref
+          .read(liveKitControllerProvider.notifier)
+          .connect(
+            liveKitUri: joinInfo.liveKitUri,
+            roomToken: joinInfo.roomToken,
+          );
       if (_activePairSub == null || state.ended) {
         await ref.read(liveKitControllerProvider.notifier).disconnect();
         return;
@@ -249,6 +282,10 @@ class PairChat extends _$PairChat {
       ref.read(routerProvider).push(RoutePaths.pairChat);
     } catch (e) {
       log('Joining pair chat failed: $e');
+      // If the user already left (ended) or the listener was torn down, the
+      // failure is a side effect of that teardown — disconnect() aborting an
+      // in-flight connect — not a real connection problem. Don't nag them.
+      if (state.ended || _activePairSub == null) return;
       _notifyConnectionFailed();
       await endChat();
       ref.read(routerProvider).go(RoutePaths.tabview);
@@ -273,30 +310,34 @@ class PairChat extends _$PairChat {
         .read(pairChatRepositoryProvider)
         .pairRequestsStream()
         .listen((event) {
-      final action = realtimeAction(event.events);
-      if (action == 'create') {
-        // Skip our own request and anonymous ones
-        if (event.payload['uid'] == uid ||
-            event.payload['isAnonymous'] == true) {
-          return;
-        }
-        try {
-          final docId = event.payload['\$id'].toString();
-          final newUser =
-              ResonateUser.fromJson({...event.payload, 'docId': docId});
-          state = state.copyWith(onlineUsers: [...state.onlineUsers, newUser]);
-        } catch (e) {
-          log('Skipping malformed pair request payload: $e');
-        }
-      } else if (action == 'delete') {
-        final removedUid = event.payload['uid'];
-        state = state.copyWith(
-          onlineUsers: state.onlineUsers
-              .where((user) => user.uid != removedUid)
-              .toList(),
-        );
-      }
-    });
+          final action = realtimeAction(event.events);
+          if (action == 'create') {
+            // Skip our own request and anonymous ones
+            if (event.payload['uid'] == uid ||
+                event.payload['isAnonymous'] == true) {
+              return;
+            }
+            try {
+              final docId = event.payload['\$id'].toString();
+              final newUser = ResonateUser.fromJson({
+                ...event.payload,
+                'docId': docId,
+              });
+              state = state.copyWith(
+                onlineUsers: [...state.onlineUsers, newUser],
+              );
+            } catch (e) {
+              log('Skipping malformed pair request payload: $e');
+            }
+          } else if (action == 'delete') {
+            final removedUid = event.payload['uid'];
+            state = state.copyWith(
+              onlineUsers: state.onlineUsers
+                  .where((user) => user.uid != removedUid)
+                  .toList(),
+            );
+          }
+        });
   }
 
   // Nulls the fields before the async cancels

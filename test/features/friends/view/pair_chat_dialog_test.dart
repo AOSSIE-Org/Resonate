@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,6 +54,10 @@ class RecordingRouter {
           return const Scaffold(body: Text('pair-chat-users-page'));
         },
       ),
+      GoRoute(
+        path: RoutePaths.tabview,
+        builder: (context, state) => const Scaffold(body: Text('tabview-page')),
+      ),
     ],
   );
 }
@@ -69,7 +75,6 @@ List<Override> _overrides(
     pairChatProvider.overrideWith(() => fake),
   ];
 }
-
 
 Future<RecordingRouter> _pumpDialogViaRouter(
   WidgetTester tester,
@@ -202,6 +207,45 @@ void main() {
       expect(fake.choosePartnerCount, 1);
       expect(find.byType(PairChatDialog), findsNothing);
       expect(recording.pushed, contains(RoutePaths.pairChatUsers));
+    });
+
+    testFriendsWidget(
+      'Quick Match routes optimistically before the request resolves',
+      (tester) async {
+        // Hold quickMatch in flight: the page must appear anyway.
+        final gate = Completer<void>();
+        final fake = FakePairChat(
+          const PairChatState(),
+          quickMatchGate: gate.future,
+        );
+        final recording = await _pumpDialogViaRouter(tester, _overrides(fake));
+
+        await tester.tap(find.text('Quick Match'));
+        await tester.pumpAndSettle();
+
+        // Routed to the finding page while the request is still pending.
+        expect(recording.pushed, contains(RoutePaths.pairing));
+        expect(find.text('pairing-page'), findsOneWidget);
+
+        gate.complete();
+        await tester.pumpAndSettle();
+        // Still there once the request lands.
+        expect(find.text('pairing-page'), findsOneWidget);
+      },
+    );
+
+    testFriendsWidget('a failed Quick Match backs out of the finding page', (
+      tester,
+    ) async {
+      final fake = FakePairChat(const PairChatState(), throwOnQuickMatch: true);
+      await _pumpDialogViaRouter(tester, _overrides(fake));
+
+      await tester.tap(find.text('Quick Match'));
+      await tester.pumpAndSettle();
+
+      // Optimistic push is superseded; a failed request lands on the tab view.
+      expect(find.text('pairing-page'), findsNothing);
+      expect(find.text('tabview-page'), findsOneWidget);
     });
   });
 }

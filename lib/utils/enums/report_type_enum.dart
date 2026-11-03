@@ -7,8 +7,6 @@ enum ReportTypeEnum {
   abuse,
   @JsonValue('spam')
   spam,
-  @JsonValue('impersonation')
-  impersonation,
   @JsonValue('illegal')
   illegal,
   @JsonValue('selfharm')

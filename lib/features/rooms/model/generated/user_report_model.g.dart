@@ -28,7 +28,6 @@ const _$ReportTypeEnumEnumMap = {
   ReportTypeEnum.harassment: 'harassment',
   ReportTypeEnum.abuse: 'abuse',
   ReportTypeEnum.spam: 'spam',
-  ReportTypeEnum.impersonation: 'impersonation',
   ReportTypeEnum.illegal: 'illegal',
   ReportTypeEnum.selfharm: 'selfharm',
   ReportTypeEnum.misuse: 'misuse',
