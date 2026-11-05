@@ -12,6 +12,7 @@ abstract class PairChatState with _$PairChatState {
     String? requestDocId,
     String? activePairDocId,
     String? pairUsername,
+    String? pairUid,
     String? pairProfileImageUrl,
     @Default(2.5) double pairRating,
     @Default(<ResonateUser>[]) List<ResonateUser> onlineUsers,

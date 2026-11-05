@@ -9,6 +9,8 @@ import 'package:resonate/features/profile/data/user_avatars.dart';
 import 'package:resonate/utils/realtime_event.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/routes/app_router.dart';
@@ -149,6 +151,27 @@ class PairChat extends _$PairChat {
     }
   }
 
+  // Only offered on a non-anonymous pair
+  Future<bool> reportPartner(ReportDraft report) async {
+    final partnerUid = state.pairUid;
+    if (partnerUid == null || state.isAnonymous) return false;
+    try {
+      await ref.read(roomsRepositoryProvider).submitUserReport(
+            UserReportModel(
+              reporterUid: ref.read(requireUserProvider).uid,
+              reportedUid: partnerUid,
+              reportType: report.type,
+              reportText: report.details,
+              reportedUser: partnerUid,
+            ),
+          );
+      return true;
+    } catch (e) {
+      log('reportPartner: submitting the report failed: $e');
+      return false;
+    }
+  }
+
   Future<void> endChat() async {
     if (state.ended) return;
     state = state.copyWith(ended: true);
@@ -224,6 +247,7 @@ class PairChat extends _$PairChat {
     state = state.copyWith(
       activePairDocId: activePairDocId,
       pairUsername: pairUsername,
+      pairUid: partnerUid,
       pairProfileImageUrl: pairProfileImageUrl,
       isMicOn: false,
       ended: false,

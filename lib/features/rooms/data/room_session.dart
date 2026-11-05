@@ -383,6 +383,27 @@ class RoomSession extends _$RoomSession {
     await repo.kickParticipant(docId);
   }
 
+  Future<bool> reportParticipantOnly(
+    Participant participant, {
+    required ReportDraft report,
+  }) async {
+    try {
+      await ref.read(roomsRepositoryProvider).submitUserReport(
+            UserReportModel(
+              reporterUid: ref.read(requireUserProvider).uid,
+              reportedUid: participant.uid,
+              reportType: report.type,
+              reportText: report.details,
+              reportedUser: participant.uid,
+            ),
+          );
+      return true;
+    } catch (e) {
+      log('reportParticipantOnly: submitting the report failed: $e');
+      return false;
+    }
+  }
+
   Future<bool> reportAndKick(
     AppwriteRoom appwriteRoom,
     Participant participant, {

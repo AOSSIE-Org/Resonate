@@ -68,7 +68,11 @@ class ParticipantBlock extends ConsumerWidget {
         .toList();
   }
 
-  Future<void> _reportAndMaybeKick(BuildContext context, WidgetRef ref) async {
+  Future<void> _report(
+    BuildContext context,
+    WidgetRef ref, {
+    required bool kick,
+  }) async {
     final l10n = AppLocalizations.of(context)!;
     final draft = await showDialog<ReportDraft>(
       context: context,
@@ -79,9 +83,10 @@ class ParticipantBlock extends ConsumerWidget {
     );
     if (draft == null) return;
 
-    final filed = await ref
-        .read(roomSessionProvider(room).notifier)
-        .reportAndKick(room, participant, report: draft);
+    final notifier = ref.read(roomSessionProvider(room).notifier);
+    final filed = kick
+        ? await notifier.reportAndKick(room, participant, report: draft)
+        : await notifier.reportParticipantOnly(participant, report: draft);
     customSnackbar(
       filed ? l10n.success : l10n.error,
       filed ? l10n.reportSubmitted : l10n.reportFailed,
@@ -94,8 +99,17 @@ class ParticipantBlock extends ConsumerWidget {
     WidgetRef ref,
     Participant me,
   ) {
-    if ((!me.isAdmin && !me.isModerator) || participant.isAdmin) return [];
+    if (participant.uid == me.uid) return [];
     final notifier = ref.read(roomSessionProvider(room).notifier);
+
+    if ((!me.isAdmin && !me.isModerator) || participant.isAdmin) {
+      return _makeItems(context, [
+        _FocusedMenuItemData(
+          AppLocalizations.of(context)!.reportParticipant,
+          () => _report(context, ref, kick: false),
+        ),
+      ]);
+    }
 
     if (me.isAdmin) {
       if (participant.isModerator) {
@@ -110,7 +124,7 @@ class ParticipantBlock extends ConsumerWidget {
           ),
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.reportParticipant,
-            () => _reportAndMaybeKick(context, ref),
+            () => _report(context, ref, kick: true),
           ),
         ]);
       } else {
@@ -138,7 +152,7 @@ class ParticipantBlock extends ConsumerWidget {
           ),
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.reportParticipant,
-            () => _reportAndMaybeKick(context, ref),
+            () => _report(context, ref, kick: true),
           ),
         ]);
       }
@@ -163,7 +177,7 @@ class ParticipantBlock extends ConsumerWidget {
         ),
         _FocusedMenuItemData(
           AppLocalizations.of(context)!.reportParticipant,
-          () => _reportAndMaybeKick(context, ref),
+          () => _report(context, ref, kick: true),
         ),
       ]);
     }
@@ -179,9 +193,7 @@ class ParticipantBlock extends ConsumerWidget {
     if (me == null) return const SizedBox.shrink();
 
     final avatarUrl = resolveAvatarUrl(ref, participant.dpUrl);
-    final canOpenMenu =
-        (me.isAdmin || (me.isModerator && !participant.isModerator)) &&
-        !participant.isAdmin;
+    final canOpenMenu = participant.uid != me.uid;
 
     final card = GestureDetector(
       behavior: HitTestBehavior.opaque,
