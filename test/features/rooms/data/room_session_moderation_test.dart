@@ -334,6 +334,7 @@ void main() {
       ).called(1);
     });
 
+
     test('a participant who already left is a no-op', () async {
       participantRows = [];
       final container = await open();
@@ -410,6 +411,49 @@ void main() {
           rowId: 'p1',
         ),
       ).called(1);
+    });
+
+    // What an ordinary participant can do: say something happened, without
+    // the moderation they have no permission for.
+    test('reportParticipantOnly files without kicking or marking the room',
+        () async {
+      final container = await open();
+
+      final ok = await container
+          .read(roomSessionProvider(room).notifier)
+          .reportParticipantOnly(guest, report: draft);
+
+      expect(ok, isTrue);
+
+      final report =
+          verify(
+                tables.createRow(
+                  databaseId: databaseId,
+                  tableId: userReportsTableID,
+                  rowId: anyNamed('rowId'),
+                  data: captureAnyNamed('data'),
+                ),
+              ).captured.single
+              as Map<String, dynamic>;
+      expect(report['reporterUid'], 'me');
+      expect(report['reportedUid'], 'guest');
+
+      // No room update, and the participant stays in the room.
+      verifyNever(
+        tables.updateRow(
+          databaseId: databaseId,
+          tableId: roomsTableId,
+          rowId: _roomId,
+          data: anyNamed('data'),
+        ),
+      );
+      verifyNever(
+        tables.deleteRow(
+          databaseId: databaseId,
+          tableId: participantsTableId,
+          rowId: anyNamed('rowId'),
+        ),
+      );
     });
 
     test('keeps the users already on the reported list', () async {

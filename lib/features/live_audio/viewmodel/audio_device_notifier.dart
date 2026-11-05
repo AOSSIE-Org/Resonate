@@ -5,9 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'generated/audio_device_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
-AudioDeviceService audioDeviceService(Ref ref) => AudioDeviceService();
-
-@Riverpod(keepAlive: true)
 class AudioDeviceNotifier extends _$AudioDeviceNotifier {
   @override
   AudioDeviceState build() {
@@ -20,8 +17,8 @@ class AudioDeviceNotifier extends _$AudioDeviceNotifier {
     );
   }
 
+  // Applied even when it matches what is already shown
   Future<void> selectRoute(AudioOutputRoute route) async {
-    if (route == state.route) return;
     await ref
         .read(audioDeviceServiceProvider)
         .setSpeakerPreferred(route == AudioOutputRoute.speaker);

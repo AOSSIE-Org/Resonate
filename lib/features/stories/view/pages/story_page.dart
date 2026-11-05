@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -407,16 +409,18 @@ class _StoryPageState extends ConsumerState<StoryPage> {
         ),
         SizedBox(height: UiSizes.height_20),
         ElevatedButton(
-          onPressed: () async {
-            final navigator = Navigator.of(context);
-            try {
-              await ref
-                  .read(storyDetailProvider(story.storyId).notifier)
-                  .deleteStory(story);
-              navigator.pop();
-            } catch (e) {
-              customSnackbar(l10n.error, e.toString(), LogType.error);
-            }
+          onPressed: () {
+            // Started before the pop, so this notifier is still alive to hand
+            // the work over, and the page closes without waiting for it.
+            final deleting = ref
+                .read(storyDetailProvider(story.storyId).notifier)
+                .deleteStory(story);
+            Navigator.of(context).pop();
+            unawaited(
+              deleting.catchError((Object e) {
+                customSnackbar(l10n.error, e.toString(), LogType.error);
+              }),
+            );
           },
           child: Text(l10n.deleteStory),
         ),

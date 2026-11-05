@@ -10,7 +10,11 @@ import 'package:resonate/features/friends/data/pair_chat_session.dart';
 import 'package:resonate/shared/widgets/session_app_bar.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
+import 'package:resonate/features/rooms/view/widgets/report_widget.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -40,6 +44,29 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
     // Leaving ends the chat; endChat() self-guards, so don't read ref in dispose.
     _notifier.endChat();
     super.dispose();
+  }
+
+  Future<void> _reportPartner(BuildContext context, WidgetRef ref) async {
+    final chatState = ref.read(pairChatProvider);
+    final uid = chatState.pairUid;
+    if (uid == null) return;
+    final l10n = AppLocalizations.of(context)!;
+
+    final draft = await showDialog<ReportDraft>(
+      context: context,
+      builder: (_) => ReportWidget(
+        participantName: chatState.pairUsername ?? '',
+        participantId: uid,
+      ),
+    );
+    if (draft == null) return;
+
+    final filed = await _notifier.reportPartner(draft);
+    customSnackbar(
+      filed ? l10n.success : l10n.error,
+      filed ? l10n.reportSubmitted : l10n.reportFailed,
+      filed ? LogType.success : LogType.error,
+    );
   }
 
   Future<void> _onChatEnded() async {
@@ -109,6 +136,22 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
                               ? AppLocalizations.of(context)!.user2
                               : chatState.pairUsername ?? '',
                         ),
+                        if (!chatState.isAnonymous &&
+                            chatState.pairUid != null)
+                          TextButton.icon(
+                            onPressed: () => _reportPartner(context, ref),
+                            icon: Icon(
+                              Icons.flag_outlined,
+                              size: UiSizes.size_16,
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                            label: Text(
+                              AppLocalizations.of(context)!.reportParticipant,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                     SizedBox(height: UiSizes.height_24_6),

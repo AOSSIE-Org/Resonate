@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PairChatState {
 
- bool get isAnonymous; String get languageIso; bool get isMicOn; String? get requestDocId; String? get activePairDocId; String? get pairUsername; String? get pairProfileImageUrl; double get pairRating; List<ResonateUser> get onlineUsers; bool get isUserListLoading;// showing the rating sheet and returning to the tab view.
+ bool get isAnonymous; String get languageIso; bool get isMicOn; String? get requestDocId; String? get activePairDocId; String? get pairUsername;// Known for every pair; only surfaced when the chat is not anonymous,
+// which is what makes the partner reportable.
+ String? get pairUid; String? get pairProfileImageUrl; double get pairRating; List<ResonateUser> get onlineUsers; bool get isUserListLoading;// showing the rating sheet and returning to the tab view.
  bool get ended;
 /// Create a copy of PairChatState
 /// with the given fields replaced by the non-null parameter values.
@@ -26,16 +28,16 @@ $PairChatStateCopyWith<PairChatState> get copyWith => _$PairChatStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PairChatState&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.languageIso, languageIso) || other.languageIso == languageIso)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn)&&(identical(other.requestDocId, requestDocId) || other.requestDocId == requestDocId)&&(identical(other.activePairDocId, activePairDocId) || other.activePairDocId == activePairDocId)&&(identical(other.pairUsername, pairUsername) || other.pairUsername == pairUsername)&&(identical(other.pairProfileImageUrl, pairProfileImageUrl) || other.pairProfileImageUrl == pairProfileImageUrl)&&(identical(other.pairRating, pairRating) || other.pairRating == pairRating)&&const DeepCollectionEquality().equals(other.onlineUsers, onlineUsers)&&(identical(other.isUserListLoading, isUserListLoading) || other.isUserListLoading == isUserListLoading)&&(identical(other.ended, ended) || other.ended == ended));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PairChatState&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.languageIso, languageIso) || other.languageIso == languageIso)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn)&&(identical(other.requestDocId, requestDocId) || other.requestDocId == requestDocId)&&(identical(other.activePairDocId, activePairDocId) || other.activePairDocId == activePairDocId)&&(identical(other.pairUsername, pairUsername) || other.pairUsername == pairUsername)&&(identical(other.pairUid, pairUid) || other.pairUid == pairUid)&&(identical(other.pairProfileImageUrl, pairProfileImageUrl) || other.pairProfileImageUrl == pairProfileImageUrl)&&(identical(other.pairRating, pairRating) || other.pairRating == pairRating)&&const DeepCollectionEquality().equals(other.onlineUsers, onlineUsers)&&(identical(other.isUserListLoading, isUserListLoading) || other.isUserListLoading == isUserListLoading)&&(identical(other.ended, ended) || other.ended == ended));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isAnonymous,languageIso,isMicOn,requestDocId,activePairDocId,pairUsername,pairProfileImageUrl,pairRating,const DeepCollectionEquality().hash(onlineUsers),isUserListLoading,ended);
+int get hashCode => Object.hash(runtimeType,isAnonymous,languageIso,isMicOn,requestDocId,activePairDocId,pairUsername,pairUid,pairProfileImageUrl,pairRating,const DeepCollectionEquality().hash(onlineUsers),isUserListLoading,ended);
 
 @override
 String toString() {
-  return 'PairChatState(isAnonymous: $isAnonymous, languageIso: $languageIso, isMicOn: $isMicOn, requestDocId: $requestDocId, activePairDocId: $activePairDocId, pairUsername: $pairUsername, pairProfileImageUrl: $pairProfileImageUrl, pairRating: $pairRating, onlineUsers: $onlineUsers, isUserListLoading: $isUserListLoading, ended: $ended)';
+  return 'PairChatState(isAnonymous: $isAnonymous, languageIso: $languageIso, isMicOn: $isMicOn, requestDocId: $requestDocId, activePairDocId: $activePairDocId, pairUsername: $pairUsername, pairUid: $pairUid, pairProfileImageUrl: $pairProfileImageUrl, pairRating: $pairRating, onlineUsers: $onlineUsers, isUserListLoading: $isUserListLoading, ended: $ended)';
 }
 
 
@@ -46,7 +48,7 @@ abstract mixin class $PairChatStateCopyWith<$Res>  {
   factory $PairChatStateCopyWith(PairChatState value, $Res Function(PairChatState) _then) = _$PairChatStateCopyWithImpl;
 @useResult
 $Res call({
- bool isAnonymous, String languageIso, bool isMicOn, String? requestDocId, String? activePairDocId, String? pairUsername, String? pairProfileImageUrl, double pairRating, List<ResonateUser> onlineUsers, bool isUserListLoading, bool ended
+ bool isAnonymous, String languageIso, bool isMicOn, String? requestDocId, String? activePairDocId, String? pairUsername, String? pairUid, String? pairProfileImageUrl, double pairRating, List<ResonateUser> onlineUsers, bool isUserListLoading, bool ended
 });
 
 
@@ -63,7 +65,7 @@ class _$PairChatStateCopyWithImpl<$Res>
 
 /// Create a copy of PairChatState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isAnonymous = null,Object? languageIso = null,Object? isMicOn = null,Object? requestDocId = freezed,Object? activePairDocId = freezed,Object? pairUsername = freezed,Object? pairProfileImageUrl = freezed,Object? pairRating = null,Object? onlineUsers = null,Object? isUserListLoading = null,Object? ended = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isAnonymous = null,Object? languageIso = null,Object? isMicOn = null,Object? requestDocId = freezed,Object? activePairDocId = freezed,Object? pairUsername = freezed,Object? pairUid = freezed,Object? pairProfileImageUrl = freezed,Object? pairRating = null,Object? onlineUsers = null,Object? isUserListLoading = null,Object? ended = null,}) {
   return _then(_self.copyWith(
 isAnonymous: null == isAnonymous ? _self.isAnonymous : isAnonymous // ignore: cast_nullable_to_non_nullable
 as bool,languageIso: null == languageIso ? _self.languageIso : languageIso // ignore: cast_nullable_to_non_nullable
@@ -71,6 +73,7 @@ as String,isMicOn: null == isMicOn ? _self.isMicOn : isMicOn // ignore: cast_nul
 as bool,requestDocId: freezed == requestDocId ? _self.requestDocId : requestDocId // ignore: cast_nullable_to_non_nullable
 as String?,activePairDocId: freezed == activePairDocId ? _self.activePairDocId : activePairDocId // ignore: cast_nullable_to_non_nullable
 as String?,pairUsername: freezed == pairUsername ? _self.pairUsername : pairUsername // ignore: cast_nullable_to_non_nullable
+as String?,pairUid: freezed == pairUid ? _self.pairUid : pairUid // ignore: cast_nullable_to_non_nullable
 as String?,pairProfileImageUrl: freezed == pairProfileImageUrl ? _self.pairProfileImageUrl : pairProfileImageUrl // ignore: cast_nullable_to_non_nullable
 as String?,pairRating: null == pairRating ? _self.pairRating : pairRating // ignore: cast_nullable_to_non_nullable
 as double,onlineUsers: null == onlineUsers ? _self.onlineUsers : onlineUsers // ignore: cast_nullable_to_non_nullable
@@ -161,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isAnonymous,  String languageIso,  bool isMicOn,  String? requestDocId,  String? activePairDocId,  String? pairUsername,  String? pairProfileImageUrl,  double pairRating,  List<ResonateUser> onlineUsers,  bool isUserListLoading,  bool ended)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isAnonymous,  String languageIso,  bool isMicOn,  String? requestDocId,  String? activePairDocId,  String? pairUsername,  String? pairUid,  String? pairProfileImageUrl,  double pairRating,  List<ResonateUser> onlineUsers,  bool isUserListLoading,  bool ended)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PairChatState() when $default != null:
-return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestDocId,_that.activePairDocId,_that.pairUsername,_that.pairProfileImageUrl,_that.pairRating,_that.onlineUsers,_that.isUserListLoading,_that.ended);case _:
+return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestDocId,_that.activePairDocId,_that.pairUsername,_that.pairUid,_that.pairProfileImageUrl,_that.pairRating,_that.onlineUsers,_that.isUserListLoading,_that.ended);case _:
   return orElse();
 
 }
@@ -182,10 +185,10 @@ return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestD
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isAnonymous,  String languageIso,  bool isMicOn,  String? requestDocId,  String? activePairDocId,  String? pairUsername,  String? pairProfileImageUrl,  double pairRating,  List<ResonateUser> onlineUsers,  bool isUserListLoading,  bool ended)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isAnonymous,  String languageIso,  bool isMicOn,  String? requestDocId,  String? activePairDocId,  String? pairUsername,  String? pairUid,  String? pairProfileImageUrl,  double pairRating,  List<ResonateUser> onlineUsers,  bool isUserListLoading,  bool ended)  $default,) {final _that = this;
 switch (_that) {
 case _PairChatState():
-return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestDocId,_that.activePairDocId,_that.pairUsername,_that.pairProfileImageUrl,_that.pairRating,_that.onlineUsers,_that.isUserListLoading,_that.ended);case _:
+return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestDocId,_that.activePairDocId,_that.pairUsername,_that.pairUid,_that.pairProfileImageUrl,_that.pairRating,_that.onlineUsers,_that.isUserListLoading,_that.ended);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +205,10 @@ return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestD
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isAnonymous,  String languageIso,  bool isMicOn,  String? requestDocId,  String? activePairDocId,  String? pairUsername,  String? pairProfileImageUrl,  double pairRating,  List<ResonateUser> onlineUsers,  bool isUserListLoading,  bool ended)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isAnonymous,  String languageIso,  bool isMicOn,  String? requestDocId,  String? activePairDocId,  String? pairUsername,  String? pairUid,  String? pairProfileImageUrl,  double pairRating,  List<ResonateUser> onlineUsers,  bool isUserListLoading,  bool ended)?  $default,) {final _that = this;
 switch (_that) {
 case _PairChatState() when $default != null:
-return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestDocId,_that.activePairDocId,_that.pairUsername,_that.pairProfileImageUrl,_that.pairRating,_that.onlineUsers,_that.isUserListLoading,_that.ended);case _:
+return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestDocId,_that.activePairDocId,_that.pairUsername,_that.pairUid,_that.pairProfileImageUrl,_that.pairRating,_that.onlineUsers,_that.isUserListLoading,_that.ended);case _:
   return null;
 
 }
@@ -217,7 +220,7 @@ return $default(_that.isAnonymous,_that.languageIso,_that.isMicOn,_that.requestD
 
 
 class _PairChatState implements PairChatState {
-  const _PairChatState({this.isAnonymous = true, this.languageIso = 'en', this.isMicOn = false, this.requestDocId, this.activePairDocId, this.pairUsername, this.pairProfileImageUrl, this.pairRating = 2.5, final  List<ResonateUser> onlineUsers = const <ResonateUser>[], this.isUserListLoading = false, this.ended = false}): _onlineUsers = onlineUsers;
+  const _PairChatState({this.isAnonymous = true, this.languageIso = 'en', this.isMicOn = false, this.requestDocId, this.activePairDocId, this.pairUsername, this.pairUid, this.pairProfileImageUrl, this.pairRating = 2.5, final  List<ResonateUser> onlineUsers = const <ResonateUser>[], this.isUserListLoading = false, this.ended = false}): _onlineUsers = onlineUsers;
   
 
 @override@JsonKey() final  bool isAnonymous;
@@ -226,6 +229,9 @@ class _PairChatState implements PairChatState {
 @override final  String? requestDocId;
 @override final  String? activePairDocId;
 @override final  String? pairUsername;
+// Known for every pair; only surfaced when the chat is not anonymous,
+// which is what makes the partner reportable.
+@override final  String? pairUid;
 @override final  String? pairProfileImageUrl;
 @override@JsonKey() final  double pairRating;
  final  List<ResonateUser> _onlineUsers;
@@ -249,16 +255,16 @@ _$PairChatStateCopyWith<_PairChatState> get copyWith => __$PairChatStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PairChatState&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.languageIso, languageIso) || other.languageIso == languageIso)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn)&&(identical(other.requestDocId, requestDocId) || other.requestDocId == requestDocId)&&(identical(other.activePairDocId, activePairDocId) || other.activePairDocId == activePairDocId)&&(identical(other.pairUsername, pairUsername) || other.pairUsername == pairUsername)&&(identical(other.pairProfileImageUrl, pairProfileImageUrl) || other.pairProfileImageUrl == pairProfileImageUrl)&&(identical(other.pairRating, pairRating) || other.pairRating == pairRating)&&const DeepCollectionEquality().equals(other._onlineUsers, _onlineUsers)&&(identical(other.isUserListLoading, isUserListLoading) || other.isUserListLoading == isUserListLoading)&&(identical(other.ended, ended) || other.ended == ended));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PairChatState&&(identical(other.isAnonymous, isAnonymous) || other.isAnonymous == isAnonymous)&&(identical(other.languageIso, languageIso) || other.languageIso == languageIso)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn)&&(identical(other.requestDocId, requestDocId) || other.requestDocId == requestDocId)&&(identical(other.activePairDocId, activePairDocId) || other.activePairDocId == activePairDocId)&&(identical(other.pairUsername, pairUsername) || other.pairUsername == pairUsername)&&(identical(other.pairUid, pairUid) || other.pairUid == pairUid)&&(identical(other.pairProfileImageUrl, pairProfileImageUrl) || other.pairProfileImageUrl == pairProfileImageUrl)&&(identical(other.pairRating, pairRating) || other.pairRating == pairRating)&&const DeepCollectionEquality().equals(other._onlineUsers, _onlineUsers)&&(identical(other.isUserListLoading, isUserListLoading) || other.isUserListLoading == isUserListLoading)&&(identical(other.ended, ended) || other.ended == ended));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isAnonymous,languageIso,isMicOn,requestDocId,activePairDocId,pairUsername,pairProfileImageUrl,pairRating,const DeepCollectionEquality().hash(_onlineUsers),isUserListLoading,ended);
+int get hashCode => Object.hash(runtimeType,isAnonymous,languageIso,isMicOn,requestDocId,activePairDocId,pairUsername,pairUid,pairProfileImageUrl,pairRating,const DeepCollectionEquality().hash(_onlineUsers),isUserListLoading,ended);
 
 @override
 String toString() {
-  return 'PairChatState(isAnonymous: $isAnonymous, languageIso: $languageIso, isMicOn: $isMicOn, requestDocId: $requestDocId, activePairDocId: $activePairDocId, pairUsername: $pairUsername, pairProfileImageUrl: $pairProfileImageUrl, pairRating: $pairRating, onlineUsers: $onlineUsers, isUserListLoading: $isUserListLoading, ended: $ended)';
+  return 'PairChatState(isAnonymous: $isAnonymous, languageIso: $languageIso, isMicOn: $isMicOn, requestDocId: $requestDocId, activePairDocId: $activePairDocId, pairUsername: $pairUsername, pairUid: $pairUid, pairProfileImageUrl: $pairProfileImageUrl, pairRating: $pairRating, onlineUsers: $onlineUsers, isUserListLoading: $isUserListLoading, ended: $ended)';
 }
 
 
@@ -269,7 +275,7 @@ abstract mixin class _$PairChatStateCopyWith<$Res> implements $PairChatStateCopy
   factory _$PairChatStateCopyWith(_PairChatState value, $Res Function(_PairChatState) _then) = __$PairChatStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isAnonymous, String languageIso, bool isMicOn, String? requestDocId, String? activePairDocId, String? pairUsername, String? pairProfileImageUrl, double pairRating, List<ResonateUser> onlineUsers, bool isUserListLoading, bool ended
+ bool isAnonymous, String languageIso, bool isMicOn, String? requestDocId, String? activePairDocId, String? pairUsername, String? pairUid, String? pairProfileImageUrl, double pairRating, List<ResonateUser> onlineUsers, bool isUserListLoading, bool ended
 });
 
 
@@ -286,7 +292,7 @@ class __$PairChatStateCopyWithImpl<$Res>
 
 /// Create a copy of PairChatState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isAnonymous = null,Object? languageIso = null,Object? isMicOn = null,Object? requestDocId = freezed,Object? activePairDocId = freezed,Object? pairUsername = freezed,Object? pairProfileImageUrl = freezed,Object? pairRating = null,Object? onlineUsers = null,Object? isUserListLoading = null,Object? ended = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isAnonymous = null,Object? languageIso = null,Object? isMicOn = null,Object? requestDocId = freezed,Object? activePairDocId = freezed,Object? pairUsername = freezed,Object? pairUid = freezed,Object? pairProfileImageUrl = freezed,Object? pairRating = null,Object? onlineUsers = null,Object? isUserListLoading = null,Object? ended = null,}) {
   return _then(_PairChatState(
 isAnonymous: null == isAnonymous ? _self.isAnonymous : isAnonymous // ignore: cast_nullable_to_non_nullable
 as bool,languageIso: null == languageIso ? _self.languageIso : languageIso // ignore: cast_nullable_to_non_nullable
@@ -294,6 +300,7 @@ as String,isMicOn: null == isMicOn ? _self.isMicOn : isMicOn // ignore: cast_nul
 as bool,requestDocId: freezed == requestDocId ? _self.requestDocId : requestDocId // ignore: cast_nullable_to_non_nullable
 as String?,activePairDocId: freezed == activePairDocId ? _self.activePairDocId : activePairDocId // ignore: cast_nullable_to_non_nullable
 as String?,pairUsername: freezed == pairUsername ? _self.pairUsername : pairUsername // ignore: cast_nullable_to_non_nullable
+as String?,pairUid: freezed == pairUid ? _self.pairUid : pairUid // ignore: cast_nullable_to_non_nullable
 as String?,pairProfileImageUrl: freezed == pairProfileImageUrl ? _self.pairProfileImageUrl : pairProfileImageUrl // ignore: cast_nullable_to_non_nullable
 as String?,pairRating: null == pairRating ? _self.pairRating : pairRating // ignore: cast_nullable_to_non_nullable
 as double,onlineUsers: null == onlineUsers ? _self._onlineUsers : onlineUsers // ignore: cast_nullable_to_non_nullable

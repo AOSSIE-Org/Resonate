@@ -34,7 +34,8 @@ class _FriendCallPageState extends ConsumerState<FriendCallPage> {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _presence.exit());
+    // On a microtask rather than a post-frame callback; see RoomPage.dispose.
+    Future.microtask(_presence.exit);
     super.dispose();
   }
 

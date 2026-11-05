@@ -1,7 +1,9 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/stories/data/created_stories.dart';
 import 'package:resonate/features/stories/viewmodel/story_detail_notifier.dart';
 import 'package:resonate/utils/constants.dart';
 
@@ -20,6 +22,26 @@ Row _chapterRow({String id = 'c1', int playDuration = 250}) => buildRow(
         'audioFileUrl': 'https://example.com/audio.mp3',
         'playDuration': playDuration,
         'tintColor': 'cbc6c6',
+      },
+    );
+
+// A story row as fetchCreatedStories returns it.
+Row _createdRow({String id = 's1'}) => buildRow(
+      id: id,
+      tableId: storyTableId,
+      databaseId: databaseId,
+      data: {
+        'title': 'A Story',
+        'description': 'desc',
+        'category': 'drama',
+        'creatorId': 'creator-1',
+        'creatorName': 'Creator',
+        'creatorImgUrl': 'https://example.com/a.jpg',
+        'coverImgUrl': 'https://example.com/c.jpg',
+        'likes': 0,
+        'playDuration': 1000,
+        'tintColor': 'cbc6c6',
+        'tags': <String>[],
       },
     );
 
@@ -176,5 +198,95 @@ void main() {
       tableId: storyTableId,
       rowId: 's1',
     )).called(1);
+  });
+
+  test('deleteStory drops the story from the creator list optimistically',
+      () async {
+    stubLoad(liked: false, likes: 0);
+    when(tables.listRows(
+      databaseId: databaseId,
+      tableId: storyTableId,
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 1, rows: [_createdRow()]));
+
+    final container = await install();
+    final key = storyDetailProvider('s1');
+    container.listen(key, (_, _) {});
+    await container.read(key.future);
+
+    final created = createdStoriesProvider('creator-1');
+    container.listen(created, (_, _) {});
+    expect(await container.read(created.future), hasLength(1));
+    verify(tables.listRows(
+      databaseId: databaseId,
+      tableId: storyTableId,
+      queries: anyNamed('queries'),
+    )).called(1);
+
+    when(tables.listRows(
+      databaseId: databaseId,
+      tableId: chapterTableId,
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 0, rows: []));
+    when(storage.deleteFile(
+      bucketId: storyBucketId,
+      fileId: anyNamed('fileId'),
+    )).thenAnswer((_) async => null);
+    when(tables.deleteRow(
+      databaseId: databaseId,
+      tableId: storyTableId,
+      rowId: 's1',
+    )).thenAnswer((_) async => '');
+
+    await container.read(key.notifier).deleteStory(fakeStory(storyId: 's1'));
+
+    // Gone from the list, and without going back to the server for it: that is
+    // what lets the profile update before the delete has finished.
+    expect(container.read(created).value, isEmpty);
+    verifyNever(tables.listRows(
+      databaseId: databaseId,
+      tableId: storyTableId,
+      queries: anyNamed('queries'),
+    ));
+  });
+
+  test('deleteStory puts the story back when the server rejects it', () async {
+    stubLoad(liked: false, likes: 0);
+    when(tables.listRows(
+      databaseId: databaseId,
+      tableId: storyTableId,
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 1, rows: [_createdRow()]));
+
+    final container = await install();
+    final key = storyDetailProvider('s1');
+    container.listen(key, (_, _) {});
+    await container.read(key.future);
+
+    final created = createdStoriesProvider('creator-1');
+    container.listen(created, (_, _) {});
+    await container.read(created.future);
+
+    when(tables.listRows(
+      databaseId: databaseId,
+      tableId: chapterTableId,
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 0, rows: []));
+    when(storage.deleteFile(
+      bucketId: storyBucketId,
+      fileId: anyNamed('fileId'),
+    )).thenAnswer((_) async => null);
+    when(tables.deleteRow(
+      databaseId: databaseId,
+      tableId: storyTableId,
+      rowId: 's1',
+    )).thenThrow(AppwriteException('nope'));
+
+    await expectLater(
+      container.read(key.notifier).deleteStory(fakeStory(storyId: 's1')),
+      throwsA(anything),
+    );
+
+    expect(container.read(created).value, hasLength(1));
   });
 }

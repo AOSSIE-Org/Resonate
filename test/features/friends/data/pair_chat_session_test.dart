@@ -8,6 +8,7 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/data/pair_chat_session.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/shared/model/resonate_user.dart';
+import 'package:resonate/utils/enums/report_type_enum.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';
@@ -177,7 +178,60 @@ void main() {
       expect(state.activePairDocId, 'pair-doc-1');
       expect(state.pairUsername, 'PartnerUser');
       expect(state.pairProfileImageUrl, 'https://example.com/p.jpg');
+      // Kept so the partner can be named in a report.
+      expect(state.pairUid, 'partner-1');
       expect(container.read(liveKitControllerProvider).isConnected, isTrue);
+    });
+
+    test('reporting the partner files against their uid', () async {
+      final container = await buildContainer();
+      final notifier = container.read(pairChatProvider.notifier);
+      notifier.setAnonymous(false);
+      await notifier.quickMatch();
+
+      activePairEvents.add(pairCreatedEvent());
+      await pumpEventQueue();
+
+      final ok = await notifier.reportPartner(
+        (type: ReportTypeEnum.harassment, details: 'was abusive'),
+      );
+
+      expect(ok, isTrue);
+      final report = verify(
+        tables.createRow(
+          databaseId: databaseId,
+          tableId: userReportsTableID,
+          rowId: anyNamed('rowId'),
+          data: captureAnyNamed('data'),
+        ),
+      ).captured.single as Map<String, dynamic>;
+      expect(report['reporterUid'], 'me');
+      expect(report['reportedUid'], 'partner-1');
+      expect(report['reportText'], 'was abusive');
+    });
+
+    // Anonymity is the whole point: there is nobody to name.
+    test('reporting is refused on an anonymous pair', () async {
+      final container = await buildContainer();
+      final notifier = container.read(pairChatProvider.notifier);
+      await notifier.quickMatch();
+
+      activePairEvents.add(pairCreatedEvent());
+      await pumpEventQueue();
+
+      final ok = await notifier.reportPartner(
+        (type: ReportTypeEnum.harassment, details: null),
+      );
+
+      expect(ok, isFalse);
+      verifyNever(
+        tables.createRow(
+          databaseId: databaseId,
+          tableId: userReportsTableID,
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      );
     });
 
     test('an active pair for other users is ignored', () async {

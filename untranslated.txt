@@ -4,6 +4,7 @@
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
+    "deleteAccountFailed",
     "rateYourExperience",
     "returnToRoom",
     "stars",
@@ -147,7 +148,11 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "gu": [
@@ -176,6 +181,7 @@
     "removeRoomFromList",
     "removeRoomConfirmation",
     "searchFailed",
+    "deleteAccountFailed",
     "rateYourExperience",
     "searchRooms",
     "searchingRooms",
@@ -327,7 +333,18 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
+  ],
+
+  "hi": [
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "kn": [
@@ -340,6 +357,7 @@
     "removeRoomFromList",
     "removeRoomConfirmation",
     "searchFailed",
+    "deleteAccountFailed",
     "rateYourExperience",
     "searchRooms",
     "searchingRooms",
@@ -497,7 +515,11 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "ml": [
@@ -505,6 +527,7 @@
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
+    "deleteAccountFailed",
     "rateYourExperience",
     "returnToRoom",
     "stars",
@@ -636,7 +659,11 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "mr": [
@@ -644,6 +671,7 @@
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
+    "deleteAccountFailed",
     "rateYourExperience",
     "returnToRoom",
     "stars",
@@ -775,7 +803,18 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
+  ],
+
+  "pa": [
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "raj": [
@@ -783,6 +822,7 @@
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
+    "deleteAccountFailed",
     "rateYourExperience",
     "returnToRoom",
     "stars",
@@ -930,7 +970,11 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ],
 
   "ta": [
@@ -938,6 +982,7 @@
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
+    "deleteAccountFailed",
     "rateYourExperience",
     "returnToRoom",
     "stars",
@@ -1076,6 +1121,10 @@
     "headsetTakesPriority",
     "audioOutputNotSwitchable",
     "loudspeaker",
-    "callReliability"
+    "callReliability",
+    "eulaTitle",
+    "eulaBody",
+    "eulaAgree",
+    "eulaDecline"
   ]
 }

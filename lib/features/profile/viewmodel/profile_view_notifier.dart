@@ -4,6 +4,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
+import 'package:resonate/features/stories/data/created_stories.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -22,7 +23,8 @@ class ProfileView extends _$ProfileView {
     final currentUid = ref.read(currentUserProvider)?.uid;
 
     final results = await Future.wait([
-      stories.fetchCreatedStories(creatorId, viewerUid: currentUid),
+      // Watched rather than fetched, so deleting a story refreshes this list.
+      ref.watch(createdStoriesProvider(creatorId).future),
       stories.fetchLikedStories(creatorId, viewerUid: currentUid),
       repo.fetchFollowers(creatorId),
     ]);

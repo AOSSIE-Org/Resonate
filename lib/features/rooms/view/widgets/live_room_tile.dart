@@ -37,8 +37,9 @@ class CustomLiveRoomTile extends ConsumerWidget {
     }
 
     try {
-      final joined =
-          await ref.read(roomLauncherProvider).enterRoom(appwriteRoom);
+      final joined = await ref
+          .read(roomLauncherProvider)
+          .enterRoom(appwriteRoom);
       closeDialog();
       if (context.mounted) {
         await openRoomSheet(context, joined);
@@ -234,15 +235,14 @@ class CustomCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final scheme = Theme.of(context).colorScheme;
+    return SizedBox(
       width: width,
       height: height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(userImage),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(20),
+      // falls back to the circle instead of rendering nothing at all.
+      child: CircleAvatar(
+        backgroundColor: scheme.surfaceContainerHighest,
+        foregroundImage: userImage.isEmpty ? null : NetworkImage(userImage),
       ),
     );
   }

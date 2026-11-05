@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/features/live_audio/data/services/audio_band_tracker.dart';
+import 'package:resonate/features/live_audio/data/services/audio_device_service.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_session.dart';
 import 'package:resonate/features/live_audio/model/livekit_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -74,6 +75,13 @@ class LiveKitController extends _$LiveKitController {
     final ok = await session.connect();
     if (!ok) {
       await _cleanup();
+      return ok;
+    }
+
+    // Connecting reconfigures the audio session
+    final audio = ref.read(audioDeviceServiceProvider);
+    if (audio.canSwitchOutput) {
+      await audio.setSpeakerPreferred(audio.isSpeakerPreferred);
     }
     return ok;
   }

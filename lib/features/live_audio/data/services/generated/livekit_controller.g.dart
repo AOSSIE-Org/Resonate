@@ -41,7 +41,7 @@ final class LiveKitControllerProvider
   }
 }
 
-String _$liveKitControllerHash() => r'7912600c61d49247c26cd1c8baddc3c2be59dd75';
+String _$liveKitControllerHash() => r'a22006689b9f44b3a496dfeb6d272173080a2d82';
 
 abstract class _$LiveKitController extends $Notifier<LiveKitState> {
   LiveKitState build();

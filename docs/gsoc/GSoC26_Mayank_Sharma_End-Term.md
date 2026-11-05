@@ -21,19 +21,18 @@ Project Length: 22 Weeks
 
 ## Contact Information:
 
-Name: Mayank Sharma
-
-Discord Username: Mayank4352
-
-GitHub Profile URL: [https://github.com/Mayank4352](https://github.com/Mayank4352)
+- **Name:** Mayank Sharma
+- **Discord Username:** Mayank4352
+- **GitHub Profile:** [Mayank4352](https://github.com/Mayank4352)
+- **LinkedIn Profile:** [Mayank Sharma](https://www.linkedin.com/in/mayank4352)
 
 # Work Done during GSoC 2026
 
-### 36 PRs across both Repositories
+### 45 PRs across both Repositories
 
-### 89 Commits across both Repositories
+### 111 Commits across both Repositories
 
-### \_\_\_ Lines of Code Contributed
+### 240,166 Lines Added and 140,333 Removed across both Repositories
 
 ## Key Tools and Technologies Used and Learned
 
@@ -556,6 +555,28 @@ placeholders Apple rejects, and the `remote-notification` background mode. The `
 mode was deliberately *not* added, because App Review rejects a declared background mode the app
 does not use and the iOS CallKit side is unimplemented.
 
+### Account deletion
+
+The app shipped with a delete-account screen that did nothing: the confirmation
+field worked, and the button it armed had a comment where the implementation
+should have been. Both Google Play and the App Store require an account to be
+deletable from inside the app, so this was a compliance gap as much as a missing
+feature.
+
+It is now a backend function that erases the user's stories and their chapters,
+likes and audio files, the rooms they host, everything they took part in, the
+rows that join them to other people, their profile image, their username
+reservation and their stats, and then the account itself. The uid comes from the
+header Appwrite sets for the authenticated caller rather than from the request
+body, so the function can only ever delete the account of whoever called it.
+
+Everything except the account deletion is best effort: a row that will not go is
+logged and named in the response, and the run continues, because a user who asked
+to leave should not be kept because one row refused. Only a failure to delete the
+account itself is an error, since while it exists they can still sign in and find
+an empty app. In the app the option moved to the bottom of Settings under Log
+out, which is where people look for it.
+
 ### Bug fixing and stabilization
 
 A substantial amount of the back half of the project was finding and fixing bugs that the new
@@ -573,6 +594,21 @@ simply ended it.
 Every Material `SnackBar` in the app was also replaced with the project's own overlay snackbar for
 consistency, and the two cases where a departure showed the wrong message were fixed properly rather
 than by suppressing the toast.
+
+A final pass over the release candidate turned up a further set, each traced to a cause rather than
+patched at the symptom. Participants were stranded in a room the host had closed, because the
+session only ever watched the participants table and relied on a cascade delete arriving; it now
+watches the room row itself. A friend could appear twice in the list, because the duplicate check
+when sending a request only looked in one direction and the list was never de-duplicated by pair.
+The chosen audio output was ignored at the start of a call, because connecting reconfigures the
+audio session and nothing re-asserted the preference afterwards — and re-picking the same entry was
+swallowed by an equality check, so the only way back was to cycle through the other option.
+Deleting a story left it on the profile until the page was navigated away from and back, because
+the list was fetched directly inside a view model where nothing could invalidate it; it moved into
+the data layer and became an optimistic removal, since deleting a story with chapters is dozens of
+requests. Search results sat underneath the floating create button. And an unhandled exception at
+every launch was traced to a provider closure that captured its own `Ref` and used it after
+awaiting Android's battery-optimisation dialog, by which point the provider was long disposed.
 
 ## Acting as an Active Maintainer
 
@@ -628,6 +664,14 @@ diff.
 | [PR #877](https://github.com/AOSSIE-Org/Resonate/pull/877) | Updated Resonate's dependencies to the latest compatible ones | Merged | Dependency refresh across the app, with the toolchain ceiling identified and documented |
 | [PR #879](https://github.com/AOSSIE-Org/Resonate/pull/879) | Removed the FCM dependency from Resonate and switching to Appwrite push | Merged | Firebase removed entirely; push moved onto Appwrite Messaging over MQTT, plus the broker-host and full-screen-call fixes |
 | [PR #881](https://github.com/AOSSIE-Org/Resonate/pull/881) | Removed leftover google dependencies and updating the change | Merged | Bundled fonts instead of runtime fetching, the F-Droid build recipe, and the release notes for 4.0.0 |
+| [PR #892](https://github.com/AOSSIE-Org/Resonate/pull/892) | RESONATE v4.0.0 | Merged | The release itself: the whole year's work from `dev` onto `master`, including resolving the 248 conflicts left by an earlier squash of the migration |
+| [PR #896](https://github.com/AOSSIE-Org/Resonate/pull/896) | Updated the docs | Merged | README, ONBOARDING, CONTRIBUTING and the privacy policy brought in line with the shipped app |
+| [PR #898](https://github.com/AOSSIE-Org/Resonate/pull/898) | Changes for build and deploy to include changelog in release notes | Merged | Play release notes wired to the fastlane changelogs, and the missing checkout step in the deploy job |
+| [PR #900](https://github.com/AOSSIE-Org/Resonate/pull/900) | Updated localization strings for hindi and punjabi | Merged | Hindi and Punjabi completed to 100%, and the `link` placeholder declared across every translated ARB |
+| [PR #902](https://github.com/AOSSIE-Org/Resonate/pull/902) | Added deployment images and locales for hi and pa for f-droid | Merged | F-Droid listing assets and the localized store text for Hindi and Punjabi |
+| [PR #904](https://github.com/AOSSIE-Org/Resonate/pull/904) | Fixed bugs found during final testing | Merged | The final testing round: room teardown, duplicate friends, audio routing, optimistic story deletion and the search-bar overlap |
+| [PR #906](https://github.com/AOSSIE-Org/Resonate/pull/906) | Completed the implementation for account deletion | Merged | Wires the account deletion screen that shipped unimplemented, and moves it under Log out in Settings |
+| [PR #908](https://github.com/AOSSIE-Org/Resonate/pull/908) | Added the GSoC 2026 end term report | Merged | This report, and the F-Droid build recipe and listing metadata it describes |
 
 ## Backend Repo
 
@@ -640,6 +684,7 @@ diff.
 | [PR #183](https://github.com/AOSSIE-Org/Resonate-Backend/pull/183) | Optimizing data schemas to improve app performance | Merged | Relationships, indexes and column resizes; the Appwrite 1.8 to 2.3 upgrade; the move onto per-execution API keys; the five-database consolidation into `main` |
 | [PR #186](https://github.com/AOSSIE-Org/Resonate-Backend/pull/186) | Addition of Social Notification feature | Merged | The `users.fcmTokens` column and the `send-social-notification` function with stale-token pruning |
 | [PR #188](https://github.com/AOSSIE-Org/Resonate-Backend/pull/188) | Removed the FCM dependency from Resonate and switching to Appwrite push | Merged | Five functions moved off `firebase-admin` onto Appwrite Messaging; seven token columns dropped from the schema |
+| [PR #191](https://github.com/AOSSIE-Org/Resonate-Backend/pull/191) | Added cloud function for account deletion functionality | Merged | Erases a user's rows, files and account, with the uid taken from the authenticated caller so it can only ever delete its own |
 
 
 ## For using and experiencing the features implemented by me as part of GSoC 2026, please download the Resonate App:
@@ -647,6 +692,9 @@ diff.
 <p align="center">
     <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate&pcampaignid=web_share">
         <img src="../store_listing/download-from-google-play.svg" alt="Download from Google Play" style="width: 250px; height: auto;">
+    </a>
+    <a href="https://apps.apple.com/in/app/id6824524696">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style="width: 220px; height: auto;">
     </a>
 </p>
 

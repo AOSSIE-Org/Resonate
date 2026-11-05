@@ -138,12 +138,80 @@ void main() {
 
       expect(find.text('Kick Out'), findsNothing);
       expect(find.text('Add Moderator'), findsNothing);
+      // Reporting is not a moderation action, so it survives the rank check.
+      expect(find.text('Report Participant'), findsOneWidget);
+    });
+  });
+
+  group('what an ordinary participant is offered', () {
+    testAppWidget('a listener can report but not moderate', (tester) async {
+      await pumpBlock(
+        tester,
+        me: fakeParticipant(uid: 'me'),
+        participant: fakeParticipant(uid: 'guest'),
+      );
+
+      await openMenu(tester);
+
+      expect(find.text('Report Participant'), findsOneWidget);
+      expect(find.text('Kick Out'), findsNothing);
+      expect(find.text('Add Moderator'), findsNothing);
+      expect(find.text('Make Listener'), findsNothing);
+    });
+
+    testAppWidget('a listener can report the host', (tester) async {
+      await pumpBlock(
+        tester,
+        me: fakeParticipant(uid: 'me'),
+        participant: fakeParticipant(uid: 'host', isAdmin: true),
+      );
+
+      await openMenu(tester);
+
+      expect(find.text('Report Participant'), findsOneWidget);
+      expect(find.text('Kick Out'), findsNothing);
+    });
+
+    testAppWidget('reporting yourself is not offered', (tester) async {
+      final me = fakeParticipant(uid: 'me');
+      await pumpBlock(tester, me: me, participant: me);
+
+      await openMenu(tester);
+
+      expect(find.text('Report Participant'), findsNothing);
+    });
+
+    testAppWidget('a listener report files without kicking', (tester) async {
+      await pumpBlock(
+        tester,
+        me: fakeParticipant(uid: 'me'),
+        participant: fakeParticipant(uid: 'guest'),
+      );
+
+      await openMenu(tester);
+      await tester.tap(find.text('Report Participant'));
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.widgetWithText(
+          RadioListTile<ReportTypeEnum>,
+          'Spam / Scams / Fraud',
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(ElevatedButton, 'Submit Report'));
+      await tester.pumpAndSettle();
+      // The result toast sets a 2s dismiss timer that must not outlive the test.
+      await tester.pump(const Duration(seconds: 3));
+
+      expect(session.reportOnlyCount, 1);
+      expect(session.reportAndKickCount, 0);
+      expect(session.lastReported?.uid, 'guest');
     });
   });
 
   group('what a plain listener is offered', () {
-    // Moderation is for admins and moderators only.
-    testAppWidget('nothing at all', (tester) async {
+    // Moderation is for admins and moderators only; reporting is for everyone.
+    testAppWidget('reporting, and no moderation', (tester) async {
       await pumpBlock(
         tester,
         me: listener,
@@ -153,7 +221,7 @@ void main() {
       await openMenu(tester);
 
       expect(find.text('Kick Out'), findsNothing);
-      expect(find.text('Report Participant'), findsNothing);
+      expect(find.text('Report Participant'), findsOneWidget);
     });
   });
 

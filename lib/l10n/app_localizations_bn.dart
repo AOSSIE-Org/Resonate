@@ -721,6 +721,10 @@ class AppLocalizationsBn extends AppLocalizations {
       'এই পদক্ষেপটি আপনার অ্যাকাউন্ট স্থায়ীভাবে ডিলিট করে দেবে। এটি একটি অপরিবর্তনীয় প্রক্রিয়া। আমরা আপনার ইউজারনেম, ইমেইল ঠিকানা এবং আপনার অ্যাকাউন্টের সাথে সম্পর্কিত অন্যান্য সমস্ত ডেটা ডিলিট করে দেব। আপনি এটি পুনরুদ্ধার করতে পারবেন না।';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'দারুন একটা নাম দিন..';
 
   @override
@@ -1892,4 +1896,17 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get callReliability => 'Call reliability';
+
+  @override
+  String get eulaTitle => 'End User License Agreement';
+
+  @override
+  String get eulaBody =>
+      'Welcome to Resonate. Please read this End User License Agreement (\"Agreement\") carefully before using the app. By tapping \"Agree\" you accept these terms. If you do not agree, tap \"Decline\" and you will be signed out.\n\n1. Acceptance of Terms\nResonate is a social voice platform that lets you join and host live audio rooms, publish stories, chat, and connect with other people. By using Resonate you agree to be bound by this Agreement and to comply with all applicable laws.\n\n2. Eligibility\nYou must be at least 18 years old, or the minimum age of digital consent in your country, to use Resonate. If you are under the age of majority, you must have your parent or guardian\'s permission to use the app.\n\n3. User-Generated Content\nResonate carries audio, text, and other content created by its users. You are solely responsible for the content you create, speak, publish, or share, and for your conduct while using the app.\n\n4. Zero Tolerance for Objectionable Content and Abuse\nThere is no tolerance for objectionable content or abusive behaviour. You agree not to create, post, stream, or share content that is unlawful, hateful, harassing, threatening, defamatory, obscene, sexually explicit, or that infringes the rights of others. You agree not to harass, bully, impersonate, or abuse any other user.\n\n5. Reporting and Moderation\nYou can report objectionable content and block abusive users from within the app. We review reports and may remove content and restrict, suspend, or terminate the accounts of users who violate this Agreement, without prior notice.\n\n6. Enforcement\nWe reserve the right to remove any content and to suspend or permanently terminate any account that breaches this Agreement or applicable law. Users who are removed for abuse may be ejected and barred from the platform.\n\n7. Privacy\nYour use of Resonate is also governed by our handling of your data as described in our privacy practices. You consent to the collection and use of information necessary to operate the service.\n\n8. Disclaimer and Limitation of Liability\nResonate is provided \"as is\" without warranties of any kind. To the maximum extent permitted by law, we are not liable for any content shared by users or for any damages arising from your use of the app.\n\n9. Changes to this Agreement\nWe may update this Agreement from time to time. Continued use of Resonate after an update means you accept the revised terms.\n\n10. Termination\nYou may stop using Resonate at any time. We may terminate or suspend your access if you breach this Agreement.\n\nBy tapping \"Agree\" you confirm that you have read, understood, and accepted this End User License Agreement.';
+
+  @override
+  String get eulaAgree => 'Agree';
+
+  @override
+  String get eulaDecline => 'Decline';
 }

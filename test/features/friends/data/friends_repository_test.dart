@@ -122,8 +122,8 @@ void main() {
       ).thenAnswer(
         (_) async => userRow(
           friends: [
-            friendJson(docId: 'a', status: 'accepted'),
-            friendJson(docId: 'p', status: 'sent'),
+            friendJson(docId: 'a', senderId: 'friend-a', status: 'accepted'),
+            friendJson(docId: 'p', senderId: 'friend-p', status: 'sent'),
           ],
         ),
       );
@@ -134,6 +134,40 @@ void main() {
       expect(result.friends.first.docId, 'a');
       expect(result.requests, hasLength(1));
       expect(result.requests.first.docId, 'p');
+    });
+
+    test('shows a person once when both sides sent a request', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'me',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => userRow(
+          friends: [
+            friendJson(
+              docId: 'mine',
+              senderId: 'me',
+              recieverId: 'them',
+              status: 'sent',
+            ),
+            friendJson(
+              docId: 'theirs',
+              senderId: 'them',
+              recieverId: 'me',
+              status: 'accepted',
+            ),
+          ],
+        ),
+      );
+
+      final result = await repo.loadFriends('me');
+
+      expect(result.friends, hasLength(1));
+      expect(result.friends.first.docId, 'theirs');
+      expect(result.requests, isEmpty);
     });
 
     test('skips malformed rows via try/catch', () async {

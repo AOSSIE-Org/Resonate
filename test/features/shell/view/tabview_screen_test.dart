@@ -77,6 +77,8 @@ void main() {
     int index = 0,
     bool emailVerified = true,
     bool pairChatEnabled = true,
+    bool eulaAccepted = true,
+    FakeAuthRepository? authRepository,
   }) async {
     tester.view.physicalSize = const Size(1200, 2340);
     tester.view.devicePixelRatio = 3.0;
@@ -84,16 +86,20 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     await storage.write(AppFeature.pairChat.storageKey, pairChatEnabled);
+    // Accepted by default so the mandatory EULA dialog stays out of the way of
+    // unrelated tabview tests; the EULA group sets this false explicitly.
+    await storage.write('eulaAccepted', eulaAccepted);
     tabView = StubTabView(index);
 
     final container = ProviderContainer(
       overrides: [
         authRepositoryProvider.overrideWithValue(
-          FakeAuthRepository(
-            AuthState.authenticated(
-              fakeAuthUser(uid: 'me', isEmailVerified: emailVerified),
-            ),
-          ),
+          authRepository ??
+              FakeAuthRepository(
+                AuthState.authenticated(
+                  fakeAuthUser(uid: 'me', isEmailVerified: emailVerified),
+                ),
+              ),
         ),
         getStorageBoxProvider.overrideWithValue(storage),
         tabViewProvider.overrideWith(() => tabView),
@@ -323,6 +329,74 @@ void main() {
       });
 
       expect(find.byType(HomeScreen), findsOneWidget);
+    });
+  });
+
+  group('the EULA agreement', () {
+    testWidgets('does not appear once it has been accepted', (tester) async {
+      await mockNetworkImagesFor(() => pumpTabView(tester, eulaAccepted: true));
+
+      expect(find.text('End User License Agreement'), findsNothing);
+    });
+
+    testWidgets('is shown after login when not yet accepted', (tester) async {
+      await mockNetworkImagesFor(
+        () => pumpTabView(tester, eulaAccepted: false),
+      );
+
+      expect(find.text('End User License Agreement'), findsOneWidget);
+      expect(find.widgetWithText(ElevatedButton, 'Agree'), findsOneWidget);
+      expect(find.widgetWithText(TextButton, 'Decline'), findsOneWidget);
+    });
+
+    testWidgets('agreeing records acceptance and dismisses the dialog', (
+      tester,
+    ) async {
+      await mockNetworkImagesFor(() async {
+        await pumpTabView(tester, eulaAccepted: false);
+
+        await tester.tap(find.widgetWithText(ElevatedButton, 'Agree'));
+        await tester.pumpAndSettle();
+      });
+
+      expect(find.text('End User License Agreement'), findsNothing);
+      expect(storage.read<bool>('eulaAccepted'), isTrue);
+    });
+
+    testWidgets('declining logs the user out and returns to welcome', (
+      tester,
+    ) async {
+      final authRepository = FakeAuthRepository(
+        AuthState.authenticated(fakeAuthUser(uid: 'me')),
+      );
+      router = GoRouter(
+        initialLocation: RoutePaths.tabview,
+        routes: [
+          GoRoute(
+            path: RoutePaths.tabview,
+            builder: (_, _) => const TabViewScreen(),
+          ),
+          GoRoute(
+            path: RoutePaths.welcome,
+            builder: (_, _) => const Scaffold(body: Text('welcome')),
+          ),
+        ],
+      );
+
+      await mockNetworkImagesFor(() async {
+        await pumpTabView(
+          tester,
+          eulaAccepted: false,
+          authRepository: authRepository,
+        );
+
+        await tester.tap(find.widgetWithText(TextButton, 'Decline'));
+        await tester.pumpAndSettle();
+      });
+
+      expect(authRepository.logoutCount, 1);
+      expect(storage.read<bool>('eulaAccepted'), isNot(isTrue));
+      expect(find.text('welcome'), findsOneWidget);
     });
   });
 }

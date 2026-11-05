@@ -16,6 +16,7 @@ class FriendsNotifier extends _$FriendsNotifier {
   StreamSubscription<RealtimeMessage>? _friendsSub;
 
   final Set<String> _requestsInFlight = <String>{};
+  final Set<String> _acceptsInFlight = <String>{};
 
   @override
   Future<FriendsState> build() async {
@@ -63,20 +64,30 @@ class FriendsNotifier extends _$FriendsNotifier {
   }
 
   Future<void> acceptFriendRequest(FriendsModel friendModel) async {
-    final updated = await ref
-        .read(friendsRepositoryProvider)
-        .acceptFriendRequest(friendModel);
+    if (!_acceptsInFlight.add(friendModel.docId)) return;
+    try {
+      final updated = await ref
+          .read(friendsRepositoryProvider)
+          .acceptFriendRequest(friendModel);
 
-    final current = state.value;
-    if (current == null || !ref.mounted) return;
-    state = AsyncData(
-      current.copyWith(
-        friends: [...current.friends, updated],
-        friendRequests: current.friendRequests
-            .where((request) => request.docId != friendModel.docId)
-            .toList(),
-      ),
-    );
+      final current = state.value;
+      if (current == null || !ref.mounted) return;
+      state = AsyncData(
+        current.copyWith(
+          // Replaced rather than appended, so a realtime refresh that already
+          // carried this row does not leave a second copy behind.
+          friends: [
+            ...current.friends.where((f) => f.docId != updated.docId),
+            updated,
+          ],
+          friendRequests: current.friendRequests
+              .where((request) => request.docId != friendModel.docId)
+              .toList(),
+        ),
+      );
+    } finally {
+      _acceptsInFlight.remove(friendModel.docId);
+    }
   }
 
   Future<void> declineFriendRequest(FriendsModel friendModel) async {

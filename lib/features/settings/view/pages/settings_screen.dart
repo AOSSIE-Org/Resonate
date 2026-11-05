@@ -62,12 +62,6 @@ class SettingsScreen extends ConsumerWidget {
       body: ListView(
         children: [
           titleText(AppLocalizations.of(context)!.accountSettings),
-          customTile(
-            str: AppLocalizations.of(context)!.account,
-            func: () {
-              ref.read(routerProvider).push(RoutePaths.userAccountScreen);
-            },
-          ),
           Builder(
             builder: (context) {
               final status = ref.watch(myActivityStatusProvider);
@@ -141,7 +135,13 @@ class SettingsScreen extends ConsumerWidget {
           if (ref.watch(callDeliveryDegradedProvider).value ?? false)
             customTile(
               str: AppLocalizations.of(context)!.callReliability,
-              func: () => ref.read(requestCallReliabilityProvider)(),
+              func: () async {
+                await ref.read(requestCallReliabilityProvider)();
+                // Drops the row once the exemption is granted.
+                if (context.mounted) {
+                  ref.invalidate(callDeliveryDegradedProvider);
+                }
+              },
             ),
           customDivider(),
           titleText(AppLocalizations.of(context)!.other),
@@ -197,6 +197,18 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               );
             },
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: padding),
+            textColor: Theme.of(context).colorScheme.error,
+            iconColor: Theme.of(context).colorScheme.error,
+            title: Text(
+              AppLocalizations.of(context)!.deleteAccount,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            trailing: const Icon(Icons.delete_forever_rounded),
+            onTap: () =>
+                ref.read(routerProvider).push(RoutePaths.deleteAccount),
           ),
         ],
       ),

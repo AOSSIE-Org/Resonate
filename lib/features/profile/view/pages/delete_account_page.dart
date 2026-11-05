@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/profile/viewmodel/delete_account_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class DeleteAccountPage extends ConsumerWidget {
@@ -12,7 +14,7 @@ class DeleteAccountPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final username = ref.watch(currentUserProvider)?.userName ?? '';
-    final isButtonActive = ref.watch(deleteAccountProvider);
+    final deleting = ref.watch(deleteAccountProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.deleteAccount)),
@@ -94,15 +96,35 @@ class DeleteAccountPage extends ConsumerWidget {
                     context,
                   ).colorScheme.error.withAlpha(50),
                 ),
-                onPressed: isButtonActive
-                    ? () {
-                        // DO NOT IMPLEMENT THIS WITHOUT PERMISSION
+                onPressed: deleting.canDelete
+                    ? () async {
+                        final ok = await ref
+                            .read(deleteAccountProvider.notifier)
+                            .deleteAccount();
+                        // On success the session turns unauthenticated and the
+                        // router takes the user out on its own.
+                        if (!ok) {
+                          customSnackbar(
+                            l10n.error,
+                            l10n.deleteAccountFailed,
+                            LogType.error,
+                          );
+                        }
                       }
                     : null,
-                child: Text(
-                  l10n.iUnderstandDeleteMyAccount,
-                  style: TextStyle(fontSize: UiSizes.size_16),
-                ),
+                child: deleting.isDeleting
+                    ? SizedBox(
+                        height: UiSizes.size_20,
+                        width: UiSizes.size_20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: UiSizes.width_2,
+                          color: Theme.of(context).colorScheme.onError,
+                        ),
+                      )
+                    : Text(
+                        l10n.iUnderstandDeleteMyAccount,
+                        style: TextStyle(fontSize: UiSizes.size_16),
+                      ),
               ),
             ),
           ],

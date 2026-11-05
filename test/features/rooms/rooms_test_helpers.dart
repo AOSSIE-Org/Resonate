@@ -84,6 +84,7 @@ class FakeRoomSession extends RoomSession {
   int setRoleCount = 0;
   int kickOutCount = 0;
   int reportAndKickCount = 0;
+  int reportOnlyCount = 0;
   Participant? lastRoleParticipant;
   ParticipantRole? lastRole;
   Participant? lastKicked;
@@ -131,6 +132,17 @@ class FakeRoomSession extends RoomSession {
     required ReportDraft report,
   }) async {
     reportAndKickCount++;
+    lastReported = participant;
+    lastReportDraft = report;
+    return !reportFails;
+  }
+
+  @override
+  Future<bool> reportParticipantOnly(
+    Participant participant, {
+    required ReportDraft report,
+  }) async {
+    reportOnlyCount++;
     lastReported = participant;
     lastReportDraft = report;
     return !reportFails;
