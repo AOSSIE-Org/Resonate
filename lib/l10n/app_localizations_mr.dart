@@ -1334,6 +1334,7 @@ class AppLocalizationsMr extends AppLocalizations {
       'harassment': 'उत्पीडन / द्वेष भाषण',
       'abuse': 'अपमानजनक सामग्री / हिंसा',
       'spam': 'स्पॅम / घोटाळे / धोखाधरी',
+      'impersonation': 'खोटी ओळख / खोटे खाते',
       'illegal': 'अवैध क्रियाकलाप',
       'selfharm': 'आत्महानि / आत्महत्या / मानसिक स्वास्थ्य',
       'misuse': 'मंचचा दुरुपयोग',

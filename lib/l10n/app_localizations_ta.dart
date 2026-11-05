@@ -1349,6 +1349,7 @@ class AppLocalizationsTa extends AppLocalizations {
       'harassment': 'தொந்தரவு / வெறுப்பு பேச்சு',
       'abuse': 'அவமதிக்கும் உள்ளடக்கம் / வன்முறை',
       'spam': 'ஸ்பாம் / மோசடி',
+      'impersonation': 'போலி அடையாளம்',
       'illegal': 'சட்டவிரோத செயல்கள்',
       'selfharm': 'சுயதீங்கு / தற்கொலை / மனநலம்',
       'misuse': 'தளத்தின் தவறான பயன்பாடு',

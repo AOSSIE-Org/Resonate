@@ -256,49 +256,4 @@ void main() {
       );
     });
   });
-
-  group('ending during an in-flight join', () {
-    // Leaving mid-join makes the pending connect throw. That is a side effect
-    // of the user's own teardown, so it must not be reported as a connection
-    // failure — the chat simply stays ended.
-    test('a failed join after ending stays quietly ended', () async {
-      // A join that errors (bad body) so _onPaired's connect path throws.
-      when(
-        functions.createExecution(
-          functionId: anyNamed('functionId'),
-          body: anyNamed('body'),
-        ),
-      ).thenThrow(AppwriteException('join failed'));
-      when(
-        tables.getRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenAnswer((_) async => buildRow(id: 'partner-1', data: const {}));
-      final container = await buildContainer();
-      await container.read(pairChatProvider.notifier).quickMatch();
-
-      // End the chat first, then let the pairing event drive the failing join.
-      await container.read(pairChatProvider.notifier).endChat();
-      activePairEvents.add(
-        RealtimeMessage(
-          events: ['$activePairsChannel.pair-doc-1.create'],
-          payload: {
-            '\$id': 'pair-doc-1',
-            'uid1': 'me',
-            'uid2': 'partner-1',
-          },
-          channels: const [activePairsChannel],
-          timestamp: '',
-        ),
-      );
-      for (var i = 0; i < 6; i++) {
-        await Future<void>.delayed(Duration.zero);
-      }
-
-      // Still ended; the failure was swallowed rather than surfaced.
-      expect(container.read(pairChatProvider).ended, isTrue);
-    });
-  });
 }

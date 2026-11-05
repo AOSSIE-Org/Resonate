@@ -129,9 +129,9 @@ void main() {
     await openReport(tester);
 
     await choose(tester, 'Spam / Scams / Fraud');
-    await choose(tester, 'Misuse of platform');
+    await choose(tester, 'Impersonation / Fake Accounts');
     await submit(tester);
 
-    expect(popped?.type, ReportTypeEnum.misuse);
+    expect(popped?.type, ReportTypeEnum.impersonation);
   });
 }

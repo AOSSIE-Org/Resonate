@@ -1338,6 +1338,7 @@ class AppLocalizationsKn extends AppLocalizations {
       'harassment': 'ಕಿರುಕುಳ / ದ್ವೇಷದ ಭಾಷಣ',
       'abuse': 'ನಿಂದನೀಯ ವಿಷಯ / ಹಿಂಸೆ',
       'spam': 'ಸ್ಪ್ಯಾಮ್ / ವಂಚನೆಗಳು / ಮೋಸ',
+      'impersonation': 'ವ್ಯಕ್ತಿತ್ವ ಸೋಗು / ನಕಲಿ ಖಾತೆಗಳು',
       'illegal': 'ಕಾನೂನುಬಾಹಿರ ಚಟುವಟಿಕೆಗಳು',
       'selfharm': 'ಆತ್ಮಹಾನಿ / ಆತ್ಮಹತ್ಯೆ / ಮಾನಸಿಕ ಆರೋಗ್ಯ',
       'misuse': 'ವೇದಿಕೆಯ ದುರುಪಯೋಗ',

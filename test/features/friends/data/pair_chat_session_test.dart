@@ -9,7 +9,6 @@ import 'package:resonate/features/friends/data/pair_chat_session.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:resonate/utils/enums/report_type_enum.dart';
 
 import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
@@ -42,29 +41,22 @@ void main() {
     activePairEvents = StreamController<RealtimeMessage>.broadcast();
     pairRequestEvents = StreamController<RealtimeMessage>.broadcast();
 
-    when(
-      tables.createRow(
-        databaseId: anyNamed('databaseId'),
-        tableId: anyNamed('tableId'),
-        rowId: anyNamed('rowId'),
-        data: anyNamed('data'),
-      ),
-    ).thenAnswer(
-      (invocation) async => buildRow(
-        id: 'request-doc-1',
-        data: invocation.namedArguments[#data] as Map<String, dynamic>,
-      ),
-    );
-    when(
-      functions.createExecution(
-        functionId: anyNamed('functionId'),
-        body: anyNamed('body'),
-      ),
-    ).thenAnswer((_) async => joinExecution());
+    when(tables.createRow(
+      databaseId: anyNamed('databaseId'),
+      tableId: anyNamed('tableId'),
+      rowId: anyNamed('rowId'),
+      data: anyNamed('data'),
+    )).thenAnswer((invocation) async => buildRow(
+          id: 'request-doc-1',
+          data: invocation.namedArguments[#data] as Map<String, dynamic>,
+        ));
+    when(functions.createExecution(
+      functionId: anyNamed('functionId'),
+      body: anyNamed('body'),
+    )).thenAnswer((_) async => joinExecution());
     when(realtime.subscribe(any)).thenAnswer((invocation) {
-      final channels = List<String>.from(
-        invocation.positionalArguments[0] as List,
-      );
+      final channels =
+          List<String>.from(invocation.positionalArguments[0] as List);
       return RealtimeSubscription(
         close: () async {},
         unsubscribe: () async {},
@@ -84,13 +76,13 @@ void main() {
   });
 
   Future<dynamic> buildContainer() => installTestRootContainer(
-    authState: AuthState.authenticated(
-      fakeAuthUser(uid: 'me', userName: 'MeUser'),
-    ),
-    tables: tables,
-    realtime: realtime,
-    functions: functions,
-  );
+        authState: AuthState.authenticated(
+          fakeAuthUser(uid: 'me', userName: 'MeUser'),
+        ),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+      );
 
   RealtimeMessage pairCreatedEvent({
     String docId = 'pair-doc-1',
@@ -98,36 +90,34 @@ void main() {
     String uid2 = 'partner-1',
     String? userName1 = 'MeUser',
     String? userName2 = 'PartnerUser',
-  }) => RealtimeMessage(
-    events: ['$activePairsChannel.$docId.create'],
-    payload: {
-      '\$id': docId,
-      'uid1': uid1,
-      'uid2': uid2,
-      'userName1': userName1,
-      'userName2': userName2,
-    },
-    channels: [activePairsChannel],
-    timestamp: DateTime.now().toIso8601String(),
-  );
+  }) =>
+      RealtimeMessage(
+        events: ['$activePairsChannel.$docId.create'],
+        payload: {
+          '\$id': docId,
+          'uid1': uid1,
+          'uid2': uid2,
+          'userName1': userName1,
+          'userName2': userName2,
+        },
+        channels: [activePairsChannel],
+        timestamp: DateTime.now().toIso8601String(),
+      );
 
   group('PairChat', () {
-    test('quickMatch creates a random request and stores its doc id', () async {
+    test('quickMatch creates a random request and stores its doc id',
+        () async {
       final container = await buildContainer();
 
       await container.read(pairChatProvider.notifier).quickMatch();
 
       expect(container.read(pairChatProvider).requestDocId, 'request-doc-1');
-      final data =
-          verify(
-                tables.createRow(
-                  databaseId: databaseId,
-                  tableId: pairRequestTableId,
-                  rowId: anyNamed('rowId'),
-                  data: captureAnyNamed('data'),
-                ),
-              ).captured.single
-              as Map<String, dynamic>;
+      final data = verify(tables.createRow(
+        databaseId: databaseId,
+        tableId: pairRequestTableId,
+        rowId: anyNamed('rowId'),
+        data: captureAnyNamed('data'),
+      )).captured.single as Map<String, dynamic>;
       expect(data['isRandom'], isTrue);
       expect(data['isAnonymous'], isTrue);
       expect(data['uid'], 'me');
@@ -140,157 +130,63 @@ void main() {
 
       await container.read(pairChatProvider.notifier).quickMatch();
 
-      final data =
-          verify(
-                tables.createRow(
-                  databaseId: databaseId,
-                  tableId: pairRequestTableId,
-                  rowId: anyNamed('rowId'),
-                  data: captureAnyNamed('data'),
-                ),
-              ).captured.single
-              as Map<String, dynamic>;
+      final data = verify(tables.createRow(
+        databaseId: databaseId,
+        tableId: pairRequestTableId,
+        rowId: anyNamed('rowId'),
+        data: captureAnyNamed('data'),
+      )).captured.single as Map<String, dynamic>;
       expect(data['userName'], 'MeUser');
     });
 
-    test(
-      'choosePartner creates a non-random request with profile data',
-      () async {
-        final container = await buildContainer();
-
-        await container.read(pairChatProvider.notifier).choosePartner();
-
-        expect(container.read(pairChatProvider).isAnonymous, isFalse);
-        final data =
-            verify(
-                  tables.createRow(
-                    databaseId: databaseId,
-                    tableId: pairRequestTableId,
-                    rowId: anyNamed('rowId'),
-                    data: captureAnyNamed('data'),
-                  ),
-                ).captured.single
-                as Map<String, dynamic>;
-        expect(data['isRandom'], isFalse);
-        expect(data['userName'], 'MeUser');
-        expect(data['userRating'], 5.0);
-      },
-    );
-
-    test(
-      'a matching active pair joins LiveKit and stores partner info',
-      () async {
-        when(
-          tables.getRow(
-            databaseId: databaseId,
-            tableId: usersTableID,
-            rowId: 'partner-1',
-          ),
-        ).thenAnswer(
-          (_) async => buildRow(
-            id: 'partner-1',
-            data: {'profileImageUrl': 'https://example.com/p.jpg'},
-          ),
-        );
-        final container = await buildContainer();
-        await container.read(pairChatProvider.notifier).quickMatch();
-
-        activePairEvents.add(pairCreatedEvent());
-        await pumpEventQueue();
-
-        final state = container.read(pairChatProvider);
-        expect(state.activePairDocId, 'pair-doc-1');
-        expect(state.pairUsername, 'PartnerUser');
-        expect(state.pairProfileImageUrl, 'https://example.com/p.jpg');
-        expect(container.read(liveKitControllerProvider).isConnected, isTrue);
-      },
-    );
-
-    test(
-      'a matching active pair stores the partner uid for reporting',
-      () async {
-        when(
-          tables.getRow(
-            databaseId: databaseId,
-            tableId: usersTableID,
-            rowId: 'partner-1',
-          ),
-        ).thenAnswer((_) async => buildRow(id: 'partner-1', data: {}));
-        final container = await buildContainer();
-        await container.read(pairChatProvider.notifier).quickMatch();
-
-        activePairEvents.add(pairCreatedEvent());
-        await pumpEventQueue();
-
-        expect(container.read(pairChatProvider).partnerUid, 'partner-1');
-      },
-    );
-
-    test('reportPartner files a report against the paired partner', () async {
-      when(
-        tables.getRow(
-          databaseId: databaseId,
-          tableId: usersTableID,
-          rowId: 'partner-1',
-        ),
-      ).thenAnswer((_) async => buildRow(id: 'partner-1', data: {}));
+    test('choosePartner creates a non-random request with profile data',
+        () async {
       final container = await buildContainer();
-      await container.read(pairChatProvider.notifier).quickMatch();
-      activePairEvents.add(pairCreatedEvent());
-      await pumpEventQueue();
-      clearInteractions(tables);
-      when(
-        tables.createRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-          data: anyNamed('data'),
-        ),
-      ).thenAnswer(
-        (invocation) async => buildRow(
-          id: 'report-1',
-          data: invocation.namedArguments[#data] as Map<String, dynamic>,
-        ),
-      );
 
-      await container.read(pairChatProvider.notifier).reportPartner((
-        type: ReportTypeEnum.harassment,
-        details: 'was abusive',
-      ));
+      await container.read(pairChatProvider.notifier).choosePartner();
 
-      final data =
-          verify(
-                tables.createRow(
-                  databaseId: databaseId,
-                  tableId: userReportsTableID,
-                  rowId: anyNamed('rowId'),
-                  data: captureAnyNamed('data'),
-                ),
-              ).captured.single
-              as Map<String, dynamic>;
-      expect(data['reporterUid'], 'me');
-      expect(data['reportedUid'], 'partner-1');
-      expect(data['reportType'], 'harassment');
-      expect(data['reportText'], 'was abusive');
+      expect(container.read(pairChatProvider).isAnonymous, isFalse);
+      final data = verify(tables.createRow(
+        databaseId: databaseId,
+        tableId: pairRequestTableId,
+        rowId: anyNamed('rowId'),
+        data: captureAnyNamed('data'),
+      )).captured.single as Map<String, dynamic>;
+      expect(data['isRandom'], isFalse);
+      expect(data['userName'], 'MeUser');
+      expect(data['userRating'], 5.0);
     });
 
-    test('reportPartner throws when there is no partner', () async {
+    test('a matching active pair joins LiveKit and stores partner info',
+        () async {
+      when(tables.getRow(
+        databaseId: databaseId,
+        tableId: usersTableID,
+        rowId: 'partner-1',
+      )).thenAnswer((_) async => buildRow(
+            id: 'partner-1',
+            data: {'profileImageUrl': 'https://example.com/p.jpg'},
+          ));
       final container = await buildContainer();
+      await container.read(pairChatProvider.notifier).quickMatch();
 
-      expect(
-        () => container.read(pairChatProvider.notifier).reportPartner((
-          type: ReportTypeEnum.spam,
-          details: null,
-        )),
-        throwsStateError,
-      );
+      activePairEvents.add(pairCreatedEvent());
+      await pumpEventQueue();
+
+      final state = container.read(pairChatProvider);
+      expect(state.activePairDocId, 'pair-doc-1');
+      expect(state.pairUsername, 'PartnerUser');
+      expect(state.pairProfileImageUrl, 'https://example.com/p.jpg');
+      expect(container.read(liveKitControllerProvider).isConnected, isTrue);
     });
 
     test('an active pair for other users is ignored', () async {
       final container = await buildContainer();
       await container.read(pairChatProvider.notifier).quickMatch();
 
-      activePairEvents.add(pairCreatedEvent(uid1: 'someone', uid2: 'else'));
+      activePairEvents.add(
+        pairCreatedEvent(uid1: 'someone', uid2: 'else'),
+      );
       await pumpEventQueue();
 
       expect(container.read(pairChatProvider).activePairDocId, isNull);
@@ -298,13 +194,11 @@ void main() {
     });
 
     test('a partner profile fetch failure still joins the chat', () async {
-      when(
-        tables.getRow(
-          databaseId: databaseId,
-          tableId: usersTableID,
-          rowId: 'partner-1',
-        ),
-      ).thenThrow(AppwriteException('row_not_found', 404));
+      when(tables.getRow(
+        databaseId: databaseId,
+        tableId: usersTableID,
+        rowId: 'partner-1',
+      )).thenThrow(AppwriteException('row_not_found', 404));
       final container = await buildContainer();
       await container.read(pairChatProvider.notifier).quickMatch();
 
@@ -318,33 +212,31 @@ void main() {
     });
 
     test('remote deletion of the active pair ends the chat', () async {
-      when(
-        tables.getRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenAnswer((_) async => buildRow(id: 'partner-1', data: {}));
-      when(
-        tables.deleteRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenAnswer((_) async {});
+      when(tables.getRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+      )).thenAnswer((_) async => buildRow(id: 'partner-1', data: {}));
+      when(tables.deleteRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+      )).thenAnswer((_) async {});
       final container = await buildContainer();
       await container.read(pairChatProvider.notifier).quickMatch();
       activePairEvents.add(pairCreatedEvent());
       await pumpEventQueue();
 
-      activePairEvents.add(
-        RealtimeMessage(
-          events: ['$activePairsChannel.pair-doc-1.delete'],
-          payload: {'\$id': 'pair-doc-1', 'uid1': 'me', 'uid2': 'partner-1'},
-          channels: [activePairsChannel],
-          timestamp: DateTime.now().toIso8601String(),
-        ),
-      );
+      activePairEvents.add(RealtimeMessage(
+        events: ['$activePairsChannel.pair-doc-1.delete'],
+        payload: {
+          '\$id': 'pair-doc-1',
+          'uid1': 'me',
+          'uid2': 'partner-1',
+        },
+        channels: [activePairsChannel],
+        timestamp: DateTime.now().toIso8601String(),
+      ));
       await pumpEventQueue();
 
       final state = container.read(pairChatProvider);
@@ -352,115 +244,90 @@ void main() {
       expect(container.read(liveKitControllerProvider).isConnected, isFalse);
     });
 
-    test(
-      'loadUsers populates the online list and skips malformed rows',
-      () async {
-        when(
-          tables.listRows(
-            databaseId: databaseId,
-            tableId: pairRequestTableId,
-            queries: anyNamed('queries'),
-          ),
-        ).thenAnswer(
-          (_) async => RowList(
-            total: 2,
-            rows: [
-              buildRow(
-                id: 'req-1',
-                data: {
-                  'uid': 'other-1',
-                  'userName': 'OtherUser',
-                  'name': 'Other Person',
-                  'profileImageUrl': 'https://example.com/o.jpg',
-                  'userRating': 4.5,
-                },
-              ),
-              buildRow(
-                id: 'req-2',
-                data: {
-                  'uid': 7, // malformed: uid must be a string
-                },
-              ),
-            ],
-          ),
-        );
-        final container = await buildContainer();
+    test('loadUsers populates the online list and skips malformed rows',
+        () async {
+      when(tables.listRows(
+        databaseId: databaseId,
+        tableId: pairRequestTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 2, rows: [
+            buildRow(id: 'req-1', data: {
+              'uid': 'other-1',
+              'userName': 'OtherUser',
+              'name': 'Other Person',
+              'profileImageUrl': 'https://example.com/o.jpg',
+              'userRating': 4.5,
+            }),
+            buildRow(id: 'req-2', data: {
+              'uid': 7, // malformed: uid must be a string
+            }),
+          ]));
+      final container = await buildContainer();
 
-        await container.read(pairChatProvider.notifier).loadUsers();
+      await container.read(pairChatProvider.notifier).loadUsers();
 
-        final state = container.read(pairChatProvider);
-        expect(state.isUserListLoading, isFalse);
-        expect(state.onlineUsers, hasLength(1));
-        expect(state.onlineUsers.first.userName, 'OtherUser');
-        expect(state.onlineUsers.first.docId, 'req-1');
-      },
-    );
+      final state = container.read(pairChatProvider);
+      expect(state.isUserListLoading, isFalse);
+      expect(state.onlineUsers, hasLength(1));
+      expect(state.onlineUsers.first.userName, 'OtherUser');
+      expect(state.onlineUsers.first.docId, 'req-1');
+    });
 
-    test(
-      'new pair requests stream into the online list, skipping our own',
-      () async {
-        final container = await buildContainer();
-        await container.read(pairChatProvider.notifier).choosePartner();
+    test('new pair requests stream into the online list, skipping our own',
+        () async {
+      final container = await buildContainer();
+      await container.read(pairChatProvider.notifier).choosePartner();
 
-        RealtimeMessage requestEvent(String uid, {bool anonymous = false}) =>
-            RealtimeMessage(
-              events: ['$pairRequestsChannel.req-$uid.create'],
-              payload: {
-                'uid': uid,
-                'isAnonymous': anonymous,
-                'userName': 'User-$uid',
-                'name': 'Name $uid',
-                'profileImageUrl': 'https://example.com/$uid.jpg',
-                'userRating': 3.0,
-              },
-              channels: [pairRequestsChannel],
-              timestamp: DateTime.now().toIso8601String(),
-            );
-
-        pairRequestEvents.add(requestEvent('other-1'));
-        pairRequestEvents.add(requestEvent('me')); // our own request
-        pairRequestEvents.add(requestEvent('anon-1', anonymous: true));
-        await pumpEventQueue();
-
-        var state = container.read(pairChatProvider);
-        expect(state.onlineUsers.map((u) => u.uid), ['other-1']);
-
-        pairRequestEvents.add(
+      RealtimeMessage requestEvent(String uid, {bool anonymous = false}) =>
           RealtimeMessage(
-            events: ['$pairRequestsChannel.req-other-1.delete'],
-            payload: {'uid': 'other-1'},
+            events: ['$pairRequestsChannel.req-$uid.create'],
+            payload: {
+              'uid': uid,
+              'isAnonymous': anonymous,
+              'userName': 'User-$uid',
+              'name': 'Name $uid',
+              'profileImageUrl': 'https://example.com/$uid.jpg',
+              'userRating': 3.0,
+            },
             channels: [pairRequestsChannel],
             timestamp: DateTime.now().toIso8601String(),
-          ),
-        );
-        await pumpEventQueue();
+          );
 
-        state = container.read(pairChatProvider);
-        expect(state.onlineUsers, isEmpty);
-      },
-    );
+      pairRequestEvents.add(requestEvent('other-1'));
+      pairRequestEvents.add(requestEvent('me')); // our own request
+      pairRequestEvents.add(requestEvent('anon-1', anonymous: true));
+      await pumpEventQueue();
+
+      var state = container.read(pairChatProvider);
+      expect(state.onlineUsers.map((u) => u.uid), ['other-1']);
+
+      pairRequestEvents.add(RealtimeMessage(
+        events: ['$pairRequestsChannel.req-other-1.delete'],
+        payload: {'uid': 'other-1'},
+        channels: [pairRequestsChannel],
+        timestamp: DateTime.now().toIso8601String(),
+      ));
+      await pumpEventQueue();
+
+      state = container.read(pairChatProvider);
+      expect(state.onlineUsers, isEmpty);
+    });
 
     test('pairWithSelectedUser creates the active pair row', () async {
       final container = await buildContainer();
       await container.read(pairChatProvider.notifier).choosePartner();
       clearInteractions(tables);
-      when(
-        tables.createRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-          data: anyNamed('data'),
-        ),
-      ).thenAnswer(
-        (invocation) async => buildRow(
-          id: 'pair-doc-1',
-          data: invocation.namedArguments[#data] as Map<String, dynamic>,
-        ),
-      );
+      when(tables.createRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((invocation) async => buildRow(
+            id: 'pair-doc-1',
+            data: invocation.namedArguments[#data] as Map<String, dynamic>,
+          ));
 
-      await container
-          .read(pairChatProvider.notifier)
-          .pairWithSelectedUser(
+      await container.read(pairChatProvider.notifier).pairWithSelectedUser(
             const ResonateUser(
               uid: 'partner-1',
               userName: 'PartnerUser',
@@ -468,59 +335,47 @@ void main() {
             ),
           );
 
-      final data =
-          verify(
-                tables.createRow(
-                  databaseId: databaseId,
-                  tableId: activePairsTableId,
-                  rowId: anyNamed('rowId'),
-                  data: captureAnyNamed('data'),
-                ),
-              ).captured.single
-              as Map<String, dynamic>;
+      final data = verify(tables.createRow(
+        databaseId: databaseId,
+        tableId: activePairsTableId,
+        rowId: anyNamed('rowId'),
+        data: captureAnyNamed('data'),
+      )).captured.single as Map<String, dynamic>;
       expect(data['uid1'], 'me');
       expect(data['uid2'], 'partner-1');
       expect(data['userName2'], 'PartnerUser');
     });
 
     test('cancelRequest deletes the pending request', () async {
-      when(
-        tables.deleteRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenAnswer((_) async {});
+      when(tables.deleteRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+      )).thenAnswer((_) async {});
       final container = await buildContainer();
       await container.read(pairChatProvider.notifier).quickMatch();
 
       await container.read(pairChatProvider.notifier).cancelRequest();
 
       expect(container.read(pairChatProvider).requestDocId, isNull);
-      verify(
-        tables.deleteRow(
-          databaseId: databaseId,
-          tableId: pairRequestTableId,
-          rowId: 'request-doc-1',
-        ),
-      ).called(1);
+      verify(tables.deleteRow(
+        databaseId: databaseId,
+        tableId: pairRequestTableId,
+        rowId: 'request-doc-1',
+      )).called(1);
     });
 
     test('endChat tolerates the pair row already being deleted', () async {
-      when(
-        tables.getRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenAnswer((_) async => buildRow(id: 'partner-1', data: {}));
-      when(
-        tables.deleteRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenThrow(AppwriteException('not found', 404, 'document_not_found'));
+      when(tables.getRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+      )).thenAnswer((_) async => buildRow(id: 'partner-1', data: {}));
+      when(tables.deleteRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+      )).thenThrow(AppwriteException('not found', 404, 'document_not_found'));
       final container = await buildContainer();
       await container.read(pairChatProvider.notifier).quickMatch();
       activePairEvents.add(pairCreatedEvent());
@@ -532,34 +387,26 @@ void main() {
     });
 
     test('submitRating updates the user rating row', () async {
-      when(
-        tables.updateRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-          data: anyNamed('data'),
-        ),
-      ).thenAnswer(
-        (invocation) async => buildRow(
-          id: 'me',
-          data: invocation.namedArguments[#data] as Map<String, dynamic>,
-        ),
-      );
+      when(tables.updateRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((invocation) async => buildRow(
+            id: 'me',
+            data: invocation.namedArguments[#data] as Map<String, dynamic>,
+          ));
       final container = await buildContainer();
       container.read(pairChatProvider.notifier).setPairRating(4.0);
 
       await container.read(pairChatProvider.notifier).submitRating();
 
-      final data =
-          verify(
-                tables.updateRow(
-                  databaseId: databaseId,
-                  tableId: usersTableID,
-                  rowId: 'me',
-                  data: captureAnyNamed('data'),
-                ),
-              ).captured.single
-              as Map<String, dynamic>;
+      final data = verify(tables.updateRow(
+        databaseId: databaseId,
+        tableId: usersTableID,
+        rowId: 'me',
+        data: captureAnyNamed('data'),
+      )).captured.single as Map<String, dynamic>;
       // fakeAuthUser defaults: ratingTotal 5, ratingCount 1.
       expect(data['ratingTotal'], 9.0);
       expect(data['ratingCount'], 2);

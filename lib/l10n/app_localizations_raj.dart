@@ -1322,6 +1322,7 @@ class AppLocalizationsRaj extends AppLocalizations {
       'harassment': 'उत्पीड़न / घृणा भाषण',
       'abuse': 'अपमानजनक सामग्री / हिंसा',
       'spam': 'स्पैम / धोखाधड़ी / ठगी',
+      'impersonation': 'नकली अकाउंट / भेस बदलो',
       'illegal': 'गैरकानूनी गतिविधियां',
       'selfharm': 'स्वयं-हानि / आत्महत्या / मानसिक स्थिति',
       'misuse': 'प्लेटफॉर्म नो गलत उपयोग',

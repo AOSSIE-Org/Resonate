@@ -1331,6 +1331,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'harassment': 'Harassment / Hate Speech',
       'abuse': 'Abusive content / Violence',
       'spam': 'Spam / Scams / Fraud',
+      'impersonation': 'Impersonation / Fake Accounts',
       'illegal': 'Illegal Activities',
       'selfharm': 'Self-harm / Suicide / Mental health',
       'misuse': 'Misuse of platform',

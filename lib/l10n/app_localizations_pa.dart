@@ -1296,6 +1296,7 @@ class AppLocalizationsPa extends AppLocalizations {
       'harassment': 'ਪਰੇਸ਼ਾਨੀ / ਨਫ਼ਰਤ ਭਰਿਆ ਭਾਸ਼ਣ',
       'abuse': 'ਅਪਮਾਨਜਨਕ ਸਮੱਗਰੀ / ਹਿੰਸਾ',
       'spam': 'ਸਪੈਮ / ਘੁਟਾਲੇ / ਧੋਖਾਧੜੀ',
+      'impersonation': 'ਰੂਪ ਬਦਲਣਾ / ਜਾਅਲੀ ਖਾਤੇ',
       'illegal': 'ਗੈਰ-ਕਾਨੂੰਨੀ ਗਤੀਵਿਧੀਆਂ',
       'selfharm': 'ਆਤਮ-ਹੱਤਿਆ / ਖੁਦਕੁਸ਼ੀ / ਮਾਨਸਿਕ ਸਿਹਤ',
       'misuse': 'ਪਲੇਟਫਾਰਮ ਦੀ ਦੁਰਵਰਤੋਂ',

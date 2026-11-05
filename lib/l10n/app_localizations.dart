@@ -2462,7 +2462,7 @@ abstract class AppLocalizations {
   /// Selects the appropriate report type label based on a key.
   ///
   /// In en, this message translates to:
-  /// **'{type, select, harassment{Harassment / Hate Speech} abuse{Abusive content / Violence} spam{Spam / Scams / Fraud} illegal{Illegal Activities} selfharm{Self-harm / Suicide / Mental health} misuse{Misuse of platform} other{Other}}'**
+  /// **'{type, select, harassment{Harassment / Hate Speech} abuse{Abusive content / Violence} spam{Spam / Scams / Fraud} impersonation{Impersonation / Fake Accounts} illegal{Illegal Activities} selfharm{Self-harm / Suicide / Mental health} misuse{Misuse of platform} other{Other}}'**
   String reportType(String type);
 
   /// Message shown when a user is blocked from using Resonate.

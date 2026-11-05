@@ -11,7 +11,6 @@ abstract class PairChatState with _$PairChatState {
     @Default(false) bool isMicOn,
     String? requestDocId,
     String? activePairDocId,
-    String? partnerUid,
     String? pairUsername,
     String? pairProfileImageUrl,
     @Default(2.5) double pairRating,

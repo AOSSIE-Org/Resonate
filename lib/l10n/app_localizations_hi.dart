@@ -1335,6 +1335,7 @@ class AppLocalizationsHi extends AppLocalizations {
       'harassment': 'हिंसा / नफरत भरा भाषण',
       'abuse': 'दुरुपयोग सामग्री / हिंसा',
       'spam': 'स्पैम / धोखाधड़ी',
+      'impersonation': 'नकली खाते',
       'illegal': 'गैरकानूनी गतिविधियाँ',
       'selfharm': 'आत्म-हानि / आत्महत्या / मानसिक स्वास्थ्य',
       'misuse': 'प्लेटफ़ॉर्म का दुरुपयोग',

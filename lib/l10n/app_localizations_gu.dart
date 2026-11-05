@@ -1331,6 +1331,7 @@ class AppLocalizationsGu extends AppLocalizations {
       'harassment': 'સતાવણી / દ્વેષપૂર્ણ ભાષણ',
       'abuse': 'અપમાનજનક સામગ્રી / હિંસા',
       'spam': 'સ્પામ / છેતરપિંડી / ફ્રોડ',
+      'impersonation': 'ઢોંગ / નકલી એકાઉન્ટ્સ',
       'illegal': 'ગેરકાયદેસર પ્રવૃત્તિઓ',
       'selfharm': 'સ્વ-નુકસાન / આત્મહત્યા / માનસિક સ્વાસ્થ્ય',
       'misuse': 'પ્લેટફોર્મનો દુરુપયોગ',
