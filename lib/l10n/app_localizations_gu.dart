@@ -443,6 +443,11 @@ class AppLocalizationsGu extends AppLocalizations {
   String get dateOfBirth => 'જન્મતારીખ';
 
   @override
+  String dobMinimumAge(int age) {
+    return 'You must be at least $age years old';
+  }
+
+  @override
   String get forgotPassword => 'પાસવર્ડ ભૂલી ગયા?';
 
   @override

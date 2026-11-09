@@ -942,6 +942,12 @@ abstract class AppLocalizations {
   /// **'Date of Birth'**
   String get dateOfBirth;
 
+  /// Error message when the date of birth is below the minimum age.
+  ///
+  /// In en, this message translates to:
+  /// **'You must be at least {age} years old'**
+  String dobMinimumAge(int age);
+
   /// Link text for users who have forgotten their password.
   ///
   /// In en, this message translates to:

@@ -12,6 +12,7 @@ import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/interests/view/widgets/interest_selector.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
+import 'package:resonate/features/profile/utils/dob_validator.dart';
 import 'package:resonate/features/profile/viewmodel/onboarding_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
@@ -53,11 +54,17 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   }
 
   Future<void> _chooseDate() async {
+    final now = DateTime.now();
+    final latestAllowed = DateTime(
+      now.year - minimumAge,
+      now.month,
+      now.day,
+    );
     final pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: latestAllowed,
       firstDate: DateTime(1800),
-      lastDate: DateTime.now(),
+      lastDate: latestAllowed,
     );
     if (pickedDate != null) {
       _dobController.text = DateFormat("dd-MM-yyyy").format(pickedDate);
@@ -146,6 +153,17 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
         SemanticsService.sendAnnouncement(
           view,
           l10n.usernameAlphanumeric,
+          ui.TextDirection.ltr,
+        );
+      case OnboardingStatus.invalidDob:
+        customSnackbar(
+          l10n.dateOfBirth,
+          l10n.dobMinimumAge(minimumAge),
+          LogType.error,
+        );
+        SemanticsService.sendAnnouncement(
+          view,
+          l10n.dobMinimumAge(minimumAge),
           ui.TextDirection.ltr,
         );
       case OnboardingStatus.error:
@@ -255,8 +273,15 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 ),
                 SizedBox(height: UiSizes.height_20),
                 TextFormField(
-                  validator: (value) =>
-                      value!.isNotEmpty ? null : l10n.enterValidDOB,
+                  validator: (value) {
+                    final dob = value == null ? null : parseDob(value);
+                    if (dob == null) return l10n.enterValidDOB;
+                    if (dob.isAfter(DateTime.now()) ||
+                        !isAtLeastMinimumAge(dob)) {
+                      return l10n.dobMinimumAge(minimumAge);
+                    }
+                    return null;
+                  },
                   readOnly: true,
                   onTap: _chooseDate,
                   canRequestFocus: false,

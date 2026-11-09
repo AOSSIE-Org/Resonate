@@ -3,6 +3,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
+import 'package:resonate/features/profile/utils/dob_validator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/onboarding_notifier.g.dart';
@@ -42,6 +43,7 @@ class Onboarding extends _$Onboarding {
   }) async {
     final user = ref.read(currentUserProvider);
     if (user == null) return const OnboardingResult(OnboardingStatus.error);
+    if (!isValidDob(dob)) return OnboardingResult.invalidDob;
 
     final repo = ref.read(profileRepositoryProvider);
 

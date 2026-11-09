@@ -558,6 +558,15 @@
     "@dateOfBirth": {
         "description": "Label for the date of birth input field."
     },
+    "dobMinimumAge": "You must be at least {age} years old",
+    "@dobMinimumAge": {
+        "description": "Error message when the date of birth is below the minimum age.",
+        "placeholders": {
+            "age": {
+                "type": "int"
+            }
+        }
+    },
     "forgotPassword": "Forgot Password?",
     "@forgotPassword": {
         "description": "Link text for users who have forgotten their password."
