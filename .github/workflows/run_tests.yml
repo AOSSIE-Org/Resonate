@@ -40,5 +40,11 @@ jobs:
       - name: 📦 Install dependencies
         run: flutter pub get
 
+      - name: 🔍 Analyze Dart code
+        run: flutter analyze
+
+      - name: 🌊 Run Riverpod lints
+        run: dart run custom_lint
+
       - name: 📉 Run all app tests
         run: flutter test
