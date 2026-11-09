@@ -42,10 +42,31 @@ Builds:
         --dart-define=APPWRITE_SCHEME=https
         --dart-define=APPWRITE_MQTT_HOST=mqtt.appwrite.mayank4352.me
 
+  - versionName: 4.1.0
+    versionCode: 10
+    commit: v4.1.0
+    subdir: android/app
+    sudo:
+      - apt-get update
+      - apt-get install -y clang cmake ninja-build pkg-config
+    srclibs:
+      - flutter@3.38.1
+    output: build/app/outputs/flutter-apk/app-release.apk
+    prebuild:
+      - $$flutter$$/bin/flutter config --no-analytics
+      - $$flutter$$/bin/flutter packages pub get
+    build:
+      - $$flutter$$/bin/flutter build apk --release
+        --dart-define=FDROID=true
+        --dart-define=APPWRITE_BASE_DOMAIN=appwrite.mayank4352.me
+        --dart-define=APPWRITE_PROJECT_ID=6ae1c1d9003b3cba2f8a
+        --dart-define=APPWRITE_SCHEME=https
+        --dart-define=APPWRITE_MQTT_HOST=mqtt.appwrite.mayank4352.me
+
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-CurrentVersion: 4.0.0
-CurrentVersionCode: 8
+CurrentVersion: 4.1.0
+CurrentVersionCode: 10
 
 # Notes for whoever maintains this next:
 #

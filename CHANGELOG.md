@@ -1,3 +1,41 @@
+## 4.1.0
+
+<en-IN>
+
+✨ **What's New:**
+
+🚩 Report people and content in rooms and pair chats  
+🗑️ Delete your account from Settings  
+📄 An end-user licence agreement, shown on first launch  
+🔤 Hindi and Punjabi, fully translated  
+
+🛠️ **Fixes:**
+
+🤖 Updated for the latest Android requirements  
+🎧 Live rooms, audio output switching and the miniplayer  
+
+Update now for a better Resonate experience! 🎉
+
+</en-IN>
+
+<hn-IN>
+
+✨ **नया क्या है:**
+
+🚩 रूम और पेयर चैट में लोगों और सामग्री की रिपोर्ट करें  
+🗑️ सेटिंग्स से अपना अकाउंट हटाएँ  
+📄 पहली बार खोलने पर उपयोगकर्ता लाइसेंस अनुबंध  
+🔤 हिंदी और पंजाबी, पूरी तरह अनुवादित  
+
+🛠️ **सुधार:**
+
+🤖 नवीनतम Android आवश्यकताओं के अनुसार अपडेट  
+🎧 लाइव रूम, ऑडियो आउटपुट और मिनीप्लेयर  
+
+बेहतर अनुभव के लिए अभी अपडेट करें! 🎉
+
+</hn-IN>
+
 ## 4.0.0
 
 <en-IN>
