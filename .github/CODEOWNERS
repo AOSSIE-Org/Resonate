@@ -1,6 +1,5 @@
 # Default code owner for the entire repository
-# * @AOSSIE-Org/maintainers
-* @M4dhav
+ * @AOSSIE-Org/resonate
 
 # Flutter mobile app (lib/ is standard)
 # lib/ @AOSSIE-Org/flutter-team
