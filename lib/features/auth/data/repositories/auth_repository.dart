@@ -165,9 +165,10 @@ class AuthRepository {
     required String email,
     required String password,
   }) => _mutateSession(() async {
+    final normalizedEmail = email.trim().toLowerCase();
     try {
       await _account.createEmailPasswordSession(
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
     } on AppwriteException catch (e) {
@@ -179,14 +180,15 @@ class AuthRepository {
     required String email,
     required String password,
   }) => _mutateSession(() async {
+    final normalizedEmail = email.trim().toLowerCase();
     try {
       await _account.create(
         userId: ID.unique(),
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
       await _account.createEmailPasswordSession(
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
     } on AppwriteException catch (e) {
