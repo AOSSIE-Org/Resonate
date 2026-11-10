@@ -161,7 +161,7 @@ class AuthRepository {
     }
   }
 
-  /// Appwrite compares emails exactly, so every auth path normalizes once.
+  /// Keeps every auth path on the same trimmed, lowercase email.
   String _normalizeEmail(String email) => email.trim().toLowerCase();
 
   Future<void> loginWithEmail({
