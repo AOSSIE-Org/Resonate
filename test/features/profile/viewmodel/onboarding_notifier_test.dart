@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
@@ -43,6 +44,21 @@ void main() {
         dob: '01-01-2000',
         fallbackImageUrl: 'http://placeholder',
       );
+
+  test('rejects a date under the minimum age before any writes', () async {
+    final today = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+    final result = await notifier().saveProfile(
+          name: 'New User',
+          username: 'newuser',
+          dob: today,
+          fallbackImageUrl: 'http://placeholder',
+        );
+
+    expect(result.status, OnboardingStatus.invalidDob);
+    expect(repo.isUsernameAvailableArg, isNull);
+    expect(repo.createUsernameRowArgs, isNull);
+  });
 
   test('returns usernameUnavailable and skips creation when taken', () async {
     repo.usernameAvailableReturn = false;

@@ -4,6 +4,7 @@ enum OnboardingStatus {
   success,
   usernameUnavailable,
   invalidUsernameFormat,
+  invalidDob,
   error,
 }
 
@@ -20,6 +21,7 @@ class OnboardingResult {
   static const invalidUsernameFormat = OnboardingResult(
     OnboardingStatus.invalidUsernameFormat,
   );
+  static const invalidDob = OnboardingResult(OnboardingStatus.invalidDob);
 }
 
 // View-model state for the onboarding form.
