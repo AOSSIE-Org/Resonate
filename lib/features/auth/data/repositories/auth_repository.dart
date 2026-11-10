@@ -161,11 +161,14 @@ class AuthRepository {
     }
   }
 
+  /// Appwrite compares emails exactly, so every auth path normalizes once.
+  String _normalizeEmail(String email) => email.trim().toLowerCase();
+
   Future<void> loginWithEmail({
     required String email,
     required String password,
   }) => _mutateSession(() async {
-    final normalizedEmail = email.trim().toLowerCase();
+    final normalizedEmail = _normalizeEmail(email);
     try {
       await _account.createEmailPasswordSession(
         email: normalizedEmail,
@@ -180,7 +183,7 @@ class AuthRepository {
     required String email,
     required String password,
   }) => _mutateSession(() async {
-    final normalizedEmail = email.trim().toLowerCase();
+    final normalizedEmail = _normalizeEmail(email);
     try {
       await _account.create(
         userId: ID.unique(),
