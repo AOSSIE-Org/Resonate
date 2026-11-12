@@ -6,16 +6,16 @@ Thank you for your interest in helping translate Resonate! This guide will walk 
 
 Resonate uses Flutter's internationalization (i18n) framework with ARB (Application Resource Bundle) files to manage translations. Currently, the app supports the following 10 languages:
 
-- **Bengali (bn)** - ~96% translated
 - **English (en)** - Primary language (template)
-- **Gujarati (gu)** - ~91% translated
+- **Bengali (bn)** - ~72% translated
+- **Gujarati (gu)** - ~67% translated
 - **Hindi (hi)** - ~99% translated
-- **Kannada (kn)** - ~91% translated
-- **Malayalam (ml)** - 100% translated
-- **Marathi (mr)** - 100% translated
-- **Punjabi (pa)** - 100% translated
-- **Rajasthani (raj)** - ~95% translated
-- **Tamil (ta)** - ~98% translated
+- **Kannada (kn)** - ~69% translated
+- **Malayalam (ml)** - ~74% translated
+- **Marathi (mr)** - ~74% translated
+- **Punjabi (pa)** - ~99% translated
+- **Rajasthani (raj)** - ~71% translated
+- **Tamil (ta)** - ~73% translated
 
 ## Getting Started
 
@@ -109,6 +109,7 @@ Add your language code to the `CFBundleLocalizations` array in `ios/Runner/Info.
 **Note:** 
 - The order in `Info.plist` doesn't matter, but it's recommended to maintain alphabetical order for consistency.
 - For Android, no additional configuration is needed.
+- If you are adding a locale that Flutter's `flutter_localizations` package does not ship built-in material/widget support for (such as Rajasthani / `raj`), you still need a custom delegate (see `lib/l10n/raj_intl.dart`) and must register it in `localizationsDelegates` in `lib/main.dart`.
 
 ### Step 3: Translate the Content
 
@@ -221,13 +222,14 @@ The generated localization Dart files update after `flutter gen-l10n`; that outp
 ### Step 1: Commit Your Changes
 
 ```bash
-git add lib/l10n/app_YOUR_LANGUAGE_CODE.arb ios/Runner/Info.plist
+git add lib/l10n/app_YOUR_LANGUAGE_CODE.arb ios/Runner/Info.plist lib/l10n/app_localizations.dart untranslated.txt
 git commit -m "feat: add YOUR_LANGUAGE translation support
 
 - Added complete translation for YOUR_LANGUAGE (YOUR_LANGUAGE_CODE)
 - Translated all UI strings and messages
 - Maintained placeholder and metadata structure
-- Added language to iOS CFBundleLocalizations"
+- Added language to iOS CFBundleLocalizations
+- Updated generated localizations and untranslated list"
 ```
 
 ### Step 2: Create a Pull Request
@@ -260,7 +262,9 @@ To update an existing translation:
 1. **Identify outdated strings** in `untranslated.txt`
 2. **Compare with template** `app_en.arb` for new or changed strings
 3. **Update your language file** with new translations
-4. **Test thoroughly** before submitting
+4. **Regenerate localization files:** Run `flutter gen-l10n` to update `lib/l10n/app_localizations.dart` and `untranslated.txt`
+5. **Test thoroughly** before submitting
+6. **Stage and commit:** Include the modified ARB file along with tracked generated files (`git add lib/l10n/app_<locale>.arb lib/l10n/app_localizations.dart untranslated.txt`)
 
 ## Language Codes Reference
 
@@ -270,8 +274,8 @@ Use standard language codes (typically ISO 639-1) for your translations:
 
 | Language             | Code  | Example File |
 | -------------------- | ----- | ------------ |
-| Bengali              | bn    | app_bn.arb   |
 | English (Template)   | en    | app_en.arb   |
+| Bengali              | bn    | app_bn.arb   |
 | Gujarati             | gu    | app_gu.arb   |
 | Hindi                | hi    | app_hi.arb   |
 | Kannada              | kn    | app_kn.arb   |
