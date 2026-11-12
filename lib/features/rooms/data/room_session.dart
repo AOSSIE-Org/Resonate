@@ -1,0 +1,435 @@
+import 'dart:async';
+import 'package:resonate/utils/dev_log.dart';
+
+import 'package:appwrite/appwrite.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/rooms/data/active_room.dart';
+import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
+import 'package:resonate/features/rooms/model/appwrite_room.dart';
+import 'package:resonate/features/rooms/model/participant.dart';
+import 'package:resonate/features/rooms/model/single_room_state.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/utils/realtime_event.dart';
+import 'package:resonate/utils/trace.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'generated/room_session.g.dart';
+
+enum ParticipantRole { moderator, speaker, listener }
+
+@riverpod
+class RoomSession extends _$RoomSession {
+  StreamSubscription<RealtimeMessage>? _participantSub;
+  StreamSubscription<RealtimeMessage>? _profileSub;
+  StreamSubscription<RealtimeMessage>? _roomSub;
+  bool _roomEnded = false;
+  bool _exited = false;
+
+  @override
+  Future<SingleRoomState> build(AppwriteRoom appwriteRoom) async {
+    ref.onDispose(_disposeStream);
+
+    final me = _meFor(appwriteRoom);
+    final repo = ref.read(roomsRepositoryProvider);
+    final participants = await repo.loadParticipants(appwriteRoom.id);
+    final sorted = _sort(participants);
+
+    _subscribe(appwriteRoom);
+
+    final room = SingleRoomState(me: me, participants: sorted);
+    _maybeCreditRoom(appwriteRoom.id, room);
+    return room;
+  }
+
+  // Only decides when to ask; the function re-verifies the role and head count.
+  void _maybeCreditRoom(String roomId, SingleRoomState room) {
+    if (room.participants.length < kCreditWorthyParticipants) return;
+    if (!room.me.isAdmin && !room.me.isModerator) return;
+    unawaited(
+      ref.read(activityRecorderProvider.notifier).recordRoomCredit(roomId),
+    );
+  }
+
+  Participant _meFor(AppwriteRoom room) {
+    final user = ref.read(requireUserProvider);
+    return Participant(
+      uid: user.uid,
+      email: user.email,
+      name: user.userName ?? '',
+      dpUrl: user.profileImageUrl ?? '',
+      isAdmin: room.isUserAdmin,
+      isMicOn: false,
+      isModerator: room.isUserAdmin,
+      isSpeaker: room.isUserAdmin,
+      hasRequestedToBeSpeaker: false,
+    );
+  }
+
+  void _subscribe(AppwriteRoom appwriteRoom) {
+    final repo = ref.read(roomsRepositoryProvider);
+
+    _profileSub = repo.userProfileStream().listen(_applyProfileUpdate);
+    // A host closing the room deletes the room row
+    _roomSub = repo.roomStream().listen((event) async {
+      try {
+        if (realtimeAction(event.events) != 'delete') return;
+        if (event.payload[r'$id'] != appwriteRoom.id) return;
+        _roomEnded = true;
+        await _exitSession(roomEnded: true);
+      } catch (e) {
+        log('single room listener error: $e');
+      }
+    });
+
+    _participantSub = repo.participantStream(appwriteRoom.id).listen((
+      event,
+    ) async {
+      try {
+        final action = realtimeAction(event.events);
+        final current = state.value;
+        if (current == null) return;
+
+        switch (action) {
+          case 'create':
+          case 'update':
+            {
+              final updatedUid = event.payload['uid'] as String;
+              final isNewcomer =
+                  updatedUid != current.me.uid &&
+                  !current.participants.any((p) => p.uid == updatedUid);
+
+              if (isNewcomer) {
+                final arrival = await repo.buildParticipantFromData(
+                  event.payload,
+                );
+                if (!ref.mounted) return;
+                final latest = state.value;
+                if (latest == null) return;
+                // The other action for the same row may have landed meanwhile.
+                if (latest.participants.any((p) => p.uid == updatedUid)) return;
+                final next = latest.copyWith(
+                  participants: _sort([...latest.participants, arrival]),
+                );
+                state = AsyncData(next);
+                _maybeCreditRoom(appwriteRoom.id, next);
+                break;
+              }
+
+              var nextMe = current.me;
+              if (updatedUid == current.me.uid) {
+                nextMe = current.me.copyWith(
+                  isModerator:
+                      event.payload['isModerator'] as bool? ??
+                      current.me.isModerator,
+                  hasRequestedToBeSpeaker:
+                      (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
+                      false,
+                  isMicOn:
+                      event.payload['isMicOn'] as bool? ?? current.me.isMicOn,
+                  isSpeaker:
+                      event.payload['isSpeaker'] as bool? ??
+                      current.me.isSpeaker,
+                );
+              }
+              final updated = current.participants.map((p) {
+                if (p.uid != updatedUid) return p;
+                return p.copyWith(
+                  isModerator:
+                      event.payload['isModerator'] as bool? ?? p.isModerator,
+                  hasRequestedToBeSpeaker:
+                      (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
+                      false,
+                  isMicOn: event.payload['isMicOn'] as bool? ?? p.isMicOn,
+                  isSpeaker: event.payload['isSpeaker'] as bool? ?? p.isSpeaker,
+                );
+              }).toList();
+
+              final next = current.copyWith(
+                me: nextMe,
+                participants: _sort(updated),
+              );
+              state = AsyncData(next);
+              _maybeCreditRoom(appwriteRoom.id, next);
+              // If we got demoted from speaker while mic was on, mute.
+              if (updatedUid == current.me.uid &&
+                  !((event.payload['isSpeaker'] as bool?) ??
+                      current.me.isSpeaker) &&
+                  current.me.isMicOn) {
+                await turnOffMic(appwriteRoom);
+              }
+              break;
+            }
+          case 'delete':
+            {
+              final removedUid = event.payload['uid'] as String;
+              if ((event.payload['isAdmin'] as bool?) ?? false) {
+                _roomEnded = true;
+              }
+              if (removedUid == current.me.uid) {
+                final iLeft =
+                    ref.read(activeRoomProvider)?.id != appwriteRoom.id;
+                if (iLeft) {
+                  await _disposeStream();
+                  break;
+                }
+                await _exitSession(roomEnded: _roomEnded);
+                break;
+              }
+              final filtered = current.participants
+                  .where((p) => p.uid != removedUid)
+                  .toList();
+              state = AsyncData(current.copyWith(participants: filtered));
+              break;
+            }
+        }
+      } catch (e) {
+        log('single room participant listener error: $e');
+      }
+    });
+  }
+
+  void _applyProfileUpdate(RealtimeMessage event) {
+    try {
+      if (realtimeAction(event.events) != 'update') return;
+
+      final current = state.value;
+      if (current == null) return;
+
+      final uid = event.payload[r'$id'] as String?;
+      if (uid == null) return;
+
+      final inRoom = current.participants.any((p) => p.uid == uid);
+      final isMe = uid == current.me.uid;
+      if (!inRoom && !isMe) return;
+
+      // Absent means the payload did not carry the field; empty is a real
+      // value, so a cleared avatar must fall through to the placeholder.
+      final name = event.payload['name'] as String?;
+      final imageUrl = event.payload['profileImageUrl'] as String?;
+      if (name == null && imageUrl == null) return;
+
+      Participant withProfile(Participant p) =>
+          p.copyWith(name: name ?? p.name, dpUrl: imageUrl ?? p.dpUrl);
+
+      state = AsyncData(
+        current.copyWith(
+          me: isMe ? withProfile(current.me) : current.me,
+          // Rank does not depend on the profile, so the order still holds.
+          participants: [
+            for (final p in current.participants)
+              if (p.uid == uid) withProfile(p) else p,
+          ],
+        ),
+      );
+    } catch (e) {
+      log('single room profile listener error: $e');
+    }
+  }
+
+  // Tears the session down once, whichever channel reported it first.
+  Future<void> _exitSession({required bool roomEnded}) async {
+    if (_exited) return;
+    _exited = true;
+    await _disposeStream();
+    await ref.read(liveKitControllerProvider.notifier).disconnect();
+    if (!ref.mounted) return;
+    final latest = state.value;
+    if (latest == null) return;
+    state = AsyncData(
+      roomEnded
+          ? latest.copyWith(roomEnded: true)
+          : latest.copyWith(wasKicked: true),
+    );
+  }
+
+  Future<void> _disposeStream() async {
+    await _participantSub?.cancel();
+    _participantSub = null;
+    await _profileSub?.cancel();
+    _profileSub = null;
+    await _roomSub?.cancel();
+    _roomSub = null;
+  }
+
+  static int _rank(Participant p) {
+    if (p.isAdmin) return 0;
+    if (p.isModerator) return 1;
+    if (p.isSpeaker) return 2;
+    if (p.hasRequestedToBeSpeaker) return 3;
+    return 4;
+  }
+
+  List<Participant> _sort(List<Participant> participants) =>
+      trace('RoomSession.sort', () {
+        final indexed = [
+          for (var i = 0; i < participants.length; i++)
+            (position: i, participant: participants[i]),
+        ];
+        indexed.sort((a, b) {
+          final byRank = _rank(a.participant).compareTo(_rank(b.participant));
+          return byRank != 0 ? byRank : a.position.compareTo(b.position);
+        });
+        return [for (final entry in indexed) entry.participant];
+      });
+
+  Future<void> turnOnMic(AppwriteRoom appwriteRoom) =>
+      _setMic(appwriteRoom, true);
+  Future<void> turnOffMic(AppwriteRoom appwriteRoom) =>
+      _setMic(appwriteRoom, false);
+
+  Future<void> _setMic(AppwriteRoom appwriteRoom, bool enabled) async {
+    final liveKit = ref.read(liveKitControllerProvider.notifier);
+    final repo = ref.read(roomsRepositoryProvider);
+    final current = state.value;
+    if (current != null) {
+      state = AsyncData(
+        current.copyWith(me: current.me.copyWith(isMicOn: enabled)),
+      );
+    }
+    try {
+      await liveKit.setMicrophoneEnabled(enabled);
+    } catch (_) {}
+    final docId = appwriteRoom.myDocId;
+    if (docId == null) return;
+    try {
+      await repo.updateParticipantDoc(docId: docId, data: {'isMicOn': enabled});
+    } catch (_) {}
+  }
+
+  Future<void> raiseHand(AppwriteRoom appwriteRoom) async {
+    await ref
+        .read(roomsRepositoryProvider)
+        .updateParticipantDoc(
+          docId: appwriteRoom.myDocId!,
+          data: {'hasRequestedToBeSpeaker': true},
+        );
+    if (!ref.mounted) return;
+    final current = state.value;
+    if (current != null) {
+      state = AsyncData(
+        current.copyWith(
+          me: current.me.copyWith(hasRequestedToBeSpeaker: true),
+        ),
+      );
+    }
+  }
+
+  Future<void> unRaiseHand(AppwriteRoom appwriteRoom) async {
+    await ref
+        .read(roomsRepositoryProvider)
+        .updateParticipantDoc(
+          docId: appwriteRoom.myDocId!,
+          data: {'hasRequestedToBeSpeaker': false},
+        );
+    if (!ref.mounted) return;
+    final current = state.value;
+    if (current != null) {
+      state = AsyncData(
+        current.copyWith(
+          me: current.me.copyWith(hasRequestedToBeSpeaker: false),
+        ),
+      );
+    }
+  }
+
+  Future<void> setRole(
+    AppwriteRoom appwriteRoom,
+    Participant participant,
+    ParticipantRole role,
+  ) async {
+    final repo = ref.read(roomsRepositoryProvider);
+    final docId = await repo.getParticipantDocId(
+      roomId: appwriteRoom.id,
+      participantUid: participant.uid,
+    );
+    if (docId == null) return; // participant already left
+    await repo.updateParticipantDoc(
+      docId: docId,
+      data: {
+        'isModerator': role == ParticipantRole.moderator,
+        'isSpeaker': role != ParticipantRole.listener,
+        'hasRequestedToBeSpeaker': false,
+      },
+    );
+    if (!ref.mounted) return;
+    final current = state.value;
+    if (current == null) return;
+    final updated = current.participants
+        .map(
+          (p) => p.uid == participant.uid
+              ? p.copyWith(
+                  isModerator: role == ParticipantRole.moderator,
+                  isSpeaker: role != ParticipantRole.listener,
+                  hasRequestedToBeSpeaker: false,
+                )
+              : p,
+        )
+        .toList();
+    state = AsyncData(current.copyWith(participants: _sort(updated)));
+  }
+
+  Future<void> kickOutParticipant(
+    AppwriteRoom appwriteRoom,
+    Participant participant,
+  ) async {
+    final repo = ref.read(roomsRepositoryProvider);
+    final docId = await repo.getParticipantDocId(
+      roomId: appwriteRoom.id,
+      participantUid: participant.uid,
+    );
+    if (docId == null) return; // participant already left
+    await repo.kickParticipant(docId);
+  }
+
+  Future<bool> reportParticipantOnly(
+    Participant participant, {
+    required ReportDraft report,
+  }) async {
+    try {
+      await ref.read(roomsRepositoryProvider).submitUserReport(
+            UserReportModel(
+              reporterUid: ref.read(requireUserProvider).uid,
+              reportedUid: participant.uid,
+              reportType: report.type,
+              reportText: report.details,
+              reportedUser: participant.uid,
+            ),
+          );
+      return true;
+    } catch (e) {
+      log('reportParticipantOnly: submitting the report failed: $e');
+      return false;
+    }
+  }
+
+  Future<bool> reportAndKick(
+    AppwriteRoom appwriteRoom,
+    Participant participant, {
+    required ReportDraft report,
+  }) async {
+    final repo = ref.read(roomsRepositoryProvider);
+    try {
+      await repo.submitUserReport(
+        UserReportModel(
+          reporterUid: ref.read(requireUserProvider).uid,
+          reportedUid: participant.uid,
+          reportType: report.type,
+          reportText: report.details,
+          reportedUser: participant.uid,
+        ),
+      );
+    } catch (e) {
+      log('reportAndKick: submitting the report failed: $e');
+      return false;
+    }
+    await repo.reportParticipant(
+      roomId: appwriteRoom.id,
+      participantUid: participant.uid,
+      currentReported: appwriteRoom.reportedUsers,
+    );
+    await kickOutParticipant(appwriteRoom, participant);
+    return true;
+  }
+}

@@ -1,0 +1,374 @@
+import 'dart:async';
+
+import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/friends/model/friends_model.dart';
+import 'package:resonate/features/friends/data/friends.dart';
+import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/friend_request_status.dart';
+
+import '../../../helpers/test_root_container.dart';
+import '../../../helpers/test_root_container.mocks.dart';
+
+Map<String, dynamic> _friendJson(FriendsModel model) => {
+      ...model.toJson(),
+      '\$id': model.docId,
+    };
+
+void main() {
+  late MockTablesDB tables;
+  late MockRealtime realtime;
+  late MockFunctions functions;
+  late StreamController<RealtimeMessage> realtimeEvents;
+
+  final accepted = fakeFriendsModel(
+    docId: 'doc-accepted',
+    senderId: 'me',
+    recieverId: 'friend-1',
+    requestStatus: FriendRequestStatus.accepted,
+  );
+  final incoming = fakeFriendsModel(
+    docId: 'doc-incoming',
+    senderId: 'friend-2',
+    recieverId: 'me',
+    requestStatus: FriendRequestStatus.sent,
+  );
+  final outgoing = fakeFriendsModel(
+    docId: 'doc-outgoing',
+    senderId: 'me',
+    recieverId: 'friend-3',
+    requestStatus: FriendRequestStatus.sent,
+  );
+
+  // Default: no friend row between these two yet, so sendFriendRequest's
+  // duplicate check falls through to the create.
+  void stubNoExistingFriendRow() {
+    when(tables.listRows(
+      databaseId: anyNamed('databaseId'),
+      tableId: anyNamed('tableId'),
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 0, rows: []));
+  }
+
+  void stubUserDoc(List<Map<String, dynamic>> friends) {
+    when(tables.getRow(
+      databaseId: databaseId,
+      tableId: usersTableID,
+      rowId: 'me',
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => buildRow(
+          id: 'me',
+          tableId: usersTableID,
+          databaseId: databaseId,
+          data: {'friends': friends},
+        ));
+  }
+
+  setUp(() {
+    tables = MockTablesDB();
+    realtime = MockRealtime();
+    functions = MockFunctions();
+    realtimeEvents = StreamController<RealtimeMessage>.broadcast();
+
+    when(realtime.subscribe(any)).thenAnswer(
+      (_) => RealtimeSubscription(
+        close: () async {},
+        unsubscribe: () async {},
+        update: ({List<Object>? channels, List<String>? queries}) async {},
+        queries: const [],
+        channels: ['databases.$databaseId.tables.$friendsTableID.rows'],
+        controller: realtimeEvents,
+      ),
+    );
+  });
+
+  tearDown(() => realtimeEvents.close());
+
+  Future<dynamic> buildContainer() => installTestRootContainer(
+        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+      );
+
+  group('FriendsNotifier', () {
+    test('build partitions accepted and pending into separate lists',
+        () async {
+      stubUserDoc([
+        _friendJson(accepted),
+        _friendJson(incoming),
+        _friendJson(outgoing),
+      ]);
+      final container = await buildContainer();
+
+      final state = await container.read(friendsProvider.future);
+
+      expect(state.friends, hasLength(1));
+      expect(state.friends.first.docId, 'doc-accepted');
+      expect(state.friendRequests, hasLength(2));
+      expect(state.friendRequests.map((r) => r.docId),
+          containsAll(['doc-incoming', 'doc-outgoing']));
+    });
+
+    test('build skips malformed friend rows', () async {
+      stubUserDoc([
+        _friendJson(accepted),
+        {'senderId': 'broken-row'},
+      ]);
+      final container = await buildContainer();
+
+      final state = await container.read(friendsProvider.future);
+
+      expect(state.friends, hasLength(1));
+      expect(state.friendRequests, isEmpty);
+    });
+
+    test('sendFriendRequest creates a row and adds an outgoing request',
+        () async {
+      stubUserDoc([]);
+      stubNoExistingFriendRow();
+      when(tables.createRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((invocation) async => buildRow(
+            id: invocation.namedArguments[#rowId] as String,
+            data: invocation.namedArguments[#data] as Map<String, dynamic>,
+          ));
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+
+      await container.read(friendsProvider.notifier).sendFriendRequest(
+            recieverId: 'friend-9',
+            recieverProfileImageUrl: 'https://example.com/f9.jpg',
+            recieverUsername: 'friend9',
+            recieverName: 'Friend Nine',
+            recieverRating: 4.2,
+          );
+
+      final state = container.read(friendsProvider).value!;
+      expect(state.friendRequests, hasLength(1));
+      final request = state.friendRequests.first;
+      expect(request.recieverName, 'Friend Nine');
+      expect(request.requestSentByUserId, 'me');
+      expect(request.requestStatus, FriendRequestStatus.sent);
+      verify(tables.createRow(
+        databaseId: databaseId,
+        tableId: friendsTableID,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).called(1);
+    });
+
+    test('two quick taps on Add Friend create only one row', () async {
+      stubUserDoc([]);
+      stubNoExistingFriendRow();
+      when(tables.createRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((invocation) async {
+        // The button stays enabled across the write, so the second tap lands
+        // while this one is still in flight.
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+        return buildRow(
+          id: invocation.namedArguments[#rowId] as String,
+          data: invocation.namedArguments[#data] as Map<String, dynamic>,
+        );
+      });
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+      final notifier = container.read(friendsProvider.notifier);
+
+      Future<void> tap() => notifier.sendFriendRequest(
+            recieverId: 'friend-9',
+            recieverProfileImageUrl: 'https://example.com/f9.jpg',
+            recieverUsername: 'friend9',
+            recieverName: 'Friend Nine',
+            recieverRating: 4.2,
+          );
+      await Future.wait([tap(), tap()]);
+
+      verify(tables.createRow(
+        databaseId: databaseId,
+        tableId: friendsTableID,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).called(1);
+      expect(container.read(friendsProvider).value!.friendRequests,
+          hasLength(1));
+    });
+
+    test('a request to someone already on file is not sent again', () async {
+      stubUserDoc([_friendJson(accepted)]);
+      stubNoExistingFriendRow();
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+
+      await container.read(friendsProvider.notifier).sendFriendRequest(
+            recieverId: 'friend-1',
+            recieverProfileImageUrl: 'https://example.com/f1.jpg',
+            recieverUsername: 'friend1',
+            recieverName: 'Friend One',
+            recieverRating: 4.0,
+          );
+
+      verifyNever(tables.createRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      ));
+    });
+
+    test('acceptFriendRequest moves the request into friends', () async {
+      stubUserDoc([_friendJson(accepted), _friendJson(incoming)]);
+      when(tables.updateRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((invocation) async => buildRow(
+            id: invocation.namedArguments[#rowId] as String,
+            data: invocation.namedArguments[#data] as Map<String, dynamic>,
+          ));
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+
+      await container
+          .read(friendsProvider.notifier)
+          .acceptFriendRequest(incoming);
+
+      final state = container.read(friendsProvider).value!;
+      expect(state.friends, hasLength(2));
+      final acceptedNow =
+          state.friends.firstWhere((f) => f.docId == 'doc-incoming');
+      expect(acceptedNow.requestStatus, FriendRequestStatus.accepted);
+      expect(state.friendRequests, isEmpty);
+    });
+
+    test('accepting twice adds the friend once', () async {
+      stubUserDoc([_friendJson(accepted), _friendJson(incoming)]);
+      when(tables.updateRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((invocation) async => buildRow(
+            id: invocation.namedArguments[#rowId] as String,
+            data: invocation.namedArguments[#data] as Map<String, dynamic>,
+          ));
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+      final notifier = container.read(friendsProvider.notifier);
+
+      // Both taps land before the first write comes back, which is what a
+      // double tap on the tick does.
+      await Future.wait<void>([
+        notifier.acceptFriendRequest(incoming),
+        notifier.acceptFriendRequest(incoming),
+      ]);
+
+      final state = container.read(friendsProvider).value!;
+      expect(state.friends, hasLength(2));
+      expect(
+        state.friends.where((f) => f.docId == 'doc-incoming'),
+        hasLength(1),
+      );
+      expect(state.friendRequests, isEmpty);
+    });
+
+    test('declineFriendRequest deletes the row and removes the request only',
+        () async {
+      stubUserDoc([_friendJson(accepted), _friendJson(incoming)]);
+      when(tables.deleteRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+      )).thenAnswer((_) async {});
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+
+      await container
+          .read(friendsProvider.notifier)
+          .declineFriendRequest(incoming);
+
+      final state = container.read(friendsProvider).value!;
+      expect(state.friends, hasLength(1));
+      expect(state.friendRequests, isEmpty);
+      verify(tables.deleteRow(
+        databaseId: databaseId,
+        tableId: friendsTableID,
+        rowId: 'doc-incoming',
+      )).called(1);
+    });
+
+    test('removeFriend deletes the row and removes the friend', () async {
+      stubUserDoc([_friendJson(accepted), _friendJson(incoming)]);
+      when(tables.deleteRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+      )).thenAnswer((_) async {});
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+
+      await container.read(friendsProvider.notifier).removeFriend(accepted);
+
+      final state = container.read(friendsProvider).value!;
+      expect(state.friends, isEmpty);
+      expect(state.friendRequests, hasLength(1));
+    });
+
+    test('realtime change involving us reloads the lists', () async {
+      stubUserDoc([_friendJson(accepted)]);
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+      expect(container.read(friendsProvider).value!.friendRequests, isEmpty);
+
+      // Next reload returns an extra incoming request.
+      stubUserDoc([_friendJson(accepted), _friendJson(incoming)]);
+      realtimeEvents.add(RealtimeMessage(
+        events: [
+          'databases.$databaseId.tables.$friendsTableID.rows.doc-incoming.create',
+        ],
+        payload: _friendJson(incoming),
+        channels: ['databases.$databaseId.tables.$friendsTableID.rows'],
+        timestamp: DateTime.now().toIso8601String(),
+      ));
+      await pumpEventQueue();
+
+      final state = container.read(friendsProvider).value!;
+      expect(state.friendRequests, hasLength(1));
+    });
+
+    test('realtime change for unrelated users is ignored', () async {
+      stubUserDoc([_friendJson(accepted)]);
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+      clearInteractions(tables);
+
+      realtimeEvents.add(RealtimeMessage(
+        events: [
+          'databases.$databaseId.tables.$friendsTableID.rows.other.create',
+        ],
+        payload: {'senderId': 'someone', 'recieverId': 'else'},
+        channels: ['databases.$databaseId.tables.$friendsTableID.rows'],
+        timestamp: DateTime.now().toIso8601String(),
+      ));
+      await pumpEventQueue();
+
+      verifyNever(tables.getRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        queries: anyNamed('queries'),
+      ));
+    });
+  });
+}

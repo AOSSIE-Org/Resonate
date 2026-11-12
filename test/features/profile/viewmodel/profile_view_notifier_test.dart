@@ -1,0 +1,194 @@
+import 'dart:ui';
+
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
+import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
+import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
+import 'package:resonate/features/stories/model/story.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
+import 'package:resonate/utils/enums/story_category.dart';
+
+import '../../../helpers/test_root_container.dart';
+import '../../stories/fake_stories_repository.dart';
+import '../fake_profile_repository.dart';
+
+Story _story(String id) => Story(
+      title: 'Story $id',
+      storyId: id,
+      description: 'desc',
+      userIsCreator: false,
+      category: StoryCategory.comedy,
+      coverImageUrl: 'http://cover/$id',
+      creatorId: 'creator1',
+      creatorName: 'Creator',
+      creatorImgUrl: 'http://img',
+      creationDate: DateTime(2024),
+      likesCount: 0,
+      isLikedByCurrentUser: false,
+      playDuration: 60,
+      tintColor: const Color(0xff0000FF),
+    );
+
+FollowerUserModel _follower({required String uid, required String docId}) =>
+    FollowerUserModel(
+      docId: docId,
+      uid: uid,
+      username: '$uid-name',
+      profileImageUrl: 'http://img/$uid',
+      name: 'Name $uid',
+      followingUserId: 'creator1',
+      followerRating: 5,
+    );
+
+Future<ProviderContainer> _buildContainer(
+  FakeProfileRepository repo, {
+  FakeStoriesRepository? stories,
+}) async {
+  final container = ProviderContainer(
+    overrides: [
+      authRepositoryProvider.overrideWithValue(
+        FakeAuthRepository(
+          AuthState.authenticated(
+            fakeAuthUser(
+              uid: 'me',
+              userName: 'meuser',
+              profileImageUrl: 'http://img/me',
+              displayName: 'Me',
+              ratingTotal: 10,
+              ratingCount: 2,
+            ),
+          ),
+        ),
+      ),
+      profileRepositoryProvider.overrideWithValue(repo),
+      storiesRepositoryProvider
+          .overrideWithValue(stories ?? FakeStoriesRepository()),
+    ],
+  );
+  addTearDown(container.dispose);
+  await container.read(authSessionProvider.future);
+  return container;
+}
+
+void main() {
+  group('ProfileView.build', () {
+    test('composes stories + followers and detects not-following', () async {
+      final repo = FakeProfileRepository()
+        ..followers = [_follower(uid: 'other', docId: 'f-other')];
+      final stories = FakeStoriesRepository(
+        createdStories: [_story('s1')],
+        likedStories: [_story('s2')],
+      );
+      final container = await _buildContainer(repo, stories: stories);
+
+      final data = await container.read(profileViewProvider('creator1').future);
+
+      expect(data.createdStories.length, 1);
+      expect(data.likedStories.length, 1);
+      expect(data.followers.length, 1);
+      expect(data.isFollowing, false);
+      expect(data.followerDocumentId, isNull);
+    });
+
+    test('detects following when current user is in the followers list',
+        () async {
+      final repo = FakeProfileRepository()
+        ..followers = [_follower(uid: 'me', docId: 'my-follow-doc')];
+      final container = await _buildContainer(repo);
+
+      final data = await container.read(profileViewProvider('creator1').future);
+
+      expect(data.isFollowing, true);
+      expect(data.followerDocumentId, 'my-follow-doc');
+    });
+  });
+
+  group('ProfileView.followCreator', () {
+    test('builds the follower from the current user and updates state',
+        () async {
+      final repo = FakeProfileRepository();
+      final container = await _buildContainer(repo);
+      await container.read(profileViewProvider('creator1').future);
+
+      await container
+          .read(profileViewProvider('creator1').notifier)
+          .followCreator('creator1');
+
+      final follower = repo.followedFollower;
+      expect(follower, isNotNull);
+      expect(follower!.uid, 'me');
+      expect(follower.username, 'meuser');
+      expect(follower.profileImageUrl, 'http://img/me');
+      expect(follower.name, 'Me');
+      expect(follower.followingUserId, 'creator1');
+      expect(follower.followerRating, 5); // 10 / 2
+
+      final data = container.read(profileViewProvider('creator1')).value!;
+      expect(data.isFollowing, true);
+      expect(data.followers.length, 1);
+      expect(data.followerDocumentId, follower.docId);
+    });
+  });
+
+  group('ProfileView.unfollowCreator', () {
+    test('removes the current user and clears the follow doc id', () async {
+      final repo = FakeProfileRepository()
+        ..followers = [_follower(uid: 'me', docId: 'my-follow-doc')];
+      final container = await _buildContainer(repo);
+      await container.read(profileViewProvider('creator1').future);
+
+      await container
+          .read(profileViewProvider('creator1').notifier)
+          .unfollowCreator();
+
+      expect(repo.unfollowedDocId, 'my-follow-doc');
+      final data = container.read(profileViewProvider('creator1')).value!;
+      expect(data.isFollowing, false);
+      expect(data.followers, isEmpty);
+      expect(data.followerDocumentId, isNull);
+    });
+  });
+
+  group('ProfileView follower realtime', () {
+    test('a follow by someone else refreshes the count', () async {
+      final repo = FakeProfileRepository()..followers = const [];
+      final container = await _buildContainer(repo);
+      // ProfileView is autoDispose: without a listener it is torn down as soon
+      // as the read settles, taking the realtime subscription with it.
+      container.listen(profileViewProvider('creator1'), (_, _) {});
+      final first = await container.read(profileViewProvider('creator1').future);
+      expect(first.followers, isEmpty);
+
+      // Someone else follows: the row lands in the table and the realtime
+      // event arrives, with no action on this device.
+      repo.followers = [_follower(uid: 'someone', docId: 'their-doc')];
+      repo.followersController.add(null);
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+
+      final data = container.read(profileViewProvider('creator1')).value!;
+      expect(data.followers.map((f) => f.uid), ['someone']);
+      // The viewer is still not a follower, so the follow button must not flip.
+      expect(data.isFollowing, false);
+      expect(data.followerDocumentId, isNull);
+    });
+
+    test('a follow by the viewer is reflected as isFollowing', () async {
+      final repo = FakeProfileRepository()..followers = const [];
+      final container = await _buildContainer(repo);
+      container.listen(profileViewProvider('creator1'), (_, _) {});
+      await container.read(profileViewProvider('creator1').future);
+
+      repo.followers = [_follower(uid: 'me', docId: 'my-doc')];
+      repo.followersController.add(null);
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+
+      final data = container.read(profileViewProvider('creator1')).value!;
+      expect(data.isFollowing, true);
+      expect(data.followerDocumentId, 'my-doc');
+    });
+  });
+}

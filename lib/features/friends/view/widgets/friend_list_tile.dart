@@ -1,0 +1,146 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/features/achievements/data/badge_showcase.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_avatar.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/friends/model/friends_model.dart';
+import 'package:resonate/features/profile/view/pages/profile_page.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/secondary_list_card.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+
+
+class FriendListTile extends ConsumerWidget {
+  const FriendListTile({
+    required this.friendModel,
+    required this.isRequest,
+    required this.isProcessing,
+    this.onAccept,
+    this.onDecline,
+    this.onCall,
+    super.key,
+  });
+
+  final FriendsModel friendModel;
+  final bool isRequest;
+  final bool isProcessing;
+  final VoidCallback? onAccept;
+  final VoidCallback? onDecline;
+  final VoidCallback? onCall;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bool userIsSender =
+        friendModel.senderId == ref.read(requireUserProvider).uid;
+    final otherUid = userIsSender
+        ? friendModel.recieverId
+        : friendModel.senderId;
+    final status = ref.watch(userActivityStatusProvider)[otherUid];
+    final worn = ref.watch(avatarBadgeProvider(otherUid));
+    final blocksCalls = status?.blocksCalls ?? false;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfilePage(
+              creator: userIsSender
+                  ? friendModel.recieverToResonateUserForRequestsPage()
+                  : friendModel.senderToResonateUserForRequestsPage(),
+              isCreatorProfile: true,
+            ),
+          ),
+        );
+      },
+      child: SecondaryListCard(
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: ActivityAvatar(
+            uid: otherUid,
+            imageUrl: userIsSender
+                ? friendModel.recieverProfileImgUrl
+                : friendModel.senderProfileImgUrl,
+            status: status,
+            radius: UiSizes.size_25,
+            badgeGlyph: worn?.icon,
+            badgeLabel: worn?.label(AppLocalizations.of(context)!),
+          ),
+          trailing: isProcessing
+              ? LoadingIndicator(
+                  indicatorType: Indicator.ballRotate,
+                  colors: [Theme.of(context).colorScheme.primary],
+                )
+              : isRequest
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: onAccept,
+                      icon: Icon(Icons.check),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    IconButton(
+                      onPressed: onDecline,
+                      icon: Icon(Icons.close),
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ],
+                )
+              : IconButton(
+                  onPressed: onCall,
+                  color: blocksCalls
+                      ? Theme.of(context).colorScheme.onSurfaceVariant
+                      : null,
+                  icon: Icon(
+                    blocksCalls ? Icons.phone_disabled : Icons.call,
+                  ),
+                ),
+          title: Text(
+            userIsSender ? friendModel.recieverName : friendModel.senderName,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.w500,
+              fontSize: UiSizes.size_17,
+              fontStyle: FontStyle.normal,
+            ),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                userIsSender
+                    ? friendModel.recieverUsername
+                    : friendModel.senderUsername,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: UiSizes.size_12,
+                  fontStyle: FontStyle.normal,
+                ),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  Text(
+                    userIsSender
+                        ? (friendModel.recieverRating ?? 0).toStringAsFixed(1)
+                        : (friendModel.senderRating ?? 0).toStringAsFixed(1),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

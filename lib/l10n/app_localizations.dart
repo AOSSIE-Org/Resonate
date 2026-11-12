@@ -714,6 +714,30 @@ abstract class AppLocalizations {
   /// **'App Preferences'**
   String get appPreferences;
 
+  /// Label for the settings page where the user turns app features on or off.
+  ///
+  /// In en, this message translates to:
+  /// **'Features'**
+  String get features;
+
+  /// Explanation shown at the top of the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.'**
+  String get featuresDescription;
+
+  /// Description of the pair chat feature on the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'One-on-one voice chats with a random or a chosen user.'**
+  String get pairChatFeatureDescription;
+
+  /// Description of the live chapter feature on the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a story chapter live with an audience, and join the ones others host.'**
+  String get liveChapterFeatureDescription;
+
   /// Section title for choosing AI transcription model.
   ///
   /// In en, this message translates to:
@@ -1284,12 +1308,6 @@ abstract class AppLocalizations {
   /// **'mic'**
   String get micOn;
 
-  /// Accessibility label for the speakerphone button when it is on.
-  ///
-  /// In en, this message translates to:
-  /// **'speaker'**
-  String get speakerOn;
-
   /// Accessibility label for the end chat/call button.
   ///
   /// In en, this message translates to:
@@ -1440,6 +1458,12 @@ abstract class AppLocalizations {
   /// **'This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.'**
   String get deleteAccountPermanent;
 
+  /// Shown when deleting the account did not succeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account could not be deleted. Please try again.'**
+  String get deleteAccountFailed;
+
   /// Placeholder text for a name input field, encouraging a creative name.
   ///
   /// In en, this message translates to:
@@ -1481,6 +1505,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Submit'**
   String get submit;
+
+  /// Title prompting the user to rate their pair chat experience.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate your experience'**
+  String get rateYourExperience;
 
   /// Label for an anonymous user or identity.
   ///
@@ -1545,11 +1575,12 @@ abstract class AppLocalizations {
   /// The default message template used when sharing a room.
   ///
   /// In en, this message translates to:
-  /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {description}\n👥 Join {participants} participants now!'**
+  /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {roomDescription}\n👥 Join {participants} participants now!\n\n🔗 {link}'**
   String shareRoomMessage(
     String roomName,
-    String description,
+    String roomDescription,
     int participants,
+    String link,
   );
 
   /// Displays the number of participants in a room.
@@ -1563,6 +1594,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Join'**
   String get join;
+
+  /// Button on a live room the user is already inside, minimised to the miniplayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get returnToRoom;
 
   /// Error message prefix for an invalid tag.
   ///
@@ -1930,24 +1967,6 @@ abstract class AppLocalizations {
   /// **'Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.'**
   String get resonateOpenSourceProject;
 
-  /// Button text to mute the microphone.
-  ///
-  /// In en, this message translates to:
-  /// **'Mute'**
-  String get mute;
-
-  /// Label for the speakerphone toggle.
-  ///
-  /// In en, this message translates to:
-  /// **'Speaker'**
-  String get speakerLabel;
-
-  /// Label for the audio options/settings button.
-  ///
-  /// In en, this message translates to:
-  /// **'Audio Options'**
-  String get audioOptions;
-
   /// Button text to end a call or session.
   ///
   /// In en, this message translates to:
@@ -2139,6 +2158,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Followers'**
   String get followers;
+
+  /// Label for a user's average star rating on their profile card.
+  ///
+  /// In en, this message translates to:
+  /// **'Stars'**
+  String get stars;
 
   /// Header for the list of incoming friend requests.
   ///
@@ -2356,6 +2381,54 @@ abstract class AppLocalizations {
   /// **'Failed to remove room'**
   String get failedToRemoveRoom;
 
+  /// Error message when unable to create a room
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create room'**
+  String get failedToCreateRoom;
+
+  /// Title of the in-room chat screen
+  ///
+  /// In en, this message translates to:
+  /// **'Room Chat'**
+  String get roomChat;
+
+  /// Snackbar shown when retrying a failed chat message fails again
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to resend'**
+  String get failedToResend;
+
+  /// Inline suffix appended to an edited chat message
+  ///
+  /// In en, this message translates to:
+  /// **' (edited)'**
+  String get edited;
+
+  /// Snackbar shown when a chat message fails to send
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send. Tap the message to retry.'**
+  String get failedToSendTapRetry;
+
+  /// Hint text in the chat message input field
+  ///
+  /// In en, this message translates to:
+  /// **'Say Something'**
+  String get saySomething;
+
+  /// Tooltip on the retry affordance of a failed chat message
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to retry'**
+  String get tapToRetry;
+
+  /// Label of the retry action on a failed chat message
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
   /// Success message when a room is successfully removed from the user's list
   ///
   /// In en, this message translates to:
@@ -2373,6 +2446,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have been reported or removed from the room'**
   String get removedFromRoom;
+
+  /// Title of the message shown when the host closes a room.
+  ///
+  /// In en, this message translates to:
+  /// **'Room ended'**
+  String get roomEnded;
+
+  /// Message shown to participants when the host closes the room they were in.
+  ///
+  /// In en, this message translates to:
+  /// **'This room has ended'**
+  String get roomEndedMessage;
 
   /// Selects the appropriate report type label based on a key.
   ///
@@ -2494,18 +2579,6 @@ abstract class AppLocalizations {
   /// **'Select your preferred speaker'**
   String get selectPreferredSpeaker;
 
-  /// Message shown when no audio output devices are available.
-  ///
-  /// In en, this message translates to:
-  /// **'No audio output devices detected'**
-  String get noAudioOutputDevices;
-
-  /// Button text to refresh audio device list.
-  ///
-  /// In en, this message translates to:
-  /// **'Refresh'**
-  String get refresh;
-
   /// Button text to close audio device selector.
   ///
   /// In en, this message translates to:
@@ -2530,7 +2603,7 @@ abstract class AppLocalizations {
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// Error message shown when the system is unable to delete a message.
+  /// Error snackbar shown when deleting a message fails.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**
@@ -2589,6 +2662,744 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This username is already taken. Try a different one.'**
   String get usernameAlreadyTaken;
+
+  /// Label identifying a poll card in the room chat.
+  ///
+  /// In en, this message translates to:
+  /// **'Poll'**
+  String get poll;
+
+  /// Title of the poll creation sheet and its submit button; also the tooltip of the poll button in the chat input.
+  ///
+  /// In en, this message translates to:
+  /// **'Create poll'**
+  String get createPoll;
+
+  /// Label for the poll question input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get pollQuestionLabel;
+
+  /// Hint text inside the poll question input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a question…'**
+  String get pollQuestionHint;
+
+  /// Hint text for a poll option input field, numbered from 1.
+  ///
+  /// In en, this message translates to:
+  /// **'Option {number}'**
+  String pollOptionHint(int number);
+
+  /// Button text to add another option field when creating a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'Add option'**
+  String get addPollOption;
+
+  /// Tooltip of the button that removes an option field when creating a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove option'**
+  String get removePollOption;
+
+  /// Total number of votes cast on a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No votes yet} =1{1 vote} other{{count} votes}}'**
+  String pollVotesCount(int count);
+
+  /// Host-only button that closes voting on a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'End poll'**
+  String get endPoll;
+
+  /// Title of the confirmation dialog before closing a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'End this poll?'**
+  String get endPollConfirmTitle;
+
+  /// Body of the confirmation dialog before closing a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'Voting will be closed for everyone. This cannot be undone.'**
+  String get endPollConfirmContent;
+
+  /// Tag shown on a poll card once voting has been closed.
+  ///
+  /// In en, this message translates to:
+  /// **'Final results'**
+  String get pollFinalResults;
+
+  /// Validation message when the poll question is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a question'**
+  String get pollEnterQuestion;
+
+  /// Validation message when a poll has fewer than two non-empty options.
+  ///
+  /// In en, this message translates to:
+  /// **'Please provide at least 2 options'**
+  String get pollNeedTwoOptions;
+
+  /// Placeholder shown when a poll referenced by a chat message has been deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This poll is no longer available'**
+  String get pollUnavailable;
+
+  /// Error snackbar when creating a poll fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create poll'**
+  String get failedToCreatePoll;
+
+  /// Error snackbar when casting or changing a vote fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to record your vote'**
+  String get failedToVote;
+
+  /// Error snackbar when closing a poll fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to end the poll'**
+  String get failedToEndPoll;
+
+  /// Settings entry and title of the sheet where the user picks their activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity status'**
+  String get activityStatus;
+
+  /// Supporting line under the activity status picker title.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose who can reach you'**
+  String get activityStatusSubtitle;
+
+  /// Activity status: fully available for calls.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get activityOnline;
+
+  /// Explanation of the Online activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Available for calls'**
+  String get activityOnlineDescription;
+
+  /// Activity status: incoming calls are refused.
+  ///
+  /// In en, this message translates to:
+  /// **'Do Not Disturb'**
+  String get activityDnd;
+
+  /// Explanation of the Do Not Disturb activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming calls are blocked'**
+  String get activityDndDescription;
+
+  /// Activity status: the user is in a live audio session. Set automatically.
+  ///
+  /// In en, this message translates to:
+  /// **'In a session'**
+  String get activityInRoom;
+
+  /// Explanation of the In a session activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'In a live session, calls are blocked'**
+  String get activityInRoomDescription;
+
+  /// Activity status: the user appears offline to others.
+  ///
+  /// In en, this message translates to:
+  /// **'Invisible'**
+  String get activityInvisible;
+
+  /// Explanation of the Invisible activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'You appear offline, calls still reach you'**
+  String get activityInvisibleDescription;
+
+  /// Activity status shown for a user who is signed out or has the app in the background.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get activityOffline;
+
+  /// Explanation of the Offline activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in the app right now'**
+  String get activityOfflineDescription;
+
+  /// Error snackbar when writing the new activity status fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update your availability'**
+  String get activityStatusUpdateFailed;
+
+  /// Title of the snackbar shown when a call is refused by the recipient's activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t call right now'**
+  String get callBlocked;
+
+  /// Snackbar body when the callee has Do Not Disturb enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{username} has Do Not Disturb turned on.'**
+  String callBlockedDnd(String username);
+
+  /// Title for the achievements sheet and the profile section listing a user's badges.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// Subtitle under the achievements sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'What you have earned, and what is next.'**
+  String get achievementsSubtitle;
+
+  /// Subtitle shown when viewing another user's achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'How active this user has been on Resonate.'**
+  String get creatorAchievementsSubtitle;
+
+  /// Empty state shown when the signed-in user has not earned any badge.
+  ///
+  /// In en, this message translates to:
+  /// **'No badges yet. Host rooms, moderate, and join in to earn some.'**
+  String get noBadgesYet;
+
+  /// Label on a badge the user has not earned yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get badgeLocked;
+
+  /// Progress towards the next badge, e.g. 12 of 25.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {target}'**
+  String badgeProgress(int current, int target);
+
+  /// Snackbar title shown when the user earns a new badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Badge unlocked'**
+  String get badgeUnlocked;
+
+  /// Snackbar body naming the badge the user just earned.
+  ///
+  /// In en, this message translates to:
+  /// **'You earned {badge}.'**
+  String badgeUnlockedMessage(String badge);
+
+  /// Achievement category covering rooms the user has hosted.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosting'**
+  String get badgeCategoryHosting;
+
+  /// Achievement category covering rooms the user has moderated.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderation'**
+  String get badgeCategoryModeration;
+
+  /// Achievement category covering chat, polls and other in-room interaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Participation'**
+  String get badgeCategoryEcho;
+
+  /// Achievement category covering how consistently the user shows up.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get badgeCategoryRhythm;
+
+  /// Achievement category covering how long the user has been active.
+  ///
+  /// In en, this message translates to:
+  /// **'Longevity'**
+  String get badgeCategoryCore;
+
+  /// Name of the first hosting badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcomer'**
+  String get badgeWelcomer;
+
+  /// Name of the second hosting badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get badgeIcon;
+
+  /// Name of the third hosting badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Maestro'**
+  String get badgeMaestro;
+
+  /// Name of the first moderation badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Guard'**
+  String get badgeGuard;
+
+  /// Name of the second moderation badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Sentinel'**
+  String get badgeSentinel;
+
+  /// Name of the third moderation badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Warden'**
+  String get badgeWarden;
+
+  /// Name of the participation badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Echo'**
+  String get badgeEcho;
+
+  /// Name of the consistency badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Rhythm'**
+  String get badgeRhythm;
+
+  /// Name of the longevity badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get badgeCore;
+
+  /// What a hosting badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosted {count} rooms with more than five people.'**
+  String badgeHostingDescription(int count);
+
+  /// What a moderation badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderated {count} rooms with more than five people.'**
+  String badgeModerationDescription(int count);
+
+  /// What the participation badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Took part {count} times through chat, polls and votes.'**
+  String badgeEchoDescription(int count);
+
+  /// What the consistency badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Showed up {count} days in a row.'**
+  String badgeRhythmDescription(int count);
+
+  /// What the longevity badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Active on {count} different days.'**
+  String badgeCoreDescription(int count);
+
+  /// Label for the number of rooms a user has hosted.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooms hosted'**
+  String get statRoomsHosted;
+
+  /// Label for the number of rooms a user has moderated.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooms moderated'**
+  String get statRoomsModerated;
+
+  /// Label for the number of chat messages, polls and votes a user has contributed.
+  ///
+  /// In en, this message translates to:
+  /// **'Interactions'**
+  String get statInteractions;
+
+  /// Label for the number of days a user has been active on the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Active days'**
+  String get statActiveDays;
+
+  /// Label for the user's current run of consecutive active days.
+  ///
+  /// In en, this message translates to:
+  /// **'Day streak'**
+  String get statStreak;
+
+  /// The user's longest ever streak, shown beside the current one.
+  ///
+  /// In en, this message translates to:
+  /// **'Best {count}'**
+  String statStreakBest(int count);
+
+  /// Heading for the controls that pick which badges are displayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Show on your profile'**
+  String get showOnProfile;
+
+  /// Explains the badge display limits.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up to two badges to sit next to your name, and one to wear on your avatar.'**
+  String get showOnProfileHint;
+
+  /// Toggle label for showing a badge as a pill beside the user's name.
+  ///
+  /// In en, this message translates to:
+  /// **'Next to your name'**
+  String get badgeShownAsPill;
+
+  /// Toggle label for wearing a badge over the user's avatar.
+  ///
+  /// In en, this message translates to:
+  /// **'On your avatar'**
+  String get badgeShownOnAvatar;
+
+  /// Shown when the user tries to display a third pill badge.
+  ///
+  /// In en, this message translates to:
+  /// **'You can show two badges next to your name.'**
+  String get badgePillLimitReached;
+
+  /// Snackbar body when saving the badge display choice fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update your badges.'**
+  String get badgeShowcaseFailed;
+
+  /// Title of the screen and settings tile where a user picks their interests.
+  ///
+  /// In en, this message translates to:
+  /// **'Interests'**
+  String get interests;
+
+  /// Explains what selecting interests does and the selection limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up to {count} interests so people who like the same things can find you.'**
+  String interestsHint(int count);
+
+  /// Tells the user that sharing interests is opt-in.
+  ///
+  /// In en, this message translates to:
+  /// **'This is optional — leave it empty to keep your profile out of interest search.'**
+  String get interestsOptionalHint;
+
+  /// Heading for the optional interest picker during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Interests (optional)'**
+  String get interestsOptional;
+
+  /// Selects the display name of a predefined interest tag from its stored key.
+  ///
+  /// In en, this message translates to:
+  /// **'{interest, select, ai{AI} music{Music} fitness{Fitness} anime{Anime} gaming{Gaming} technology{Technology} movies{Movies} books{Books} art{Art} travel{Travel} food{Food} sports{Sports} business{Business} science{Science} comedy{Comedy} wellness{Wellness} other{Other}}'**
+  String interestLabel(String interest);
+
+  /// Shown when the user tries to select one interest too many.
+  ///
+  /// In en, this message translates to:
+  /// **'You can pick up to {count} interests.'**
+  String interestLimitReached(int count);
+
+  /// Snackbar body after saving the interest selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your interests were updated.'**
+  String get interestsUpdated;
+
+  /// Snackbar body when saving the interest selection fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update your interests.'**
+  String get interestsUpdateFailed;
+
+  /// Label for the search-bar option that filters profiles by interest tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by interest'**
+  String get filterByInterest;
+
+  /// Explains the interest picker opened from the search bar.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick one or more interests to find people who share them.'**
+  String get interestFilterHint;
+
+  /// Empty state for the interest filter results.
+  ///
+  /// In en, this message translates to:
+  /// **'No profiles match those interests yet.'**
+  String get noProfilesForInterests;
+
+  /// Error state for the interest filter results.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load matching profiles.'**
+  String get interestFilterFailed;
+
+  /// Section header above the profiles matching the selected interests.
+  ///
+  /// In en, this message translates to:
+  /// **'Profiles'**
+  String get profiles;
+
+  /// Label for the free-form tag field when creating a story.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags (optional)'**
+  String get storyTags;
+
+  /// Explains what story tags are for.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your own tags, like “tech talks”, so listeners can find this story.'**
+  String get storyTagsHint;
+
+  /// Placeholder of the story tag input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a tag'**
+  String get addTag;
+
+  /// Shown when the creator tries to add one story tag too many.
+  ///
+  /// In en, this message translates to:
+  /// **'You can add up to {count} tags.'**
+  String tagLimitReached(int count);
+
+  /// Accessibility label of the button that removes a story tag.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove tag {tag}'**
+  String removeTag(String tag);
+
+  /// Snackbar body when the callee is already in a live audio session.
+  ///
+  /// In en, this message translates to:
+  /// **'{username} is in a live session.'**
+  String callBlockedInRoom(String username);
+
+  /// Title of the screen listing live chapter recordings kept on the device.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded Chapters'**
+  String get recordedChapters;
+
+  /// Heading of the empty state on the recorded chapters screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing recorded yet'**
+  String get noRecordedChapters;
+
+  /// Body of the empty state on the recorded chapters screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Live chapters you record stay on this device until you delete them.'**
+  String get noRecordedChaptersMessage;
+
+  /// Shown when the recorded chapters list fails to load.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your recordings'**
+  String get recordedChaptersLoadFailed;
+
+  /// Fallback title for a recording that was never given one.
+  ///
+  /// In en, this message translates to:
+  /// **'Untitled recording'**
+  String get untitledRecording;
+
+  /// Label of the date a chapter was recorded, on the recording detail screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded'**
+  String get recordedOn;
+
+  /// Label of a recording's duration on the recording detail screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Length'**
+  String get recordingLength;
+
+  /// Label of a recording's audio file name on the recording detail screen.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get audioFile;
+
+  /// Section heading for the transcript of a recording.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcript'**
+  String get transcript;
+
+  /// Shown in place of the transcript when a recording has none.
+  ///
+  /// In en, this message translates to:
+  /// **'No transcript was generated for this recording.'**
+  String get noTranscript;
+
+  /// Button that deletes a recording from the device.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete recording'**
+  String get deleteRecording;
+
+  /// Body of the dialog confirming that a recording will be deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the audio and the transcript from this device. It cannot be undone.'**
+  String get deleteRecordingMessage;
+
+  /// Confirmation shown after a recording has been deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording deleted'**
+  String get recordingDeleted;
+
+  /// Shown when deleting a recording's files failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the recording'**
+  String get deleteRecordingFailed;
+
+  /// Shown on the live chapter screen while nobody has joined to listen.
+  ///
+  /// In en, this message translates to:
+  /// **'No listeners yet'**
+  String get noListenersYet;
+
+  /// Shown on the room screen while nobody has joined.
+  ///
+  /// In en, this message translates to:
+  /// **'No participants yet'**
+  String get noParticipantsYet;
+
+  /// Shown on the verify screen while the recording is still being transcribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcribing the recording…'**
+  String get transcribing;
+
+  /// Shown on the verify screen when transcribing the recording did not succeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcription failed — you can type the lyrics yourself.'**
+  String get transcriptionFailed;
+
+  /// Accessibility label of the button that starts playing a recording.
+  ///
+  /// In en, this message translates to:
+  /// **'Play recording'**
+  String get playRecording;
+
+  /// Accessibility label of the button that pauses a playing recording.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause recording'**
+  String get pauseRecording;
+
+  /// Shown when playback is attempted while the user is connected to a live audio session.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the live session to play a recording.'**
+  String get playbackBlockedInSession;
+
+  /// Shown when a chosen file is over the upload size limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Your {what} is {size}. Files must be smaller than {limit}.'**
+  String fileTooLarge(String what, String size, String limit);
+
+  /// Shown when a file upload fails for a reason other than its size.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not upload the {what}. Please try again.'**
+  String uploadFailed(String what);
+
+  /// Label for the phone earpiece option in the audio output picker.
+  ///
+  /// In en, this message translates to:
+  /// **'Earpiece'**
+  String get earpiece;
+
+  /// Note under the audio output picker explaining that a wired or Bluetooth headset overrides the choice.
+  ///
+  /// In en, this message translates to:
+  /// **'A connected headset takes priority while it is plugged in or paired.'**
+  String get headsetTakesPriority;
+
+  /// Shown in the audio output picker when the platform offers no routing choice.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio output cannot be changed on this device.'**
+  String get audioOutputNotSwitchable;
+
+  /// Label for the loudspeaker option in the audio output picker. Distinct from `speaker`, which is the Speaker user role in a room.
+  ///
+  /// In en, this message translates to:
+  /// **'Loudspeaker'**
+  String get loudspeaker;
+
+  /// Settings entry that opens the battery optimisation exemption prompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Call reliability'**
+  String get callReliability;
+
+  /// Title of the mandatory End User License Agreement dialog shown after login.
+  ///
+  /// In en, this message translates to:
+  /// **'End User License Agreement'**
+  String get eulaTitle;
+
+  /// Full text of the End User License Agreement shown in a scrollable dialog after login. Satisfies the app store requirement for an EULA with a zero-tolerance policy for objectionable content and abusive users.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Resonate. Please read this End User License Agreement (\"Agreement\") carefully before using the app. By tapping \"Agree\" you accept these terms. If you do not agree, tap \"Decline\" and you will be signed out.\n\n1. Acceptance of Terms\nResonate is a social voice platform that lets you join and host live audio rooms, publish stories, chat, and connect with other people. By using Resonate you agree to be bound by this Agreement and to comply with all applicable laws.\n\n2. Eligibility\nYou must be at least 18 years old, or the minimum age of digital consent in your country, to use Resonate. If you are under the age of majority, you must have your parent or guardian\'s permission to use the app.\n\n3. User-Generated Content\nResonate carries audio, text, and other content created by its users. You are solely responsible for the content you create, speak, publish, or share, and for your conduct while using the app.\n\n4. Zero Tolerance for Objectionable Content and Abuse\nThere is no tolerance for objectionable content or abusive behaviour. You agree not to create, post, stream, or share content that is unlawful, hateful, harassing, threatening, defamatory, obscene, sexually explicit, or that infringes the rights of others. You agree not to harass, bully, impersonate, or abuse any other user.\n\n5. Reporting and Moderation\nYou can report objectionable content and block abusive users from within the app. We review reports and may remove content and restrict, suspend, or terminate the accounts of users who violate this Agreement, without prior notice.\n\n6. Enforcement\nWe reserve the right to remove any content and to suspend or permanently terminate any account that breaches this Agreement or applicable law. Users who are removed for abuse may be ejected and barred from the platform.\n\n7. Privacy\nYour use of Resonate is also governed by our handling of your data as described in our privacy practices. You consent to the collection and use of information necessary to operate the service.\n\n8. Disclaimer and Limitation of Liability\nResonate is provided \"as is\" without warranties of any kind. To the maximum extent permitted by law, we are not liable for any content shared by users or for any damages arising from your use of the app.\n\n9. Changes to this Agreement\nWe may update this Agreement from time to time. Continued use of Resonate after an update means you accept the revised terms.\n\n10. Termination\nYou may stop using Resonate at any time. We may terminate or suspend your access if you breach this Agreement.\n\nBy tapping \"Agree\" you confirm that you have read, understood, and accepted this End User License Agreement.'**
+  String get eulaBody;
+
+  /// Button that accepts the End User License Agreement and lets the user continue into the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Agree'**
+  String get eulaAgree;
+
+  /// Button that rejects the End User License Agreement; declining signs the user out.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get eulaDecline;
 }
 
 class _AppLocalizationsDelegate

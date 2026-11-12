@@ -1,0 +1,199 @@
+import 'package:appwrite/models.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
+import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
+import 'package:resonate/utils/constants.dart';
+
+import '../../../helpers/test_root_container.dart';
+import '../../../helpers/test_root_container.mocks.dart';
+
+MockExecution _execution(String json) {
+  final exec = MockExecution();
+  when(exec.responseStatusCode).thenReturn(200);
+  when(exec.responseBody).thenReturn(json);
+  return exec;
+}
+
+void main() {
+  late MockTablesDB tables;
+  late MockRealtime realtime;
+  late MockFunctions functions;
+
+  setUp(() {
+    stubFlutterSecureStorageChannel();
+    tables = MockTablesDB();
+    realtime = MockRealtime();
+    stubRealtimeChannel(realtime);
+    functions = MockFunctions();
+  });
+
+  group('CreateRoomNotifier', () {
+    test('createLiveRoom returns room with myDocId on success', () async {
+      when(functions.createExecution(
+        functionId: createRoomServiceId,
+        body: anyNamed('body'),
+      )).thenAnswer((_) async => _execution(
+            '{"livekit_room":{"name":"r-new"},'
+            '"access_token":"tok","livekit_socket_url":"wss://example.com"}',
+          ));
+      when(tables.listRows(
+        databaseId: databaseId,
+        tableId: participantsTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 0, rows: []));
+      when(tables.createRow(
+        databaseId: databaseId,
+        tableId: participantsTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => buildRow(
+            id: 'doc-mine',
+            tableId: participantsTableId,
+            databaseId: databaseId,
+            data: const {},
+          ));
+
+      final container = await installTestRootContainer(
+        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+          );
+
+      final room = await container
+          .read(createRoomProvider.notifier)
+          .createLiveRoom(
+            name: 'My Room',
+            description: 'desc',
+            tags: const ['t1'],
+          );
+
+      expect(room, isNotNull);
+      expect(room!.id, 'r-new');
+      expect(room.myDocId, 'doc-mine');
+      expect(room.isUserAdmin, isTrue);
+      expect(container.read(createRoomProvider), isFalse);
+    });
+
+    // A reload started here stays in flight while the host is in the room and
+    // lands after endRoom's optimistic removal, putting the room back in the
+    // list. The host is heading into the room sheet, so there is nothing to
+    // reload for; endRoom refreshes on the way out.
+    test('createLiveRoom starts no live-rooms reload', () async {
+      when(functions.createExecution(
+        functionId: createRoomServiceId,
+        body: anyNamed('body'),
+      )).thenAnswer((_) async => _execution(
+            '{"livekit_room":{"name":"r-new"},'
+            '"access_token":"tok","livekit_socket_url":"wss://example.com"}',
+          ));
+      when(tables.listRows(
+        databaseId: databaseId,
+        tableId: participantsTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 0, rows: []));
+      when(tables.createRow(
+        databaseId: databaseId,
+        tableId: participantsTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => buildRow(
+            id: 'doc-mine',
+            tableId: participantsTableId,
+            databaseId: databaseId,
+            data: const {},
+          ));
+      var roomListLoads = 0;
+      when(tables.listRows(
+        databaseId: databaseId,
+        tableId: roomsTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async {
+        roomListLoads++;
+        return RowList(total: 0, rows: []);
+      });
+
+      final container = await installTestRootContainer(
+        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+          );
+      // The list is already on screen behind the create sheet.
+      await container.read(liveRoomsProvider.future);
+      container.listen(liveRoomsProvider, (_, _) {});
+      expect(roomListLoads, 1);
+
+      await container.read(createRoomProvider.notifier).createLiveRoom(
+            name: 'My Room',
+            description: 'desc',
+            tags: const ['t1'],
+          );
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+
+      expect(roomListLoads, 1, reason: 'no reload may be left in flight');
+    });
+
+    test(
+      'createScheduledRoom triggers an upcoming-rooms refresh via invalidation',
+      () async {
+        when(tables.createRow(
+          databaseId: databaseId,
+          tableId: upcomingRoomsTableId,
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        )).thenAnswer((_) async => buildRow(
+              id: 'u-new',
+              tableId: upcomingRoomsTableId,
+              databaseId: databaseId,
+              data: const {},
+            ));
+        // upcomingRoomsProvider.build() reads this table — count invocations
+        // to confirm a refresh happened.
+        var listRowsCount = 0;
+        when(tables.listRows(
+          databaseId: databaseId,
+          tableId: upcomingRoomsTableId,
+        )).thenAnswer((_) async {
+          listRowsCount++;
+          return RowList(total: 0, rows: []);
+        });
+
+        final container = await installTestRootContainer(
+          authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+          tables: tables,
+          realtime: realtime,
+          functions: functions,
+                getStorageBox: FakeGetStorage(),
+        );
+        await container.read(upcomingRoomsProvider.future);
+        final initialCount = listRowsCount;
+
+        final ok = await container
+            .read(createRoomProvider.notifier)
+            .createScheduledRoom(
+              name: 'Later',
+              description: 'desc',
+              tags: const ['t1'],
+              scheduledDateTime: '2026-12-31T10:00:00Z',
+            );
+
+        expect(ok, isTrue);
+        // Invalidation triggers a re-fetch on the next read.
+        await container.read(upcomingRoomsProvider.future);
+        expect(listRowsCount, greaterThan(initialCount));
+      },
+    );
+
+    test('isValidTag accepts alphanumeric and rejects symbols', () {
+      expect('flutter'.isValidTag, isTrue);
+      expect('flutter_dev'.isValidTag, isTrue);
+      expect('flutter dev'.isValidTag, isFalse);
+      expect(''.isValidTag, isFalse);
+      expect(('a' * 31).isValidTag, isFalse);
+    });
+  });
+}

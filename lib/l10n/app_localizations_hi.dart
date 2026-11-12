@@ -320,6 +320,21 @@ class AppLocalizationsHi extends AppLocalizations {
   String get appPreferences => 'ऐप प्राथमिकताएं';
 
   @override
+  String get features => 'सुविधाएँ';
+
+  @override
+  String get featuresDescription =>
+      'जिन सुविधाओं का आप उपयोग नहीं करते, उन्हें बंद कर दें। जब तक आप उन्हें दोबारा चालू नहीं करते, वे इस डिवाइस पर छिपी रहेंगी।';
+
+  @override
+  String get pairChatFeatureDescription =>
+      'किसी रैंडम या चुने हुए यूज़र के साथ आमने-सामने की वॉइस चैट।';
+
+  @override
+  String get liveChapterFeatureDescription =>
+      'श्रोताओं के सामने कहानी का अध्याय लाइव रिकॉर्ड करें, और दूसरों के होस्ट किए अध्यायों में शामिल हों।';
+
+  @override
   String get transcriptionModel => 'ट्रांसक्रिप्शन मॉडल';
 
   @override
@@ -620,9 +635,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get micOn => 'माइक';
 
   @override
-  String get speakerOn => 'स्पीकर';
-
-  @override
   String get endChat => 'चैट समाप्त करें';
 
   @override
@@ -703,6 +715,10 @@ class AppLocalizationsHi extends AppLocalizations {
       'यह प्रक्रिया आपके अकाउंट को हमेशा के लिए डिलीट कर देगी। आपका यूज़रनेम, ईमेल और सारा डेटा हटा दिया जाएगा। यह वापस नहीं लिया जा सकता।';
 
   @override
+  String get deleteAccountFailed =>
+      'आपका अकाउंट हटाया नहीं जा सका। कृपया पुनः प्रयास करें।';
+
+  @override
   String get giveGreatName => 'एक अच्छा नाम सोचें...';
 
   @override
@@ -726,6 +742,9 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get submit => 'सबमिट करें';
+
+  @override
+  String get rateYourExperience => 'अपने अनुभव को रेट करें';
 
   @override
   String get anonymous => 'गुमनाम';
@@ -762,10 +781,11 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String shareRoomMessage(
     String roomName,
-    String description,
+    String roomDescription,
     int participants,
+    String link,
   ) {
-    return '🚀 इस शानदार रूम को देखें: $roomName!\n\n📖 विवरण: $description\n👥 अभी $participants लोग जुड़ चुके हैं!';
+    return '🚀 इस शानदार रूम को देखें: $roomName!\n\n📖 विवरण: $roomDescription\n👥 अभी $participants लोग जुड़ चुके हैं!\n\n🔗 $link';
   }
 
   @override
@@ -775,6 +795,9 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get join => 'शामिल हों';
+
+  @override
+  String get returnToRoom => 'वापस जाएँ';
 
   @override
   String get invalidTags => 'अमान्य टैग:';
@@ -991,15 +1014,6 @@ class AppLocalizationsHi extends AppLocalizations {
       'रेज़ोनेट एक ओपन-सोर्स प्रोजेक्ट है जिसे AOSSIE बनाए रखता है। योगदान देने के लिए हमारा GitHub देखें।';
 
   @override
-  String get mute => 'म्यूट करें';
-
-  @override
-  String get speakerLabel => 'स्पीकर';
-
-  @override
-  String get audioOptions => 'ऑडियो विकल्प';
-
-  @override
   String get end => 'समाप्त करें';
 
   @override
@@ -1146,6 +1160,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get followers => 'फॉलोअर्स';
 
   @override
+  String get stars => 'सितारे';
+
+  @override
   String get friendRequests => 'फ्रेंड रिक्वेस्ट';
 
   @override
@@ -1271,6 +1288,31 @@ class AppLocalizationsHi extends AppLocalizations {
   String get failedToRemoveRoom => 'रूम हटाने में विफल';
 
   @override
+  String get failedToCreateRoom => 'रूम बनाने में असफल';
+
+  @override
+  String get roomChat => 'रूम चैट';
+
+  @override
+  String get failedToResend => 'पुनः भेजने में असफल';
+
+  @override
+  String get edited => ' (संपादित)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'भेजने में विफल। पुनः प्रयास के लिए संदेश पर टैप करें।';
+
+  @override
+  String get saySomething => 'कुछ कहें';
+
+  @override
+  String get tapToRetry => 'पुनः प्रयास के लिए टैप करें';
+
+  @override
+  String get retry => 'पुनः प्रयास करें';
+
+  @override
   String get roomRemovedSuccessfully =>
       'रूम आपकी सूची से सफलतापूर्वक हटा दिया गया';
 
@@ -1280,6 +1322,12 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'आपको कमरे से रिपोर्ट किया गया है या हटा दिया गया है';
+
+  @override
+  String get roomEnded => 'रूम समाप्त हुआ';
+
+  @override
+  String get roomEndedMessage => 'यह रूम समाप्त हो चुका है';
 
   @override
   String reportType(String type) {
@@ -1357,12 +1405,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get selectPreferredSpeaker => 'अपना पसंदीदा स्पीकर चुनें';
 
   @override
-  String get noAudioOutputDevices => 'कोई ऑडियो आउटपुट डिवाइस नहीं मिला';
-
-  @override
-  String get refresh => 'रीफ़्रेश करें';
-
-  @override
   String get done => 'हो गया';
 
   @override
@@ -1405,9 +1447,459 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get usernameInvalidFormat =>
-      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
+      'उपयोगकर्ता नाम अमान्य है। कृपया केवल अक्षर, अंक और अंडरस्कोर का उपयोग करें।';
 
   @override
   String get usernameAlreadyTaken =>
-      'This username is already taken. Try a different one.';
+      'यह उपयोगकर्ता नाम पहले से लिया जा चुका है। कृपया कोई और चुनें।';
+
+  @override
+  String get poll => 'पोल';
+
+  @override
+  String get createPoll => 'पोल बनाएँ';
+
+  @override
+  String get pollQuestionLabel => 'प्रश्न';
+
+  @override
+  String get pollQuestionHint => 'कोई प्रश्न पूछें…';
+
+  @override
+  String pollOptionHint(int number) {
+    return 'विकल्प $number';
+  }
+
+  @override
+  String get addPollOption => 'विकल्प जोड़ें';
+
+  @override
+  String get removePollOption => 'विकल्प हटाएँ';
+
+  @override
+  String pollVotesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count वोट',
+      one: '1 वोट',
+      zero: 'अभी तक कोई वोट नहीं',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get endPoll => 'पोल समाप्त करें';
+
+  @override
+  String get endPollConfirmTitle => 'यह पोल समाप्त करें?';
+
+  @override
+  String get endPollConfirmContent =>
+      'सभी के लिए वोटिंग बंद हो जाएगी। इसे वापस नहीं किया जा सकता।';
+
+  @override
+  String get pollFinalResults => 'अंतिम परिणाम';
+
+  @override
+  String get pollEnterQuestion => 'कृपया एक प्रश्न दर्ज करें';
+
+  @override
+  String get pollNeedTwoOptions => 'कृपया कम से कम 2 विकल्प दें';
+
+  @override
+  String get pollUnavailable => 'यह पोल अब उपलब्ध नहीं है';
+
+  @override
+  String get failedToCreatePoll => 'पोल बनाने में विफल';
+
+  @override
+  String get failedToVote => 'आपका वोट दर्ज नहीं हो सका';
+
+  @override
+  String get failedToEndPoll => 'पोल समाप्त नहीं की जा सकी';
+
+  @override
+  String get activityStatus => 'गतिविधि स्थिति';
+
+  @override
+  String get activityStatusSubtitle => 'चुनें कि आप तक कौन पहुँच सकता है';
+
+  @override
+  String get activityOnline => 'ऑनलाइन';
+
+  @override
+  String get activityOnlineDescription => 'कॉल के लिए उपलब्ध';
+
+  @override
+  String get activityDnd => 'परेशान न करें';
+
+  @override
+  String get activityDndDescription => 'आने वाली कॉल ब्लॉक हैं';
+
+  @override
+  String get activityInRoom => 'सेशन में';
+
+  @override
+  String get activityInRoomDescription => 'लाइव सेशन में हैं, कॉल ब्लॉक हैं';
+
+  @override
+  String get activityInvisible => 'अदृश्य';
+
+  @override
+  String get activityInvisibleDescription =>
+      'आप ऑफ़लाइन दिखते हैं, फिर भी कॉल आप तक पहुँचती हैं';
+
+  @override
+  String get activityOffline => 'ऑफ़लाइन';
+
+  @override
+  String get activityOfflineDescription => 'अभी ऐप में नहीं हैं';
+
+  @override
+  String get activityStatusUpdateFailed => 'आपकी उपलब्धता अपडेट नहीं हो सकी';
+
+  @override
+  String get callBlocked => 'अभी कॉल नहीं कर सकते';
+
+  @override
+  String callBlockedDnd(String username) {
+    return '$username ने \'परेशान न करें\' चालू किया हुआ है।';
+  }
+
+  @override
+  String get achievements => 'उपलब्धियाँ';
+
+  @override
+  String get achievementsSubtitle => 'आपने क्या अर्जित किया, और आगे क्या है।';
+
+  @override
+  String get creatorAchievementsSubtitle =>
+      'यह यूज़र रेज़ोनेट पर कितना सक्रिय रहा है।';
+
+  @override
+  String get noBadgesYet =>
+      'अभी तक कोई बैज नहीं। बैज अर्जित करने के लिए रूम होस्ट करें, मॉडरेट करें और भाग लें।';
+
+  @override
+  String get badgeLocked => 'लॉक';
+
+  @override
+  String badgeProgress(int current, int target) {
+    return '$target में से $current';
+  }
+
+  @override
+  String get badgeUnlocked => 'बैज अनलॉक हुआ';
+
+  @override
+  String badgeUnlockedMessage(String badge) {
+    return 'आपने $badge अर्जित किया।';
+  }
+
+  @override
+  String get badgeCategoryHosting => 'होस्टिंग';
+
+  @override
+  String get badgeCategoryModeration => 'मॉडरेशन';
+
+  @override
+  String get badgeCategoryEcho => 'भागीदारी';
+
+  @override
+  String get badgeCategoryRhythm => 'निरंतरता';
+
+  @override
+  String get badgeCategoryCore => 'दीर्घकालिकता';
+
+  @override
+  String get badgeWelcomer => 'स्वागतकर्ता';
+
+  @override
+  String get badgeIcon => 'प्रतीक';
+
+  @override
+  String get badgeMaestro => 'उस्ताद';
+
+  @override
+  String get badgeGuard => 'रक्षक';
+
+  @override
+  String get badgeSentinel => 'प्रहरी';
+
+  @override
+  String get badgeWarden => 'संरक्षक';
+
+  @override
+  String get badgeEcho => 'प्रतिध्वनि';
+
+  @override
+  String get badgeRhythm => 'लय';
+
+  @override
+  String get badgeCore => 'आधार';
+
+  @override
+  String badgeHostingDescription(int count) {
+    return 'पाँच से अधिक लोगों वाले $count रूम होस्ट किए।';
+  }
+
+  @override
+  String badgeModerationDescription(int count) {
+    return 'पाँच से अधिक लोगों वाले $count रूम मॉडरेट किए।';
+  }
+
+  @override
+  String badgeEchoDescription(int count) {
+    return 'चैट, पोल और वोट के ज़रिए $count बार भाग लिया।';
+  }
+
+  @override
+  String badgeRhythmDescription(int count) {
+    return 'लगातार $count दिन उपस्थित रहे।';
+  }
+
+  @override
+  String badgeCoreDescription(int count) {
+    return '$count अलग-अलग दिनों पर सक्रिय रहे।';
+  }
+
+  @override
+  String get statRoomsHosted => 'होस्ट किए गए रूम';
+
+  @override
+  String get statRoomsModerated => 'मॉडरेट किए गए रूम';
+
+  @override
+  String get statInteractions => 'सहभागिताएँ';
+
+  @override
+  String get statActiveDays => 'सक्रिय दिन';
+
+  @override
+  String get statStreak => 'दिनों की लड़ी';
+
+  @override
+  String statStreakBest(int count) {
+    return 'सर्वश्रेष्ठ $count';
+  }
+
+  @override
+  String get showOnProfile => 'अपनी प्रोफ़ाइल पर दिखाएँ';
+
+  @override
+  String get showOnProfileHint =>
+      'अपने नाम के बगल में दिखाने के लिए दो बैज तक चुनें, और अवतार पर पहनने के लिए एक।';
+
+  @override
+  String get badgeShownAsPill => 'आपके नाम के बगल में';
+
+  @override
+  String get badgeShownOnAvatar => 'आपके अवतार पर';
+
+  @override
+  String get badgePillLimitReached =>
+      'आप अपने नाम के बगल में दो बैज दिखा सकते हैं।';
+
+  @override
+  String get badgeShowcaseFailed => 'आपके बैज अपडेट नहीं हो सके।';
+
+  @override
+  String get interests => 'रुचियाँ';
+
+  @override
+  String interestsHint(int count) {
+    return '$count तक रुचियाँ चुनें ताकि समान पसंद वाले लोग आपको ढूँढ़ सकें।';
+  }
+
+  @override
+  String get interestsOptionalHint =>
+      'यह वैकल्पिक है — इसे खाली छोड़ें ताकि आपकी प्रोफ़ाइल रुचि खोज से बाहर रहे।';
+
+  @override
+  String get interestsOptional => 'रुचियाँ (वैकल्पिक)';
+
+  @override
+  String interestLabel(String interest) {
+    String _temp0 = intl.Intl.selectLogic(interest, {
+      'ai': 'एआई',
+      'music': 'संगीत',
+      'fitness': 'फ़िटनेस',
+      'anime': 'एनिमे',
+      'gaming': 'गेमिंग',
+      'technology': 'तकनीक',
+      'movies': 'फ़िल्में',
+      'books': 'किताबें',
+      'art': 'कला',
+      'travel': 'यात्रा',
+      'food': 'खानपान',
+      'sports': 'खेल',
+      'business': 'व्यापार',
+      'science': 'विज्ञान',
+      'comedy': 'कॉमेडी',
+      'wellness': 'स्वास्थ्य',
+      'other': 'अन्य',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String interestLimitReached(int count) {
+    return 'आप $count तक रुचियाँ चुन सकते हैं।';
+  }
+
+  @override
+  String get interestsUpdated => 'आपकी रुचियाँ अपडेट हो गईं।';
+
+  @override
+  String get interestsUpdateFailed => 'आपकी रुचियाँ अपडेट नहीं हो सकीं।';
+
+  @override
+  String get filterByInterest => 'रुचि के अनुसार छाँटें';
+
+  @override
+  String get interestFilterHint =>
+      'समान रुचि वाले लोगों को ढूँढ़ने के लिए एक या अधिक रुचियाँ चुनें।';
+
+  @override
+  String get noProfilesForInterests =>
+      'अभी तक उन रुचियों से मेल खाती कोई प्रोफ़ाइल नहीं है।';
+
+  @override
+  String get interestFilterFailed => 'मेल खाती प्रोफ़ाइलें लोड नहीं हो सकीं।';
+
+  @override
+  String get profiles => 'प्रोफ़ाइलें';
+
+  @override
+  String get storyTags => 'टैग (वैकल्पिक)';
+
+  @override
+  String get storyTagsHint =>
+      'अपने टैग जोड़ें, जैसे “टेक टॉक्स”, ताकि श्रोता यह कहानी ढूँढ़ सकें।';
+
+  @override
+  String get addTag => 'टैग जोड़ें';
+
+  @override
+  String tagLimitReached(int count) {
+    return 'आप $count तक टैग जोड़ सकते हैं।';
+  }
+
+  @override
+  String removeTag(String tag) {
+    return 'टैग $tag हटाएँ';
+  }
+
+  @override
+  String callBlockedInRoom(String username) {
+    return '$username एक लाइव सेशन में हैं।';
+  }
+
+  @override
+  String get recordedChapters => 'रिकॉर्ड किए गए अध्याय';
+
+  @override
+  String get noRecordedChapters => 'अभी तक कुछ रिकॉर्ड नहीं हुआ';
+
+  @override
+  String get noRecordedChaptersMessage =>
+      'आपके रिकॉर्ड किए लाइव अध्याय हटाए जाने तक इसी डिवाइस पर रहते हैं।';
+
+  @override
+  String get recordedChaptersLoadFailed => 'आपकी रिकॉर्डिंग लोड नहीं हो सकीं';
+
+  @override
+  String get untitledRecording => 'बिना शीर्षक रिकॉर्डिंग';
+
+  @override
+  String get recordedOn => 'रिकॉर्ड किया गया';
+
+  @override
+  String get recordingLength => 'अवधि';
+
+  @override
+  String get audioFile => 'फ़ाइल';
+
+  @override
+  String get transcript => 'प्रतिलेख';
+
+  @override
+  String get noTranscript => 'इस रिकॉर्डिंग के लिए कोई प्रतिलेख नहीं बना।';
+
+  @override
+  String get deleteRecording => 'रिकॉर्डिंग हटाएँ';
+
+  @override
+  String get deleteRecordingMessage =>
+      'इससे ऑडियो और प्रतिलेख इस डिवाइस से हट जाएँगे। इसे वापस नहीं किया जा सकता।';
+
+  @override
+  String get recordingDeleted => 'रिकॉर्डिंग हटा दी गई';
+
+  @override
+  String get deleteRecordingFailed => 'रिकॉर्डिंग हटाई नहीं जा सकी';
+
+  @override
+  String get noListenersYet => 'अभी तक कोई लिस्नर नहीं';
+
+  @override
+  String get noParticipantsYet => 'अभी तक कोई प्रतिभागी नहीं';
+
+  @override
+  String get transcribing => 'रिकॉर्डिंग का प्रतिलेख बन रहा है…';
+
+  @override
+  String get transcriptionFailed =>
+      'प्रतिलेख नहीं बन सका — आप लिरिक्स स्वयं टाइप कर सकते हैं।';
+
+  @override
+  String get playRecording => 'रिकॉर्डिंग चलाएँ';
+
+  @override
+  String get pauseRecording => 'रिकॉर्डिंग रोकें';
+
+  @override
+  String get playbackBlockedInSession =>
+      'रिकॉर्डिंग चलाने के लिए लाइव सेशन छोड़ें।';
+
+  @override
+  String fileTooLarge(String what, String size, String limit) {
+    return 'आपकी $what $size है। फ़ाइलें $limit से छोटी होनी चाहिए।';
+  }
+
+  @override
+  String uploadFailed(String what) {
+    return '$what अपलोड नहीं हो सकी। कृपया पुनः प्रयास करें।';
+  }
+
+  @override
+  String get earpiece => 'इयरपीस';
+
+  @override
+  String get headsetTakesPriority =>
+      'कनेक्टेड हेडसेट जब तक लगा या जुड़ा रहता है, उसे प्राथमिकता मिलती है।';
+
+  @override
+  String get audioOutputNotSwitchable =>
+      'इस डिवाइस पर ऑडियो आउटपुट बदला नहीं जा सकता।';
+
+  @override
+  String get loudspeaker => 'लाउडस्पीकर';
+
+  @override
+  String get callReliability => 'कॉल विश्वसनीयता';
+
+  @override
+  String get eulaTitle => 'End User License Agreement';
+
+  @override
+  String get eulaBody =>
+      'Welcome to Resonate. Please read this End User License Agreement (\"Agreement\") carefully before using the app. By tapping \"Agree\" you accept these terms. If you do not agree, tap \"Decline\" and you will be signed out.\n\n1. Acceptance of Terms\nResonate is a social voice platform that lets you join and host live audio rooms, publish stories, chat, and connect with other people. By using Resonate you agree to be bound by this Agreement and to comply with all applicable laws.\n\n2. Eligibility\nYou must be at least 18 years old, or the minimum age of digital consent in your country, to use Resonate. If you are under the age of majority, you must have your parent or guardian\'s permission to use the app.\n\n3. User-Generated Content\nResonate carries audio, text, and other content created by its users. You are solely responsible for the content you create, speak, publish, or share, and for your conduct while using the app.\n\n4. Zero Tolerance for Objectionable Content and Abuse\nThere is no tolerance for objectionable content or abusive behaviour. You agree not to create, post, stream, or share content that is unlawful, hateful, harassing, threatening, defamatory, obscene, sexually explicit, or that infringes the rights of others. You agree not to harass, bully, impersonate, or abuse any other user.\n\n5. Reporting and Moderation\nYou can report objectionable content and block abusive users from within the app. We review reports and may remove content and restrict, suspend, or terminate the accounts of users who violate this Agreement, without prior notice.\n\n6. Enforcement\nWe reserve the right to remove any content and to suspend or permanently terminate any account that breaches this Agreement or applicable law. Users who are removed for abuse may be ejected and barred from the platform.\n\n7. Privacy\nYour use of Resonate is also governed by our handling of your data as described in our privacy practices. You consent to the collection and use of information necessary to operate the service.\n\n8. Disclaimer and Limitation of Liability\nResonate is provided \"as is\" without warranties of any kind. To the maximum extent permitted by law, we are not liable for any content shared by users or for any damages arising from your use of the app.\n\n9. Changes to this Agreement\nWe may update this Agreement from time to time. Continued use of Resonate after an update means you accept the revised terms.\n\n10. Termination\nYou may stop using Resonate at any time. We may terminate or suspend your access if you breach this Agreement.\n\nBy tapping \"Agree\" you confirm that you have read, understood, and accepted this End User License Agreement.';
+
+  @override
+  String get eulaAgree => 'Agree';
+
+  @override
+  String get eulaDecline => 'Decline';
 }

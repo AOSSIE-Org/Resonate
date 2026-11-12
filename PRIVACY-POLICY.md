@@ -17,7 +17,10 @@ When you register for and use our App, we may collect the following personal inf
 
 - **Account Information**: Email address, username, display name, and password
 - **Profile Information**: Profile picture, date of birth, and any other information you choose to add to your profile
-- **User-Generated Content**: Audio recordings, stories, chapters, room descriptions, chat messages, and other content you create or share
+- **User-Generated Content**: Audio recordings, stories, chapters, room descriptions, chat messages, poll questions and votes, and other content you create or share
+- **Interests**: Topics you select during onboarding or in settings, used to suggest people and stories
+- **Availability Status**: Whether you are online, in a room, do-not-disturb or invisible, visible to your friends
+- **Activity Statistics**: Counts of rooms hosted, moderated and joined, used to award badges. These are written by our servers from your activity, not self-reported
 
 ### 2.2 Automatically Collected Information
 
@@ -38,6 +41,7 @@ Our App requires the following permissions to function properly:
 - **Network State Access**: To determine connection quality and optimize audio streaming
 - **Audio Settings Modification**: To manage audio routing and microphone settings
 - **Bluetooth Access**: For connecting to Bluetooth audio devices
+- **Notification Access**: To deliver incoming call alerts and notifications about likes, follows, subscriptions and friend requests
 - **Storage Access**: To temporarily store audio files and images
 - **Notification Access**: To send room reminders and app notifications
 
@@ -81,7 +85,7 @@ The following information is publicly visible to other users:
 We may share your information in the following circumstances:
 
 - **With Other Users**: Your profile information is visible to other users when you participate in rooms or publish content
-- **Service Providers**: We use third-party services (Appwrite for backend services, LiveKit for audio communication, Firebase for notifications) that may process your data on our behalf
+- **Service Providers**: We use third-party services (Appwrite for backend services and push notifications, LiveKit for audio communication) that may process your data on our behalf
 - **Legal Requirements**: We may disclose information if required by law, court order, or government request
 - 
 
@@ -99,17 +103,12 @@ Our App integrates with the following third-party services:
 - **Data Processed**: Audio data during voice sessions, temporary connection tokens
 - **Privacy Policy**: https://livekit.io/legal/privacy-policy
 
-### 5.3 Firebase (Notifications - Optional)
-- **Purpose**: Push notifications for scheduled rooms and app updates
-- **Data Processed**: Device tokens, notification preferences
-- **Privacy Policy**: https://firebase.google.com/support/privacy
-
-### 5.4 GitHub (OAuth Authentication - Optional)
+### 5.3 GitHub (OAuth Authentication - Optional)
 - **Purpose**: Alternative login method
 - **Data Processed**: Public profile information when you choose to login with GitHub
 - **Privacy Policy**: https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement
 
-### 5.5 Google (OAuth Authentication - Optional)
+### 5.4 Google (OAuth Authentication - Optional)
 - **Purpose**: Alternative login method
 - **Data Processed**: Basic profile information when you choose to login with Google
 - **Privacy Policy**: https://policies.google.com/privacy
@@ -121,13 +120,18 @@ Our App integrates with the following third-party services:
 - Audio data is processed in real-time and not permanently stored unless explicitly saved by you
 - Profile images and story content are stored securely with access controls
 
-### 6.2 Security Measures
+### 6.2 Data That Stays on Your Device
+- **Recorded chapters**: Live chapters you host are archived on your device, not uploaded. They remain there until you delete them, and are removed with the app
+- **Transcripts**: Speech-to-text runs entirely on your device. Audio is not sent anywhere for transcription, and the resulting transcript is stored alongside the recording on your device
+- **Preferences**: Theme, language and feature-flag choices are stored locally
+
+### 6.3 Security Measures
 - Data transmission is encrypted using industry-standard protocols
 - User authentication uses secure token-based systems
 - Regular security audits and updates to maintain data protection
 - Access to user data is restricted to authorized personnel only
 
-### 6.3 Data Retention
+### 6.4 Data Retention
 - Account information is retained as long as your account is active
 - You can delete your account and associated data at any time through the app
 - Some data may be retained for legal compliance or legitimate business purposes after account deletion

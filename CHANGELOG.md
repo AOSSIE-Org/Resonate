@@ -1,3 +1,89 @@
+## 4.1.0
+
+<en-IN>
+
+✨ **What's New:**
+
+🚩 Report people and content in rooms and pair chats  
+🗑️ Delete your account from Settings  
+📄 An end-user licence agreement, shown on first launch  
+🔤 Hindi and Punjabi, fully translated  
+
+🛠️ **Fixes:**
+
+🤖 Updated for the latest Android requirements  
+🎧 Live rooms, audio output switching and the miniplayer  
+
+Update now for a better Resonate experience! 🎉
+
+</en-IN>
+
+<hn-IN>
+
+✨ **नया क्या है:**
+
+🚩 रूम और पेयर चैट में लोगों और सामग्री की रिपोर्ट करें  
+🗑️ सेटिंग्स से अपना अकाउंट हटाएँ  
+📄 पहली बार खोलने पर उपयोगकर्ता लाइसेंस अनुबंध  
+🔤 हिंदी और पंजाबी, पूरी तरह अनुवादित  
+
+🛠️ **सुधार:**
+
+🤖 नवीनतम Android आवश्यकताओं के अनुसार अपडेट  
+🎧 लाइव रूम, ऑडियो आउटपुट और मिनीप्लेयर  
+
+बेहतर अनुभव के लिए अभी अपडेट करें! 🎉
+
+</hn-IN>
+
+## 4.0.0
+
+<en-IN>
+
+✨ **What's New:**
+
+📞 One-to-one calls with friends  
+🗳️ Polls in rooms, with live results  
+🟢 Availability status and speaking animations  
+🔍 Interest-based discovery for people and stories  
+🏅 Badges and stats for hosting and taking part  
+🎧 Redesigned room and call screens, with a miniplayer  
+📼 Recorded chapters, kept on your device  
+🔔 Notifications for likes, follows and friend requests  
+
+🛠️ **Fixes:**
+
+🔒 Encrypted connections, and push without Google services  
+🔊 Audio output switching between speaker and earpiece  
+👥 No more duplicate friend requests or subscriptions  
+
+Update now for a better Resonate experience! 🎉
+
+</en-IN>
+
+<hn-IN>
+
+✨ **नया क्या है:**
+
+📞 दोस्तों के साथ वन-टू-वन कॉल  
+🗳️ रूम में पोल, नतीजे लाइव  
+🟢 उपलब्धता स्थिति और बोलने का एनिमेशन  
+🔍 रुचि के आधार पर लोग और कहानियाँ खोजें  
+🏅 बैज और आँकड़े  
+🎧 नए रूम और कॉल स्क्रीन, मिनीप्लेयर के साथ  
+📼 रिकॉर्ड किए गए चैप्टर, आपके डिवाइस पर  
+🔔 लाइक, फॉलो और फ्रेंड रिक्वेस्ट की सूचनाएँ  
+
+🛠️ **सुधार:**
+
+🔒 एन्क्रिप्टेड कनेक्शन, और Google सेवाओं के बिना पुश  
+🔊 स्पीकर और इयरपीस के बीच ऑडियो आउटपुट बदलना  
+👥 फ्रेंड रिक्वेस्ट और सब्सक्रिप्शन अब दोहराए नहीं जाते  
+
+बेहतर अनुभव के लिए अभी अपडेट करें! 🎉
+
+</hn-IN>
+
 ## 3.0.0
 
 <en-IN>

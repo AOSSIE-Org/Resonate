@@ -3,7 +3,6 @@ import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
-    id("com.google.gms.google-services")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
 }
@@ -18,16 +17,12 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace ="com.resonate.resonate"
     compileSdk = 36
-    ndkVersion = "28.0.12433566"
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    kotlinOptions {
-        jvmTarget = "21"
     }
 
 val projectId: String = System.getenv("APPWRITE_PROJECT_ID") ?: "resonate"
@@ -37,9 +32,9 @@ println("PROJECT_ID: $projectId")
         applicationId = "com.resonate.resonate"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdk = flutter.minSdkVersion
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode.toInt()
+        versionCode = flutter.versionCode
         versionName = flutter.versionName
         manifestPlaceholders += mapOf("auth0Domain" to "dev-5w4x3qxvszw8f0u6.us.auth0.com", "auth0Scheme" to "resonate", "PROJECT_ID" to projectId )
     }
@@ -47,10 +42,10 @@ println("PROJECT_ID: $projectId")
     buildTypes {
         signingConfigs {
         create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
+            keyAlias = keystoreProperties["keyAlias"] as String?
+            keyPassword = keystoreProperties["keyPassword"] as String?
             storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-            storePassword = keystoreProperties["storePassword"] as String
+            storePassword = keystoreProperties["storePassword"] as String?
         }
     }
         release {
@@ -61,6 +56,12 @@ println("PROJECT_ID: $projectId")
             signingConfig = signingConfigs.getByName("debug")
             signingConfig = signingConfigs.getByName("release")
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
     }
 }
 

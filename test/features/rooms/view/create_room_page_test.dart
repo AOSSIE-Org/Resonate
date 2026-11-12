@@ -1,0 +1,260 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/rooms/view/pages/create_room_page.dart';
+import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
+
+import '../rooms_test_helpers.dart';
+
+List<Override> buildOverrides(FakeCreateRoom fake) {
+  return [
+    createRoomProvider.overrideWith(() => fake),
+    requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
+    currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
+  ];
+}
+
+void main() {
+  group('CreateRoomPage render', () {
+    testAppWidget('renders Live and Scheduled mode chips', (tester) async {
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: GlobalKey<CreateRoomPageState>()),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Live'), findsOneWidget);
+      expect(find.text('Scheduled'), findsOneWidget);
+      expect(find.text('Create New Room'), findsOneWidget);
+    });
+
+    testAppWidget('tapping Scheduled toggles isScheduled and reveals the '
+        'date/time field', (tester) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      // Live is default: no date-time field yet.
+      expect(key.currentState!.isScheduled, isFalse);
+      expect(find.text('Schedule Date Time'), findsNothing);
+
+      await tester.tap(find.text('Scheduled'));
+      await tester.pumpAndSettle();
+
+      expect(key.currentState!.isScheduled, isTrue);
+      expect(find.text('Schedule Date Time'), findsOneWidget);
+      expect(find.byIcon(Icons.calendar_month), findsOneWidget);
+    });
+
+    testAppWidget('loading overlay shows when createRoomProvider is true', (
+      tester,
+    ) async {
+      final fake = FakeCreateRoom(loading: true);
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: GlobalKey<CreateRoomPageState>()),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pump();
+
+      expect(find.byType(BackdropFilter), findsOneWidget);
+    });
+
+    testAppWidget('no loading overlay when createRoomProvider is false', (
+      tester,
+    ) async {
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: GlobalKey<CreateRoomPageState>()),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(BackdropFilter), findsNothing);
+    });
+  });
+
+  group('CreateRoomPage submit', () {
+    testAppWidget('invalid form returns without calling the notifier', (
+      tester,
+    ) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      // Switch to scheduled so the empty date-time field fails validation.
+      await tester.tap(find.text('Scheduled'));
+      await tester.pumpAndSettle();
+
+      final result = await key.currentState!.submit();
+      await tester.pumpAndSettle();
+
+      expect(result, isNull);
+      expect(fake.liveCount, 0);
+      expect(fake.scheduledCount, 0);
+    });
+
+    // A focused field is what holds the keyboard up, so that is what these
+    // assert on rather than the platform channel.
+    bool aFieldIsFocused(WidgetTester tester) => tester
+        .widgetList<EditableText>(find.byType(EditableText))
+        .any((field) => field.focusNode.hasFocus);
+
+    testAppWidget('submit dismisses the keyboard', (tester) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byType(TextFormField).first, 'My Room');
+      await tester.pumpAndSettle();
+      expect(aFieldIsFocused(tester), isTrue);
+
+      await key.currentState!.submit();
+      await tester.pumpAndSettle();
+
+      expect(
+        aFieldIsFocused(tester),
+        isFalse,
+        reason: 'the keyboard should not stay up after Done',
+      );
+    });
+
+    testAppWidget('submit dismisses the keyboard even when the form is '
+        'invalid', (tester) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      // Scheduled with no date-time is the one thing that fails validation.
+      await tester.tap(find.text('Scheduled'));
+      await tester.pumpAndSettle();
+      // The date field is readOnly, so type in the name field instead.
+      await tester.enterText(find.byType(TextField).at(1), 'My Room');
+      await tester.pumpAndSettle();
+      expect(aFieldIsFocused(tester), isTrue);
+
+      final result = await key.currentState!.submit();
+      await tester.pumpAndSettle();
+
+      expect(result, isNull);
+      expect(fake.scheduledCount, 0);
+      expect(aFieldIsFocused(tester), isFalse);
+    });
+
+    testAppWidget('live mode submit calls createLiveRoom and clears', (
+      tester,
+    ) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      // Name field is the first TextFormField; fill it so the form validates.
+      await tester.enterText(find.byType(TextFormField).first, 'My Room');
+      await tester.pumpAndSettle();
+
+      final result = await key.currentState!.submit();
+      await tester.pumpAndSettle();
+
+      expect(fake.liveCount, 1);
+      expect(fake.scheduledCount, 0);
+      expect(fake.lastName, 'My Room');
+      expect(result, isNotNull);
+      // Cleared after success.
+      expect(find.text('My Room'), findsNothing);
+    });
+
+    testAppWidget('scheduled submit with null iso returns null without '
+        'calling notifier', (tester) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Scheduled'));
+      await tester.pumpAndSettle();
+
+      final dateField = find.byType(TextFormField).first;
+      await tester.enterText(dateField, 'placeholder');
+      await tester.pumpAndSettle();
+
+      final result = await key.currentState!.submit();
+      await tester.pumpAndSettle();
+
+      expect(result, isNull);
+      expect(fake.scheduledCount, 0);
+      expect(fake.liveCount, 0);
+    });
+
+    testAppWidget('submit failure shows failedToCreateRoom snackbar', (
+      tester,
+    ) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom(throwOnCreate: true);
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+        // The toast goes into the root navigator's overlay.
+        rootOverlay: true,
+      );
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byType(TextFormField).first, 'My Room');
+      await tester.pumpAndSettle();
+
+      final result = await key.currentState!.submit();
+      await tester.pump(); // let the snackbar appear
+
+      expect(fake.liveCount, 1);
+      expect(result, isNull);
+      expect(find.text('Failed to create room'), findsOneWidget);
+
+      // Let it time out so no timer outlives the test.
+      await tester.pump(const Duration(seconds: 3));
+    });
+  });
+
+  group('CreateRoomPage tag validation', () {
+    test('isValidTag accepts and rejects the expected tags', () {
+      // _validateTag delegates to the isValidTag extension.
+      expect('goodtag'.isValidTag, isTrue);
+      expect('good_tag1'.isValidTag, isTrue);
+      expect('bad tag'.isValidTag, isFalse); // space
+      expect('bad-tag'.isValidTag, isFalse); // hyphen
+      expect('_leading'.isValidTag, isFalse); // must start alnum
+      expect(('a' * 31).isValidTag, isFalse); // too long
+    });
+  });
+}

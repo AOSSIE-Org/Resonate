@@ -1,0 +1,751 @@
+import 'dart:async';
+
+import 'package:appwrite/appwrite.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:appwrite/models.dart' hide Account;
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:resonate/core/providers/appwrite_providers.dart';
+import 'package:resonate/core/providers/get_storage_provider.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/friends/data/services/callkit_service.dart';
+import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/friends/model/friends_model.dart';
+import 'package:resonate/features/achievements/data/badge_catalogue.dart';
+import 'package:resonate/features/achievements/data/my_stats.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
+import 'package:resonate/features/achievements/data/user_stats_provider.dart';
+import 'package:resonate/features/achievements/model/achievement_badge.dart';
+import 'package:resonate/features/achievements/model/user_stats.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/profile/data/user_avatars.dart';
+import 'package:resonate/utils/enums/friend_request_status.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
+import 'package:resonate/features/rooms/model/appwrite_room.dart';
+import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
+import 'package:resonate/features/live_audio/model/livekit_state.dart';
+import 'package:resonate/features/rooms/model/participant.dart';
+import 'package:resonate/features/live_audio/data/services/audio_band_tracker.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/features/stories/model/chapter.dart';
+import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
+import 'package:resonate/features/stories/model/live_chapter_model.dart';
+import 'package:resonate/features/stories/model/story.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
+import 'package:resonate/utils/enums/room_state.dart';
+import 'package:resonate/utils/enums/story_category.dart';
+
+// No cycle: the generated mocks do not import this file back.
+import 'test_root_container.mocks.dart';
+
+@GenerateMocks([
+  Account,
+  TablesDB,
+  Storage,
+  Realtime,
+  Functions,
+  RealtimeSubscription,
+  Execution,
+  AudioPlayer,
+])
+// Data builders
+AuthUser fakeAuthUser({
+  String uid = '123',
+  String email = 'test@test.com',
+  String displayName = 'Test User',
+  String? userName = 'TestUser',
+  String? profileImageUrl = 'https://example.com/image.jpg',
+  String? profileImageID = 'image123',
+  bool isProfileComplete = true,
+  bool isEmailVerified = true,
+  double ratingTotal = 5,
+  int ratingCount = 1,
+}) => AuthUser(
+  uid: uid,
+  email: email,
+  displayName: displayName,
+  userName: userName,
+  profileImageUrl: profileImageUrl,
+  profileImageID: profileImageID,
+  isProfileComplete: isProfileComplete,
+  isEmailVerified: isEmailVerified,
+  ratingTotal: ratingTotal,
+  ratingCount: ratingCount,
+);
+
+AppwriteRoom fakeAppwriteRoom({
+  String id = 'room-1',
+  String name = 'Test Room',
+  String description = 'A room for testing',
+  int totalParticipants = 1,
+  List<String> tags = const ['test'],
+  List<String> memberAvatarUrls = const [],
+  bool isUserAdmin = true,
+  List<String> reportedUsers = const [],
+  String? myDocId,
+}) => AppwriteRoom(
+  id: id,
+  name: name,
+  description: description,
+  totalParticipants: totalParticipants,
+  tags: tags,
+  memberAvatarUrls: memberAvatarUrls,
+  state: RoomState.live,
+  isUserAdmin: isUserAdmin,
+  reportedUsers: reportedUsers,
+  myDocId: myDocId,
+);
+
+AppwriteUpcomingRoom fakeUpcomingRoom({
+  String id = 'upcoming-1',
+  String name = 'Test Upcoming',
+  bool isTime = false,
+  DateTime? scheduledDateTime,
+  String description = 'A scheduled room',
+  int totalSubscriberCount = 0,
+  List<String> tags = const ['test'],
+  List<String> subscribersAvatarUrls = const [],
+  bool userIsCreator = true,
+  bool hasUserSubscribed = false,
+}) => AppwriteUpcomingRoom(
+  id: id,
+  name: name,
+  isTime: isTime,
+  scheduledDateTime: scheduledDateTime ?? DateTime.now(),
+  description: description,
+  totalSubscriberCount: totalSubscriberCount,
+  tags: tags,
+  subscribersAvatarUrls: subscribersAvatarUrls,
+  userIsCreator: userIsCreator,
+  hasUserSubscribed: hasUserSubscribed,
+);
+
+Participant fakeParticipant({
+  String uid = 'p-1',
+  String email = 'p@test.com',
+  String name = 'Person',
+  String dpUrl = 'https://example.com/dp.jpg',
+  bool isAdmin = false,
+  bool isMicOn = false,
+  bool isModerator = false,
+  bool isSpeaker = false,
+  bool hasRequestedToBeSpeaker = false,
+}) => Participant(
+  uid: uid,
+  email: email,
+  name: name,
+  dpUrl: dpUrl,
+  isAdmin: isAdmin,
+  isMicOn: isMicOn,
+  isModerator: isModerator,
+  isSpeaker: isSpeaker,
+  hasRequestedToBeSpeaker: hasRequestedToBeSpeaker,
+);
+
+FriendsModel fakeFriendsModel({
+  String senderId = 'sender-1',
+  String recieverId = 'reciever-1',
+  String senderName = 'Sender',
+  String recieverName = 'Reciever',
+  String senderUsername = 'sender',
+  String recieverUsername = 'reciever',
+  String senderProfileImgUrl = 'https://example.com/s.jpg',
+  String recieverProfileImgUrl = 'https://example.com/r.jpg',
+  FriendRequestStatus requestStatus = FriendRequestStatus.sent,
+  String? requestSentByUserId,
+  double? senderRating = 4.0,
+  double? recieverRating = 3.5,
+  String docId = 'friend-doc-1',
+}) => FriendsModel(
+  senderId: senderId,
+  recieverId: recieverId,
+  senderName: senderName,
+  recieverName: recieverName,
+  senderUsername: senderUsername,
+  recieverUsername: recieverUsername,
+  senderProfileImgUrl: senderProfileImgUrl,
+  recieverProfileImgUrl: recieverProfileImgUrl,
+  requestStatus: requestStatus,
+  requestSentByUserId: requestSentByUserId ?? senderId,
+  senderRating: senderRating,
+  recieverRating: recieverRating,
+  docId: docId,
+);
+
+Story fakeStory({
+  String storyId = 'story-1',
+  String title = 'Test Story',
+  String description = 'A story for testing',
+  bool userIsCreator = false,
+  StoryCategory category = StoryCategory.drama,
+  String coverImageUrl = 'https://example.com/cover.jpg',
+  String creatorId = 'creator-1',
+  String creatorName = 'Creator',
+  String creatorImgUrl = 'https://example.com/avatar.jpg',
+  DateTime? creationDate,
+  int likesCount = 0,
+  bool isLikedByCurrentUser = false,
+  int playDuration = 1000,
+}) => Story(
+  storyId: storyId,
+  title: title,
+  description: description,
+  userIsCreator: userIsCreator,
+  category: category,
+  coverImageUrl: coverImageUrl,
+  creatorId: creatorId,
+  creatorName: creatorName,
+  creatorImgUrl: creatorImgUrl,
+  creationDate: creationDate ?? DateTime(2024, 1, 1),
+  likesCount: likesCount,
+  isLikedByCurrentUser: isLikedByCurrentUser,
+  playDuration: playDuration,
+  tintColor: const Color(0xffcbc6c6),
+);
+
+Chapter fakeChapter({
+  String chapterId = 'chapter-1',
+  String title = 'Chapter One',
+  String coverImageUrl = 'https://example.com/chapter.jpg',
+  String description = 'A chapter for testing',
+  String lyrics = '',
+  String audioFileUrl = 'https://example.com/audio.mp3',
+  int playDuration = 500,
+}) => Chapter(
+  chapterId: chapterId,
+  title: title,
+  coverImageUrl: coverImageUrl,
+  description: description,
+  lyrics: lyrics,
+  audioFileUrl: audioFileUrl,
+  playDuration: playDuration,
+  tintColor: const Color(0xffcbc6c6),
+);
+
+LiveChapterAttendeesModel fakeLiveChapterAttendees({
+  String liveChapterId = 'room-1',
+  List<LiveChapterAttendee> users = const [],
+  List<String>? userIds = const [],
+}) => LiveChapterAttendeesModel(
+  liveChapterId: liveChapterId,
+  users: users,
+  userIds: userIds,
+);
+
+LiveChapterModel fakeLiveChapterModel({
+  String id = 'room-1',
+  String? livekitRoomId,
+  String authorUid = 'author-1',
+  String authorProfileImageUrl = 'https://example.com/a.jpg',
+  String authorName = 'Author',
+  String chapterTitle = 'Live Chapter',
+  String chapterDescription = 'Live description',
+  String storyId = 'story-1',
+  LiveChapterAttendeesModel? attendees,
+}) => LiveChapterModel(
+  livekitRoomId: livekitRoomId ?? id,
+  authorUid: authorUid,
+  authorProfileImageUrl: authorProfileImageUrl,
+  authorName: authorName,
+  chapterTitle: chapterTitle,
+  chapterDescription: chapterDescription,
+  storyId: storyId,
+  attendees: attendees,
+  id: id,
+);
+
+ResonateUser fakeResonateUser({
+  String uid = 'user-1',
+  String userName = 'testuser',
+  String name = 'Test User',
+  String profileImageUrl = 'https://example.com/u.jpg',
+  String? email,
+  double userRating = 4.5,
+}) => ResonateUser(
+  uid: uid,
+  userName: userName,
+  name: name,
+  profileImageUrl: profileImageUrl,
+  email: email,
+  userRating: userRating,
+);
+
+void stubFlutterSecureStorageChannel() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(
+        const MethodChannel('plugins.it_nomads.com/flutter_secure_storage'),
+        (call) async => null,
+      );
+}
+
+
+StreamController<RealtimeMessage> stubRealtimeChannel(
+  MockRealtime realtime, {
+  MockRealtimeSubscription? subscription,
+}) {
+  final controller = StreamController<RealtimeMessage>.broadcast();
+  final sub = subscription ?? MockRealtimeSubscription();
+  when(sub.stream).thenAnswer((_) => controller.stream);
+  when(sub.close).thenReturn(() async {});
+  when(realtime.subscribe(any)).thenReturn(sub);
+  addTearDown(controller.close);
+  return controller;
+}
+
+Row buildRow({
+  required String id,
+  required Map<String, dynamic> data,
+  String tableId = 'test-table',
+  String databaseId = 'test-db',
+}) => Row(
+  $id: id,
+  $sequence: '0',
+  $tableId: tableId,
+  $databaseId: databaseId,
+  $createdAt: DateTime.now().toIso8601String(),
+  $updatedAt: DateTime.now().toIso8601String(),
+  $permissions: const [],
+  data: data,
+);
+
+class FakeGetStorage implements GetStorage {
+  final Map<String, dynamic> _data = {};
+
+  @override
+  T? read<T>(String key) => _data[key] as T?;
+
+  @override
+  Future<void> write(String key, dynamic value) async {
+    _data[key] = value;
+  }
+
+  @override
+  Future<void> remove(String key) async {
+    _data.remove(key);
+  }
+
+  @override
+  Future<void> erase() async {
+    _data.clear();
+  }
+
+  @override
+  bool hasData(String key) => _data.containsKey(key);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
+    '${invocation.memberName} not stubbed in FakeGetStorage',
+  );
+}
+
+class FakeLiveKitController extends LiveKitController {
+  final _speakerLevels = StreamController<Map<String, double>>.broadcast();
+  final _speakerBands = StreamController<SpeakerBands>.broadcast();
+
+  @override
+  Stream<Map<String, double>> get speakerLevels => _speakerLevels.stream;
+
+  @override
+  Stream<SpeakerBands> get speakerBands => _speakerBands.stream;
+
+  void emitSpeakerLevels(Map<String, double> levels) {
+    if (!_speakerLevels.isClosed) _speakerLevels.add(levels);
+  }
+
+  void emitSpeakerBands(String uid, List<double> bands) {
+    if (!_speakerBands.isClosed) _speakerBands.add((uid: uid, bands: bands));
+  }
+
+  @override
+  LiveKitState build() {
+    ref.onDispose(_speakerLevels.close);
+    ref.onDispose(_speakerBands.close);
+    return const LiveKitState();
+  }
+
+  @override
+  Future<bool> connect({
+    required String liveKitUri,
+    required String roomToken,
+    bool isLiveChapter = false,
+  }) async {
+    state = const LiveKitState(hasSession: true, isConnected: true);
+    return true;
+  }
+
+  @override
+  Future<void> disconnect() async {
+    state = const LiveKitState();
+  }
+
+  @override
+  Future<void> setMicrophoneEnabled(bool enabled) async {}
+
+  @override
+  Future<void> setRecording(bool recording) async {
+    state = state.copyWith(isRecording: recording);
+  }
+}
+
+class FakeAudioPlayer extends MockAudioPlayer {
+  final _positions = StreamController<Duration>.broadcast();
+  final _durations = StreamController<Duration>.broadcast();
+  final _completions = StreamController<void>.broadcast();
+
+  // In call order, so a test can assert what the player was asked to do.
+  final calls = <String>[];
+  String? sourcePath;
+
+  @override
+  Stream<Duration> get onPositionChanged => _positions.stream;
+
+  @override
+  Stream<Duration> get onDurationChanged => _durations.stream;
+
+  @override
+  Stream<void> get onPlayerComplete => _completions.stream;
+
+  @override
+  Future<void> setSourceDeviceFile(String? path, {String? mimeType}) async {
+    sourcePath = path;
+    calls.add('load');
+  }
+
+  @override
+  Future<void> resume() async => calls.add('resume');
+
+  @override
+  Future<void> pause() async => calls.add('pause');
+
+  @override
+  Future<void> seek(Duration? position) async => calls.add('seek');
+
+  @override
+  Future<void> stop() async => calls.add('stop');
+
+  @override
+  Future<void> dispose() async {
+    await _positions.close();
+    await _durations.close();
+    await _completions.close();
+  }
+
+  void emitPosition(Duration position) => _positions.add(position);
+  void emitDuration(Duration duration) => _durations.add(duration);
+  void complete() => _completions.add(null);
+}
+
+class ConnectedLiveKitController extends FakeLiveKitController {
+  @override
+  LiveKitState build() {
+    super.build();
+    return const LiveKitState(hasSession: true, isConnected: true);
+  }
+}
+
+class FakeCallKitService extends CallKitService {
+  int showIncomingCallCount = 0;
+  int endAllCallsCount = 0;
+
+  @override
+  void start({
+    required Future<void> Function(Map<String, dynamic> extra) onAccept,
+    required Future<void> Function(Map<String, dynamic> extra) onDecline,
+  }) {}
+
+  @override
+  Future<void> stop() async {}
+
+  @override
+  Future<void> showIncomingCall(Map<String, dynamic> data) async {
+    showIncomingCallCount++;
+  }
+
+  @override
+  Future<void> endAllCalls() async {
+    endAllCallsCount++;
+  }
+}
+
+class FakeAuthRepository implements AuthRepository {
+  FakeAuthRepository(this.state);
+
+  AuthState state;
+  int loadCount = 0;
+  int loginCount = 0;
+  int signupCount = 0;
+  int logoutCount = 0;
+  int addTokenCount = 0;
+  int removeTokenCount = 0;
+
+  final StreamController<AsyncValue<AuthState>> _sessionStateController =
+      StreamController<AsyncValue<AuthState>>.broadcast(sync: true);
+  AsyncValue<AuthState> _sessionState = const AsyncValue.loading();
+  Future<AuthState>? _initialLoad;
+
+  @override
+  AsyncValue<AuthState> get sessionState => _sessionState;
+
+  @override
+  Stream<AsyncValue<AuthState>> get sessionStateChanges =>
+      _sessionStateController.stream;
+
+  void _setSessionState(AsyncValue<AuthState> next) {
+    _sessionState = next;
+    _sessionStateController.add(next);
+  }
+
+  @override
+  Future<AuthState> ensureSessionLoaded() {
+    if (_sessionState case AsyncData(:final value)) {
+      return Future.value(value);
+    }
+    return _initialLoad ??= () async {
+      final next = await loadCurrentUser();
+      _setSessionState(AsyncData(next));
+      return next;
+    }();
+  }
+
+  @override
+  Future<void> refresh() async {
+    _setSessionState(const AsyncValue.loading());
+    _setSessionState(AsyncData(await loadCurrentUser()));
+  }
+
+  @override
+  Future<AuthState> loadCurrentUser() async {
+    loadCount++;
+    return state;
+  }
+
+  @override
+  Future<void> loginWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    loginCount++;
+    _setSessionState(AsyncData(state));
+  }
+
+  @override
+  Future<void> signupWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    signupCount++;
+    _setSessionState(AsyncData(state));
+  }
+
+  @override
+  Future<void> logout() async {
+    logoutCount++;
+    _setSessionState(const AsyncData(AuthState.unauthenticated()));
+  }
+
+  @override
+  Future<void> loginWithGoogle() async {
+    _setSessionState(AsyncData(state));
+  }
+
+  @override
+  Future<void> loginWithGithub() async {
+    _setSessionState(AsyncData(state));
+  }
+
+  @override
+  void dispose() {
+    _sessionStateController.close();
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
+    '${invocation.memberName} not stubbed in FakeAuthRepository',
+  );
+}
+
+class FakeMyActivityStatus extends MyActivityStatus {
+  FakeMyActivityStatus([this.initial = ActivityStatus.online]);
+
+  final ActivityStatus initial;
+  final List<ActivityStatus> setStatusCalls = [];
+  int goOfflineCount = 0;
+
+  @override
+  ActivityStatus build() => initial;
+
+  @override
+  ActivityStatus get chosen => state;
+
+  @override
+  Future<void> setStatus(ActivityStatus status) async {
+    setStatusCalls.add(status);
+    state = status;
+  }
+
+  @override
+  Future<void> goOffline() async => goOfflineCount++;
+}
+
+class FakeUserActivityStatus extends UserActivityStatus {
+  FakeUserActivityStatus([this.statuses = const {}]);
+
+  final Map<String, ActivityStatus> statuses;
+
+  @override
+  Map<String, ActivityStatus> build() => statuses;
+
+  @override
+  ActivityStatus? statusOf(String uid) => statuses[uid];
+}
+
+class FakeMyStats extends MyStats {
+  FakeMyStats([this.initial = UserStats.empty]);
+
+  final UserStats initial;
+  final List<({List<String> displayedBadges, String? avatarBadge})>
+  showcaseCalls = [];
+  bool showcaseSucceeds = true;
+
+  @override
+  Future<UserStats> build() async => initial;
+
+  @override
+  Future<bool> setShowcase({
+    required List<String> displayedBadges,
+    required String? avatarBadge,
+  }) async {
+    showcaseCalls.add((
+      displayedBadges: displayedBadges,
+      avatarBadge: avatarBadge,
+    ));
+    if (!showcaseSucceeds) return false;
+    state = AsyncData(
+      (state.value ?? initial).copyWith(
+        displayedBadges: displayedBadges,
+        avatarBadge: avatarBadge,
+      ),
+    );
+    return true;
+  }
+}
+
+class FakeActivityRecorder extends ActivityRecorder {
+  final List<int> interactions = [];
+  final List<String> roomCredits = [];
+  final StreamController<List<String>> _earned =
+      StreamController<List<String>>.broadcast();
+
+  @override
+  void build() {
+    ref.onDispose(_earned.close);
+  }
+
+  @override
+  Stream<List<String>> get badgesEarned => _earned.stream;
+
+  void emitBadgesEarned(List<String> badgeIds) {
+    if (!_earned.isClosed) _earned.add(badgeIds);
+  }
+
+  @override
+  void recordInteraction([int count = 1]) => interactions.add(count);
+
+  @override
+  Future<void> recordRoomCredit(String roomId) async => roomCredits.add(roomId);
+}
+
+List<Override> avatarOverrides([Map<String, String?> urls = const {}]) => [
+  userAvatarUrlProvider.overrideWith((ref, uid) async => urls[uid]),
+];
+
+List<Override> authOverrides([
+  AuthState state = const AuthState.unauthenticated(),
+]) => [authRepositoryProvider.overrideWithValue(FakeAuthRepository(state))];
+
+// Otherwise any badge widget builds the real repository and strands a timer.
+List<Override> achievementOverrides({
+  UserStats myStats = UserStats.empty,
+  Map<String, UserStats> otherStats = const {},
+  List<AchievementBadge> catalogue = kDefaultBadges,
+  FakeActivityRecorder? recorder,
+  FakeMyStats? myStatsNotifier,
+}) => [
+  myStatsProvider.overrideWith(() => myStatsNotifier ?? FakeMyStats(myStats)),
+  userStatsProvider.overrideWith(
+    (ref, uid) => otherStats[uid] ?? UserStats.empty,
+  ),
+  badgeCatalogueProvider.overrideWith((ref) => catalogue),
+  activityRecorderProvider.overrideWith(
+    () => recorder ?? FakeActivityRecorder(),
+  ),
+];
+
+List<Override> activityStatusOverrides({
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> others = const {},
+}) => [
+  myActivityStatusProvider.overrideWith(() => FakeMyActivityStatus(myStatus)),
+  userActivityStatusProvider.overrideWith(() => FakeUserActivityStatus(others)),
+];
+
+Future<ProviderContainer> installTestRootContainer({
+  AuthState? authState,
+  Account? account,
+  TablesDB? tables,
+  Client? client,
+  Storage? storage,
+  Functions? functions,
+  Realtime? realtime,
+  FakeAuthRepository? authRepository,
+  GetStorage? getStorageBox,
+  CallKitService? callKit,
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> activityStatuses = const {},
+  UserStats myStats = UserStats.empty,
+  Map<String, UserStats> otherStats = const {},
+  FakeActivityRecorder? activityRecorder,
+  List<Override> overrides = const [],
+}) async {
+  final container = ProviderContainer(
+    overrides: [
+      if (authRepository != null)
+        authRepositoryProvider.overrideWithValue(authRepository),
+      if (authRepository == null && authState != null)
+        authRepositoryProvider.overrideWithValue(FakeAuthRepository(authState)),
+      if (getStorageBox != null)
+        getStorageBoxProvider.overrideWithValue(getStorageBox),
+      liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
+      ...activityStatusOverrides(myStatus: myStatus, others: activityStatuses),
+      ...achievementOverrides(
+        myStats: myStats,
+        otherStats: otherStats,
+        recorder: activityRecorder,
+      ),
+      callKitServiceProvider.overrideWithValue(callKit ?? FakeCallKitService()),
+      if (account != null) appwriteAccountProvider.overrideWithValue(account),
+      if (tables != null) appwriteTablesProvider.overrideWithValue(tables),
+      if (client != null) appwriteClientProvider.overrideWithValue(client),
+      if (storage != null) appwriteStorageProvider.overrideWithValue(storage),
+      if (functions != null)
+        appwriteFunctionsProvider.overrideWithValue(functions),
+      if (realtime != null)
+        appwriteRealtimeProvider.overrideWithValue(realtime),
+      ...overrides,
+    ],
+  );
+  if (authRepository != null || authState != null || account != null) {
+    // Warm the session so synchronous ref.read(...) sees loaded state.
+    await container.read(authSessionProvider.future);
+  }
+  addTearDown(container.dispose);
+  return container;
+}

@@ -14,13 +14,6 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
     groups:
-      # Group Firebase-related packages together
-      firebase:
-        patterns:
-          - "firebase_*"
-        update-types:
-          - "minor"
-          - "patch"
       # Group Flutter-related packages together
       flutter-packages:
         patterns:

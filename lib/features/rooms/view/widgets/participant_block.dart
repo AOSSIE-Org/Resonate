@@ -1,0 +1,243 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
+import 'package:resonate/features/profile/view/widgets/user_profile_card.dart';
+import 'package:resonate/features/rooms/model/appwrite_room.dart';
+import 'package:resonate/features/rooms/model/participant.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
+import 'package:resonate/shared/widgets/session_participant_card.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
+import 'package:resonate/features/rooms/view/widgets/report_widget.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+
+class _FocusedMenuItemData {
+  _FocusedMenuItemData(this.text, this.action);
+  final String text;
+  final VoidCallback action;
+}
+
+class ParticipantBlock extends ConsumerWidget {
+  const ParticipantBlock({
+    super.key,
+    required this.room,
+    required this.participant,
+    this.featured = false,
+  });
+
+  final AppwriteRoom room;
+  final Participant participant;
+
+  final bool featured;
+
+  String _userRole(BuildContext context) {
+    if (participant.isAdmin) return AppLocalizations.of(context)!.admin;
+    if (participant.isModerator) return AppLocalizations.of(context)!.moderator;
+    if (participant.isSpeaker) return AppLocalizations.of(context)!.speaker;
+    return AppLocalizations.of(context)!.listener;
+  }
+
+  List<FocusedMenuItem> _makeItems(
+    BuildContext context,
+    List<_FocusedMenuItemData> items,
+  ) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return items
+        .map(
+          (item) => FocusedMenuItem(
+            title: Expanded(
+              child: Text(
+                item.text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: UiSizes.size_14),
+              ),
+            ),
+            trailingIcon: Icon(
+              Icons.remove_circle_outline,
+              color: colorScheme.error,
+              size: UiSizes.size_18,
+            ),
+            onPressed: item.action,
+            backgroundColor: colorScheme.surface,
+          ),
+        )
+        .toList();
+  }
+
+  Future<void> _report(
+    BuildContext context,
+    WidgetRef ref, {
+    required bool kick,
+  }) async {
+    final l10n = AppLocalizations.of(context)!;
+    final draft = await showDialog<ReportDraft>(
+      context: context,
+      builder: (_) => ReportWidget(
+        participantName: participant.name,
+        participantId: participant.uid,
+      ),
+    );
+    if (draft == null) return;
+
+    final notifier = ref.read(roomSessionProvider(room).notifier);
+    final filed = kick
+        ? await notifier.reportAndKick(room, participant, report: draft)
+        : await notifier.reportParticipantOnly(participant, report: draft);
+    customSnackbar(
+      filed ? l10n.success : l10n.error,
+      filed ? l10n.reportSubmitted : l10n.reportFailed,
+      filed ? LogType.success : LogType.error,
+    );
+  }
+
+  List<FocusedMenuItem> _menuItems(
+    BuildContext context,
+    WidgetRef ref,
+    Participant me,
+  ) {
+    if (participant.uid == me.uid) return [];
+    final notifier = ref.read(roomSessionProvider(room).notifier);
+
+    if ((!me.isAdmin && !me.isModerator) || participant.isAdmin) {
+      return _makeItems(context, [
+        _FocusedMenuItemData(
+          AppLocalizations.of(context)!.reportParticipant,
+          () => _report(context, ref, kick: false),
+        ),
+      ]);
+    }
+
+    if (me.isAdmin) {
+      if (participant.isModerator) {
+        return _makeItems(context, [
+          _FocusedMenuItemData(
+            AppLocalizations.of(context)!.removeModerator,
+            () => notifier.setRole(room, participant, ParticipantRole.listener),
+          ),
+          _FocusedMenuItemData(
+            AppLocalizations.of(context)!.kickOut,
+            () => notifier.kickOutParticipant(room, participant),
+          ),
+          _FocusedMenuItemData(
+            AppLocalizations.of(context)!.reportParticipant,
+            () => _report(context, ref, kick: true),
+          ),
+        ]);
+      } else {
+        return _makeItems(context, [
+          _FocusedMenuItemData(
+            AppLocalizations.of(context)!.addModerator,
+            () =>
+                notifier.setRole(room, participant, ParticipantRole.moderator),
+          ),
+          if (participant.hasRequestedToBeSpeaker)
+            _FocusedMenuItemData(
+              AppLocalizations.of(context)!.addSpeaker,
+              () =>
+                  notifier.setRole(room, participant, ParticipantRole.speaker),
+            ),
+          if (participant.isSpeaker)
+            _FocusedMenuItemData(
+              AppLocalizations.of(context)!.makeListener,
+              () =>
+                  notifier.setRole(room, participant, ParticipantRole.listener),
+            ),
+          _FocusedMenuItemData(
+            AppLocalizations.of(context)!.kickOut,
+            () => notifier.kickOutParticipant(room, participant),
+          ),
+          _FocusedMenuItemData(
+            AppLocalizations.of(context)!.reportParticipant,
+            () => _report(context, ref, kick: true),
+          ),
+        ]);
+      }
+    }
+
+    if (me.isModerator) {
+      if (participant.isModerator) return [];
+      return _makeItems(context, [
+        if (participant.hasRequestedToBeSpeaker)
+          _FocusedMenuItemData(
+            AppLocalizations.of(context)!.addSpeaker,
+            () => notifier.setRole(room, participant, ParticipantRole.speaker),
+          ),
+        if (participant.isSpeaker)
+          _FocusedMenuItemData(
+            AppLocalizations.of(context)!.makeListener,
+            () => notifier.setRole(room, participant, ParticipantRole.listener),
+          ),
+        _FocusedMenuItemData(
+          AppLocalizations.of(context)!.kickOut,
+          () => notifier.kickOutParticipant(room, participant),
+        ),
+        _FocusedMenuItemData(
+          AppLocalizations.of(context)!.reportParticipant,
+          () => _report(context, ref, kick: true),
+        ),
+      ]);
+    }
+
+    return [];
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final me = ref.watch(
+      roomSessionProvider(room).select((session) => session.value?.me),
+    );
+    if (me == null) return const SizedBox.shrink();
+
+    final avatarUrl = resolveAvatarUrl(ref, participant.dpUrl);
+    final canOpenMenu = participant.uid != me.uid;
+
+    final card = GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onLongPress: () => showUserProfileCard(
+        context,
+        uid: participant.uid,
+        name: participant.name,
+        avatarUrl: avatarUrl,
+      ),
+      child: _card(context),
+    );
+
+    if (!canOpenMenu) return card;
+
+    return FocusedMenuHolder(
+      onPressed: () {},
+      menuItemExtent: MediaQuery.textScalerOf(context).scale(UiSizes.height_45),
+      menuWidth: MediaQuery.sizeOf(context).width * 0.62,
+      menuBoxDecoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.primary,
+          width: UiSizes.width_1,
+        ),
+      ),
+      duration: const Duration(milliseconds: 100),
+      animateMenuItems: true,
+      blurBackgroundColor: Theme.of(
+        context,
+      ).colorScheme.surface.withValues(alpha: 0.54),
+      menuItems: _menuItems(context, ref, me),
+      openWithTap: true,
+      child: card,
+    );
+  }
+
+  Widget _card(BuildContext context) => SessionParticipantCard(
+    uid: participant.uid,
+    name: participant.name,
+    role: _userRole(context),
+    avatarUrl: participant.dpUrl,
+    featured: featured,
+    isMicOn: participant.isSpeaker ? participant.isMicOn : null,
+    handRaised: participant.hasRequestedToBeSpeaker,
+  );
+}

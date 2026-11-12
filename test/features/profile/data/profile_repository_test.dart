@@ -1,0 +1,640 @@
+import 'dart:ui';
+
+import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart' hide Account;
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
+import 'package:resonate/features/profile/model/change_email_state.dart';
+import 'package:resonate/features/stories/model/story.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
+import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/story_category.dart';
+
+import 'profile_repository_test.mocks.dart';
+
+Row _storyRow(String id, String title, String category, String creatorId) =>
+    Row(
+      $id: id,
+      $tableId: storyTableId,
+      $databaseId: databaseId,
+      $createdAt: DateTime(2024).toIso8601String(),
+      $updatedAt: DateTime(2024).toIso8601String(),
+      $permissions: const ['any'],
+      $sequence: '0',
+      data: {
+        'title': title,
+        'description': 'Description of $title',
+        'category': category,
+        'coverImgUrl': 'http://cover/$id',
+        'creatorId': creatorId,
+        'creatorName': 'Creator',
+        'creatorImgUrl': 'http://img/$id',
+        'likes': 10,
+        'tintColor': '0000FF',
+        'playDuration': 120,
+      },
+    );
+
+final _userRowWithFollowers = Row(
+  $id: 'id1',
+  $tableId: usersTableID,
+  $databaseId: databaseId,
+  $createdAt: DateTime(2024).toIso8601String(),
+  $updatedAt: DateTime(2024).toIso8601String(),
+  $permissions: const ['any'],
+  $sequence: '0',
+  data: {
+    'name': 'Test User 1',
+    'username': 'testuser1',
+    'profileImageUrl': 'http://img/1',
+    'ratingTotal': 9,
+    'ratingCount': 2,
+    'followers': [
+      {
+        'followerUserId': 'id2',
+        'followerUsername': 'testu2',
+        'followerName': 'Test User 2',
+        'followerProfileImageUrl': 'http://img/2',
+        'followerRating': 5,
+        '\$id': 'doc2',
+      },
+      {
+        'followerUserId': 'id3',
+        'followerUsername': 'testu3',
+        'followerName': 'Test User 3',
+        'followerProfileImageUrl': 'http://img/3',
+        'followerRating': 5,
+        '\$id': 'doc3',
+      },
+    ],
+  },
+);
+
+final _unratedUserRow = Row(
+  $id: 'fresh',
+  $tableId: usersTableID,
+  $databaseId: databaseId,
+  $createdAt: DateTime(2024).toIso8601String(),
+  $updatedAt: DateTime(2024).toIso8601String(),
+  $permissions: const ['any'],
+  $sequence: '0',
+  data: const {'name': 'Fresh User'},
+);
+
+Row _genericRow() => Row(
+      $id: 'x',
+      $tableId: 't',
+      $databaseId: 'd',
+      $createdAt: DateTime(2024).toIso8601String(),
+      $updatedAt: DateTime(2024).toIso8601String(),
+      $permissions: const ['any'],
+      $sequence: '0',
+      data: const {},
+    );
+
+User _user() => User(
+      $id: 'u1',
+      name: 'Test User',
+      email: 'test@test.com',
+      emailVerification: true,
+      prefs: Preferences(data: const {}),
+      $createdAt: DateTime(2024).toIso8601String(),
+      $updatedAt: DateTime(2024).toIso8601String(),
+      accessedAt: DateTime(2024).toIso8601String(),
+      registration: DateTime(2024).toIso8601String(),
+      phone: '',
+      phoneVerification: false,
+      mfa: false,
+      passwordUpdate: DateTime(2024).toIso8601String(),
+      status: true,
+      labels: const [],
+      hash: 'Argon2',
+      targets: const [],
+      hashOptions: const {},
+    );
+
+@GenerateMocks([TablesDB, Storage, Account, Functions, Realtime])
+void main() {
+  late MockTablesDB tables;
+  late MockStorage storage;
+  late MockAccount account;
+  late MockFunctions functions;
+  late MockRealtime realtime;
+  late ProfileRepository repo;
+
+  setUp(() {
+    tables = MockTablesDB();
+    storage = MockStorage();
+    account = MockAccount();
+    functions = MockFunctions();
+    realtime = MockRealtime();
+    repo = ProfileRepository(
+      tables: tables,
+      storage: storage,
+      account: account,
+      functions: functions,
+      realtime: realtime,
+    );
+  });
+
+  group('rowsToStories', () {
+    test('maps row fields onto the Story model', () {
+      final stories = Story.fromRows([
+        _storyRow('doc1', 'Story 1', 'comedy', 'id1'),
+        _storyRow('doc2', 'Story 2', 'thriller', 'id2'),
+      ]);
+      expect(stories.length, 2);
+      expect(stories[0].title, 'Story 1');
+      expect(stories[0].storyId, 'doc1');
+      expect(stories[0].category, StoryCategory.comedy);
+      expect(stories[1].category, StoryCategory.thriller);
+      expect(stories[0].likesCount, 10);
+      expect(stories[0].tintColor, const Color(0xff0000FF));
+      expect(stories[0].userIsCreator, false);
+    });
+  });
+
+  group('fetchFollowers', () {
+    test('parses the followers relation', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: [Query.select(['*', 'followers.*'])],
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+
+      final followers = await repo.fetchFollowers('id1');
+      expect(followers.length, 2);
+      expect(followers[0].name, 'Test User 2');
+      expect(followers[0].docId, 'doc2');
+      expect(followers[1].uid, 'id3');
+    });
+
+    test('returns [] when the lookup throws', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: [Query.select(['*', 'followers.*'])],
+        ),
+      ).thenThrow(AppwriteException('boom'));
+
+      expect(await repo.fetchFollowers('id1'), isEmpty);
+    });
+  });
+
+  group('fetchProfileSummary', () {
+    // The summary wants a count, so no follower row ever comes back.
+    void stubFollowerCount(int total) {
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: followersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: total, rows: []));
+    }
+
+    test('reads the handle and rating from the row, the count from the '
+        'followers table', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+      stubFollowerCount(2);
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.uid, 'id1');
+      expect(summary.name, 'Test User 1');
+      expect(summary.username, 'testuser1');
+      expect(summary.avatarUrl, 'http://img/1');
+      // 9 stars over 2 ratings.
+      expect(summary.rating, 4.5);
+      expect(summary.followerCount, 2);
+    });
+
+    test('counts followers without pulling a single follower row', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+      // A popular creator: thousands of followers, no rows in the response.
+      stubFollowerCount(4213);
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.followerCount, 4213);
+
+      final userQueries =
+          verify(
+                tables.getRow(
+                  databaseId: databaseId,
+                  tableId: usersTableID,
+                  rowId: 'id1',
+                  queries: captureAnyNamed('queries'),
+                ),
+              ).captured.single
+              as List<String>;
+      // The row read no longer expands the relationship just to length it.
+      expect(
+        userQueries.any((q) => q.contains('followers')),
+        isFalse,
+        reason: 'followers.* must not be expanded merely to count them',
+      );
+
+      final countQueries =
+          verify(
+                tables.listRows(
+                  databaseId: databaseId,
+                  tableId: followersTableID,
+                  queries: captureAnyNamed('queries'),
+                ),
+              ).captured.single
+              as List<String>;
+      expect(countQueries, contains(Query.equal('followedUid', 'id1')));
+      expect(countQueries, contains(Query.limit(1)));
+    });
+
+    test('reports an unrated user as 0 rather than dividing by zero', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'fresh',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _unratedUserRow);
+      stubFollowerCount(0);
+
+      final summary = await repo.fetchProfileSummary('fresh');
+      expect(summary.rating, 0);
+      expect(summary.followerCount, 0);
+      expect(summary.username, isEmpty);
+    });
+
+    test('a failed count still returns the rest of the summary', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: followersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenThrow(AppwriteException('boom'));
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.name, 'Test User 1');
+      expect(summary.followerCount, 0);
+    });
+
+    test('lets the failure through so the caller can show it', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenThrow(AppwriteException('boom'));
+      stubFollowerCount(0);
+
+      expect(
+        () => repo.fetchProfileSummary('id1'),
+        throwsA(isA<Object>()),
+      );
+    });
+  });
+
+  group('follow / unfollow', () {
+    final follower = FollowerUserModel(
+      docId: 'fdoc1',
+      uid: 'id2',
+      username: 'testu2',
+      profileImageUrl: 'http://img/2',
+      name: 'Test User 2',
+      followingUserId: 'id1',
+      followerRating: 5,
+    );
+
+    test('followCreator creates the follower row', () async {
+      when(
+        tables.createRow(
+          databaseId: databaseId,
+          tableId: followersTableID,
+          rowId: 'fdoc1',
+          data: anyNamed('data'),
+        ),
+      ).thenAnswer((_) async => _genericRow());
+
+      await repo.followCreator(follower);
+      final data =
+          verify(
+                tables.createRow(
+                  databaseId: databaseId,
+                  tableId: followersTableID,
+                  rowId: 'fdoc1',
+                  data: captureAnyNamed('data'),
+                ),
+              ).captured.single
+              as Map;
+      expect(data, containsPair('followingUserId', 'id1'));
+      // Mirrored into a plain column because Appwrite cannot filter, and so
+      // cannot count, on a relationship.
+      expect(data, containsPair('followedUid', 'id1'));
+      for (final entry in follower.toJson().entries) {
+        expect(data, containsPair(entry.key, entry.value));
+      }
+    });
+
+    test('unfollowCreator deletes the follower row', () async {
+      when(
+        tables.deleteRow(
+          databaseId: databaseId,
+          tableId: followersTableID,
+          rowId: 'fdoc1',
+        ),
+      ).thenAnswer((_) async => '');
+
+      await repo.unfollowCreator('fdoc1');
+      verify(
+        tables.deleteRow(
+          databaseId: databaseId,
+          tableId: followersTableID,
+          rowId: 'fdoc1',
+        ),
+      ).called(1);
+    });
+  });
+
+  group('isUsernameAvailable', () {
+    test('returns true without a lookup when it matches currentUsername',
+        () async {
+      expect(
+        await repo.isUsernameAvailable('me', currentUsername: 'me'),
+        true,
+      );
+      verifyNever(
+        tables.getRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+        ),
+      );
+    });
+
+    test('returns false when the username row exists', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          rowId: 'taken',
+        ),
+      ).thenAnswer((_) async => _genericRow());
+      expect(await repo.isUsernameAvailable('taken'), false);
+    });
+
+    test('returns true when the lookup throws (row not found)', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          rowId: 'free',
+        ),
+      ).thenThrow(AppwriteException('not found', 404));
+      expect(await repo.isUsernameAvailable('free'), true);
+    });
+  });
+
+  group('isEmailAvailable', () {
+    test('true when no rows, false when some exist', () async {
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          queries: [Query.equal('email', 'free@test.com')],
+        ),
+      ).thenAnswer((_) async => RowList(total: 0, rows: const []));
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          queries: [Query.equal('email', 'taken@test.com')],
+        ),
+      ).thenAnswer((_) async => RowList(total: 1, rows: [_genericRow()]));
+
+      expect(await repo.isEmailAvailable('free@test.com'), true);
+      expect(await repo.isEmailAvailable('taken@test.com'), false);
+    });
+  });
+
+  group('changeEmailInAuth', () {
+    test('maps invalid credentials to ChangeEmailFailure', () async {
+      when(account.updateEmail(email: 'e', password: 'p')).thenThrow(
+        AppwriteException('bad', 401, userInvalidCredentials),
+      );
+      expect(
+        () => repo.changeEmailInAuth(email: 'e', password: 'p'),
+        throwsA(ChangeEmailFailure.invalidCredentials),
+      );
+    });
+
+    test('maps argument-invalid to passwordTooShort', () async {
+      when(account.updateEmail(email: 'e', password: 'p')).thenThrow(
+        AppwriteException('bad', 400, generalArgumentInvalid),
+      );
+      expect(
+        () => repo.changeEmailInAuth(email: 'e', password: 'p'),
+        throwsA(ChangeEmailFailure.passwordTooShort),
+      );
+    });
+
+    test('completes on success', () async {
+      when(account.updateEmail(email: 'e', password: 'p'))
+          .thenAnswer((_) async => _user());
+      await repo.changeEmailInAuth(email: 'e', password: 'p');
+      verify(account.updateEmail(email: 'e', password: 'p')).called(1);
+    });
+  });
+
+  group('changeEmailInDatabases', () {
+    test('updates the user row and the username row', () async {
+      when(
+        tables.updateRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      ).thenAnswer((_) async => _genericRow());
+
+      await repo.changeEmailInDatabases(
+        uid: 'u1',
+        username: 'TestUser',
+        email: 'new@test.com',
+      );
+
+      verify(
+        tables.updateRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'u1',
+          data: {'email': 'new@test.com'},
+        ),
+      ).called(1);
+      verify(
+        tables.updateRow(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          rowId: 'TestUser',
+          data: {'email': 'new@test.com'},
+        ),
+      ).called(1);
+    });
+  });
+
+  group('changeUsername', () {
+    test('creates the new row, deletes the old, updates the user', () async {
+      when(
+        tables.createRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      ).thenAnswer((_) async => _genericRow());
+      when(
+        tables.deleteRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+        ),
+      ).thenAnswer((_) async => '');
+      when(
+        tables.updateRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      ).thenAnswer((_) async => _genericRow());
+
+      await repo.changeUsername(
+        uid: 'u1',
+        email: 'test@test.com',
+        oldUsername: 'old',
+        newUsername: 'new',
+      );
+
+      verify(
+        tables.createRow(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          rowId: 'new',
+          data: {'email': 'test@test.com'},
+        ),
+      ).called(1);
+      verify(
+        tables.deleteRow(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          rowId: 'old',
+        ),
+      ).called(1);
+      verify(
+        tables.updateRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'u1',
+          data: {'username': 'new'},
+        ),
+      ).called(1);
+    });
+  });
+
+  group('updateDisplayName', () {
+    test('updates the account name and the user row', () async {
+      when(account.updateName(name: 'New Name'))
+          .thenAnswer((_) async => _user());
+      when(
+        tables.updateRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      ).thenAnswer((_) async => _genericRow());
+
+      await repo.updateDisplayName(uid: 'u1', name: 'New Name');
+
+      verify(account.updateName(name: 'New Name')).called(1);
+      verify(
+        tables.updateRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'u1',
+          data: {'name': 'New Name'},
+        ),
+      ).called(1);
+    });
+  });
+
+  group('uploadProfileImage', () {
+    test('uploads the file and builds the view url', () async {
+      when(
+        storage.createFile(
+          bucketId: anyNamed('bucketId'),
+          fileId: anyNamed('fileId'),
+          file: anyNamed('file'),
+        ),
+      ).thenAnswer(
+        (_) async => File(
+          $id: 'newfileid',
+          bucketId: userProfileImageBucketId,
+          $createdAt: DateTime(2024).toIso8601String(),
+          $updatedAt: DateTime(2024).toIso8601String(),
+          $permissions: const ['any'],
+          name: 'x.jpeg',
+          signature: 'sig',
+          mimeType: 'image/jpeg',
+          sizeOriginal: 100,
+          sizeActual: 100,
+          folder: '',
+          key: '',
+          encryption: false,
+          compression: '',
+          chunksTotal: 1,
+          chunksUploaded: 1,
+        ),
+      );
+
+      final result = await repo.uploadProfileImage(
+        uid: 'u1',
+        email: 'test@test.com',
+        imagePath: 'local.jpg',
+      );
+
+      expect(result.id, startsWith('u1'));
+      expect(result.url, contains('newfileid'));
+      expect(result.url, contains(userProfileImageBucketId));
+    });
+  });
+}

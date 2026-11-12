@@ -1,0 +1,7 @@
+Resonate 4.1.0
+
+New: report people and content in rooms and pair chats, delete your account from Settings, and an end-user licence agreement shown on first launch.
+
+Hindi and Punjabi are now fully translated.
+
+Updated for the latest Android requirements. Fixes for live rooms, audio output switching and the miniplayer.
