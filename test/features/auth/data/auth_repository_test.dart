@@ -225,6 +225,59 @@ void main() {
     });
   });
 
+  group('email normalization', () {
+    test('login trims and lowercases the email', () async {
+      // The session result is irrelevant: this test asserts the call argument.
+      when(
+        account.createEmailPasswordSession(
+          email: 'user@example.com',
+          password: 'pw',
+        ),
+      ).thenThrow(AppwriteException('bad', 401, userInvalidCredentials));
+
+      await repo.loginWithEmail(email: '  User@Example.COM  ', password: 'pw');
+
+      verify(
+        account.createEmailPasswordSession(
+          email: 'user@example.com',
+          password: 'pw',
+        ),
+      ).called(1);
+    });
+
+    test('signup trims and lowercases the email for both calls', () async {
+      when(
+        account.create(
+          userId: anyNamed('userId'),
+          email: 'user@example.com',
+          password: 'pw',
+        ),
+      ).thenAnswer((_) async => buildUser());
+      when(
+        account.createEmailPasswordSession(
+          email: 'user@example.com',
+          password: 'pw',
+        ),
+      ).thenThrow(AppwriteException('bad', 401, userInvalidCredentials));
+
+      await repo.signupWithEmail(email: '  User@Example.COM  ', password: 'pw');
+
+      verify(
+        account.create(
+          userId: anyNamed('userId'),
+          email: 'user@example.com',
+          password: 'pw',
+        ),
+      ).called(1);
+      verify(
+        account.createEmailPasswordSession(
+          email: 'user@example.com',
+          password: 'pw',
+        ),
+      ).called(1);
+    });
+  });
+
   group('logout', () {
     test('calls deleteSession and flips the session to unauthenticated',
         () async {

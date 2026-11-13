@@ -161,13 +161,17 @@ class AuthRepository {
     }
   }
 
+  /// Keeps every auth path on the same trimmed, lowercase email.
+  String _normalizeEmail(String email) => email.trim().toLowerCase();
+
   Future<void> loginWithEmail({
     required String email,
     required String password,
   }) => _mutateSession(() async {
+    final normalizedEmail = _normalizeEmail(email);
     try {
       await _account.createEmailPasswordSession(
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
     } on AppwriteException catch (e) {
@@ -179,14 +183,15 @@ class AuthRepository {
     required String email,
     required String password,
   }) => _mutateSession(() async {
+    final normalizedEmail = _normalizeEmail(email);
     try {
       await _account.create(
         userId: ID.unique(),
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
       await _account.createEmailPasswordSession(
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
     } on AppwriteException catch (e) {

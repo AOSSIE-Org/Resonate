@@ -139,6 +139,16 @@ void main() {
       expect(auth.signupCount, 1);
     });
 
+    testWidgets('an email with surrounding spaces is accepted',
+        (tester) async {
+      await pumpSignup(tester);
+
+      await fill(tester, email: '  User@Test.com  ');
+      await submit(tester);
+
+      expect(auth.signupCount, 1);
+    });
+
     // A new account has no profile yet, so the next stop is onboarding.
     testWidgets('a successful signup moves on to onboarding', (tester) async {
       await pumpSignup(tester);

@@ -46,4 +46,20 @@ void main() {
 
     expect(repo.loginCount, 1);
   });
+
+  testWidgets('an email with surrounding spaces calls login',
+      (tester) async {
+    final repo = FakeAuthRepository(const AuthState.unauthenticated());
+    await pumpAuthPage(tester, const LoginPage(), authRepository: repo);
+
+    await tester.enterText(
+      find.byType(TextFormField).at(0),
+      '  User@Test.com  ',
+    );
+    await tester.enterText(find.byType(TextFormField).at(1), 'password123');
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
+
+    expect(repo.loginCount, 1);
+  });
 }
