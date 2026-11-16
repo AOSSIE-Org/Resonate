@@ -408,6 +408,22 @@ void main() {
     expect(json.decode(bodyOf(verifyUserFunctionID)), {'userID': 'u1'});
   });
 
+  test('updateEmail trims and lowercases the new email', () async {
+    when(
+      functions.createExecution(
+        functionId: anyNamed('functionId'),
+        body: anyNamed('body'),
+      ),
+    ).thenAnswer((_) async => execution(status: ExecutionStatus.completed));
+
+    await repo.updateEmail(uid: 'u1', newEmail: '  New@Test.COM  ');
+
+    expect(json.decode(bodyOf(updateEmailFunctionID)), {
+      'User_ID': 'u1',
+      'email': 'new@test.com',
+    });
+  });
+
   test('updateEmail reports the execution status back', () async {
     when(
       functions.createExecution(

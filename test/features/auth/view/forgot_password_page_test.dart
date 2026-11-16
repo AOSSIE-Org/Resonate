@@ -40,6 +40,17 @@ void main() {
     expect(repo.recoveryCount, 0);
   });
 
+  testWidgets('an email with surrounding spaces is accepted', (tester) async {
+    final repo = _RecordingRepo();
+    await pumpAuthPage(tester, const ForgotPasswordPage(), authRepository: repo);
+
+    await tester.enterText(find.byType(TextFormField), '  user@test.com  ');
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
+
+    expect(repo.recoveryCount, 1);
+  });
+
   testWidgets('a valid email sends a recovery request', (tester) async {
     final repo = _RecordingRepo();
     await pumpAuthPage(tester, const ForgotPasswordPage(), authRepository: repo);

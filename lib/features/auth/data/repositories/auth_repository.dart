@@ -13,6 +13,7 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/email_normalizer.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/auth_repository.g.dart';
@@ -161,14 +162,11 @@ class AuthRepository {
     }
   }
 
-  /// Keeps every auth path on the same trimmed, lowercase email.
-  String _normalizeEmail(String email) => email.trim().toLowerCase();
-
   Future<void> loginWithEmail({
     required String email,
     required String password,
   }) => _mutateSession(() async {
-    final normalizedEmail = _normalizeEmail(email);
+    final normalizedEmail = normalizeEmail(email);
     try {
       await _account.createEmailPasswordSession(
         email: normalizedEmail,
@@ -183,7 +181,7 @@ class AuthRepository {
     required String email,
     required String password,
   }) => _mutateSession(() async {
-    final normalizedEmail = _normalizeEmail(email);
+    final normalizedEmail = normalizeEmail(email);
     try {
       await _account.create(
         userId: ID.unique(),
@@ -240,7 +238,10 @@ class AuthRepository {
     required String redirectUrl,
   }) async {
     try {
-      await _account.createRecovery(email: email, url: redirectUrl);
+      await _account.createRecovery(
+        email: normalizeEmail(email),
+        url: redirectUrl,
+      );
     } on AppwriteException catch (e) {
       throw _mapException(e);
     }
@@ -332,7 +333,10 @@ class AuthRepository {
   }) async {
     final result = await _functions.createExecution(
       functionId: updateEmailFunctionID,
-      body: json.encode({'User_ID': uid, 'email': newEmail}),
+      body: json.encode({
+        'User_ID': uid,
+        'email': normalizeEmail(newEmail),
+      }),
     );
     return result.status.name;
   }

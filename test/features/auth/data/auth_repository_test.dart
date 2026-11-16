@@ -245,6 +245,36 @@ void main() {
       ).called(1);
     });
 
+    test('password recovery trims and lowercases the email', () async {
+      when(
+        account.createRecovery(
+          email: 'user@example.com',
+          url: 'https://app/reset',
+        ),
+      ).thenAnswer(
+        (_) async => Token(
+          $id: 't1',
+          $createdAt: DateTime.now().toIso8601String(),
+          userId: 'u1',
+          secret: '',
+          expire: DateTime.now().toIso8601String(),
+          phrase: '',
+        ),
+      );
+
+      await repo.sendPasswordRecovery(
+        email: '  User@Example.COM  ',
+        redirectUrl: 'https://app/reset',
+      );
+
+      verify(
+        account.createRecovery(
+          email: 'user@example.com',
+          url: 'https://app/reset',
+        ),
+      ).called(1);
+    });
+
     test('signup trims and lowercases the email for both calls', () async {
       when(
         account.create(

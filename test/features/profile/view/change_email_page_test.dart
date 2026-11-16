@@ -48,6 +48,26 @@ void main() {
     expect(repo.changeEmailInAuthArgs, isNull);
   });
 
+  testWidgets('an email with surrounding spaces is accepted', (tester) async {
+    final repo = FakeProfileRepository();
+    await pumpProfilePage(
+      tester,
+      const ChangeEmailPage(),
+      authState: AuthState.authenticated(fakeAuthUser(userName: 'TestUser')),
+      profileRepo: repo,
+    );
+
+    await tester.enterText(
+      find.byType(TextFormField).at(0),
+      '  new@test.com  ',
+    );
+    await tester.enterText(find.byType(TextFormField).at(1), 'password123');
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
+
+    expect(repo.changeEmailInAuthArgs, isNotNull);
+  });
+
   testWidgets('valid input runs the change-email flow', (tester) async {
     final repo = FakeProfileRepository();
     await pumpProfilePage(
