@@ -452,6 +452,11 @@ class AppLocalizationsMl extends AppLocalizations {
   String get dateOfBirth => 'ജനനത്തീയതി';
 
   @override
+  String dobMinimumAge(int age) {
+    return 'You must be at least $age years old';
+  }
+
+  @override
   String get forgotPassword => 'പാസ്‌വേഡ് മറന്നോ?';
 
   @override

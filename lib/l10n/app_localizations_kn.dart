@@ -444,6 +444,11 @@ class AppLocalizationsKn extends AppLocalizations {
   String get dateOfBirth => 'ಜನ್ಮ ದಿನಾಂಕ';
 
   @override
+  String dobMinimumAge(int age) {
+    return 'You must be at least $age years old';
+  }
+
+  @override
   String get forgotPassword => 'ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ?';
 
   @override

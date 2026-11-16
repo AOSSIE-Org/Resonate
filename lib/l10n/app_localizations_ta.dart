@@ -451,6 +451,11 @@ class AppLocalizationsTa extends AppLocalizations {
   String get dateOfBirth => 'பிறந்த தேதி';
 
   @override
+  String dobMinimumAge(int age) {
+    return 'You must be at least $age years old';
+  }
+
+  @override
   String get forgotPassword => 'கடவுச்சொல்லை மறந்துவிட்டீர்களா?';
 
   @override

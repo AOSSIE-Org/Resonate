@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
@@ -89,7 +90,7 @@ void main() {
   Finder dobField() => find.byType(TextFormField).at(2);
   Finder submitButton() => find.widgetWithText(ElevatedButton, 'Submit');
 
-  // The field is read-only and opens a date picker; today's date is fine.
+  // The field opens a date picker on the latest allowed date, which is valid.
   Future<void> pickDate(WidgetTester tester) async {
     await tester.ensureVisible(dobField());
     await tester.pumpAndSettle();
@@ -161,6 +162,22 @@ void main() {
       final dob = tester.widget<TextFormField>(dobField());
       expect(dob.controller!.text, isNotEmpty);
       expect(find.text('Enter Valid DOB'), findsNothing);
+    });
+
+    testWidgets('a date under the minimum age is rejected', (tester) async {
+      await mockNetworkImagesFor(() async {
+        await pumpOnboarding(tester);
+        await fillValidForm(tester);
+        // The picker cannot select an underage date, so set the field directly
+        // to exercise the validator's defensive check.
+        tester.widget<TextFormField>(dobField()).controller!.text =
+            DateFormat('dd-MM-yyyy').format(DateTime.now());
+        await tester.pump();
+        await submit(tester);
+      });
+
+      expect(find.text('You must be at least 13 years old'), findsOneWidget);
+      expect(repo.createUserRowUid, isNull);
     });
   });
 
