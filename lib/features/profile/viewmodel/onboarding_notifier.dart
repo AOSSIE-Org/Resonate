@@ -54,10 +54,7 @@ class Onboarding extends _$Onboarding {
 
     state = state.copyWith(isLoading: true);
     try {
-      await repo.createUsernameRow(
-        username: username.trim(),
-        email: user.email,
-      );
+      await repo.createUsernameRow(username: username.trim(), email: user.email);
 
       String imageUrl;
       String? imageId;
