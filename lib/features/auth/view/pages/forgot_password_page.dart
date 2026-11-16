@@ -91,8 +91,9 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
               SizedBox(height: UiSizes.height_20),
               TextFormField(
                 controller: _emailController,
-                validator: (value) =>
-                    value!.isValidEmail() ? null : l10n.enterValidEmailAddress,
+                validator: (value) => value!.trim().isValidEmail()
+                    ? null
+                    : l10n.enterValidEmailAddress,
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 decoration: InputDecoration(hintText: l10n.email),

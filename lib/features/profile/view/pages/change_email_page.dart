@@ -89,7 +89,7 @@ class _ChangeEmailPageState extends ConsumerState<ChangeEmailPage> {
             child: Column(
               children: [
                 TextFormField(
-                  validator: (value) => value!.isValidEmail()
+                  validator: (value) => value!.trim().isValidEmail()
                       ? null
                       : l10n.enterValidEmail,
                   controller: _emailController,

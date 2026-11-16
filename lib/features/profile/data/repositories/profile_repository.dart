@@ -11,6 +11,7 @@ import 'package:resonate/features/profile/model/user_profile_summary.dart';
 import 'package:resonate/features/shell/model/notification.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/email_normalizer.dart';
 import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -341,7 +342,7 @@ class ProfileRepository {
     final docs = await _tables.listRows(
       databaseId: databaseId,
       tableId: usernameTableID,
-      queries: [Query.equal('email', email)],
+      queries: [Query.equal('email', normalizeEmail(email))],
     );
     return docs.total == 0;
   }
@@ -351,7 +352,10 @@ class ProfileRepository {
     required String password,
   }) async {
     try {
-      await _account.updateEmail(email: email, password: password);
+      await _account.updateEmail(
+        email: normalizeEmail(email),
+        password: password,
+      );
     } on AppwriteException catch (e) {
       throw _mapException(e);
     } catch (_) {
@@ -364,17 +368,18 @@ class ProfileRepository {
     required String username,
     required String email,
   }) async {
+    final normalizedEmail = normalizeEmail(email);
     await _tables.updateRow(
       databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
-      data: {'email': email},
+      data: {'email': normalizedEmail},
     );
     await _tables.updateRow(
       databaseId: databaseId,
       tableId: usernameTableID,
       rowId: username,
-      data: {'email': email},
+      data: {'email': normalizedEmail},
     );
   }
 

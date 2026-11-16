@@ -80,7 +80,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     ),
                     SizedBox(height: UiSizes.height_40),
                     TextFormField(
-                      validator: (value) => value!.isValidEmail()
+                      validator: (value) => value!.trim().isValidEmail()
                           ? null
                           : l10n.enterValidEmailAddress,
                       controller: _emailController,

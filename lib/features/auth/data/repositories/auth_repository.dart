@@ -13,6 +13,7 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/email_normalizer.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/auth_repository.g.dart';
@@ -165,9 +166,10 @@ class AuthRepository {
     required String email,
     required String password,
   }) => _mutateSession(() async {
+    final normalizedEmail = normalizeEmail(email);
     try {
       await _account.createEmailPasswordSession(
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
     } on AppwriteException catch (e) {
@@ -179,14 +181,15 @@ class AuthRepository {
     required String email,
     required String password,
   }) => _mutateSession(() async {
+    final normalizedEmail = normalizeEmail(email);
     try {
       await _account.create(
         userId: ID.unique(),
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
       await _account.createEmailPasswordSession(
-        email: email,
+        email: normalizedEmail,
         password: password,
       );
     } on AppwriteException catch (e) {
@@ -235,7 +238,10 @@ class AuthRepository {
     required String redirectUrl,
   }) async {
     try {
-      await _account.createRecovery(email: email, url: redirectUrl);
+      await _account.createRecovery(
+        email: normalizeEmail(email),
+        url: redirectUrl,
+      );
     } on AppwriteException catch (e) {
       throw _mapException(e);
     }
@@ -327,7 +333,10 @@ class AuthRepository {
   }) async {
     final result = await _functions.createExecution(
       functionId: updateEmailFunctionID,
-      body: json.encode({'User_ID': uid, 'email': newEmail}),
+      body: json.encode({
+        'User_ID': uid,
+        'email': normalizeEmail(newEmail),
+      }),
     );
     return result.status.name;
   }

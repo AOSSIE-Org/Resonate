@@ -444,6 +444,25 @@ void main() {
       expect(await repo.isEmailAvailable('free@test.com'), true);
       expect(await repo.isEmailAvailable('taken@test.com'), false);
     });
+
+    test('normalizes the email before lookup', () async {
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          queries: [Query.equal('email', 'user@test.com')],
+        ),
+      ).thenAnswer((_) async => RowList(total: 0, rows: const []));
+
+      expect(await repo.isEmailAvailable('  User@Test.COM  '), true);
+      verify(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          queries: [Query.equal('email', 'user@test.com')],
+        ),
+      ).called(1);
+    });
   });
 
   group('changeEmailInAuth', () {
@@ -473,6 +492,16 @@ void main() {
       await repo.changeEmailInAuth(email: 'e', password: 'p');
       verify(account.updateEmail(email: 'e', password: 'p')).called(1);
     });
+
+    test('normalizes the email before updating auth', () async {
+      when(account.updateEmail(email: 'new@test.com', password: 'p'))
+          .thenAnswer((_) async => _user());
+
+      await repo.changeEmailInAuth(email: '  New@Test.COM  ', password: 'p');
+
+      verify(account.updateEmail(email: 'new@test.com', password: 'p'))
+          .called(1);
+    });
   });
 
   group('changeEmailInDatabases', () {
@@ -490,6 +519,40 @@ void main() {
         uid: 'u1',
         username: 'TestUser',
         email: 'new@test.com',
+      );
+
+      verify(
+        tables.updateRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'u1',
+          data: {'email': 'new@test.com'},
+        ),
+      ).called(1);
+      verify(
+        tables.updateRow(
+          databaseId: databaseId,
+          tableId: usernameTableID,
+          rowId: 'TestUser',
+          data: {'email': 'new@test.com'},
+        ),
+      ).called(1);
+    });
+
+    test('normalizes the email before writing rows', () async {
+      when(
+        tables.updateRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      ).thenAnswer((_) async => _genericRow());
+
+      await repo.changeEmailInDatabases(
+        uid: 'u1',
+        username: 'TestUser',
+        email: '  New@Test.COM  ',
       );
 
       verify(
