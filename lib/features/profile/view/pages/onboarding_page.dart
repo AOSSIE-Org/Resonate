@@ -54,12 +54,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   }
 
   Future<void> _chooseDate() async {
-    final now = DateTime.now();
-    final latestAllowed = DateTime(
-      now.year - minimumAge,
-      now.month,
-      now.day,
-    );
+    final latestAllowed = latestAllowedDob();
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: latestAllowed,

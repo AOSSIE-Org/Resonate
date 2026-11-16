@@ -4,6 +4,10 @@ import 'package:resonate/utils/dob_validator.dart';
 void main() {
   final now = DateTime(2026, 11, 9);
 
+  test('calculates the latest allowed date from the minimum age', () {
+    expect(latestAllowedDob(now: now), DateTime(2013, 11, 9));
+  });
+
   test('accepts a date exactly 13 years before now', () {
     expect(isValidDob('09-11-2013', now: now), isTrue);
   });
