@@ -12,7 +12,7 @@ import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/interests/view/widgets/interest_selector.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
-import 'package:resonate/features/profile/utils/dob_validator.dart';
+import 'package:resonate/utils/dob_validator.dart';
 import 'package:resonate/features/profile/viewmodel/onboarding_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
@@ -55,11 +55,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
   Future<void> _chooseDate() async {
     final now = DateTime.now();
-    final latestAllowed = DateTime(
-      now.year - minimumAge,
-      now.month,
-      now.day,
-    );
+    final latestAllowed = DateTime(now.year - minimumAge, now.month, now.day);
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: latestAllowed,
@@ -112,7 +108,9 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
     if (!_formKey.currentState!.validate()) return;
     final view = View.of(context);
 
-    final result = await ref.read(onboardingProvider.notifier).saveProfile(
+    final result = await ref
+        .read(onboardingProvider.notifier)
+        .saveProfile(
           name: _nameController.text,
           username: _usernameController.text,
           dob: _dobController.text,
@@ -211,13 +209,15 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                               ref.watch(userProfileImagePlaceholderUrlProvider),
                             )
                           : FileImage(File(state.profileImagePath!))
-                              as ImageProvider,
+                                as ImageProvider,
                       radius: UiSizes.width_80,
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: CircleAvatar(
                           radius: UiSizes.width_20,
-                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
                           child: Icon(
                             Icons.edit,
                             color: Theme.of(context).colorScheme.onPrimary,
@@ -260,15 +260,14 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                   decoration: InputDecoration(
                     labelText: l10n.username,
                     prefixIcon: const Icon(Icons.person),
-                    suffixText:
-                        state.usernameChecking ? l10n.checking : null,
+                    suffixText: state.usernameChecking ? l10n.checking : null,
                     suffixIcon:
                         state.usernameAvailable && !state.usernameChecking
-                            ? const Icon(
-                                Icons.verified_outlined,
-                                color: Colors.green,
-                              )
-                            : null,
+                        ? const Icon(
+                            Icons.verified_outlined,
+                            color: Colors.green,
+                          )
+                        : null,
                   ),
                 ),
                 SizedBox(height: UiSizes.height_20),
@@ -324,15 +323,18 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 SizedBox(
                   width: double.maxFinite,
                   child: ElevatedButton(
-                    onPressed:
-                        state.isLoading ? null : () async => _submit(l10n),
+                    onPressed: state.isLoading
+                        ? null
+                        : () async => _submit(l10n),
                     child: state.isLoading
                         ? Center(
                             child:
                                 LoadingAnimationWidget.horizontalRotatingDots(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              size: UiSizes.size_40,
-                            ),
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
+                                  size: UiSizes.size_40,
+                                ),
                           )
                         : Text(l10n.submit),
                   ),

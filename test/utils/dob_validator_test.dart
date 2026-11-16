@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/profile/utils/dob_validator.dart';
+import 'package:resonate/utils/dob_validator.dart';
 
 void main() {
   final now = DateTime(2026, 11, 9);

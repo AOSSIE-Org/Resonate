@@ -3,7 +3,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
-import 'package:resonate/features/profile/utils/dob_validator.dart';
+import 'package:resonate/utils/dob_validator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/onboarding_notifier.g.dart';
@@ -54,7 +54,10 @@ class Onboarding extends _$Onboarding {
 
     state = state.copyWith(isLoading: true);
     try {
-      await repo.createUsernameRow(username: username.trim(), email: user.email);
+      await repo.createUsernameRow(
+        username: username.trim(),
+        email: user.email,
+      );
 
       String imageUrl;
       String? imageId;
