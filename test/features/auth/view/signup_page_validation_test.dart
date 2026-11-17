@@ -4,10 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/model/auth_failure.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/view/pages/signup_page.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../auth_test_helpers.dart';
@@ -21,6 +24,7 @@ void main() {
   setUp(() {
     auth = FakeAuthRepository(const AuthState.unauthenticated());
     router = GoRouter(
+      navigatorKey: rootNavigatorKey,
       initialLocation: RoutePaths.signup,
       routes: [
         GoRoute(path: RoutePaths.signup, builder: (_, _) => const SignupPage()),
@@ -32,7 +36,10 @@ void main() {
     );
   });
 
-  tearDown(() => router.dispose());
+  tearDown(() {
+    dismissCustomSnackbar();
+    router.dispose();
+  });
 
   String location() => router.routeInformationProvider.value.uri.toString();
 
@@ -80,6 +87,10 @@ void main() {
     await tester.enterText(passwordField(), password);
     await tester.enterText(confirmField(), confirm ?? password);
   }
+
+  // Toasts start a 2s timer; let it fire so the test leaves no timer pending.
+  Future<void> clearToast(WidgetTester tester) =>
+      tester.pump(const Duration(seconds: 3));
 
   group('validation', () {
     testWidgets('a malformed email is rejected', (tester) async {
@@ -137,6 +148,7 @@ void main() {
       await submit(tester);
 
       expect(auth.signupCount, 1);
+      await clearToast(tester);
     });
 
     // A new account has no profile yet, so the next stop is onboarding.
@@ -148,6 +160,22 @@ void main() {
 
       expect(location(), RoutePaths.onboarding);
       expect(find.text('onboarding page'), findsOneWidget);
+      await clearToast(tester);
+    });
+
+    testWidgets('a duplicate email is named in the error toast', (
+      tester,
+    ) async {
+      auth.signupError = const AuthFailure.userAlreadyExists();
+
+      await pumpSignup(tester);
+      await fill(tester);
+      await submit(tester);
+
+      expect(find.text('Email already exists'), findsOneWidget);
+      expect(find.textContaining('AuthFailure'), findsNothing);
+      expect(location(), RoutePaths.signup);
+      await clearToast(tester);
     });
   });
 }

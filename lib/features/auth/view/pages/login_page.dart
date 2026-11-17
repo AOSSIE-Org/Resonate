@@ -3,8 +3,8 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resonate/features/auth/model/auth_failure.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/view/auth_failure_message.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/auth/viewmodel/login_form_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -186,18 +186,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void _showAuthError(BuildContext context, Object error, AppLocalizations l10n) {
-    final (title, message) = switch (error) {
-      AuthFailureInvalidCredentials() => (
-          l10n.tryAgain,
-          l10n.incorrectEmailOrPassword,
-        ),
-      AuthFailurePasswordTooShort() => (l10n.tryAgain, l10n.passwordShort),
-      // Carries what the server said; toString() would print the class name.
-      AuthFailureUnknown(:final message) => (l10n.oops, message),
-      AuthFailure() => (l10n.oops, error.toString()),
-      _ => (l10n.oops, error.toString()),
-    };
-    customSnackbar(title, message, LogType.error);
+    final message = authFailureMessage(error, l10n);
+    customSnackbar(l10n.oops, message, LogType.error);
     SemanticsService.sendAnnouncement(View.of(context),message, TextDirection.ltr);
   }
 }

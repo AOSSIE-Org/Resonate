@@ -479,6 +479,7 @@ class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository(this.state);
 
   AuthState state;
+  Object? signupError;
   int loadCount = 0;
   int loginCount = 0;
   int signupCount = 0;
@@ -542,6 +543,11 @@ class FakeAuthRepository implements AuthRepository {
     required String password,
   }) async {
     signupCount++;
+    final error = signupError;
+    if (error != null) {
+      _setSessionState(AsyncError(error, StackTrace.current));
+      return;
+    }
     _setSessionState(AsyncData(state));
   }
 

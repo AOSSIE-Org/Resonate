@@ -159,6 +159,7 @@ const String discordRepoUrl = "https://discord.com/invite/6mFZ2S846n";
 const String xPageUrl = "https://x.com/aossie_org";
 const String playStoreUrl =
     "https://play.google.com/store/apps/details?id=com.resonate.resonate";
+const String appStoreUrl = "https://apps.apple.com/in/app/id6824524696";
 
 //Authentication Error types
 const String userInvalidCredentials = 'user_invalid_credentials';

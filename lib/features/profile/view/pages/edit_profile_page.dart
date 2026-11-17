@@ -80,7 +80,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
           l10n.usernameUnavailable,
           l10n.usernameAlreadyTaken,
           LogType.error,
-          snackbarDuration: 1,
         );
       }
     });
@@ -145,9 +144,10 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
         );
       }
     } catch (e) {
+      log('Profile update failed: $e');
       if (!mounted) return;
-      customSnackbar(l10n.error, e.toString(), LogType.error);
-      SemanticsService.sendAnnouncement(view, e.toString(), ui.TextDirection.ltr);
+      customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
+      SemanticsService.sendAnnouncement(view, l10n.tryAgain, ui.TextDirection.ltr);
     }
   }
 

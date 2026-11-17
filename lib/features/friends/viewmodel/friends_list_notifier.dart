@@ -32,8 +32,8 @@ class FriendsList extends _$FriendsList {
       return const StartCallStarted();
     } on CallBlockedByActivityStatus catch (e) {
       return StartCallBlocked(e.status);
-    } catch (e) {
-      return StartCallFailed(e.toString());
+    } catch (_) {
+      return const StartCallFailed();
     } finally {
       _setBusy({..._busy}..remove(friend.docId));
     }

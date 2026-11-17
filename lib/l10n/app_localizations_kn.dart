@@ -125,6 +125,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get passwordResetSent => 'ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸುವ ಇಮೇಲ್ ಕಳುಹಿಸಲಾಗಿದೆ!';
 
   @override
+  String get passwordResetSuccess => 'Password changed successfully!';
+
+  @override
   String get error => 'ಏನೋ ತಪ್ಪಾಗಿದೆ';
 
   @override
@@ -748,6 +751,11 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get rateYourExperience => 'Rate your experience';
+
+  @override
+  String ratingValue(String value) {
+    return 'Rating: $value/5.0';
+  }
 
   @override
   String get anonymous => 'ಅನಾಮಧೇಯ';

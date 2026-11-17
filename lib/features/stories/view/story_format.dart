@@ -24,7 +24,7 @@ String storiesFailureMessage(Object error, AppLocalizations l10n) =>
         l10n.fileTooLarge(what, formatMegabytes(bytes), formatMegabytes(maxBytes)),
       StoriesFailureUpload(:final what) => l10n.uploadFailed(what),
       StoriesFailureUnknown(:final message) => message,
-      _ => error.toString(),
+      _ => l10n.tryAgain,
     };
 
 String formatMegabytes(int bytes) =>

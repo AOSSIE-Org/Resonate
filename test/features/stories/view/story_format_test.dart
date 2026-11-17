@@ -72,10 +72,11 @@ void main() {
       expect(message, 'the server said no');
     });
 
-    test('anything else falls back to its own string', () {
+    test('anything else falls back to a localized retry message', () {
       final message = storiesFailureMessage(StateError('boom'), l10n);
 
-      expect(message, contains('boom'));
+      expect(message, l10n.tryAgain);
+      expect(message, isNot(contains('boom')));
     });
   });
 }

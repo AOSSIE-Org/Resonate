@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -7,10 +8,12 @@ import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/dev_log.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutAppScreen extends ConsumerWidget {
   const AboutAppScreen({super.key});
@@ -21,6 +24,20 @@ class AboutAppScreen extends ConsumerWidget {
         text: AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl),
       ),
     );
+  }
+
+  Future<void> _rateApp() async {
+    final storeUrl = defaultTargetPlatform == TargetPlatform.iOS
+        ? appStoreUrl
+        : playStoreUrl;
+    try {
+      await launchUrl(
+        Uri.parse(storeUrl),
+        mode: LaunchMode.externalApplication,
+      );
+    } catch (e) {
+      log('Error launching store URL: $e');
+    }
   }
 
   @override
@@ -178,7 +195,7 @@ class AboutAppScreen extends ConsumerWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () => _rateApp(),
                           child: Column(
                             children: [
                               const Icon(Icons.star_rate_outlined),

@@ -52,7 +52,6 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
         AppLocalizations.of(context)!.storyTags,
         AppLocalizations.of(context)!.tagLimitReached(kMaxStoryTags),
         LogType.warning,
-        snackbarDuration: 1,
       );
       return false;
     }

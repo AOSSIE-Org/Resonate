@@ -106,7 +106,7 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
         if (context.mounted) {
           customSnackbar(
             AppLocalizations.of(context)!.error,
-            '${AppLocalizations.of(context)!.failedToCreateRoom}: $e',
+            AppLocalizations.of(context)!.failedToCreateRoom,
             LogType.error,
           );
         }

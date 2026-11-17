@@ -48,7 +48,8 @@ class _EmailVerificationPageState extends ConsumerState<EmailVerificationPage> {
     } catch (e) {
       if (!mounted) return;
       ref.read(emailVerifyProvider.notifier).allowResend();
-      customSnackbar(l10n.oops, e.toString(), LogType.error);
+      customSnackbar(l10n.oops, l10n.tryAgain, LogType.error);
+      SemanticsService.sendAnnouncement(view, l10n.tryAgain, TextDirection.ltr);
     }
   }
 
@@ -143,7 +144,7 @@ class _EmailVerificationPageState extends ConsumerState<EmailVerificationPage> {
                         customSnackbar(l10n.oops, message, LogType.error);
                       }
                     } catch (e) {
-                      customSnackbar(l10n.oops, e.toString(), LogType.error);
+                      customSnackbar(l10n.oops, l10n.tryAgain, LogType.error);
                     }
                   },
                   child: Text(
@@ -241,8 +242,8 @@ class _EmailVerificationPageState extends ConsumerState<EmailVerificationPage> {
       router.go(RoutePaths.tabview);
     } catch (e) {
       router.pop();
-      customSnackbar(l10n.oops, e.toString(), LogType.error);
-      SemanticsService.sendAnnouncement(view, e.toString(), TextDirection.ltr);
+      customSnackbar(l10n.oops, l10n.tryAgain, LogType.error);
+      SemanticsService.sendAnnouncement(view, l10n.tryAgain, TextDirection.ltr);
     }
   }
 }

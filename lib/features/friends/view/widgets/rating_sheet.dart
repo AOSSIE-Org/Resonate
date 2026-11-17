@@ -33,7 +33,7 @@ class RatingSheet extends ConsumerWidget {
               l10n.rateYourExperience,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Text('Rating: ${pairRating.toStringAsFixed(1)}/5.0'),
+            Text(l10n.ratingValue(pairRating.toStringAsFixed(1))),
             AnimatedRatingStars(
               onChanged: (double rating) {
                 ref.read(pairChatProvider.notifier).setPairRating(rating);
@@ -53,8 +53,8 @@ class RatingSheet extends ConsumerWidget {
                 final navigator = Navigator.of(context);
                 try {
                   await ref.read(pairChatProvider.notifier).submitRating();
-                } catch (e) {
-                  customSnackbar(l10n.error, e.toString(), LogType.error);
+                } catch (_) {
+                  customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
                 } finally {
                   navigator.pop();
                 }

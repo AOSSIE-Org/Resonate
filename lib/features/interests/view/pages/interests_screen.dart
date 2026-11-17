@@ -18,7 +18,6 @@ class InterestsScreen extends ConsumerWidget {
       l10n.interests,
       l10n.interestLimitReached(Interest.maxSelectable),
       LogType.warning,
-      snackbarDuration: 1,
     );
   }
 

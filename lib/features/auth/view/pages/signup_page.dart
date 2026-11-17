@@ -3,7 +3,7 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resonate/features/auth/model/auth_failure.dart';
+import 'package:resonate/features/auth/view/auth_failure_message.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/auth/view/widgets/password_strength_indicator.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
@@ -268,13 +268,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   }
 
   void _showError(BuildContext context, Object error, AppLocalizations l10n) {
-    final message = switch (error) {
-      AuthFailureUserAlreadyExists() => l10n.tryAgain,
-      // Carries what the server said; toString() would print the class name.
-      AuthFailureUnknown(:final message) => message,
-      AuthFailure() => error.toString(),
-      _ => error.toString(),
-    };
+    final message = authFailureMessage(error, l10n);
     customSnackbar(l10n.oops, message, LogType.error);
     SemanticsService.sendAnnouncement(View.of(context),message, TextDirection.ltr);
   }

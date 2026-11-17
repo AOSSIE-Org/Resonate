@@ -119,9 +119,6 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
         ),
         title: Text(AppLocalizations.of(context)!.roomChat),
         centerTitle: true,
-        actions: [
-          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
-        ],
       ),
       body: Column(
         children: [

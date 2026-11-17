@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:resonate/features/auth/view/auth_failure_message.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/auth/viewmodel/forgot_password_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -46,10 +47,11 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
           }
         },
         error: (e, _) {
-          customSnackbar(l10n.error, e.toString(), LogType.error);
+          final message = authFailureMessage(e, l10n);
+          customSnackbar(l10n.error, message, LogType.error);
           SemanticsService.sendAnnouncement(
             View.of(context),
-            e.toString(),
+            message,
             TextDirection.ltr,
           );
         },

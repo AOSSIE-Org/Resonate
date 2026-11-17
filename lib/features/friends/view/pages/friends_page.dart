@@ -30,8 +30,8 @@ class FriendsPage extends ConsumerWidget {
           status.callBlockedMessage(l10n, otherName),
           LogType.info,
         );
-      case StartCallFailed(:final message):
-        customSnackbar(l10n.error, message, LogType.error);
+      case StartCallFailed():
+        customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
     }
   }
 

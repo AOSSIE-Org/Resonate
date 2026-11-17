@@ -83,11 +83,11 @@ void main() {
     expect(result.status, OnboardingStatus.invalidUsernameFormat);
   });
 
-  test('maps other errors to a generic error with a message', () async {
+  test('maps other errors to a generic error without exception text', () async {
     repo.createUsernameRowError = Exception('boom');
     final result = await save();
     expect(result.status, OnboardingStatus.error);
-    expect(result.message, contains('boom'));
+    expect(result.message, isNull);
     expect(container.read(onboardingProvider).isLoading, false);
   });
 }

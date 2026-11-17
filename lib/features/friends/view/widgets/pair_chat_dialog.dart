@@ -51,7 +51,7 @@ class _PairChatDialogState extends ConsumerState<PairChatDialog> {
       router.push(destination);
     } catch (e) {
       log('Pair chat request failed: $e');
-      customSnackbar(l10n.error, e.toString(), LogType.error);
+      customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
     }
   }
 

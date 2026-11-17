@@ -406,7 +406,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             );
           } catch (e) {
             log(e.toString());
-            customSnackbar(l10n.error, e.toString(), LogType.error);
+            customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
             return;
           }
           customSnackbar(
@@ -421,7 +421,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               await friendsNotifier.acceptFriendRequest(friendModel);
             } catch (e) {
               log(e.toString());
-              customSnackbar(l10n.error, e.toString(), LogType.error);
+              customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
               return;
             }
             customSnackbar(
@@ -434,6 +434,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               await friendsNotifier.removeFriend(friendModel);
             } catch (e) {
               log(e.toString());
+              customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
+              return;
             }
             customSnackbar(
               l10n.friendRequestCancelled,

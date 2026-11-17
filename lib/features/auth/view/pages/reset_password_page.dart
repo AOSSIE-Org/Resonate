@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:resonate/features/auth/view/auth_failure_message.dart';
 import 'package:resonate/features/auth/viewmodel/reset_password_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -44,13 +45,14 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
       next.whenOrNull(
         data: (ok) {
           if (ok && context.mounted) {
-            customSnackbar(l10n.success, l10n.passwordResetSent, LogType.success);
+            customSnackbar(l10n.success, l10n.passwordResetSuccess, LogType.success);
             context.go(RoutePaths.login);
           }
         },
         error: (e, _) {
-          customSnackbar(l10n.error, e.toString(), LogType.error);
-          SemanticsService.sendAnnouncement(View.of(context),e.toString(), TextDirection.ltr);
+          final message = authFailureMessage(e, l10n);
+          customSnackbar(l10n.error, message, LogType.error);
+          SemanticsService.sendAnnouncement(View.of(context),message, TextDirection.ltr);
         },
       );
     });

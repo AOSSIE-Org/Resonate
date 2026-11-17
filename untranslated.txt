@@ -1,11 +1,13 @@
 {
   "bn": [
+    "passwordResetSuccess",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
     "deleteAccountFailed",
     "rateYourExperience",
+    "ratingValue",
     "returnToRoom",
     "stars",
     "failedToCreateRoom",
@@ -156,6 +158,7 @@
   ],
 
   "gu": [
+    "passwordResetSuccess",
     "appPreferences",
     "features",
     "featuresDescription",
@@ -183,6 +186,7 @@
     "searchFailed",
     "deleteAccountFailed",
     "rateYourExperience",
+    "ratingValue",
     "searchRooms",
     "searchingRooms",
     "clearSearch",
@@ -341,6 +345,8 @@
   ],
 
   "hi": [
+    "passwordResetSuccess",
+    "ratingValue",
     "eulaTitle",
     "eulaBody",
     "eulaAgree",
@@ -348,6 +354,7 @@
   ],
 
   "kn": [
+    "passwordResetSuccess",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
@@ -359,6 +366,7 @@
     "searchFailed",
     "deleteAccountFailed",
     "rateYourExperience",
+    "ratingValue",
     "searchRooms",
     "searchingRooms",
     "clearSearch",
@@ -523,12 +531,14 @@
   ],
 
   "ml": [
+    "passwordResetSuccess",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
     "deleteAccountFailed",
     "rateYourExperience",
+    "ratingValue",
     "returnToRoom",
     "stars",
     "failedToCreateRoom",
@@ -667,12 +677,14 @@
   ],
 
   "mr": [
+    "passwordResetSuccess",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
     "deleteAccountFailed",
     "rateYourExperience",
+    "ratingValue",
     "returnToRoom",
     "stars",
     "failedToCreateRoom",
@@ -811,6 +823,8 @@
   ],
 
   "pa": [
+    "passwordResetSuccess",
+    "ratingValue",
     "eulaTitle",
     "eulaBody",
     "eulaAgree",
@@ -818,12 +832,14 @@
   ],
 
   "raj": [
+    "passwordResetSuccess",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
     "deleteAccountFailed",
     "rateYourExperience",
+    "ratingValue",
     "returnToRoom",
     "stars",
     "failedToCreateRoom",
@@ -978,12 +994,14 @@
   ],
 
   "ta": [
+    "passwordResetSuccess",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
     "liveChapterFeatureDescription",
     "deleteAccountFailed",
     "rateYourExperience",
+    "ratingValue",
     "returnToRoom",
     "stars",
     "failedToCreateRoom",

@@ -150,6 +150,10 @@
     "@passwordResetSent": {
         "description": "Success message after a password reset email has been dispatched."
     },
+    "passwordResetSuccess": "Password changed successfully!",
+    "@passwordResetSuccess": {
+        "description": "Success message after the user sets a new password from a reset link."
+    },
     "error": "Error",
     "@error": {
         "description": "Generic title for a failed operation."
@@ -955,6 +959,16 @@
     "rateYourExperience": "Rate your experience",
     "@rateYourExperience": {
         "description": "Title prompting the user to rate their pair chat experience."
+    },
+    "ratingValue": "Rating: {value}/5.0",
+    "@ratingValue": {
+        "description": "Numeric rating shown under the stars on the pair chat rating sheet.",
+        "placeholders": {
+            "value": {
+                "type": "String",
+                "example": "3.0"
+            }
+        }
     },
     "anonymous": "Anonymous",
     "@anonymous": {

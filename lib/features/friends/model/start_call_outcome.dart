@@ -16,7 +16,5 @@ class StartCallBlocked extends StartCallOutcome {
 }
 
 class StartCallFailed extends StartCallOutcome {
-  const StartCallFailed(this.message);
-
-  final String message;
+  const StartCallFailed();
 }

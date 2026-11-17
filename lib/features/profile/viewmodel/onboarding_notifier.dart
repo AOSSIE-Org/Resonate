@@ -3,6 +3,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
+import 'package:resonate/utils/dev_log.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/onboarding_notifier.g.dart';
@@ -83,10 +84,11 @@ class Onboarding extends _$Onboarding {
       await ref.read(authRepositoryProvider).refresh();
       return OnboardingResult.success;
     } catch (e) {
+      log('Onboarding: saving the profile failed: $e');
       if (e.toString().contains('Invalid `documentId` param')) {
         return OnboardingResult.invalidUsernameFormat;
       }
-      return OnboardingResult(OnboardingStatus.error, e.toString());
+      return const OnboardingResult(OnboardingStatus.error);
     } finally {
       state = state.copyWith(isLoading: false);
     }

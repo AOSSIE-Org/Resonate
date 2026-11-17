@@ -330,6 +330,12 @@ abstract class AppLocalizations {
   /// **'Password reset email sent!'**
   String get passwordResetSent;
 
+  /// Success message after the user sets a new password from a reset link.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed successfully!'**
+  String get passwordResetSuccess;
+
   /// Generic title for a failed operation.
   ///
   /// In en, this message translates to:
@@ -1511,6 +1517,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rate your experience'**
   String get rateYourExperience;
+
+  /// Numeric rating shown under the stars on the pair chat rating sheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating: {value}/5.0'**
+  String ratingValue(String value);
 
   /// Label for an anonymous user or identity.
   ///

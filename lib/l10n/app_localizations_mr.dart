@@ -125,6 +125,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get passwordResetSent => 'पासवर्ड रीसेट ईमेल पाठवली गेली!';
 
   @override
+  String get passwordResetSuccess => 'Password changed successfully!';
+
+  @override
   String get error => 'त्रुटी';
 
   @override
@@ -747,6 +750,11 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get rateYourExperience => 'Rate your experience';
+
+  @override
+  String ratingValue(String value) {
+    return 'Rating: $value/5.0';
+  }
 
   @override
   String get anonymous => 'अनामिक';

@@ -179,7 +179,7 @@ class _RecordedChapterDetailPageState
       await notifier.delete(chapter.id);
       customSnackbar(l10n.recordingDeleted, title, LogType.success);
     } catch (e) {
-      customSnackbar(l10n.deleteRecordingFailed, e.toString(), LogType.error);
+      customSnackbar(l10n.deleteRecordingFailed, l10n.tryAgain, LogType.error);
     }
   }
 }

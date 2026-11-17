@@ -78,7 +78,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             l10n.usernameUnavailable,
             l10n.usernameInvalidOrTaken,
             LogType.error,
-            snackbarDuration: 1,
           );
         }
       });
@@ -96,7 +95,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
         l10n.interests,
         l10n.interestLimitReached(Interest.maxSelectable),
         LogType.warning,
-        snackbarDuration: 1,
       );
     }
   }
@@ -149,12 +147,11 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
           ui.TextDirection.ltr,
         );
       case OnboardingStatus.error:
-        customSnackbar(l10n.error, result.message ?? '', LogType.error);
-        SemanticsService.sendAnnouncement(
-          view,
-          result.message ?? '',
-          ui.TextDirection.ltr,
-        );
+        final message = (result.message?.isNotEmpty ?? false)
+            ? result.message!
+            : l10n.tryAgain;
+        customSnackbar(l10n.error, message, LogType.error);
+        SemanticsService.sendAnnouncement(view, message, ui.TextDirection.ltr);
     }
   }
 

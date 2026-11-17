@@ -162,7 +162,7 @@ class UpcomingListTile extends ConsumerWidget {
                           .read(upcomingRoomsProvider.notifier)
                           .deleteUpcoming(appwriteUpcomingRoom.id);
                     } catch (e) {
-                      customSnackbar(l10n.error, e.toString(), LogType.error);
+                      customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -200,7 +200,7 @@ class UpcomingListTile extends ConsumerWidget {
                           } catch (e) {
                             customSnackbar(
                               l10n.error,
-                              e.toString(),
+                              l10n.tryAgain,
                               LogType.error,
                             );
                           }

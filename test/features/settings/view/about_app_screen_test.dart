@@ -1,14 +1,18 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/settings/view/pages/about_app_screen.dart';
 import 'package:resonate/features/settings/viewmodel/about_app_notifier.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
 
 import '../settings_test_helpers.dart';
 
+const _urlLauncherChannel = MethodChannel('plugins.flutter.io/url_launcher');
 
 class FakeAboutApp extends AboutApp {
   FakeAboutApp(this._initial);
@@ -56,6 +60,40 @@ Future<void> pumpAboutApp(
 }
 
 void main() {
+  late List<MethodCall> launches;
+
+  setUp(() {
+    launches = [];
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(_urlLauncherChannel, (call) async {
+          launches.add(call);
+          return true;
+        });
+  });
+
+  tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(_urlLauncherChannel, null);
+  });
+
+  String? launchedUrl() {
+    if (launches.isEmpty) return null;
+    final args = launches.last.arguments;
+    return args is Map ? args['url'] as String? : null;
+  }
+
+  // The framework asserts that foundation debug overrides are cleared before
+  // the test body returns, so the override cannot live in addTearDown.
+  Future<void> tapRateOn(WidgetTester tester, TargetPlatform platform) async {
+    debugDefaultTargetPlatformOverride = platform;
+    try {
+      await tester.tap(find.byIcon(Icons.star_rate_outlined));
+      await tester.pumpAndSettle();
+    } finally {
+      debugDefaultTargetPlatformOverride = null;
+    }
+  }
+
   testWidgets('renders the version string from aboutApp state', (tester) async {
     const state = AboutAppState(appVersion: '2.5.1', appBuildNumber: '42');
     await pumpAboutApp(tester, overridesWith(state));
@@ -122,5 +160,43 @@ void main() {
 
     expect(find.bySemanticsLabel('Resonate Logo'), findsOneWidget);
     expect(find.bySemanticsLabel('aossie logo'), findsOneWidget);
+  });
+
+  group('rating the app', () {
+    testWidgets('opens the Play Store on Android', (tester) async {
+      await pumpAboutApp(tester, overridesWith(const AboutAppState()));
+      await tester.pumpAndSettle();
+
+      await tapRateOn(tester, TargetPlatform.android);
+
+      expect(launchedUrl(), playStoreUrl);
+    });
+
+    testWidgets('opens the App Store on iOS', (tester) async {
+      await pumpAboutApp(tester, overridesWith(const AboutAppState()));
+      await tester.pumpAndSettle();
+
+      await tapRateOn(tester, TargetPlatform.iOS);
+
+      expect(launchedUrl(), appStoreUrl);
+    });
+
+    testWidgets('a launcher that refuses leaves the page standing', (
+      tester,
+    ) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(_urlLauncherChannel, (call) async {
+            throw PlatformException(code: 'no handler');
+          });
+
+      await pumpAboutApp(tester, overridesWith(const AboutAppState()));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.star_rate_outlined));
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
+      expect(find.byIcon(Icons.star_rate_outlined), findsOneWidget);
+    });
   });
 }

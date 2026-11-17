@@ -126,6 +126,9 @@ class AppLocalizationsTa extends AppLocalizations {
       'கடவுச்சொல் மீட்டமைப்பு மின்னஞ்சல் அனுப்பப்பட்டது!';
 
   @override
+  String get passwordResetSuccess => 'Password changed successfully!';
+
+  @override
   String get error => 'பிழை';
 
   @override
@@ -757,6 +760,11 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get rateYourExperience => 'Rate your experience';
+
+  @override
+  String ratingValue(String value) {
+    return 'Rating: $value/5.0';
+  }
 
   @override
   String get anonymous => 'அடையாளமற்ற';
