@@ -3,12 +3,27 @@ import 'package:resonate/utils/dev_log.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContributeScreen extends StatelessWidget {
   const ContributeScreen({super.key});
+
+  Future<void> _openUrl(BuildContext context, String url) async {
+    final l10n = AppLocalizations.of(context)!;
+    try {
+      final launched = await launchUrl(Uri.parse(url));
+      if (launched) return;
+      log('URL was not launched: $url');
+    } catch (e) {
+      log('Error launching URL: $e');
+    }
+    if (!context.mounted) return;
+    customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +37,7 @@ class ContributeScreen extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () async {
-                Uri url = Uri.parse(githubRepoUrl);
-                try {
-                  await launchUrl(url);
-                } catch (e) {
-                  log("Error launching URL: ${e.toString()}");
-                }
-              },
+              onTap: () => _openUrl(context, githubRepoUrl),
               child: Container(
                 padding: EdgeInsets.symmetric(
                   vertical: UiSizes.height_20,
@@ -80,14 +88,7 @@ class ContributeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed: () async {
-                          Uri url = Uri.parse(xPageUrl);
-                          try {
-                            await launchUrl(url);
-                          } catch (e) {
-                            log("Error launching URL: ${e.toString()}");
-                          }
-                        },
+                        onPressed: () => _openUrl(context, xPageUrl),
                         icon: FaIcon(
                           FontAwesomeIcons.xTwitter,
                           size: UiSizes.size_40,
@@ -95,14 +96,7 @@ class ContributeScreen extends StatelessWidget {
                         tooltip: AppLocalizations.of(context)!.followUsOnX,
                       ),
                       IconButton(
-                        onPressed: () async {
-                          Uri url = Uri.parse(discordRepoUrl);
-                          try {
-                            await launchUrl(url);
-                          } catch (e) {
-                            log("Error launching URL: ${e.toString()}");
-                          }
-                        },
+                        onPressed: () => _openUrl(context, discordRepoUrl),
                         icon: Icon(Icons.discord, size: UiSizes.size_40),
                         tooltip: AppLocalizations.of(
                           context,

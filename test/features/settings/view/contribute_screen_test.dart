@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resonate/features/settings/view/pages/contribute_screen.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/pump_widget.dart';
@@ -22,6 +23,7 @@ void main() {
   });
 
   tearDown(() {
+    dismissCustomSnackbar();
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(_channel, null);
   });
@@ -33,7 +35,7 @@ void main() {
   }
 
   Future<void> pumpContribute(WidgetTester tester) async {
-    await pumpTestApp(tester, const ContributeScreen());
+    await pumpTestApp(tester, const ContributeScreen(), rootOverlay: true);
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
   }
@@ -110,7 +112,35 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(tester.takeException(), isNull);
+      expect(find.text('Try Again!'), findsOneWidget);
       expect(find.text('Source code on GitHub'), findsOneWidget);
+
+      dismissCustomSnackbar();
+      await tester.pumpAndSettle();
+    });
+
+    testAppWidget('a launcher that returns false reports every link', (
+      tester,
+    ) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(_channel, (call) async => false);
+
+      await pumpContribute(tester);
+
+      for (final trigger in [
+        find.text('Source code on GitHub'),
+        find.byIcon(FontAwesomeIcons.xTwitter.data),
+        find.byIcon(Icons.discord),
+      ]) {
+        await tester.tap(trigger);
+        await tester.pumpAndSettle();
+
+        expect(tester.takeException(), isNull);
+        expect(find.text('Try Again!'), findsOneWidget);
+
+        dismissCustomSnackbar();
+        await tester.pumpAndSettle();
+      }
     });
   });
 }

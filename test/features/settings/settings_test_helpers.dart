@@ -4,12 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 export '../../helpers/test_root_container.dart';
 
-Widget settingsTestApp(Widget child) {
+Widget settingsTestApp(Widget child, {bool rootOverlay = false}) {
   return MaterialApp(
+    navigatorKey: rootOverlay ? rootNavigatorKey : null,
     localizationsDelegates: const [
       AppLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,

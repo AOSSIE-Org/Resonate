@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/settings/view/pages/about_app_screen.dart';
 import 'package:resonate/features/settings/viewmodel/about_app_notifier.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
 
@@ -44,8 +45,9 @@ List<Override> overridesWith(AboutAppState state, {FakeAboutApp? fake}) {
 
 Future<void> pumpAboutApp(
   WidgetTester tester,
-  List<Override> overrides,
-) async {
+  List<Override> overrides, {
+  bool rootOverlay = false,
+}) async {
   tester.view.physicalSize = const Size(1080, 2340);
   tester.view.devicePixelRatio = 3.0;
   addTearDown(tester.view.resetPhysicalSize);
@@ -54,7 +56,7 @@ Future<void> pumpAboutApp(
   await tester.pumpWidget(
     ProviderScope(
       overrides: overrides,
-      child: settingsTestApp(const AboutAppScreen()),
+      child: settingsTestApp(const AboutAppScreen(), rootOverlay: rootOverlay),
     ),
   );
 }
@@ -72,6 +74,7 @@ void main() {
   });
 
   tearDown(() {
+    dismissCustomSnackbar();
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(_urlLauncherChannel, null);
   });
@@ -199,20 +202,29 @@ void main() {
       expect(find.byIcon(Icons.star_rate_outlined), findsOneWidget);
     });
 
-    testWidgets('a launcher that returns false leaves the page standing', (
+    testWidgets('a launcher that returns false reports it on the page', (
       tester,
     ) async {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(_urlLauncherChannel, (call) async => false);
 
-      await pumpAboutApp(tester, overridesWith(const AboutAppState()));
+      await pumpAboutApp(
+        tester,
+        overridesWith(const AboutAppState()),
+        rootOverlay: true,
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byIcon(Icons.star_rate_outlined));
       await tester.pumpAndSettle();
 
       expect(tester.takeException(), isNull);
+      expect(find.text('Error'), findsOneWidget);
+      expect(find.text('Try Again!'), findsOneWidget);
       expect(find.byIcon(Icons.star_rate_outlined), findsOneWidget);
+
+      dismissCustomSnackbar();
+      await tester.pumpAndSettle();
     });
   });
 }
