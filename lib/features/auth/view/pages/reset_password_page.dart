@@ -50,7 +50,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
           }
         },
         error: (e, _) {
-          final message = authFailureMessage(e, l10n);
+          final message = authFailureMessage(asAuthFailure(e), l10n);
           customSnackbar(l10n.error, message, LogType.error);
           SemanticsService.sendAnnouncement(View.of(context),message, TextDirection.ltr);
         },

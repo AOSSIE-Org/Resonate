@@ -26,13 +26,13 @@ void main() {
       );
     });
 
-    test('keeps the server message for unknown failures', () {
+    test('does not surface server text for unknown failures', () {
       expect(
         authFailureMessage(
           const AuthFailure.unknown('The requested user could not be found.'),
           l10n,
         ),
-        'The requested user could not be found.',
+        l10n.tryAgain,
       );
     });
 
@@ -58,7 +58,18 @@ void main() {
         authFailureMessage(const AuthFailure.unknown('  '), l10n),
         l10n.tryAgain,
       );
-      expect(authFailureMessage(StateError('boom'), l10n), l10n.tryAgain);
+      expect(
+        authFailureMessage(asAuthFailure(StateError('boom')), l10n),
+        l10n.tryAgain,
+      );
+    });
+
+    test('asAuthFailure keeps auth failures and wraps everything else', () {
+      expect(
+        asAuthFailure(const AuthFailure.network()),
+        isA<AuthFailureNetwork>(),
+      );
+      expect(asAuthFailure(StateError('boom')), isA<AuthFailureUnknown>());
     });
   });
 }

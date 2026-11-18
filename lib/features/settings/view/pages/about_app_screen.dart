@@ -26,18 +26,23 @@ class AboutAppScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _rateApp() async {
+  Future<void> _rateApp(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     final storeUrl = defaultTargetPlatform == TargetPlatform.iOS
         ? appStoreUrl
         : playStoreUrl;
     try {
-      await launchUrl(
+      final launched = await launchUrl(
         Uri.parse(storeUrl),
         mode: LaunchMode.externalApplication,
       );
+      if (launched) return;
+      log('Store URL was not launched: $storeUrl');
     } catch (e) {
       log('Error launching store URL: $e');
     }
+    if (!context.mounted) return;
+    customSnackbar(l10n.error, l10n.tryAgain, LogType.error);
   }
 
   @override
@@ -195,7 +200,7 @@ class AboutAppScreen extends ConsumerWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => _rateApp(),
+                          onTap: () => _rateApp(context),
                           child: Column(
                             children: [
                               const Icon(Icons.star_rate_outlined),

@@ -198,5 +198,21 @@ void main() {
       expect(tester.takeException(), isNull);
       expect(find.byIcon(Icons.star_rate_outlined), findsOneWidget);
     });
+
+    testWidgets('a launcher that returns false leaves the page standing', (
+      tester,
+    ) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(_urlLauncherChannel, (call) async => false);
+
+      await pumpAboutApp(tester, overridesWith(const AboutAppState()));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.star_rate_outlined));
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
+      expect(find.byIcon(Icons.star_rate_outlined), findsOneWidget);
+    });
   });
 }

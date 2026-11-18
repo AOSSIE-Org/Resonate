@@ -268,7 +268,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   }
 
   void _showError(BuildContext context, Object error, AppLocalizations l10n) {
-    final message = authFailureMessage(error, l10n);
+    final message = authFailureMessage(asAuthFailure(error), l10n);
     customSnackbar(l10n.oops, message, LogType.error);
     SemanticsService.sendAnnouncement(View.of(context),message, TextDirection.ltr);
   }
