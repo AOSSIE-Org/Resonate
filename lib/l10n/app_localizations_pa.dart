@@ -904,6 +904,9 @@ class AppLocalizationsPa extends AppLocalizations {
   String get createStory => 'ਕਹਾਣੀ ਬਣਾਓ';
 
   @override
+  String get failedToCreateStory => 'Failed to create Story.';
+
+  @override
   String get fillAllRequiredFieldsAndChapter =>
       'ਸਾਰੇ ਲਾਜ਼ਮੀ ਖੇਤਰ ਅਤੇ ਅਧਿਆਇ ਭਰੋ';
 
@@ -973,6 +976,12 @@ class AppLocalizationsPa extends AppLocalizations {
   }
 
   @override
+  String get failedToLikeStory => 'Failed to like story';
+
+  @override
+  String get failedToUnlikeStory => 'Failed to unlike story';
+
+  @override
   String subscribedToYourRoom(String username, String subject) {
     return '$username ਨੇ ਤੁਹਾਡੇ ਰੂਮ ਨੂੰ ਸਬਸਕ੍ਰਾਈਬ ਕੀਤਾ: $subject';
   }
@@ -1026,6 +1035,9 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get deleteStory => 'ਕਹਾਣੀ ਹਟਾਓ';
+
+  @override
+  String get failedToDeleteStory => 'Failed to delete story.';
 
   @override
   String createdBy(String creatorName) {
@@ -1144,11 +1156,21 @@ class AppLocalizationsPa extends AppLocalizations {
   }
 
   @override
+  String failedToAcceptFriendRequest(String username) {
+    return 'Failed to accept friend request of $username.';
+  }
+
+  @override
   String get friendRequestCancelled => 'ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕੀਤੀ ਗਈ';
 
   @override
   String friendRequestCancelledTo(String username) {
     return 'ਤੁਹਾਡੀ $username ਨੂੰ ਭੇਜੀ ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ';
+  }
+
+  @override
+  String failedToCancelFriendRequest(String username) {
+    return 'Failed to cancel friend request of $username';
   }
 
   @override
@@ -1159,6 +1181,11 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get addFriend => 'ਦੋਸਤ ਜੋੜੋ';
+
+  @override
+  String failedToSendFriendRequest(String username) {
+    return 'Failed to send friend request to $username';
+  }
 
   @override
   String get friendRequestAccepted => 'ਦੋਸਤ ਅਰਜ਼ੀ ਮਨਜ਼ੂਰ ਹੋਈ';

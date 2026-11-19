@@ -927,6 +927,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get createStory => 'গল্প তৈরি করুন';
 
   @override
+  String get failedToCreateStory => 'Failed to create Story.';
+
+  @override
   String get fillAllRequiredFieldsAndChapter =>
       'অনুগ্রহ করে সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন, কমপক্ষে একটি অধ্যায় যোগ করুন এবং একটি কভার ছবি নির্বাচন করুন।';
 
@@ -998,6 +1001,12 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
+  String get failedToLikeStory => 'Failed to like story';
+
+  @override
+  String get failedToUnlikeStory => 'Failed to unlike story';
+
+  @override
   String subscribedToYourRoom(String username, String subject) {
     return '$username আপনার রুমে সাবস্ক্রাইব করেছে: $subject';
   }
@@ -1052,6 +1061,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get deleteStory => 'গল্প ডিলিট করুন';
+
+  @override
+  String get failedToDeleteStory => 'Failed to delete story.';
 
   @override
   String createdBy(String creatorName) {
@@ -1179,11 +1191,21 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
+  String failedToAcceptFriendRequest(String username) {
+    return 'Failed to accept friend request of $username.';
+  }
+
+  @override
   String get friendRequestCancelled => 'বন্ধুত্বের অনুরোধ বাতিল করা হয়েছে';
 
   @override
   String friendRequestCancelledTo(String username) {
     return '$username-এর কাছে আপনার বন্ধুত্বের অনুরোধ বাতিল করা হয়েছে।';
+  }
+
+  @override
+  String failedToCancelFriendRequest(String username) {
+    return 'Failed to cancel friend request of $username';
   }
 
   @override
@@ -1194,6 +1216,11 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get addFriend => 'বন্ধু যোগ করুন';
+
+  @override
+  String failedToSendFriendRequest(String username) {
+    return 'Failed to send friend request to $username';
+  }
 
   @override
   String get friendRequestAccepted => 'বন্ধুত্বের অনুরোধ গৃহীত হয়েছে';
