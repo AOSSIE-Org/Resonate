@@ -318,7 +318,7 @@ class _StoryPageState extends ConsumerState<StoryPage> {
           .joinLiveChapter(live.livekitRoomId, live);
       router.push(RoutePaths.liveChapterScreen);
     } catch (e) {
-      customSnackbar(l10n.error, e.toString(), LogType.error);
+      customSnackbar(l10n.error, l10n.unableToJoinRoom, LogType.error);
     }
   }
 

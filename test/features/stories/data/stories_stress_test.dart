@@ -188,7 +188,7 @@ void main() {
   // Likes are a write the user is watching, so unlike the reads these do
   // surface as a failure.
   group('like and unlike surface their failures', () {
-    test('likeStory throws StoriesFailure.unknown', () async {
+    test('likeStory throws StoriesFailure.like', () async {
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -200,11 +200,11 @@ void main() {
 
       expect(
         repo.likeStory(fakeStory(storyId: 's1'), 'me'),
-        throwsA(isA<StoriesFailureUnknown>()),
+        throwsA(isA<StoriesFailureLike>()),
       );
     });
 
-    test('unlikeStory throws StoriesFailure.unknown', () async {
+    test('unlikeStory throws StoriesFailure.unlike', () async {
       when(
         tables.listRows(
           databaseId: databaseId,
@@ -215,7 +215,7 @@ void main() {
 
       expect(
         repo.unlikeStory(fakeStory(storyId: 's1'), 'me'),
-        throwsA(isA<StoriesFailureUnknown>()),
+        throwsA(isA<StoriesFailureUnlike>()),
       );
     });
   });

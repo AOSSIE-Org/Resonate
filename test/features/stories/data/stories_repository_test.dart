@@ -509,7 +509,7 @@ void main() {
       ));
     });
 
-    test('throws StoriesFailure.unknown when the SDK errors', () async {
+    test('like story throws StoriesFailure.like when the SDK errors', () async {
       when(tables.createRow(
         databaseId: anyNamed('databaseId'),
         tableId: anyNamed('tableId'),
@@ -519,7 +519,7 @@ void main() {
 
       expect(
         repo.likeStory(fakeStory(storyId: 's1'), 'me'),
-        throwsA(isA<StoriesFailureUnknown>()),
+        throwsA(isA<StoriesFailureLike>()),
       );
     });
   });
@@ -646,7 +646,7 @@ void main() {
       expect(data['tags'], ['tech talks', 'ai']);
     });
 
-    test('throws StoriesFailure.unknown when the row write fails', () async {
+    test('createStory throws StoriesFailure.create when the row write fails', () async {
       when(tables.createRow(
         databaseId: databaseId,
         tableId: storyTableId,
@@ -664,7 +664,7 @@ void main() {
           storyPlayDuration: 100,
           chapters: const [],
         ),
-        throwsA(isA<StoriesFailureUnknown>()),
+        throwsA(isA<StoriesFailureCreate>()),
       );
     });
   });
@@ -732,7 +732,7 @@ void main() {
       )).called(1);
     });
 
-    test('throws StoriesFailure.unknown when the row delete fails', () async {
+    test('deleteStory throws StoriesFailure.delete when the row delete fails', () async {
       final story = fakeStory(storyId: 's1');
       when(storage.deleteFile(
         bucketId: storyBucketId,
@@ -749,7 +749,7 @@ void main() {
         rowId: 's1',
       )).thenThrow(AppwriteException('locked', 500));
 
-      expect(repo.deleteStory(story), throwsA(isA<StoriesFailureUnknown>()));
+      expect(repo.deleteStory(story), throwsA(isA<StoriesFailureDelete>()));
     });
   });
 

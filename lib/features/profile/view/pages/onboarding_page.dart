@@ -129,7 +129,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
       case OnboardingStatus.usernameUnavailable:
         customSnackbar(
           l10n.usernameUnavailable,
-          l10n.usernameInvalidOrTaken,
+          l10n.usernameAlreadyTaken,
           LogType.error,
         );
         SemanticsService.sendAnnouncement(
