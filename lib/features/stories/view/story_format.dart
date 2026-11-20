@@ -12,7 +12,6 @@ String formatPlayDuration(int milliseconds) {
 String formatChapterLength(int milliseconds, AppLocalizations l10n) =>
     '${formatPlayDuration(milliseconds)} ${l10n.lengthMinutes}';
 
-
 String fileNameOf(String path) => path.split(RegExp(r'[/\\]')).last;
 
 String formatRecordedAt(DateTime recordedAt) =>
@@ -21,8 +20,16 @@ String formatRecordedAt(DateTime recordedAt) =>
 String storiesFailureMessage(Object error, AppLocalizations l10n) =>
     switch (error) {
       StoriesFailureTooLarge(:final what, :final bytes, :final maxBytes) =>
-        l10n.fileTooLarge(what, formatMegabytes(bytes), formatMegabytes(maxBytes)),
+        l10n.fileTooLarge(
+          what,
+          formatMegabytes(bytes),
+          formatMegabytes(maxBytes),
+        ),
       StoriesFailureUpload(:final what) => l10n.uploadFailed(what),
+      StoriesFailureCreate() => l10n.failedToCreateStory,
+      StoriesFailureDelete() => l10n.failedToDeleteStory,
+      StoriesFailureLike() => l10n.failedToLikeStory,
+      StoriesFailureUnlike() => l10n.failedToUnlikeStory,
       StoriesFailureUnknown(:final message) => message,
       _ => error.toString(),
     };

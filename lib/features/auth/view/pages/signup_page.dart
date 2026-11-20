@@ -269,7 +269,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
   void _showError(BuildContext context, Object error, AppLocalizations l10n) {
     final message = switch (error) {
-      AuthFailureUserAlreadyExists() => l10n.tryAgain,
+      AuthFailureUserAlreadyExists() => l10n.emailExists,
       // Carries what the server said; toString() would print the class name.
       AuthFailureUnknown(:final message) => message,
       AuthFailure() => error.toString(),

@@ -7,5 +7,10 @@ sealed class StoriesFailure with _$StoriesFailure {
   const factory StoriesFailure.upload(String what) = StoriesFailureUpload;
   const factory StoriesFailure.tooLarge(String what, int bytes, int maxBytes) =
       StoriesFailureTooLarge;
+  const factory StoriesFailure.create() = StoriesFailureCreate;
+  const factory StoriesFailure.delete() = StoriesFailureDelete;
+  const factory StoriesFailure.like() = StoriesFailureLike;
+  const factory StoriesFailure.unlike() = StoriesFailureUnlike;
+
   const factory StoriesFailure.unknown(String message) = StoriesFailureUnknown;
 }

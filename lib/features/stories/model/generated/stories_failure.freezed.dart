@@ -55,12 +55,16 @@ extension StoriesFailurePatterns on StoriesFailure {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( StoriesFailureUpload value)?  upload,TResult Function( StoriesFailureTooLarge value)?  tooLarge,TResult Function( StoriesFailureUnknown value)?  unknown,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( StoriesFailureUpload value)?  upload,TResult Function( StoriesFailureTooLarge value)?  tooLarge,TResult Function( StoriesFailureCreate value)?  create,TResult Function( StoriesFailureDelete value)?  delete,TResult Function( StoriesFailureLike value)?  like,TResult Function( StoriesFailureUnlike value)?  unlike,TResult Function( StoriesFailureUnknown value)?  unknown,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
 return upload(_that);case StoriesFailureTooLarge() when tooLarge != null:
-return tooLarge(_that);case StoriesFailureUnknown() when unknown != null:
+return tooLarge(_that);case StoriesFailureCreate() when create != null:
+return create(_that);case StoriesFailureDelete() when delete != null:
+return delete(_that);case StoriesFailureLike() when like != null:
+return like(_that);case StoriesFailureUnlike() when unlike != null:
+return unlike(_that);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that);case _:
   return orElse();
 
@@ -79,12 +83,16 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( StoriesFailureUpload value)  upload,required TResult Function( StoriesFailureTooLarge value)  tooLarge,required TResult Function( StoriesFailureUnknown value)  unknown,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( StoriesFailureUpload value)  upload,required TResult Function( StoriesFailureTooLarge value)  tooLarge,required TResult Function( StoriesFailureCreate value)  create,required TResult Function( StoriesFailureDelete value)  delete,required TResult Function( StoriesFailureLike value)  like,required TResult Function( StoriesFailureUnlike value)  unlike,required TResult Function( StoriesFailureUnknown value)  unknown,}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload():
 return upload(_that);case StoriesFailureTooLarge():
-return tooLarge(_that);case StoriesFailureUnknown():
+return tooLarge(_that);case StoriesFailureCreate():
+return create(_that);case StoriesFailureDelete():
+return delete(_that);case StoriesFailureLike():
+return like(_that);case StoriesFailureUnlike():
+return unlike(_that);case StoriesFailureUnknown():
 return unknown(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -99,12 +107,16 @@ return unknown(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( StoriesFailureUpload value)?  upload,TResult? Function( StoriesFailureTooLarge value)?  tooLarge,TResult? Function( StoriesFailureUnknown value)?  unknown,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( StoriesFailureUpload value)?  upload,TResult? Function( StoriesFailureTooLarge value)?  tooLarge,TResult? Function( StoriesFailureCreate value)?  create,TResult? Function( StoriesFailureDelete value)?  delete,TResult? Function( StoriesFailureLike value)?  like,TResult? Function( StoriesFailureUnlike value)?  unlike,TResult? Function( StoriesFailureUnknown value)?  unknown,}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
 return upload(_that);case StoriesFailureTooLarge() when tooLarge != null:
-return tooLarge(_that);case StoriesFailureUnknown() when unknown != null:
+return tooLarge(_that);case StoriesFailureCreate() when create != null:
+return create(_that);case StoriesFailureDelete() when delete != null:
+return delete(_that);case StoriesFailureLike() when like != null:
+return like(_that);case StoriesFailureUnlike() when unlike != null:
+return unlike(_that);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that);case _:
   return null;
 
@@ -122,11 +134,15 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String what)?  upload,TResult Function( String what,  int bytes,  int maxBytes)?  tooLarge,TResult Function( String message)?  unknown,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String what)?  upload,TResult Function( String what,  int bytes,  int maxBytes)?  tooLarge,TResult Function()?  create,TResult Function()?  delete,TResult Function()?  like,TResult Function()?  unlike,TResult Function( String message)?  unknown,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
 return upload(_that.what);case StoriesFailureTooLarge() when tooLarge != null:
-return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureUnknown() when unknown != null:
+return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureCreate() when create != null:
+return create();case StoriesFailureDelete() when delete != null:
+return delete();case StoriesFailureLike() when like != null:
+return like();case StoriesFailureUnlike() when unlike != null:
+return unlike();case StoriesFailureUnknown() when unknown != null:
 return unknown(_that.message);case _:
   return orElse();
 
@@ -145,11 +161,15 @@ return unknown(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String what)  upload,required TResult Function( String what,  int bytes,  int maxBytes)  tooLarge,required TResult Function( String message)  unknown,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String what)  upload,required TResult Function( String what,  int bytes,  int maxBytes)  tooLarge,required TResult Function()  create,required TResult Function()  delete,required TResult Function()  like,required TResult Function()  unlike,required TResult Function( String message)  unknown,}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload():
 return upload(_that.what);case StoriesFailureTooLarge():
-return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureUnknown():
+return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureCreate():
+return create();case StoriesFailureDelete():
+return delete();case StoriesFailureLike():
+return like();case StoriesFailureUnlike():
+return unlike();case StoriesFailureUnknown():
 return unknown(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -164,11 +184,15 @@ return unknown(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String what)?  upload,TResult? Function( String what,  int bytes,  int maxBytes)?  tooLarge,TResult? Function( String message)?  unknown,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String what)?  upload,TResult? Function( String what,  int bytes,  int maxBytes)?  tooLarge,TResult? Function()?  create,TResult? Function()?  delete,TResult? Function()?  like,TResult? Function()?  unlike,TResult? Function( String message)?  unknown,}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
 return upload(_that.what);case StoriesFailureTooLarge() when tooLarge != null:
-return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureUnknown() when unknown != null:
+return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureCreate() when create != null:
+return create();case StoriesFailureDelete() when delete != null:
+return delete();case StoriesFailureLike() when like != null:
+return like();case StoriesFailureUnlike() when unlike != null:
+return unlike();case StoriesFailureUnknown() when unknown != null:
 return unknown(_that.message);case _:
   return null;
 
@@ -312,6 +336,134 @@ as int,
 
 
 }
+
+/// @nodoc
+
+
+class StoriesFailureCreate implements StoriesFailure {
+  const StoriesFailureCreate();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoriesFailureCreate);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'StoriesFailure.create()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class StoriesFailureDelete implements StoriesFailure {
+  const StoriesFailureDelete();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoriesFailureDelete);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'StoriesFailure.delete()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class StoriesFailureLike implements StoriesFailure {
+  const StoriesFailureLike();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoriesFailureLike);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'StoriesFailure.like()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class StoriesFailureUnlike implements StoriesFailure {
+  const StoriesFailureUnlike();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoriesFailureUnlike);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'StoriesFailure.unlike()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 

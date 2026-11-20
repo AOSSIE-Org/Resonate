@@ -161,8 +161,8 @@ class UpcomingListTile extends ConsumerWidget {
                       await ref
                           .read(upcomingRoomsProvider.notifier)
                           .deleteUpcoming(appwriteUpcomingRoom.id);
-                    } catch (e) {
-                      customSnackbar(l10n.error, e.toString(), LogType.error);
+                    } catch (_) {
+                      customSnackbar(l10n.error, l10n.failedToRemoveRoom, LogType.error);
                     }
                   },
                   style: ElevatedButton.styleFrom(

@@ -1198,6 +1198,10 @@
     "@createStory": {
         "description": "Button text to finalize and create a new story."
     },
+    "failedToCreateStory": "Failed to create Story.",
+    "@failedToCreateStory": {
+        "description": "Error message for failed creation of a specific story."
+    },
     "fillAllRequiredFieldsAndChapter": "Please fill in all required fields, add at least one chapter, and select a cover image.",
     "@fillAllRequiredFieldsAndChapter": {
         "description": "Error message for the story creation form when requirements are not met."
@@ -1308,6 +1312,14 @@
             }
         }
     },
+    "failedToLikeStory": "Failed to like story",
+    "@failedToLikeStory": {
+        "description": "Error message for failed like attempt to a specific story"
+    },
+    "failedToUnlikeStory": "Failed to unlike story",
+    "@failedToUnlikeStory": {
+        "description": "Error message for failed unlike attempt to a specific story"
+    },
     "subscribedToYourRoom": "{username} subscribed to your room: {subject}",
     "@subscribedToYourRoom": {
         "description": "Notification message when someone subscribes to your room.",
@@ -1393,6 +1405,10 @@
     "deleteStory": "Delete Story",
     "@deleteStory": {
         "description": "Button text to delete a story."
+    },
+    "failedToDeleteStory": "Failed to delete story.",
+    "@failedToDeleteStory": {
+        "description": "Error message for failed attempt to delete a specific story."
     },
     "createdBy": "Created by {creatorName}",
     "@createdBy": {
@@ -1536,6 +1552,16 @@
             }
         }
     },
+    "failedToAcceptFriendRequest": "Failed to accept friend request of {username}.",
+    "@failedToAcceptFriendRequest": {
+        "description": "Error message for failed attemp to accept friend request of specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe" 
+            }
+        }
+    },
     "friendRequestCancelled": "Friend request cancelled",
     "@friendRequestCancelled": {
         "description": "Title for the confirmation message after cancelling a friend request."
@@ -1543,6 +1569,16 @@
     "friendRequestCancelledTo": "Your friend request to {username} has been cancelled.",
     "@friendRequestCancelledTo": {
         "description": "Confirmation message after cancelling a friend request to a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "failedToCancelFriendRequest": "Failed to cancel friend request of {username}",
+    "@failedToCancelFriendRequest": {
+        "description" : "Failure message when unable to cancel friend request of a specific user",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -1561,6 +1597,16 @@
     "addFriend": "Add Friend",
     "@addFriend": {
         "description": "Button text to send a friend request."
+    },
+    "failedToSendFriendRequest": "Failed to send friend request to {username}",
+    "@failedToSendFriendRequest": {
+        "description": "Error message for failed attempt to send friend request to a specific user",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "friendRequestAccepted": "Friend request accepted",
     "@friendRequestAccepted": {

@@ -406,7 +406,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             );
           } catch (e) {
             log(e.toString());
-            customSnackbar(l10n.error, e.toString(), LogType.error);
+            customSnackbar(
+              l10n.error,
+              l10n.failedToSendFriendRequest(widget.creator!.name!),
+              LogType.error,
+            );
             return;
           }
           customSnackbar(
@@ -420,8 +424,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             try {
               await friendsNotifier.acceptFriendRequest(friendModel);
             } catch (e) {
-              log(e.toString());
-              customSnackbar(l10n.error, e.toString(), LogType.error);
+              customSnackbar(
+                l10n.error,
+                l10n.failedToAcceptFriendRequest(widget.creator!.name!),
+                LogType.error,
+              );
               return;
             }
             customSnackbar(
@@ -433,7 +440,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             try {
               await friendsNotifier.removeFriend(friendModel);
             } catch (e) {
-              log(e.toString());
+              customSnackbar(
+                l10n.error,
+                l10n.failedToCancelFriendRequest(widget.creator!.name!),
+                LogType.error,
+              );
             }
             customSnackbar(
               l10n.friendRequestCancelled,

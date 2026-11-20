@@ -934,6 +934,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get createStory => 'கதையை உருவாக்கவும்';
 
   @override
+  String get failedToCreateStory => 'Failed to create Story.';
+
+  @override
   String get fillAllRequiredFieldsAndChapter =>
       'தயவுசெய்து அனைத்து தேவையான புலங்களையும் நிரப்பி, குறைந்தது ஒரு அத்தியாயத்தை சேர்த்து, ஒரு முகப்பு படத்தை தேர்வு செய்யவும்.';
 
@@ -1005,6 +1008,12 @@ class AppLocalizationsTa extends AppLocalizations {
   }
 
   @override
+  String get failedToLikeStory => 'Failed to like story';
+
+  @override
+  String get failedToUnlikeStory => 'Failed to unlike story';
+
+  @override
   String subscribedToYourRoom(String username, String subject) {
     return '$username உங்கள் அறையை சந்தாதாரராக இணைந்தார்: $subject';
   }
@@ -1059,6 +1068,9 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get deleteStory => 'கதையை நீக்கு';
+
+  @override
+  String get failedToDeleteStory => 'Failed to delete story.';
 
   @override
   String createdBy(String creatorName) {
@@ -1186,11 +1198,21 @@ class AppLocalizationsTa extends AppLocalizations {
   }
 
   @override
+  String failedToAcceptFriendRequest(String username) {
+    return 'Failed to accept friend request of $username.';
+  }
+
+  @override
   String get friendRequestCancelled => 'நண்பர் கோரிக்கை ரத்து செய்யப்பட்டது';
 
   @override
   String friendRequestCancelledTo(String username) {
     return '$username அவர்களுக்கு அனுப்பிய நண்பர் கோரிக்கை ரத்து செய்யப்பட்டது.';
+  }
+
+  @override
+  String failedToCancelFriendRequest(String username) {
+    return 'Failed to cancel friend request of $username';
   }
 
   @override
@@ -1201,6 +1223,11 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get addFriend => 'நண்பரை சேர்க்கவும்';
+
+  @override
+  String failedToSendFriendRequest(String username) {
+    return 'Failed to send friend request to $username';
+  }
 
   @override
   String get friendRequestAccepted => 'நண்பர் கோரிக்கை ஏற்கப்பட்டது';
