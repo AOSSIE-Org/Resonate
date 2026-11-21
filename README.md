@@ -1,7 +1,7 @@
 <div align="center">
  <span>
- <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/ca9e88d2-f4ca-4d8c-8a8a-289286b91e54" alt="Resonate logo" width="150" height="auto" />
-<img src="assets/images/aossie_logo.png" alt="Resonate logo" width="150" height="auto" />
+  <img src="assets/images/resonate_logo.png" alt="Resonate logo" width="150" height="auto" />
+  <img src="assets/images/aossie_logo.png" alt="AOSSIE logo" width="150" height="auto" />
  </span>
 
 # :microphone: Resonate - An Open Source Social Voice Platform
@@ -34,7 +34,9 @@
   
 [![License:GPL-3.0](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/license/gpl-3-0/)
 ![GitHub Org's stars](https://img.shields.io/github/stars/AOSSIE-Org/Resonate?style=social)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/AOSSIE-Org/Resonate/build_and_deploy.yml?branch=dev&label=CI)](https://github.com/AOSSIE-Org/Resonate/actions/workflows/build_and_deploy.yml)
 [![Get it on Google Play](https://img.shields.io/badge/Get_it_on-Google_Play-00C851?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.resonate.resonate)
+[![Get it on F-Droid](https://img.shields.io/badge/Get_it_on-F--Droid-1976D2?style=for-the-badge&logo=f-droid&logoColor=white)](https://f-droid.org/packages/com.resonate.resonate/)
 
 </div>
 
@@ -95,7 +97,7 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 Resonate is a broad project that makes use of other software solutions like Appwrite and Livekit, starting up can be a little challenging.
 
 We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you.
-Please go through and strictly follow the [Onboarding Guide](https://github.com/AOSSIE-Org/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contributions.
+Please go through and strictly follow the [Onboarding Guide](ONBOARDING.md) for setting up the project for development and further contributions.
 
 Once the backend is up, the client side is standard Flutter:
 
@@ -142,7 +144,7 @@ flutter test             # full test suite
 
 :star: Don't forget to star this repository if you find it useful! :star:
 
-Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. (Please contribute to the `dev` branch.) To ensure smooth collaboration, refer to the Contribution Guidelines(https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
+Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. (Please contribute to the `dev` branch.) To ensure smooth collaboration, refer to the [Contribution Guidelines](CONTRIBUTING.md).
 
 We appreciate your contributions and look forward to working with you to make this project even better!
 
@@ -168,7 +170,7 @@ If you have any questions, need clarifications, or want to discuss ideas, feel f
 
 ## :round_pushpin: License
 
-Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
+Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](LICENSE) for more information.
 
 ## 💪 Thanks To All Contributors
 
