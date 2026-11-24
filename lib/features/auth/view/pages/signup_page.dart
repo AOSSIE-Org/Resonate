@@ -10,6 +10,7 @@ import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/viewmodel/signup_form_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/utils/dev_log.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
@@ -268,12 +269,17 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   }
 
   void _showError(BuildContext context, Object error, AppLocalizations l10n) {
+    log('signup failed: $error');
+
     final message = switch (error) {
-      AuthFailureUserAlreadyExists() => l10n.emailExists,
-      // Carries what the server said; toString() would print the class name.
-      AuthFailureUnknown(:final message) => message,
-      AuthFailure() => error.toString(),
-      _ => error.toString(),
+      AuthFailure failure => switch (failure) {
+          AuthFailureUserAlreadyExists() => l10n.emailExists,
+          AuthFailurePasswordTooShort() => l10n.passwordShort,
+          AuthFailureInvalidCredentials() => l10n.tryAgain,
+          AuthFailureNetwork() => l10n.connectionError,
+          AuthFailureUnknown() => l10n.tryAgain,
+        },
+      _ => l10n.tryAgain,
     };
     customSnackbar(l10n.oops, message, LogType.error);
     SemanticsService.sendAnnouncement(View.of(context),message, TextDirection.ltr);

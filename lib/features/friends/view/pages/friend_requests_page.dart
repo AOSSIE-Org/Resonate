@@ -19,7 +19,7 @@ class FriendRequestsPage extends ConsumerWidget {
     final ok = await ref.read(friendRequestsProvider.notifier).accept(friend);
     customSnackbar(
       ok ? l10n.friendRequestAccepted : l10n.error,
-      ok ? l10n.friendRequestAcceptedTo(friend.senderName) : l10n.tryAgain,
+      ok ? l10n.friendRequestAcceptedTo(friend.senderName) : l10n.failedToAcceptFriendRequest(friend.senderName),
       ok ? LogType.success : LogType.error,
     );
   }
@@ -32,7 +32,7 @@ class FriendRequestsPage extends ConsumerWidget {
     final ok = await ref.read(friendRequestsProvider.notifier).decline(friend);
     customSnackbar(
       ok ? l10n.friendRequestDeclined : l10n.error,
-      ok ? l10n.friendRequestDeclinedTo(friend.senderName) : l10n.tryAgain,
+      ok ? l10n.friendRequestDeclinedTo(friend.senderName) : l10n.failedToDeclineFriendRequest(friend.senderName),
       ok ? LogType.info : LogType.error,
     );
   }

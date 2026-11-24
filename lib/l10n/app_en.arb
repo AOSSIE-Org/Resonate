@@ -1576,6 +1576,16 @@
             }
         }
     },
+    "failedToDeclineFriendRequest" : "Failed to decline friend request of {username}",
+    "@failedToDeclineFriendRequest": {
+        "description" : "Error message for failure to decline a friend request of specific user.",
+        "placeholders" : {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
     "failedToCancelFriendRequest": "Failed to cancel friend request of {username}",
     "@failedToCancelFriendRequest": {
         "description" : "Failure message when unable to cancel friend request of a specific user",
@@ -1597,6 +1607,16 @@
     "addFriend": "Add Friend",
     "@addFriend": {
         "description": "Button text to send a friend request."
+    },
+    "failedToRemoveFriend": "Failed to remove {username} from friends.",
+    "@failedToRemoveFriend": {
+        "description": "Error message for failed attempt to remove a specific friend from friends list.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "failedToSendFriendRequest": "Failed to send friend request to {username}",
     "@failedToSendFriendRequest": {

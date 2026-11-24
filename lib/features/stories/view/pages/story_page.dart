@@ -418,7 +418,11 @@ class _StoryPageState extends ConsumerState<StoryPage> {
             Navigator.of(context).pop();
             unawaited(
               deleting.catchError((Object e) {
-                customSnackbar(l10n.error, e.toString(), LogType.error);
+                customSnackbar(
+                  l10n.error,
+                  storiesFailureMessage(e, l10n),
+                  LogType.error,
+                );
               }),
             );
           },

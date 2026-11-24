@@ -1536,6 +1536,16 @@
             }
         }
     },
+    "failedToDeclineFriendRequest": "{username} का मित्रता अनुरोध अस्वीकार करने में विफल",
+    "@failedToDeclineFriendRequest": {
+        "description": "Error message for failure to decline a friend request of specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
     "failedToCancelFriendRequest": "{username} का मित्रता अनुरोध रद्द करने में विफल",
     "@failedToCancelFriendRequest": {
         "description": "Failure message when unable to cancel friend request of a specific user",
@@ -1557,6 +1567,16 @@
     "addFriend": "मित्र जोड़ें",
     "@addFriend": {
         "description": "Button text to send a friend request."
+    },
+    "failedToRemoveFriend": "{username} को मित्र सूची से हटाने में विफल।",
+    "@failedToRemoveFriend": {
+        "description": "Error message for failed attempt to remove a specific friend from friends list.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "failedToSendFriendRequest": "{username} को मित्रता अनुरोध भेजने में विफल",
     "@failedToSendFriendRequest": {

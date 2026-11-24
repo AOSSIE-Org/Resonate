@@ -405,6 +405,7 @@ class StoriesRepository {
       );
     } on AppwriteException catch (e) {
       if (e.code == 409) return;
+      log('Failed to like stories row: ${e.message}');
       throw StoriesFailure.like();
     }
     try {
@@ -414,7 +415,8 @@ class StoriesRepository {
         rowId: story.storyId,
         column: 'likes',
       );
-    } on AppwriteException catch (_) {
+    } on AppwriteException catch (e) {
+      log('Failed to like story: ${e.message}');
       throw StoriesFailure.like();
     }
 
@@ -482,7 +484,8 @@ class StoriesRepository {
         column: 'likes',
         min: 0,
       );
-    } on AppwriteException catch (_) {
+    } on AppwriteException catch (e) {
+      log('Failed to unlike story: ${e.message}');
       throw StoriesFailure.unlike();
     }
   }
@@ -579,7 +582,7 @@ class StoriesRepository {
         },
       );
     } on AppwriteException catch (e) {
-      log('Failed to create story row: ${e.message}');
+      log('Failed to create story: ${e.message}');
       throw StoriesFailure.create();
     }
 
@@ -703,7 +706,8 @@ class StoriesRepository {
         tableId: storyTableId,
         rowId: story.storyId,
       );
-    } on AppwriteException catch (_) {
+    } on AppwriteException catch (e) {
+      log('Failed to delete story: ${e.message}');
       throw StoriesFailure.delete();
     }
   }
