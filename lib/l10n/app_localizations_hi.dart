@@ -1199,6 +1199,11 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String failedToDeclineFriendRequest(String username) {
+    return '$username का मित्रता अनुरोध अस्वीकार करने में विफल';
+  }
+
+  @override
   String failedToCancelFriendRequest(String username) {
     return '$username का मित्रता अनुरोध रद्द करने में विफल';
   }
@@ -1211,6 +1216,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get addFriend => 'मित्र जोड़ें';
+
+  @override
+  String failedToRemoveFriend(String username) {
+    return '$username को मित्र सूची से हटाने में विफल।';
+  }
 
   @override
   String failedToSendFriendRequest(String username) {

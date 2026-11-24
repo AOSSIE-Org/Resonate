@@ -2225,6 +2225,12 @@ abstract class AppLocalizations {
   /// **'Your friend request to {username} has been cancelled.'**
   String friendRequestCancelledTo(String username);
 
+  /// Error message for failure to decline a friend request of specific user.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to decline friend request of {username}'**
+  String failedToDeclineFriendRequest(String username);
+
   /// Failure message when unable to cancel friend request of a specific user
   ///
   /// In en, this message translates to:
@@ -2248,6 +2254,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Friend'**
   String get addFriend;
+
+  /// Error message for failed attempt to remove a specific friend from friends list.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to remove {username} from friends.'**
+  String failedToRemoveFriend(String username);
 
   /// Error message for failed attempt to send friend request to a specific user
   ///

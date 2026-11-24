@@ -1211,6 +1211,11 @@ class AppLocalizationsTa extends AppLocalizations {
   }
 
   @override
+  String failedToDeclineFriendRequest(String username) {
+    return 'Failed to decline friend request of $username';
+  }
+
+  @override
   String failedToCancelFriendRequest(String username) {
     return 'Failed to cancel friend request of $username';
   }
@@ -1223,6 +1228,11 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get addFriend => 'நண்பரை சேர்க்கவும்';
+
+  @override
+  String failedToRemoveFriend(String username) {
+    return 'Failed to remove $username from friends.';
+  }
 
   @override
   String failedToSendFriendRequest(String username) {
