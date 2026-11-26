@@ -23,7 +23,7 @@ flutter test                                        # full suite (~700 tests)
 flutter test test/features/settings                 # one area
 flutter analyze                                     # base lints
 dart run custom_lint                                # riverpod_lint — analyze does NOT run these
-dart format lib test                                # formatting
+dart format <modified-files>                        # formatting (modified files only — never run across lib/ or test/)
 flutter gen-l10n                                    # regenerate localizations
 ```
 
@@ -106,7 +106,7 @@ assertions are active and will catch lifecycle misuse.
 
 - **Commits:** conventional format — `<type>: <short summary>`, lowercase, no trailing period.
   Types: `docs|feat|fix|perf|refactor|test`.
-- **Formatting:** `dart format` before committing.
+- **Formatting:** `dart format <modified-files>` before committing (format only files you touched; running `dart format` across `lib/` or `test/` reformats ~200 unrelated files).
 - **Comments:** match the density of surrounding code. Explain intent, not mechanics.
 
 ## Things that will bite you
