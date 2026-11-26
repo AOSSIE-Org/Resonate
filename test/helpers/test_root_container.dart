@@ -476,9 +476,10 @@ class FakeCallKitService extends CallKitService {
 }
 
 class FakeAuthRepository implements AuthRepository {
-  FakeAuthRepository(this.state);
+  FakeAuthRepository(this.state, {this.loginFailure});
 
   AuthState state;
+  Object? loginFailure;
   int loadCount = 0;
   int loginCount = 0;
   int signupCount = 0;
@@ -533,6 +534,11 @@ class FakeAuthRepository implements AuthRepository {
     required String password,
   }) async {
     loginCount++;
+    final failure = loginFailure;
+    if (failure != null) {
+      _setSessionState(AsyncError(failure, StackTrace.empty));
+      return;
+    }
     _setSessionState(AsyncData(state));
   }
 

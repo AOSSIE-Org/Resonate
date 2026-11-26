@@ -405,7 +405,8 @@ class StoriesRepository {
       );
     } on AppwriteException catch (e) {
       if (e.code == 409) return;
-      throw StoriesFailure.unknown(e.message ?? 'Failed to like story');
+      log('Failed to like stories row: ${e.message}');
+      throw StoriesFailure.like();
     }
     try {
       await _tables.incrementRowColumn(
@@ -415,7 +416,8 @@ class StoriesRepository {
         column: 'likes',
       );
     } on AppwriteException catch (e) {
-      throw StoriesFailure.unknown(e.message ?? 'Failed to like story');
+      log('Failed to like story: ${e.message}');
+      throw StoriesFailure.like();
     }
 
     await _notifyLiked(story, uid);
@@ -483,7 +485,8 @@ class StoriesRepository {
         min: 0,
       );
     } on AppwriteException catch (e) {
-      throw StoriesFailure.unknown(e.message ?? 'Failed to unlike story');
+      log('Failed to unlike story: ${e.message}');
+      throw StoriesFailure.unlike();
     }
   }
 
@@ -579,8 +582,8 @@ class StoriesRepository {
         },
       );
     } on AppwriteException catch (e) {
-      log('Failed to create story row: ${e.message}');
-      throw StoriesFailure.unknown(e.message ?? 'Failed to create story');
+      log('Failed to create story: ${e.message}');
+      throw StoriesFailure.create();
     }
 
     // Notify followers
@@ -704,7 +707,8 @@ class StoriesRepository {
         rowId: story.storyId,
       );
     } on AppwriteException catch (e) {
-      throw StoriesFailure.unknown(e.message ?? 'Failed to delete story');
+      log('Failed to delete story: ${e.message}');
+      throw StoriesFailure.delete();
     }
   }
 

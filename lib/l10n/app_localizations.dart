@@ -318,6 +318,12 @@ abstract class AppLocalizations {
   /// **'Try Again!'**
   String get tryAgain;
 
+  /// Fallback message when a failure cannot be classified or explained safely.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again later.'**
+  String get somethingWentWrong;
+
   /// Generic title for a successful operation.
   ///
   /// In en, this message translates to:
@@ -1817,6 +1823,12 @@ abstract class AppLocalizations {
   /// **'Create Story'**
   String get createStory;
 
+  /// Error message for failed creation of a specific story.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create Story.'**
+  String get failedToCreateStory;
+
   /// Error message for the story creation form when requirements are not met.
   ///
   /// In en, this message translates to:
@@ -1937,6 +1949,18 @@ abstract class AppLocalizations {
   /// **'{username} liked your story: {subject}'**
   String likedYourStory(String username, String subject);
 
+  /// Error message for failed like attempt to a specific story
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to like story'**
+  String get failedToLikeStory;
+
+  /// Error message for failed unlike attempt to a specific story
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to unlike story'**
+  String get failedToUnlikeStory;
+
   /// Notification message when someone subscribes to your room.
   ///
   /// In en, this message translates to:
@@ -2032,6 +2056,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete Story'**
   String get deleteStory;
+
+  /// Error message for failed attempt to delete a specific story.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete story.'**
+  String get failedToDeleteStory;
 
   /// Displays the name of the content creator.
   ///
@@ -2183,6 +2213,12 @@ abstract class AppLocalizations {
   /// **'Your friend request to {username} has been sent.'**
   String friendRequestSentTo(String username);
 
+  /// Error message for failed attemp to accept friend request of specific user.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to accept friend request of {username}.'**
+  String failedToAcceptFriendRequest(String username);
+
   /// Title for the confirmation message after cancelling a friend request.
   ///
   /// In en, this message translates to:
@@ -2194,6 +2230,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your friend request to {username} has been cancelled.'**
   String friendRequestCancelledTo(String username);
+
+  /// Error message for failure to decline a friend request of specific user.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to decline friend request of {username}'**
+  String failedToDeclineFriendRequest(String username);
+
+  /// Failure message when unable to cancel friend request of a specific user
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to cancel friend request of {username}'**
+  String failedToCancelFriendRequest(String username);
 
   /// A status label on a button indicating a friend request has been sent.
   ///
@@ -2212,6 +2260,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Friend'**
   String get addFriend;
+
+  /// Error message for failed attempt to remove a specific friend from friends list.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to remove {username} from friends.'**
+  String failedToRemoveFriend(String username);
+
+  /// Error message for failed attempt to send friend request to a specific user
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send friend request to {username}'**
+  String failedToSendFriendRequest(String username);
 
   /// Title for the confirmation message after accepting a friend request.
   ///

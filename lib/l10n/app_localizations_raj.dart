@@ -119,6 +119,10 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get tryAgain => 'फेर कोसिस करो!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'सफलता';
 
   @override
@@ -914,6 +918,9 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get createStory => 'कहानी बनाओ';
 
   @override
+  String get failedToCreateStory => 'Failed to create Story.';
+
+  @override
   String get fillAllRequiredFieldsAndChapter =>
       'कृपा करीन सब जरूरी फील्ड भरो, कम से कम एक अध्याय जोड़ो अर कवर इमेज चुनो।';
 
@@ -984,6 +991,12 @@ class AppLocalizationsRaj extends AppLocalizations {
   }
 
   @override
+  String get failedToLikeStory => 'Failed to like story';
+
+  @override
+  String get failedToUnlikeStory => 'Failed to unlike story';
+
+  @override
   String subscribedToYourRoom(String username, String subject) {
     return '$username नै तमारा रूम ने सब्सक्राइब कियो: $subject';
   }
@@ -1038,6 +1051,9 @@ class AppLocalizationsRaj extends AppLocalizations {
 
   @override
   String get deleteStory => 'कहानी डिलीट करो';
+
+  @override
+  String get failedToDeleteStory => 'Failed to delete story.';
 
   @override
   String createdBy(String creatorName) {
@@ -1165,11 +1181,26 @@ class AppLocalizationsRaj extends AppLocalizations {
   }
 
   @override
+  String failedToAcceptFriendRequest(String username) {
+    return 'Failed to accept friend request of $username.';
+  }
+
+  @override
   String get friendRequestCancelled => 'दोस्ती अरजी रद्द करी गी';
 
   @override
   String friendRequestCancelledTo(String username) {
     return 'थारी दोस्ती अरजी $username नै रद्द करी गी.';
+  }
+
+  @override
+  String failedToDeclineFriendRequest(String username) {
+    return 'Failed to decline friend request of $username';
+  }
+
+  @override
+  String failedToCancelFriendRequest(String username) {
+    return 'Failed to cancel friend request of $username';
   }
 
   @override
@@ -1180,6 +1211,16 @@ class AppLocalizationsRaj extends AppLocalizations {
 
   @override
   String get addFriend => 'दोस्त जोड़ो';
+
+  @override
+  String failedToRemoveFriend(String username) {
+    return 'Failed to remove $username from friends.';
+  }
+
+  @override
+  String failedToSendFriendRequest(String username) {
+    return 'Failed to send friend request to $username';
+  }
 
   @override
   String get friendRequestAccepted => 'दोस्ती अरजी स्वीकारी गी';

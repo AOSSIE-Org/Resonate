@@ -406,12 +406,16 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             );
           } catch (e) {
             log(e.toString());
-            customSnackbar(l10n.error, e.toString(), LogType.error);
+            customSnackbar(
+              l10n.error,
+              l10n.failedToSendFriendRequest(widget.creator?.name ?? l10n.user),
+              LogType.error,
+            );
             return;
           }
           customSnackbar(
             l10n.friendRequestSent,
-            l10n.friendRequestSentTo(widget.creator!.name!),
+            l10n.friendRequestSentTo(widget.creator?.name ?? l10n.user),
             LogType.success,
           );
         } else {
@@ -421,12 +425,16 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               await friendsNotifier.acceptFriendRequest(friendModel);
             } catch (e) {
               log(e.toString());
-              customSnackbar(l10n.error, e.toString(), LogType.error);
+              customSnackbar(
+                l10n.error,
+                l10n.failedToAcceptFriendRequest(widget.creator?.name ?? l10n.user),
+                LogType.error,
+              );
               return;
             }
             customSnackbar(
               l10n.friendRequestAccepted,
-              l10n.friendRequestAcceptedTo(widget.creator!.name!),
+              l10n.friendRequestAcceptedTo(widget.creator?.name ?? l10n.user),
               LogType.success,
             );
           } else {
@@ -434,10 +442,16 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               await friendsNotifier.removeFriend(friendModel);
             } catch (e) {
               log(e.toString());
+              customSnackbar(
+                l10n.error,
+                l10n.failedToRemoveFriend(widget.creator?.name ?? l10n.user),
+                LogType.error,
+              );
+              return;
             }
             customSnackbar(
               l10n.friendRequestCancelled,
-              l10n.friendRequestCancelledTo(widget.creator!.name!),
+              l10n.friendRequestCancelledTo(widget.creator?.name ?? l10n.user),
               LogType.info,
             );
           }

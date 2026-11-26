@@ -119,6 +119,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tryAgain => 'Try Again!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'Success';
 
   @override
@@ -920,6 +924,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createStory => 'Create Story';
 
   @override
+  String get failedToCreateStory => 'Failed to create Story.';
+
+  @override
   String get fillAllRequiredFieldsAndChapter =>
       'Please fill in all required fields, add at least one chapter, and select a cover image.';
 
@@ -990,6 +997,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get failedToLikeStory => 'Failed to like story';
+
+  @override
+  String get failedToUnlikeStory => 'Failed to unlike story';
+
+  @override
   String subscribedToYourRoom(String username, String subject) {
     return '$username subscribed to your room: $subject';
   }
@@ -1043,6 +1056,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteStory => 'Delete Story';
+
+  @override
+  String get failedToDeleteStory => 'Failed to delete story.';
 
   @override
   String createdBy(String creatorName) {
@@ -1170,11 +1186,26 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String failedToAcceptFriendRequest(String username) {
+    return 'Failed to accept friend request of $username.';
+  }
+
+  @override
   String get friendRequestCancelled => 'Friend request cancelled';
 
   @override
   String friendRequestCancelledTo(String username) {
     return 'Your friend request to $username has been cancelled.';
+  }
+
+  @override
+  String failedToDeclineFriendRequest(String username) {
+    return 'Failed to decline friend request of $username';
+  }
+
+  @override
+  String failedToCancelFriendRequest(String username) {
+    return 'Failed to cancel friend request of $username';
   }
 
   @override
@@ -1185,6 +1216,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addFriend => 'Add Friend';
+
+  @override
+  String failedToRemoveFriend(String username) {
+    return 'Failed to remove $username from friends.';
+  }
+
+  @override
+  String failedToSendFriendRequest(String username) {
+    return 'Failed to send friend request to $username';
+  }
 
   @override
   String get friendRequestAccepted => 'Friend request accepted';

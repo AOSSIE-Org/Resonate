@@ -142,6 +142,10 @@
     "@tryAgain": {
         "description": "Button text to retry a failed action."
     },
+    "somethingWentWrong": "कुछ गड़बड़ हो गई। कृपया थोड़ी देर बाद फिर कोशिश करें।",
+    "@somethingWentWrong": {
+        "description": "Fallback message when a failure cannot be classified or explained safely."
+    },
     "success": "सफलता",
     "@success": {
         "description": "Generic title for a successful operation."
@@ -1162,6 +1166,10 @@
     "@createStory": {
         "description": "Button text to finalize and create a new story."
     },
+    "failedToCreateStory": "कहानी बनाने में विफल।",
+    "@failedToCreateStory": {
+        "description": "Error message for failed creation of a specific story."
+    },
     "fillAllRequiredFieldsAndChapter": "कृपया सभी ज़रूरी फ़ील्ड भरें, कम से कम एक चैप्टर जोड़ें और कवर इमेज चुनें।",
     "@fillAllRequiredFieldsAndChapter": {
         "description": "Error message for the story creation form when requirements are not met."
@@ -1272,6 +1280,14 @@
             }
         }
     },
+    "failedToLikeStory": "कहानी लाइक करने में विफल",
+    "@failedToLikeStory": {
+        "description": "Error message for failed like attempt to a specific story"
+    },
+    "failedToUnlikeStory": "कहानी अनलाइक करने में विफल",
+    "@failedToUnlikeStory": {
+        "description": "Error message for failed unlike attempt to a specific story"
+    },
     "subscribedToYourRoom": "{username} ने आपके रूम को सब्सक्राइब किया: {subject}",
     "@subscribedToYourRoom": {
         "description": "Notification message when someone subscribes to your room.",
@@ -1357,6 +1373,10 @@
     "deleteStory": "कहानी हटाएं",
     "@deleteStory": {
         "description": "Button text to delete a story."
+    },
+    "failedToDeleteStory": "कहानी हटाने में विफल।",
+    "@failedToDeleteStory": {
+        "description": "Error message for failed attempt to delete a specific story."
     },
     "createdBy": "{creatorName} द्वारा बनाई गई",
     "@createdBy": {
@@ -1496,6 +1516,16 @@
             }
         }
     },
+    "failedToAcceptFriendRequest": "{username} का मित्रता अनुरोध स्वीकार करने में विफल",
+    "@failedToAcceptFriendRequest": {
+        "description": "Error message for failed attempt to accept friend request of a specific user",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
     "friendRequestCancelled": "मित्रता अनुरोध रद्द कर दिया गया",
     "@friendRequestCancelled": {
         "description": "Title for the confirmation message after cancelling a friend request."
@@ -1503,6 +1533,26 @@
     "friendRequestCancelledTo": "{username} को आपका मित्रता अनुरोध रद्द कर दिया गया है।",
     "@friendRequestCancelledTo": {
         "description": "Confirmation message after cancelling a friend request to a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "failedToDeclineFriendRequest": "{username} का मित्रता अनुरोध अस्वीकार करने में विफल",
+    "@failedToDeclineFriendRequest": {
+        "description": "Error message for failure to decline a friend request of specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "failedToCancelFriendRequest": "{username} का मित्रता अनुरोध रद्द करने में विफल",
+    "@failedToCancelFriendRequest": {
+        "description": "Failure message when unable to cancel friend request of a specific user",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -1521,6 +1571,26 @@
     "addFriend": "मित्र जोड़ें",
     "@addFriend": {
         "description": "Button text to send a friend request."
+    },
+    "failedToRemoveFriend": "{username} को मित्र सूची से हटाने में विफल।",
+    "@failedToRemoveFriend": {
+        "description": "Error message for failed attempt to remove a specific friend from friends list.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "failedToSendFriendRequest": "{username} को मित्रता अनुरोध भेजने में विफल",
+    "@failedToSendFriendRequest": {
+        "description": "Error message for failed attempt to send friend request to a specific user",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "friendRequestAccepted": "मित्रता अनुरोध स्वीकार कर लिया गया",
     "@friendRequestAccepted": {

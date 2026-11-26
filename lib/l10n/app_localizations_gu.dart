@@ -119,6 +119,10 @@ class AppLocalizationsGu extends AppLocalizations {
   String get tryAgain => 'ફરી પ્રયાસ કરો!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'સફળતા';
 
   @override
@@ -919,6 +923,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get createStory => 'વાર્તા બનાવો';
 
   @override
+  String get failedToCreateStory => 'Failed to create Story.';
+
+  @override
   String get fillAllRequiredFieldsAndChapter =>
       'કૃપા કરીને બધા જરૂરી ફીલ્ડ્સ ભરો, ઓછામાં ઓછો એક ચેપ્ટર ઉમેરો, અને કવર ઈમેજ પસંદ કરો.';
 
@@ -990,6 +997,12 @@ class AppLocalizationsGu extends AppLocalizations {
   }
 
   @override
+  String get failedToLikeStory => 'Failed to like story';
+
+  @override
+  String get failedToUnlikeStory => 'Failed to unlike story';
+
+  @override
   String subscribedToYourRoom(String username, String subject) {
     return '$username એ તમારા રૂમને સબ્સ્ક્રાઈબ કર્યું છે: $subject';
   }
@@ -1044,6 +1057,9 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get deleteStory => 'વાર્તા ડિલીટ કરો';
+
+  @override
+  String get failedToDeleteStory => 'Failed to delete story.';
 
   @override
   String createdBy(String creatorName) {
@@ -1171,11 +1187,26 @@ class AppLocalizationsGu extends AppLocalizations {
   }
 
   @override
+  String failedToAcceptFriendRequest(String username) {
+    return 'Failed to accept friend request of $username.';
+  }
+
+  @override
   String get friendRequestCancelled => 'મિત્ર વિનંતી રદ કરાઈ';
 
   @override
   String friendRequestCancelledTo(String username) {
     return '$username ને તમારી મિત્ર વિનંતી રદ કરાઈ છે.';
+  }
+
+  @override
+  String failedToDeclineFriendRequest(String username) {
+    return 'Failed to decline friend request of $username';
+  }
+
+  @override
+  String failedToCancelFriendRequest(String username) {
+    return 'Failed to cancel friend request of $username';
   }
 
   @override
@@ -1186,6 +1217,16 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get addFriend => 'મિત્ર ઉમેરો';
+
+  @override
+  String failedToRemoveFriend(String username) {
+    return 'Failed to remove $username from friends.';
+  }
+
+  @override
+  String failedToSendFriendRequest(String username) {
+    return 'Failed to send friend request to $username';
+  }
 
   @override
   String get friendRequestAccepted => 'મિત્ર વિનંતી સ્વીકારી';

@@ -345,6 +345,11 @@ class AuthRepository {
         (e.message?.toLowerCase().contains('password') ?? false)) {
       return const AuthFailure.passwordTooShort();
     }
+    // Transport failures (SocketException, ClientException, timeouts) arrive
+    // wrapped with no type or status code: no response reached the server.
+    if (e.type == null && e.code == null) {
+      return const AuthFailure.network();
+    }
     return AuthFailure.unknown(e.message ?? e.toString());
   }
 }

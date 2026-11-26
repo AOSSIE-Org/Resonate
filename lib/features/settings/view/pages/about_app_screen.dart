@@ -80,7 +80,7 @@ class AboutAppScreen extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(
-                                      "${aboutApp.appVersion} | ${aboutApp.appBuildNumber} | Stable",
+                                      "${aboutApp.appVersion} | ${aboutApp.appBuildNumber} | ${AppLocalizations.of(context)!.stable}",
                                       style: TextStyle(
                                         fontSize: UiSizes.size_12,
                                       ),

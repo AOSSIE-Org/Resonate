@@ -119,6 +119,10 @@ class AppLocalizationsKn extends AppLocalizations {
   String get tryAgain => 'ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'ಯಶಸ್ವಿ';
 
   @override
@@ -924,6 +928,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get createStory => 'ಕಥೆ ರಚಿಸಿ';
 
   @override
+  String get failedToCreateStory => 'Failed to create Story.';
+
+  @override
   String get fillAllRequiredFieldsAndChapter =>
       'ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಅಗತ್ಯ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ, ಕನಿಷ್ಠ ಒಂದು ಅಧ್ಯಾಯವನ್ನು ಸೇರಿಸಿ ಮತ್ತು ಕವರ್ ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.';
 
@@ -995,6 +1002,12 @@ class AppLocalizationsKn extends AppLocalizations {
   }
 
   @override
+  String get failedToLikeStory => 'Failed to like story';
+
+  @override
+  String get failedToUnlikeStory => 'Failed to unlike story';
+
+  @override
   String subscribedToYourRoom(String username, String subject) {
     return '$username ನಿಮ್ಮ ರೂಮ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬರಾಗಿದ್ದಾರೆ: $subject';
   }
@@ -1049,6 +1062,9 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get deleteStory => 'ಕಥೆ ಅಳಿಸಿ';
+
+  @override
+  String get failedToDeleteStory => 'Failed to delete story.';
 
   @override
   String createdBy(String creatorName) {
@@ -1176,11 +1192,26 @@ class AppLocalizationsKn extends AppLocalizations {
   }
 
   @override
+  String failedToAcceptFriendRequest(String username) {
+    return 'Failed to accept friend request of $username.';
+  }
+
+  @override
   String get friendRequestCancelled => 'ಸ್ನೇಹಿತರ ವಿನಂತಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ';
 
   @override
   String friendRequestCancelledTo(String username) {
     return '$username ಗೆ ನಿಮ್ಮ ಸ್ನೇಹಿತರ ವಿನಂತಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ.';
+  }
+
+  @override
+  String failedToDeclineFriendRequest(String username) {
+    return 'Failed to decline friend request of $username';
+  }
+
+  @override
+  String failedToCancelFriendRequest(String username) {
+    return 'Failed to cancel friend request of $username';
   }
 
   @override
@@ -1191,6 +1222,16 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get addFriend => 'ಸ್ನೇಹಿತರನ್ನು ಸೇರಿಸಿ';
+
+  @override
+  String failedToRemoveFriend(String username) {
+    return 'Failed to remove $username from friends.';
+  }
+
+  @override
+  String failedToSendFriendRequest(String username) {
+    return 'Failed to send friend request to $username';
+  }
 
   @override
   String get friendRequestAccepted => 'ಸ್ನೇಹಿತರ ವಿನಂತಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ';
