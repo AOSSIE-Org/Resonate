@@ -142,6 +142,10 @@
     "@tryAgain": {
         "description": "Button text to retry a failed action."
     },
+    "somethingWentWrong": "Something went wrong. Please try again later.",
+    "@somethingWentWrong": {
+        "description": "Fallback message when a failure cannot be classified or explained safely."
+    },
     "success": "Success",
     "@success": {
         "description": "Generic title for a successful operation."

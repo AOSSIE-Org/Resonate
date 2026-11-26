@@ -192,12 +192,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           l10n.incorrectEmailOrPassword,
         ),
       AuthFailurePasswordTooShort() => (l10n.tryAgain, l10n.passwordShort),
-      // Carries what the server said; toString() would print the class name.
-      AuthFailureUnknown(:final message) => (l10n.oops, message),
-      AuthFailure() => (l10n.oops, error.toString()),
+      AuthFailureNetwork() => (l10n.tryAgain, l10n.connectionError),
+      AuthFailureUserAlreadyExists() => (l10n.oops, l10n.emailExists),
+      AuthFailureUnknown() => (l10n.oops, l10n.somethingWentWrong),
       _ => (l10n.oops, error.toString()),
     };
     customSnackbar(title, message, LogType.error);
-    SemanticsService.sendAnnouncement(View.of(context),message, TextDirection.ltr);
+    SemanticsService.sendAnnouncement(View.of(context), message, TextDirection.ltr);
   }
 }

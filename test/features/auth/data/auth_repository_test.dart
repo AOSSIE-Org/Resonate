@@ -223,6 +223,27 @@ void main() {
 
       expect(repo.sessionState.error, isA<AuthFailureUnknown>());
     });
+
+    // A wrapped transport failure carries no type or status code at all, so
+    // the request never reached the server.
+    test('transport failure → AuthFailure.network', () async {
+      when(
+        account.createEmailPasswordSession(
+          email: 'a@b.c',
+          password: 'pw',
+        ),
+      ).thenThrow(
+        AppwriteException(
+          'ClientException with SocketException: Connection refused '
+          '(OS Error: Connection refused, errno = 111), address = 10.0.2.2, '
+          'port = 80',
+        ),
+      );
+
+      await repo.loginWithEmail(email: 'a@b.c', password: 'pw');
+
+      expect(repo.sessionState.error, isA<AuthFailureNetwork>());
+    });
   });
 
   group('logout', () {

@@ -272,16 +272,12 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     log('signup failed: $error');
 
     final message = switch (error) {
-      AuthFailure failure => switch (failure) {
-          AuthFailureUserAlreadyExists() => l10n.emailExists,
-          AuthFailurePasswordTooShort() => l10n.passwordShort,
-          AuthFailureInvalidCredentials() => l10n.tryAgain,
-          AuthFailureNetwork() => l10n.connectionError,
-          AuthFailureUnknown() => l10n.tryAgain,
-        },
-      _ => l10n.tryAgain,
+      AuthFailureUserAlreadyExists() => l10n.emailExists,
+      AuthFailurePasswordTooShort() => l10n.passwordShort,
+      AuthFailureNetwork() => l10n.connectionError,
+      _ => l10n.somethingWentWrong,
     };
     customSnackbar(l10n.oops, message, LogType.error);
-    SemanticsService.sendAnnouncement(View.of(context),message, TextDirection.ltr);
+    SemanticsService.sendAnnouncement(View.of(context), message, TextDirection.ltr);
   }
 }

@@ -142,6 +142,10 @@
     "@tryAgain": {
         "description": "Button text to retry a failed action."
     },
+    "somethingWentWrong": "कुछ गड़बड़ हो गई। कृपया थोड़ी देर बाद फिर कोशिश करें।",
+    "@somethingWentWrong": {
+        "description": "Fallback message when a failure cannot be classified or explained safely."
+    },
     "success": "सफलता",
     "@success": {
         "description": "Generic title for a successful operation."

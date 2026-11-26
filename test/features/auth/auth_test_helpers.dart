@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../helpers/test_root_container.dart';
@@ -12,8 +13,10 @@ import '../../helpers/test_root_container.dart';
 export '../../helpers/test_root_container.dart'
     show fakeAuthUser, FakeAuthRepository;
 
-Widget authTestApp(Widget child) {
+// customSnackbar renders in the root navigator's overlay.
+Widget authTestApp(Widget child, {bool rootOverlay = false}) {
   return MaterialApp(
+    navigatorKey: rootOverlay ? rootNavigatorKey : null,
     localizationsDelegates: const [
       AppLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
@@ -51,6 +54,7 @@ Future<void> pumpAuthPage(
   AuthState authState = const AuthState.unauthenticated(),
   AuthRepository? authRepository,
   bool settle = true,
+  bool rootOverlay = false,
 }) async {
   await tester.pumpWidget(
     ProviderScope(
@@ -58,7 +62,7 @@ Future<void> pumpAuthPage(
         authRepositoryProvider
             .overrideWithValue(authRepository ?? FakeAuthRepository(authState)),
       ],
-      child: authTestApp(child),
+      child: authTestApp(child, rootOverlay: rootOverlay),
     ),
   );
   // pumpAndSettle resolves async auth since FakeAuthRepository is immediate.

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:resonate/features/auth/model/auth_failure.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/view/pages/forgot_password_page.dart';
+import 'package:resonate/l10n/app_localizations_en.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 import '../auth_test_helpers.dart';
 
@@ -51,4 +54,36 @@ void main() {
     expect(repo.recoveryCount, 1);
     expect(repo.lastEmail, 'user@test.com');
   });
+
+  testWidgets('a network failure shows the connection message', (tester) async {
+    final repo = _FailingRepo(const AuthFailure.network());
+    await pumpAuthPage(
+      tester,
+      const ForgotPasswordPage(),
+      authRepository: repo,
+      rootOverlay: true,
+    );
+
+    await tester.enterText(find.byType(TextFormField), 'user@test.com');
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
+
+    expect(find.text(AppLocalizationsEn().connectionError), findsOneWidget);
+    dismissCustomSnackbar();
+    await tester.pump();
+  });
+}
+
+class _FailingRepo extends FakeAuthRepository {
+  _FailingRepo(this.failure) : super(const AuthState.unauthenticated());
+
+  final Object failure;
+
+  @override
+  Future<void> sendPasswordRecovery({
+    required String email,
+    required String redirectUrl,
+  }) async {
+    throw failure;
+  }
 }
