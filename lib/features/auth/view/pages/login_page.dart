@@ -193,7 +193,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       AuthFailurePasswordTooShort() => (l10n.tryAgain, l10n.passwordShort),
       AuthFailureNetwork() => (l10n.tryAgain, l10n.connectionError),
-      AuthFailureUserAlreadyExists() => (l10n.oops, l10n.emailExists),
       AuthFailureUnknown() => (l10n.oops, l10n.somethingWentWrong),
       _ => (l10n.oops, error.toString()),
     };
