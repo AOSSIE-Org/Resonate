@@ -58,7 +58,7 @@ To maintain consistency throughout the project's codebase, please adhere to the 
 -   Follow the Dart coding style conventions.
 -   Use meaningful variable and function names.
 -   Add comments when necessary to explain complex logic or intent.
--   Ensure code is properly formatted by using `dartfmt`.
+-   Ensure modified Dart files are properly formatted by using `dart format <modified-files>` (avoid running `dart format` across the entire repository).
 
 ### Commit Structure
 
