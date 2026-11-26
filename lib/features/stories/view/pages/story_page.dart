@@ -21,6 +21,7 @@ import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
 import 'package:resonate/features/stories/viewmodel/story_detail_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/utils/dev_log.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -318,6 +319,7 @@ class _StoryPageState extends ConsumerState<StoryPage> {
           .joinLiveChapter(live.livekitRoomId, live);
       router.push(RoutePaths.liveChapterScreen);
     } catch (e) {
+      log(e.toString());
       customSnackbar(l10n.error, l10n.unableToJoinRoom, LogType.error);
     }
   }

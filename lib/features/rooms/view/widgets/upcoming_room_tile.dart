@@ -5,6 +5,7 @@ import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/view/pages/room_chat_page.dart';
 import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/dev_log.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -48,7 +49,8 @@ class UpcomingListTile extends ConsumerWidget {
                       .read(upcomingRoomsProvider.notifier)
                       .hideLocally(appwriteUpcomingRoom.id);
                   customSnackbar(successTitle, successBody, LogType.success);
-                } catch (_) {
+                } catch (e) {
+                  log(e.toString());
                   customSnackbar(errorTitle, errorBody, LogType.error);
                 }
               },
@@ -161,7 +163,8 @@ class UpcomingListTile extends ConsumerWidget {
                       await ref
                           .read(upcomingRoomsProvider.notifier)
                           .deleteUpcoming(appwriteUpcomingRoom.id);
-                    } catch (_) {
+                    } catch (e) {
+                      log(e.toString());
                       customSnackbar(l10n.error, l10n.failedToRemoveRoom, LogType.error);
                     }
                   },
