@@ -119,6 +119,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tryAgain => 'Try Again!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'Success';
 
   @override

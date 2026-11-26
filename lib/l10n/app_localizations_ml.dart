@@ -119,6 +119,10 @@ class AppLocalizationsMl extends AppLocalizations {
   String get tryAgain => 'വീണ്ടും ശ്രമിക്കുക!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'വിജയം';
 
   @override

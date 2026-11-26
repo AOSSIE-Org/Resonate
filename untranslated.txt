@@ -1,5 +1,6 @@
 {
   "bn": [
+    "somethingWentWrong",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
@@ -165,6 +166,7 @@
   ],
 
   "gu": [
+    "somethingWentWrong",
     "appPreferences",
     "features",
     "featuresDescription",
@@ -366,6 +368,7 @@
   ],
 
   "kn": [
+    "somethingWentWrong",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
@@ -550,6 +553,7 @@
   ],
 
   "ml": [
+    "somethingWentWrong",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
@@ -703,6 +707,7 @@
   ],
 
   "mr": [
+    "somethingWentWrong",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
@@ -856,6 +861,7 @@
   ],
 
   "pa": [
+    "somethingWentWrong",
     "failedToCreateStory",
     "failedToLikeStory",
     "failedToUnlikeStory",
@@ -872,6 +878,7 @@
   ],
 
   "raj": [
+    "somethingWentWrong",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",
@@ -1041,6 +1048,7 @@
   ],
 
   "ta": [
+    "somethingWentWrong",
     "features",
     "featuresDescription",
     "pairChatFeatureDescription",

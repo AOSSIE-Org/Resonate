@@ -119,6 +119,10 @@ class AppLocalizationsGu extends AppLocalizations {
   String get tryAgain => 'ફરી પ્રયાસ કરો!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'સફળતા';
 
   @override

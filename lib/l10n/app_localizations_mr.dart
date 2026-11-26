@@ -119,6 +119,10 @@ class AppLocalizationsMr extends AppLocalizations {
   String get tryAgain => 'पुन्हा प्रयत्न करा!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'यशस्वी';
 
   @override

@@ -119,6 +119,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get tryAgain => 'மீண்டும் முயற்சிக்கவும்!';
 
   @override
+  String get somethingWentWrong =>
+      'Something went wrong. Please try again later.';
+
+  @override
   String get success => 'வெற்றி';
 
   @override

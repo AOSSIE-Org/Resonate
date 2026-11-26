@@ -318,6 +318,12 @@ abstract class AppLocalizations {
   /// **'Try Again!'**
   String get tryAgain;
 
+  /// Fallback message when a failure cannot be classified or explained safely.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again later.'**
+  String get somethingWentWrong;
+
   /// Generic title for a successful operation.
   ///
   /// In en, this message translates to:
